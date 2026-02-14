@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ブログ一覧 | RAIZON</title>
+  <meta name="description" content="RAIZONのブログ一覧。DX支援・LINE構築・AI活用に関する最新情報をお届けします。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .blog-list-hero {
+      background: linear-gradient(160deg, var(--ocean-start) 0%, var(--ocean-mid) 50%, var(--ocean-end) 100%);
+      padding: 140px 0 60px;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .blog-list-hero h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .blog-list-hero p {
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+
+    .blog-list-body {
+      padding: 60px 0 100px;
+      background: var(--gray-50);
+      min-height: 50vh;
+    }
+
+    /* Category Filter */
+    .blog-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border: 1px solid var(--gray-200);
+      border-radius: 50px;
+      background: var(--white);
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    .blog-list-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .blog-list-empty {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    /* Blog list nav override - always scrolled style */
+    .blog-list-page .navbar {
+      background: rgba(255,255,255,0.97);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(12px);
+    }
+
+    .blog-list-page .nav-logo-img {
+      mix-blend-mode: multiply;
+    }
+
+    .blog-list-page .nav-menu a {
+      color: var(--text);
+    }
+
+    .blog-list-page .nav-menu a:hover {
+      background: var(--gray-100);
+      color: var(--primary);
+    }
+
+    .blog-list-page .nav-toggle span {
+      background: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .blog-list-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .blog-list-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body class="blog-list-page">
+  <!-- ナビゲーション -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><img src="RAIZONロゴ.png" alt="RAIZON" class="nav-logo-img"></a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html#blog">ブログ</a></li>
+        <li><a href="index.html#about">RAIZONについて</a></li>
+        <li><a href="index.html#approach">3つのアプローチ</a></li>
+        <li><a href="index.html#service-ai">サービス</a></li>
+        <li><a href="index.html#strengths">強み</a></li>
+        <li><a href="index.html#cases">導入事例</a></li>
+        <li><a href="index.html#contact" class="nav-cta">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ヘッダー -->
+  <div class="blog-list-hero">
+    <div class="container">
+      <h1>ブログ</h1>
+      <p>RAIZONの最新情報・お役立ち記事をお届けします</p>
+    </div>
+  </div>
+
+  <!-- 記事一覧 -->
+  <div class="blog-list-body">
+    <div class="container">
+      <div class="blog-filter" id="blogFilter">
+        <button class="filter-btn active" data-cat="all">すべて</button>
+        <button class="filter-btn" data-cat="お知らせ">お知らせ</button>
+        <button class="filter-btn" data-cat="AI活用">AI活用</button>
+        <button class="filter-btn" data-cat="DX支援">DX支援</button>
+        <button class="filter-btn" data-cat="LINE構築">LINE構築</button>
+        <button class="filter-btn" data-cat="事例紹介">事例紹介</button>
+        <button class="filter-btn" data-cat="コラム">コラム</button>
+      </div>
+      <div class="blog-list-grid" id="blogListGrid"></div>
+      <div class="blog-list-empty" id="blogListEmpty" style="display:none;">
+        <p>該当する記事がありません。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="RAIZONロゴ.png" alt="RAIZON" class="footer-logo-img">
+          <p>デジタルで変える。<br>働き方も、仕組みも、売り方も。</p>
+        </div>
+        <div class="footer-info">
+          <p>沖縄県 | LINE・メール：24時間受付（年中無休） | 電話：9:00〜22:00（年中無休）</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 RAIZON. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="blog.js"></script>
+  <script src="blog-seed.js"></script>
+  <script>
+    // モバイルメニュー
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navMenu.classList.remove('active'));
+    });
+
+    let currentFilter = 'all';
+
+    // カテゴリフィルター
+    document.getElementById('blogFilter').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.cat;
+      renderBlogList();
+    });
+
+    // 記事一覧描画
+    function renderBlogList() {
+      let posts = BlogCMS.getAllPosts();
+      if (currentFilter !== 'all') {
+        posts = posts.filter(p => p.category === currentFilter);
+      }
+
+      const grid = document.getElementById('blogListGrid');
+      const empty = document.getElementById('blogListEmpty');
+
+      if (posts.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      grid.style.display = '';
+      empty.style.display = 'none';
+
+      const noImgSvg = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" fill="#e2e8f0"><rect width="400" height="225"/><text x="200" y="118" text-anchor="middle" fill="#a0aec0" font-size="16">No Image</text></svg>');
+
+      grid.innerHTML = posts.map(post => `
+        <article class="blog-card" onclick="openBlogPost('${post.id}')">
+          <div class="blog-card-thumb">
+            <img src="${post.thumbnail || noImgSvg}" alt="${post.title}">
+            <span class="blog-card-cat">${post.category || 'お知らせ'}</span>
+          </div>
+          <div class="blog-card-body">
+            <time class="blog-card-date">${BlogCMS.formatDate(post.createdAt)}</time>
+            <h3 class="blog-card-title">${post.title}</h3>
+            <p class="blog-card-excerpt">${BlogCMS.truncate(post.body, 80)}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // ブログ記事詳細モーダル
+    function openBlogPost(id) {
+      const post = BlogCMS.getPost(id);
+      if (!post) return;
+
+      const overlay = document.createElement('div');
+      overlay.className = 'blog-modal-overlay';
+      overlay.innerHTML = `
+        <div class="blog-modal">
+          <button class="blog-modal-close" onclick="this.closest('.blog-modal-overlay').remove()">&times;</button>
+          ${post.thumbnail ? `<img class="blog-modal-thumb" src="${post.thumbnail}" alt="${post.title}">` : ''}
+          <div class="blog-modal-content">
+            <div class="blog-modal-meta">
+              <span class="blog-card-cat">${post.category || 'お知らせ'}</span>
+              <time>${BlogCMS.formatDate(post.createdAt)}</time>
+            </div>
+            <h2>${post.title}</h2>
+            <div class="blog-modal-body">${post.body.replace(/\n/g, '<br>')}</div>
+          </div>
+        </div>
+      `;
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) overlay.remove();
+      });
+      document.body.appendChild(overlay);
+    }
+
+    renderBlogList();
+  </script>
+</body>
+</html>

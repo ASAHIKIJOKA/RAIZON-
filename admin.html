@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAIZON | ブログ管理画面</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0e4d6e;
+      --primary-light: #1a7baa;
+      --accent: #e8734a;
+      --accent-light: #f09a7a;
+      --ocean-end: #17a2b8;
+      --text: #2d3748;
+      --text-light: #718096;
+      --white: #ffffff;
+      --gray-50: #f7fafc;
+      --gray-100: #edf2f7;
+      --gray-200: #e2e8f0;
+      --sand: #fdf6ec;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      line-height: 1.8;
+      background: var(--gray-50);
+    }
+
+    /* Header */
+    .admin-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-header h1 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .admin-header a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .admin-header a:hover { color: var(--white); }
+
+    .admin-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    /* Editor Panel */
+    .editor-panel {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+    }
+
+    .editor-panel h2 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--ocean-end);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      background: var(--white);
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="date"]:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(26,123,170,0.1);
+    }
+
+    .form-group textarea {
+      min-height: 200px;
+      resize: vertical;
+    }
+
+    /* Thumbnail Upload */
+    .thumbnail-upload {
+      border: 2px dashed var(--gray-200);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .thumbnail-upload:hover {
+      border-color: var(--primary-light);
+      background: var(--gray-50);
+    }
+
+    .thumbnail-upload.has-image {
+      padding: 8px;
+      border-style: solid;
+      border-color: var(--ocean-end);
+    }
+
+    .thumbnail-upload input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .thumbnail-upload .upload-placeholder {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .thumbnail-upload .upload-placeholder svg {
+      display: block;
+      margin: 0 auto 8px;
+      color: var(--gray-200);
+    }
+
+    .thumbnail-preview {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .thumbnail-upload.has-image .upload-placeholder { display: none; }
+    .thumbnail-upload.has-image .thumbnail-preview { display: block; }
+
+    /* Category Select */
+    .category-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .category-tag {
+      padding: 6px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+      color: var(--text-light);
+    }
+
+    .category-tag.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    /* Toolbar */
+    .editor-toolbar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-btn {
+      padding: 6px 12px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+
+    .toolbar-btn:hover {
+      background: var(--gray-100);
+      color: var(--text);
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-save {
+      background: var(--accent);
+      color: var(--white);
+      flex: 1;
+    }
+
+    .btn-save:hover {
+      background: #d4643d;
+      transform: translateY(-1px);
+    }
+
+    .btn-cancel {
+      background: var(--gray-100);
+      color: var(--text-light);
+    }
+
+    .btn-cancel:hover {
+      background: var(--gray-200);
+    }
+
+    /* Post List Panel */
+    .list-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .list-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .list-panel-header h2 {
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .post-count {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      background: var(--gray-100);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    /* Post Card in Admin */
+    .admin-post-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      transition: box-shadow 0.2s;
+    }
+
+    .admin-post-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .admin-post-thumb {
+      width: 120px;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      object-fit: cover;
+      background: var(--gray-100);
+    }
+
+    .admin-post-info h3 {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .admin-post-meta {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .admin-post-meta .cat {
+      background: var(--gray-100);
+      padding: 2px 10px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+    }
+
+    .admin-post-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-edit, .btn-delete {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-edit {
+      background: var(--gray-100);
+      color: var(--primary);
+    }
+
+    .btn-edit:hover { background: var(--gray-200); }
+
+    .btn-delete {
+      background: #fef2f2;
+      color: #ef4444;
+    }
+
+    .btn-delete:hover { background: #fee2e2; }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-light);
+    }
+
+    .empty-state svg {
+      margin-bottom: 16px;
+      color: var(--gray-200);
+    }
+
+    .empty-state p {
+      font-size: 0.95rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--primary);
+      color: var(--white);
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Delete Confirm Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal h3 {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .modal p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+
+    .modal-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn-confirm-delete {
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #ef4444;
+      color: var(--white);
+      transition: background 0.2s;
+    }
+
+    .btn-confirm-delete:hover { background: #dc2626; }
+
+    .btn-confirm-cancel {
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--gray-100);
+      color: var(--text-light);
+      transition: background 0.2s;
+    }
+
+    .btn-confirm-cancel:hover { background: var(--gray-200); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .admin-body {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-post-card {
+        grid-template-columns: 100px 1fr;
+      }
+
+      .admin-post-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <h1>RAIZON Blog - 管理画面</h1>
+    <a href="index.html">サイトに戻る</a>
+  </header>
+
+  <div class="admin-body">
+    <!-- Editor -->
+    <div class="editor-panel">
+      <h2 id="editorTitle">新規記事を作成</h2>
+      <input type="hidden" id="editId" value="">
+
+      <div class="form-group">
+        <label>サムネイル画像</label>
+        <div class="thumbnail-upload" id="thumbUpload">
+          <div class="upload-placeholder">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <p>クリックまたはドラッグで画像をアップロード<br><small style="color:#a0aec0">16:9 に自動クロップされます</small></p>
+          </div>
+          <img class="thumbnail-preview" id="thumbPreview" alt="Preview">
+          <input type="file" id="thumbFile" accept="image/*">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>タイトル</label>
+        <input type="text" id="postTitle" placeholder="記事のタイトルを入力">
+      </div>
+
+      <div class="form-group">
+        <label>公開日</label>
+        <input type="date" id="postDate" value="">
+      </div>
+
+      <div class="form-group">
+        <label>カテゴリ</label>
+        <div class="category-tags" id="categoryTags">
+          <span class="category-tag active" data-cat="お知らせ">お知らせ</span>
+          <span class="category-tag" data-cat="AI活用">AI活用</span>
+          <span class="category-tag" data-cat="DX支援">DX支援</span>
+          <span class="category-tag" data-cat="LINE構築">LINE構築</span>
+          <span class="category-tag" data-cat="事例紹介">事例紹介</span>
+          <span class="category-tag" data-cat="コラム">コラム</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>本文</label>
+        <div class="editor-toolbar">
+          <button class="toolbar-btn" data-tag="h2" title="見出し">H2</button>
+          <button class="toolbar-btn" data-tag="h3" title="小見出し">H3</button>
+          <button class="toolbar-btn" data-tag="bold" title="太字">B</button>
+          <button class="toolbar-btn" data-tag="link" title="リンク">Link</button>
+          <button class="toolbar-btn" data-tag="ul" title="リスト">List</button>
+        </div>
+        <textarea id="postBody" placeholder="記事の本文を入力&#10;&#10;HTMLタグも使えます：&#10;<h2>見出し</h2>&#10;<p>段落</p>&#10;<strong>太字</strong>&#10;<ul><li>リスト</li></ul>"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-cancel" id="btnCancel">クリア</button>
+        <button class="btn btn-save" id="btnSave">記事を公開する</button>
+      </div>
+    </div>
+
+    <!-- Post List -->
+    <div class="list-panel">
+      <div class="list-panel-header">
+        <h2>記事一覧</h2>
+        <span class="post-count" id="postCount">0件</span>
+      </div>
+      <div id="postList"></div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+      <h3>記事を削除しますか？</h3>
+      <p>この操作は元に戻せません。</p>
+      <div class="modal-btns">
+        <button class="btn-confirm-cancel" id="btnDeleteCancel">キャンセル</button>
+        <button class="btn-confirm-delete" id="btnDeleteConfirm">削除する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="blog.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+
+    let selectedCategory = 'お知らせ';
+    let thumbnailData = '';
+    let deleteTargetId = null;
+
+    // Category selection
+    $('categoryTags').addEventListener('click', e => {
+      const tag = e.target.closest('.category-tag');
+      if (!tag) return;
+      document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      selectedCategory = tag.dataset.cat;
+    });
+
+    // Thumbnail upload (16:9 center crop)
+    $('thumbFile').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const OUT_W = 800;
+          const OUT_H = 450; // 16:9
+          canvas.width = OUT_W;
+          canvas.height = OUT_H;
+          const ctx = canvas.getContext('2d');
+
+          // Center crop to 16:9
+          const srcRatio = img.width / img.height;
+          const tgtRatio = 16 / 9;
+          let sx = 0, sy = 0, sw = img.width, sh = img.height;
+          if (srcRatio > tgtRatio) {
+            sw = img.height * tgtRatio;
+            sx = (img.width - sw) / 2;
+          } else {
+            sh = img.width / tgtRatio;
+            sy = (img.height - sh) / 2;
+          }
+          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, OUT_W, OUT_H);
+
+          thumbnailData = canvas.toDataURL('image/jpeg', 0.85);
+          $('thumbPreview').src = thumbnailData;
+          $('thumbUpload').classList.add('has-image');
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Toolbar
+    document.querySelectorAll('.toolbar-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ta = $('postBody');
+        const start = ta.selectionStart;
+        const end = ta.selectionEnd;
+        const sel = ta.value.substring(start, end);
+        let insert = '';
+
+        switch (btn.dataset.tag) {
+          case 'h2': insert = `<h2>${sel || '見出し'}</h2>`; break;
+          case 'h3': insert = `<h3>${sel || '小見出し'}</h3>`; break;
+          case 'bold': insert = `<strong>${sel || 'テキスト'}</strong>`; break;
+          case 'link': insert = `<a href="URL">${sel || 'リンクテキスト'}</a>`; break;
+          case 'ul': insert = `<ul>\n  <li>${sel || '項目'}</li>\n</ul>`; break;
+        }
+
+        ta.value = ta.value.substring(0, start) + insert + ta.value.substring(end);
+        ta.focus();
+      });
+    });
+
+    // Save
+    $('btnSave').addEventListener('click', () => {
+      const title = $('postTitle').value.trim();
+      const body = $('postBody').value.trim();
+
+      if (!title) { showToast('タイトルを入力してください'); return; }
+      if (!body) { showToast('本文を入力してください'); return; }
+
+      const editId = $('editId').value;
+      const dateVal = $('postDate').value;
+      const customDate = dateVal ? new Date(dateVal + 'T10:00:00').toISOString() : null;
+
+      const postData = {
+        title,
+        body,
+        category: selectedCategory,
+        thumbnail: thumbnailData
+      };
+
+      if (editId) {
+        if (customDate) postData.createdAt = customDate;
+        BlogCMS.updatePost(editId, postData);
+        showToast('記事を更新しました');
+      } else {
+        const saved = BlogCMS.addPost(postData);
+        if (customDate) {
+          saved.createdAt = customDate;
+          BlogCMS.savePosts(BlogCMS.getAllPosts().map(p => p.id === saved.id ? saved : p));
+        }
+        showToast('記事を公開しました');
+      }
+
+      clearForm();
+      renderPosts();
+    });
+
+    // Cancel / Clear
+    $('btnCancel').addEventListener('click', clearForm);
+
+    function clearForm() {
+      $('editId').value = '';
+      $('postTitle').value = '';
+      $('postDate').value = new Date().toISOString().split('T')[0];
+      $('postBody').value = '';
+      thumbnailData = '';
+      $('thumbPreview').src = '';
+      $('thumbUpload').classList.remove('has-image');
+      $('thumbFile').value = '';
+      document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+      document.querySelector('.category-tag[data-cat="お知らせ"]').classList.add('active');
+      selectedCategory = 'お知らせ';
+      $('editorTitle').textContent = '新規記事を作成';
+      $('btnSave').textContent = '記事を公開する';
+    }
+
+    // Edit
+    function editPost(id) {
+      const post = BlogCMS.getPost(id);
+      if (!post) return;
+
+      $('editId').value = post.id;
+      $('postTitle').value = post.title;
+      $('postDate').value = post.createdAt ? post.createdAt.split('T')[0] : '';
+      $('postBody').value = post.body;
+      selectedCategory = post.category || 'お知らせ';
+      thumbnailData = post.thumbnail || '';
+
+      document.querySelectorAll('.category-tag').forEach(t => {
+        t.classList.toggle('active', t.dataset.cat === selectedCategory);
+      });
+
+      if (thumbnailData) {
+        $('thumbPreview').src = thumbnailData;
+        $('thumbUpload').classList.add('has-image');
+      } else {
+        $('thumbUpload').classList.remove('has-image');
+      }
+
+      $('editorTitle').textContent = '記事を編集';
+      $('btnSave').textContent = '更新する';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Delete
+    function confirmDelete(id) {
+      deleteTargetId = id;
+      $('deleteModal').classList.add('active');
+    }
+
+    $('btnDeleteConfirm').addEventListener('click', () => {
+      if (deleteTargetId) {
+        BlogCMS.deletePost(deleteTargetId);
+        deleteTargetId = null;
+        $('deleteModal').classList.remove('active');
+        renderPosts();
+        showToast('記事を削除しました');
+      }
+    });
+
+    $('btnDeleteCancel').addEventListener('click', () => {
+      deleteTargetId = null;
+      $('deleteModal').classList.remove('active');
+    });
+
+    // Render post list
+    function renderPosts() {
+      const posts = BlogCMS.getAllPosts();
+      $('postCount').textContent = `${posts.length}件`;
+
+      if (posts.length === 0) {
+        $('postList').innerHTML = `
+          <div class="empty-state">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            <p>まだ記事がありません<br>左のエディタから記事を作成しましょう</p>
+          </div>`;
+        return;
+      }
+
+      $('postList').innerHTML = posts.map(post => `
+        <div class="admin-post-card">
+          <img class="admin-post-thumb" src="${post.thumbnail || 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"68\" fill=\"%23e2e8f0\"><rect width=\"100\" height=\"68\"/><text x=\"50\" y=\"38\" text-anchor=\"middle\" fill=\"%23a0aec0\" font-size=\"10\">No Image</text></svg>')}" alt="${post.title}">
+          <div class="admin-post-info">
+            <h3>${post.title}</h3>
+            <div class="admin-post-meta">
+              <span class="cat">${post.category || 'お知らせ'}</span>
+              <span>${BlogCMS.formatDate(post.createdAt)}</span>
+            </div>
+          </div>
+          <div class="admin-post-actions">
+            <button class="btn-edit" onclick="editPost('${post.id}')">編集</button>
+            <button class="btn-delete" onclick="confirmDelete('${post.id}')">削除</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Toast
+    function showToast(msg) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // Init
+    $('postDate').value = new Date().toISOString().split('T')[0];
+    renderPosts();
+  </script>
+</body>
+</html>

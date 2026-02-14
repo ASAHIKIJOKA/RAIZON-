@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAIZON | 沖縄の事業者に『効率』という選択を</title>
+  <meta name="description" content="RAIZONは沖縄の事業者に特化したDX支援・LINE構築・AI活用支援を提供。デジタルで働き方も、仕組みも、売り方も変える。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ナビゲーション -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo"><img src="RAIZONロゴ.png" alt="RAIZON" class="nav-logo-img"></a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#blog">ブログ</a></li>
+        <li><a href="#about">RAIZONについて</a></li>
+        <li><a href="#approach">3つのアプローチ</a></li>
+        <li><a href="#service-ai">サービス</a></li>
+        <li><a href="#strengths">強み</a></li>
+        <li><a href="#cases">導入事例</a></li>
+        <li><a href="#flow">ご契約の流れ</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact" class="nav-cta">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ヒーロー -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-label">RAIZON</p>
+      <h1 class="hero-title">沖縄の事業者に<br><span class="highlight">『効率』</span>という選択を</h1>
+      <p class="hero-sub">デジタルで変える。働き方も、仕組みも、売り方も。</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">無料相談はこちら</a>
+        <a href="#about" class="btn btn-outline">詳しく見る</a>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,80 1440,70 L1440,120 L0,120 Z" fill="#fff"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ブログ -->
+  <section class="section section-blog-top" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Blog</span>
+        <h2 class="section-title">最新ブログ</h2>
+        <p class="section-desc">RAIZONの最新情報・お役立ち記事をお届けします</p>
+      </div>
+      <div class="blog-grid" id="blogGrid">
+        <!-- JS で動的に描画 -->
+      </div>
+      <div class="blog-empty" id="blogEmpty" style="display:none;">
+        <p>現在、記事はありません。</p>
+      </div>
+      <div class="blog-more" id="blogMore" style="display:none;">
+        <a href="blog-list.html" class="btn btn-outline-dark">もっと見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAIZONについて -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">About</span>
+        <h2 class="section-title">RAIZONについて</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-info">
+          <div class="about-card">
+            <h3>会社概要</h3>
+            <table class="info-table">
+              <tr><th>社名</th><td>RAIZON（ライゾン）</td></tr>
+              <tr><th>所在地</th><td>沖縄県</td></tr>
+              <tr><th>事業内容</th><td>DX支援・LINE構築・AI活用支援</td></tr>
+            </table>
+          </div>
+          <div class="about-card">
+            <h3>ミッション</h3>
+            <p class="mission-text">沖縄の事業者に『効率』という選択肢を届け、<br>本来の仕事に集中できる環境を作る</p>
+          </div>
+          <div class="about-card">
+            <h3>RAIZONが大切にしていること</h3>
+            <ul class="check-list">
+              <li>地域の事業者に寄り添った支援</li>
+              <li>誰でも使える、シンプルな設計</li>
+              <li>手の届く価格での提供</li>
+              <li>導入後も続く、安心のサポート</li>
+            </ul>
+          </div>
+        </div>
+        <div class="about-message">
+          <div class="message-card">
+            <h3>代表メッセージ</h3>
+            <blockquote>
+              <p>沖縄の事業者の皆さまは、日々の業務に追われ、「もっと効率化したい」と思いながらも、何から始めればいいか分からない、費用が心配、使いこなせるか不安…そんな声をたくさん聞いてきました。</p>
+              <p>RAIZONは、デジタルの力で「働き方」「仕組み」「売り方」を変え、皆さまのビジネスをもっと楽に、もっと効果的にするお手伝いをします。</p>
+              <p class="message-cta">一緒に、新しい一歩を踏み出しましょう。</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3つのアプローチ -->
+  <section class="section section-alt" id="approach">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Approach</span>
+        <h2 class="section-title">RAIZONの3つのアプローチ</h2>
+        <p class="section-desc">デジタルで変える。働き方も、仕組みも、売り方も。</p>
+      </div>
+      <div class="approach-grid">
+        <div class="approach-card" data-color="ai">
+          <div class="approach-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a4 4 0 0 1 4 4v1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2V6a4 4 0 0 1 4-4z"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="9" r="1"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M6 18h12"/><path d="M8 22h8"/></svg>
+          </div>
+          <h3>AI活用支援</h3>
+          <p class="approach-tagline">働き方を変える</p>
+          <p>従業員の負担を減らし、創造的な仕事に集中できる環境を</p>
+          <a href="#service-ai" class="approach-link">詳しく見る →</a>
+        </div>
+        <div class="approach-card" data-color="dx">
+          <div class="approach-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/><rect x="2" y="2" width="20" height="20" rx="2"/></svg>
+          </div>
+          <h3>DX支援</h3>
+          <p class="approach-tagline">仕組みを変える</p>
+          <p>アナログな業務をデジタル化し、効率的な業務フローを構築</p>
+          <a href="#service-dx" class="approach-link">詳しく見る →</a>
+        </div>
+        <div class="approach-card" data-color="line">
+          <div class="approach-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <h3>LINE構築</h3>
+          <p class="approach-tagline">売り方を変える</p>
+          <p>顧客との接点を増やし、リピート率・売上アップを実現</p>
+          <a href="#service-line" class="approach-link">詳しく見る →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- サービス詳細：AI活用支援 -->
+  <section class="section svc-section svc-ai" id="service-ai">
+    <div class="container">
+      <!-- ヘッダー -->
+      <div class="svc-hero">
+        <div class="svc-hero-text">
+          <span class="section-label">Service 01</span>
+          <h2 class="svc-hero-title">AI活用支援</h2>
+          <p class="svc-hero-tagline">働き方を変える</p>
+          <p class="svc-hero-desc">従業員の負担を減らし、創造的な仕事に集中できる環境を。AIの力で、人手不足の解消と24時間対応を実現します。</p>
+        </div>
+        <div class="svc-hero-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2a4 4 0 0 1 4 4v1a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2V6a4 4 0 0 1 4-4z"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="9" r="1"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M6 18h12"/><path d="M8 22h8"/></svg>
+        </div>
+      </div>
+
+      <!-- 課題 -->
+      <div class="svc-problems-section">
+        <h3 class="svc-sub-title">こんな課題を解決します</h3>
+        <div class="svc-problems-grid">
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+            </div>
+            <p>問い合わせ対応に<br>時間がかかりすぎる</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <p>単純作業の繰り返しで<br>スタッフが疲弊</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            </div>
+            <p>人手不足で<br>業務が回らない</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <p>24時間対応が<br>できない</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 提供サービス -->
+      <div class="svc-offerings">
+        <h3 class="svc-sub-title">提供サービス</h3>
+        <div class="svc-offerings-grid">
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">01</div>
+            <h4>チャットボット導入・構築</h4>
+            <p>よくある質問を自動回答。お客様を待たせず、スタッフの負担も軽減します。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">02</div>
+            <h4>AI自動応答システム</h4>
+            <p>自然な会話で問い合わせに対応。24時間365日、顧客対応が可能になります。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">03</div>
+            <h4>データ分析・活用支援</h4>
+            <p>蓄積データをAIで分析し、売上予測や顧客傾向の把握に活用します。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">04</div>
+            <h4>業務自動化ツール導入</h4>
+            <p>データ入力、レポート作成など反復作業を自動化し、作業時間を大幅削減。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">05</div>
+            <h4>AI技術の実装サポート</h4>
+            <p>お客様の業務に最適なAI技術を選定・導入。研修まで一貫してサポート。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活用事例 -->
+      <div class="svc-use-cases">
+        <h3 class="svc-sub-title">一般的な活用事例</h3>
+        <div class="svc-cases-grid">
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>カスタマーサポート</h4>
+              <div class="svc-case-badge">対応時間 70%削減</div>
+            </div>
+            <p>よくある質問をAIが自動回答。複雑な問い合わせのみスタッフが対応する仕組みで、対応品質を維持しながら大幅な効率化を実現。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>データ入力作業</h4>
+              <div class="svc-case-badge">時間 80%短縮</div>
+            </div>
+            <p>請求書や申込書などの紙資料をAI-OCRで自動読取り。転記ミス・入力ミスをゼロにし、正確性と効率を両立。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>多言語対応</h4>
+              <div class="svc-case-badge">インバウンド対応</div>
+            </div>
+            <p>翻訳AIで外国人観光客にも対応。英語・中国語・韓国語など、多言語での案内・接客が可能に。沖縄のインバウンド需要を取り込む。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>予約管理</h4>
+              <div class="svc-case-badge">24時間自動受付</div>
+            </div>
+            <p>営業時間外でもAIが予約を自動受付。電話対応の負担を大幅に削減し、予約の取りこぼしをゼロに。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 導入効果 -->
+      <div class="svc-effects">
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>スタッフが本来の業務に集中できる</span>
+        </div>
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>人件費を抑えながらサービス向上</span>
+        </div>
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>24時間365日の顧客対応が可能に</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- サービス詳細：DX支援 -->
+  <section class="section svc-section svc-dx section-alt" id="service-dx">
+    <div class="container">
+      <!-- ヘッダー -->
+      <div class="svc-hero">
+        <div class="svc-hero-text">
+          <span class="section-label">Service 02</span>
+          <h2 class="svc-hero-title">DX支援</h2>
+          <p class="svc-hero-tagline">仕組みを変える</p>
+          <p class="svc-hero-desc">アナログな仕組みをデジタル化し、業務効率を最大化。紙・Excelに頼った管理から脱却し、スマートな業務フローを構築します。</p>
+        </div>
+        <div class="svc-hero-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/><rect x="2" y="2" width="20" height="20" rx="2"/></svg>
+        </div>
+      </div>
+
+      <!-- 課題 -->
+      <div class="svc-problems-section">
+        <h3 class="svc-sub-title">こんな課題を解決します</h3>
+        <div class="svc-problems-grid">
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <p>紙・Excel管理で<br>情報が散乱している</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <p>二重入力・<br>転記ミスが多い</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <p>データの検索・集計に<br>時間がかかる</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <p>情報共有が遅く<br>意思決定に時間がかかる</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 提供サービス -->
+      <div class="svc-offerings">
+        <h3 class="svc-sub-title">提供サービス</h3>
+        <div class="svc-offerings-grid">
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">01</div>
+            <h4>業務プロセス分析・改善提案</h4>
+            <p>現在の業務フローを可視化し、ボトルネックを特定。最適な改善策を提案します。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">02</div>
+            <h4>システム導入・移行支援</h4>
+            <p>既存の紙・Excel管理からデジタルシステムへスムーズに移行。データ移行も安全に実施。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">03</div>
+            <h4>データベース設計・構築</h4>
+            <p>業務に最適なデータ構造を設計。情報の一元管理と高速な検索・集計を実現。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">04</div>
+            <h4>ワークフロー最適化</h4>
+            <p>承認フロー・タスク管理を自動化。属人化を解消し、誰でも回せる仕組みに。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">05</div>
+            <h4>既存業務のデジタル化</h4>
+            <p>受発注・勤怠・在庫管理など、あらゆる業務を段階的にデジタル化します。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活用事例 -->
+      <div class="svc-use-cases">
+        <h3 class="svc-sub-title">一般的な活用事例</h3>
+        <div class="svc-cases-grid">
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>顧客管理システム（CRM）</h4>
+              <div class="svc-case-badge">検索時間 90%短縮</div>
+            </div>
+            <p>紙やExcelで散乱していた顧客情報を一元管理。検索・絞り込みが瞬時に可能になり、顧客対応のスピードと質が向上。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>在庫管理システム</h4>
+              <div class="svc-case-badge">発注ミス削減</div>
+            </div>
+            <p>リアルタイムで在庫状況を把握。適正在庫を維持し、過剰仕入れや欠品を防止。発注業務の自動化も実現。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>勤怠管理システム</h4>
+              <div class="svc-case-badge">月10時間→30分</div>
+            </div>
+            <p>タイムカードや手集計から脱却。自動集計で月次処理が30分に短縮。給与計算との連携で二重作業もなくなります。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>情報共有基盤</h4>
+              <div class="svc-case-badge">リアルタイム共有</div>
+            </div>
+            <p>チーム間の情報をリアルタイムで共有。テレワークや複数拠点でもスムーズに連携。意思決定のスピードが格段にアップ。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 導入効果 -->
+      <div class="svc-effects">
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>業務時間を大幅に削減</span>
+        </div>
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>ミス・漏れを防止し、品質向上</span>
+        </div>
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>データ活用で経営判断がスピードアップ</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- サービス詳細：LINE構築 -->
+  <section class="section svc-section svc-line" id="service-line">
+    <div class="container">
+      <!-- ヘッダー -->
+      <div class="svc-hero">
+        <div class="svc-hero-text">
+          <span class="section-label">Service 03</span>
+          <h2 class="svc-hero-title">LINE構築</h2>
+          <p class="svc-hero-tagline">売り方を変える</p>
+          <p class="svc-hero-desc">日本で最も利用されているLINEを活用し、顧客との接点を増やします。予約・配信・顧客管理まで一気通貫で構築。</p>
+        </div>
+        <div class="svc-hero-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/><line x1="9" y1="6" x2="15" y2="6"/></svg>
+        </div>
+      </div>
+
+      <!-- 課題 -->
+      <div class="svc-problems-section">
+        <h3 class="svc-sub-title">こんな課題を解決します</h3>
+        <div class="svc-problems-grid">
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            </div>
+            <p>新規顧客が<br>増えない</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <p>リピーターが<br>定着しない</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <p>顧客情報が<br>活用できていない</p>
+          </div>
+          <div class="svc-problem-card">
+            <div class="svc-problem-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.11 2 2 0 0 1 4.11 2h3"/></svg>
+            </div>
+            <p>予約・問い合わせ<br>対応が大変</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 提供サービス -->
+      <div class="svc-offerings">
+        <h3 class="svc-sub-title">提供サービス</h3>
+        <div class="svc-offerings-grid">
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">01</div>
+            <h4>LINE公式アカウント設計・構築</h4>
+            <p>業種・目的に合わせた最適なアカウント設計。友だち追加からコンバージョンまでの導線を構築。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">02</div>
+            <h4>リッチメニューカスタマイズ</h4>
+            <p>直感的に操作できるメニューをデザイン。予約・メニュー閲覧・問い合わせをワンタップで。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">03</div>
+            <h4>自動応答・配信システム構築</h4>
+            <p>セグメント配信やステップ配信を構築。最適なタイミングで最適なメッセージを届けます。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">04</div>
+            <h4>顧客管理システムとの連携</h4>
+            <p>LINE上の行動データとCRMを連携。顧客一人ひとりに合わせたアプローチが可能に。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">05</div>
+            <h4>予約システム構築</h4>
+            <p>LINEから直接予約が可能なシステムを構築。電話対応を大幅に削減し、予約の取りこぼしを防止。</p>
+          </div>
+          <div class="svc-offering-card">
+            <div class="svc-offering-num">06</div>
+            <h4>LINE Messaging API活用支援</h4>
+            <p>高度なカスタマイズが必要な場合もAPI連携で対応。既存システムとのシームレスな統合を実現。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 活用事例 -->
+      <div class="svc-use-cases">
+        <h3 class="svc-sub-title">一般的な活用事例</h3>
+        <div class="svc-cases-grid">
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>飲食店</h4>
+              <div class="svc-case-badge">リピート率 30%向上</div>
+            </div>
+            <p>LINE予約で電話対応を削減。クーポン配信や新メニュー告知でリピート率が大幅アップ。常連客との関係構築に最適。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>美容室・サロン</h4>
+              <div class="svc-case-badge">電話対応 80%削減</div>
+            </div>
+            <p>LINE予約で電話対応を80%削減。顧客ごとの施術履歴管理で、パーソナライズされた提案が可能に。満足度が大幅に向上。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>小売店</h4>
+              <div class="svc-case-badge">来店率 20%アップ</div>
+            </div>
+            <p>クーポン配信で来店を促進。セール情報を簡単に一斉配信。購買データと連携し、顧客の好みに合わせた提案も可能。</p>
+          </div>
+          <div class="svc-case-card">
+            <div class="svc-case-header">
+              <h4>サービス業</h4>
+              <div class="svc-case-badge">コミュニケーション 3倍</div>
+            </div>
+            <p>顧客とのコミュニケーション頻度が3倍に。自動応答で24時間対応可能。アフターフォローの自動化で顧客満足度向上。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 導入効果 -->
+      <div class="svc-effects">
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>顧客との継続的な関係構築</span>
+        </div>
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>予約・問い合わせ対応を自動化</span>
+        </div>
+        <div class="svc-effect-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>売上・リピート率の向上</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAIZONの強み -->
+  <section class="section section-alt" id="strengths">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Strengths</span>
+        <h2 class="section-title">RAIZONが選ばれる6つの理由</h2>
+      </div>
+      <div class="strengths-grid">
+        <div class="strength-card">
+          <div class="strength-num">01</div>
+          <h3>地域密着の安心感</h3>
+          <p>沖縄の事業者様に特化した支援体制。地域特性を理解したソリューション提案。対面でのきめ細かいサポート。</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-num">02</div>
+          <h3>低コスト・高品質の実現</h3>
+          <p>無料・低コストツールを最大限活用（Supabase、Vercel等）。初期費用を抑えた段階的導入。</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-num">03</div>
+          <h3>実践的なシンプル設計</h3>
+          <p>現場で使いやすいUI/UXを重視。高齢者や非IT人材でも操作できる、シンプルな構成。</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-num">04</div>
+          <h3>LINE連携の専門性</h3>
+          <p>日本で最も使われているLINEを軸に設計。既存の利用習慣を活かし、学習コストを最小化。</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-num">05</div>
+          <h3>保守・運用の継続サポート</h3>
+          <p>導入後の月額保守管理プラン。利用規模に応じた柔軟な料金設定。成長に合わせたアップグレード。</p>
+        </div>
+        <div class="strength-card">
+          <div class="strength-num">06</div>
+          <h3>技術スタックの適切な選定</h3>
+          <p>最新技術と実績あるツールのバランス。オープンソース活用によるコスト削減。クラウドで拡張性確保。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 導入事例 -->
+  <section class="section" id="cases">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Case Studies</span>
+        <h2 class="section-title">導入事例</h2>
+      </div>
+
+      <!-- 事例1 -->
+      <div class="case-card case-featured">
+        <div class="case-badge">DX支援</div>
+        <h3>福祉避難所ボランティア管理システム</h3>
+        <div class="case-ba">
+          <div class="case-before">
+            <h4>Before</h4>
+            <ul>
+              <li>紙ベースでボランティア情報を管理</li>
+              <li>登録・検索・配置に膨大な時間</li>
+              <li>情報の更新漏れ・転記ミスが発生</li>
+              <li>緊急時の迅速な対応が困難</li>
+            </ul>
+          </div>
+          <div class="case-arrow">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="case-after">
+            <h4>After</h4>
+            <div class="case-stats">
+              <div class="stat"><span class="stat-value">92%</span><span class="stat-label">登録作業時間削減</span></div>
+              <div class="stat"><span class="stat-value">10秒</span><span class="stat-label">ボランティア検索</span></div>
+              <div class="stat"><span class="stat-value">ゼロ</span><span class="stat-label">情報ミス・漏れ</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="case-quote">
+          <blockquote>「紙での管理は本当に大変でした。今では必要な人材をすぐに見つけられ、本来の支援業務に集中できています」</blockquote>
+        </div>
+      </div>
+
+      <!-- 事例2,3 -->
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-badge badge-line">LINE構築</div>
+          <h3>飲食店向けLINE公式アカウント</h3>
+          <div class="case-detail">
+            <p><strong>課題：</strong>電話予約対応に追われ接客に集中できない。リピーターが増えない。</p>
+            <h4>導入内容</h4>
+            <ul class="check-list">
+              <li>LINE公式アカウント設計・構築</li>
+              <li>予約システムの自動化</li>
+              <li>リッチメニューで簡単注文</li>
+              <li>自動応答で24時間対応</li>
+            </ul>
+            <div class="case-stats-mini">
+              <div class="stat-mini"><span>80%</span>電話対応削減</div>
+              <div class="stat-mini"><span>30%</span>リピート率向上</div>
+            </div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-badge badge-ai">AI活用支援</div>
+          <h3>観光施設向けAIチャットボット</h3>
+          <div class="case-detail">
+            <p><strong>課題：</strong>よくある質問への対応に時間がかかる。外国人観光客への対応が難しい。</p>
+            <h4>導入内容</h4>
+            <ul class="check-list">
+              <li>AIチャットボット構築</li>
+              <li>多言語対応（日・英・中・韓）</li>
+              <li>よくある質問の自動回答</li>
+              <li>有人対応への切り替え機能</li>
+            </ul>
+            <div class="case-stats-mini">
+              <div class="stat-mini"><span>70%</span>対応時間削減</div>
+              <div class="stat-mini"><span>UP</span>外国人満足度</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ご契約の流れ -->
+  <section class="section section-alt" id="flow">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Flow</span>
+        <h2 class="section-title">ご契約までの流れ</h2>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <div class="step-badge">無料</div>
+            <h3>お問い合わせ</h3>
+            <p>LINE・メール・電話で受付。簡単なヒアリング。<br>所要時間：5〜10分</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <div class="step-badge">無料</div>
+            <h3>初回相談・ヒアリング</h3>
+            <p>現状の課題・目標をお伺い。業務内容の詳細確認。対面 or オンラインで実施。<br>所要時間：60〜90分</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <div class="step-badge">無料</div>
+            <h3>課題分析・ご提案</h3>
+            <p>最適なソリューション提案。導入スケジュール作成。お見積書の提示。<br>所要期間：1週間程度</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>ご検討期間</h3>
+            <p>社内でのご検討。追加質問・相談は随時対応。必要に応じて提案内容を調整。</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>ご契約</h3>
+            <p>契約書の締結。キックオフミーティング。導入スケジュールの最終確認。</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>導入・運用開始</h3>
+            <p>段階的な導入支援。スタッフへの操作研修。運用サポート開始。</p>
+          </div>
+        </div>
+      </div>
+      <div class="flow-points">
+        <div class="flow-point">初回相談・ヒアリング・ご提案まで<strong>完全無料</strong></div>
+        <div class="flow-point">お見積もりは<strong>個別対応</strong></div>
+        <div class="flow-point"><strong>無理な営業は一切なし</strong></div>
+        <div class="flow-point">沖縄県内なら<strong>対面でのご相談可能</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 料金 -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Pricing</span>
+        <h2 class="section-title">料金について</h2>
+        <p class="section-desc">すべてのサービスは個別見積制です</p>
+      </div>
+      <div class="pricing-reason">
+        <h3>なぜ見積制なのか？</h3>
+        <ul>
+          <li>事業規模により最適な構成が異なる</li>
+          <li>既存システムとの連携状況で工数が変動</li>
+          <li>段階的導入か一括導入かで費用が変わる</li>
+          <li>お客様のご予算に合わせた提案が可能</li>
+        </ul>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>小規模事業者向け<br>LINE構築</h3>
+          <div class="pricing-detail">
+            <div class="price-row"><span>初期費用</span><strong>5万円〜</strong></div>
+            <div class="price-row"><span>月額費用</span><strong>1万円〜</strong></div>
+          </div>
+        </div>
+        <div class="pricing-card">
+          <h3>中小企業向け<br>DX支援</h3>
+          <div class="pricing-detail">
+            <div class="price-row"><span>初期費用</span><strong>5万円〜</strong></div>
+            <div class="price-row"><span>月額費用</span><strong>1万円〜</strong></div>
+          </div>
+        </div>
+      </div>
+      <p class="pricing-note">※ 実際の費用は要件により異なります。詳細はお見積もりにてご提示します。</p>
+      <div class="cost-reduction">
+        <h3>コスト削減の仕組み</h3>
+        <div class="cost-grid">
+          <div class="cost-item">
+            <strong>無料・低コストツール活用</strong>
+            <p>Supabase、Vercel等を最大限活用</p>
+          </div>
+          <div class="cost-item">
+            <strong>オープンソース技術</strong>
+            <p>ライセンス費用を削減</p>
+          </div>
+          <div class="cost-item">
+            <strong>クラウドサービス</strong>
+            <p>サーバー購入・管理コスト不要</p>
+          </div>
+          <div class="cost-item">
+            <strong>段階的導入</strong>
+            <p>効果を見ながら拡大</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title">よくある質問</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>小規模事業者でも導入できますか？</summary>
+          <p>はい、可能です。RAIZONは小規模事業者様向けのプランも豊富にご用意しています。ご予算に合わせた提案をいたします。</p>
+        </details>
+        <details class="faq-item">
+          <summary>見積もりは無料ですか？</summary>
+          <p>はい、無料です。初回相談・ヒアリング・ご提案・お見積もりまで、すべて無料で対応します。</p>
+        </details>
+        <details class="faq-item">
+          <summary>導入までどのくらいの期間がかかりますか？</summary>
+          <p>プロジェクト規模により異なりますが、小規模：2週間〜1ヶ月、中規模：1〜3ヶ月、大規模：3ヶ月〜が目安です。</p>
+        </details>
+        <details class="faq-item">
+          <summary>ITに詳しくないスタッフでも使えますか？</summary>
+          <p>はい、使えます。RAIZONはシンプルで使いやすい設計を重視。操作研修も丁寧に実施します。</p>
+        </details>
+        <details class="faq-item">
+          <summary>既存のシステムとの連携は可能ですか？</summary>
+          <p>多くの場合、可能です。既存システムの状況を確認した上で、最適な連携方法をご提案します。</p>
+        </details>
+        <details class="faq-item">
+          <summary>導入後のサポート体制は？</summary>
+          <p>月額保守プランをご用意しています。操作方法のサポート、トラブル対応、システムのアップデートなどを継続的にサポートします。</p>
+        </details>
+        <details class="faq-item">
+          <summary>途中で解約できますか？</summary>
+          <p>はい、可能です。契約内容により条件が異なりますので、契約時に詳細をご説明します。</p>
+        </details>
+        <details class="faq-item">
+          <summary>沖縄県外からの依頼は可能ですか？</summary>
+          <p>はい、可能です。オンラインでの対応も行っていますが、沖縄県内のお客様には対面サポートのメリットがございます。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- お問い合わせ -->
+  <section class="section section-contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label light">Contact</span>
+        <h2 class="section-title light">まずはお気軽にご相談ください</h2>
+        <p class="section-desc light">初回相談無料 / お見積もり無料</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>LINE</h3>
+          <p><a href="https://lin.ee/fD0d4TS" style="color:inherit;text-decoration:underline;">LINE公式アカウント</a><br>24時間受付中<br>お気軽にメッセージください</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3>メール</h3>
+          <p>raizon.asahi@gmail.com<br>詳しい内容をお送りください</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>電話</h3>
+          <p><a href="tel:08064937744" style="color:inherit;text-decoration:none;">080-6493-7744</a><br>受付時間：9:00〜22:00（年中無休）</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="RAIZONロゴ.png" alt="RAIZON" class="footer-logo-img">
+          <p>デジタルで変える。<br>働き方も、仕組みも、売り方も。</p>
+        </div>
+        <div class="footer-info">
+          <p>沖縄県 | LINE・メール：24時間受付（年中無休） | 電話：9:00〜22:00（年中無休）</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 RAIZON. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="blog.js"></script>
+  <script src="blog-seed.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ブログ記事を表示（トップは3件まで）
+    function renderBlogSection() {
+      const posts = BlogCMS.getAllPosts();
+      const grid = document.getElementById('blogGrid');
+      const empty = document.getElementById('blogEmpty');
+      const more = document.getElementById('blogMore');
+
+      if (posts.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        more.style.display = 'none';
+        return;
+      }
+
+      grid.style.display = '';
+      empty.style.display = 'none';
+      more.style.display = posts.length > 3 ? 'block' : 'none';
+
+      const displayPosts = posts.slice(0, 3);
+      grid.innerHTML = displayPosts.map(post => `
+        <article class="blog-card" onclick="openBlogPost('${post.id}')">
+          <div class="blog-card-thumb">
+            <img src="${post.thumbnail || 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"400\" height=\"225\" fill=\"%23e2e8f0\"><rect width=\"400\" height=\"225\"/><text x=\"200\" y=\"118\" text-anchor=\"middle\" fill=\"%23a0aec0\" font-size=\"16\">No Image</text></svg>')}" alt="${post.title}">
+            <span class="blog-card-cat">${post.category || 'お知らせ'}</span>
+          </div>
+          <div class="blog-card-body">
+            <time class="blog-card-date">${BlogCMS.formatDate(post.createdAt)}</time>
+            <h3 class="blog-card-title">${post.title}</h3>
+            <p class="blog-card-excerpt">${BlogCMS.truncate(post.body, 80)}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // ブログ記事詳細モーダル
+    function openBlogPost(id) {
+      const post = BlogCMS.getPost(id);
+      if (!post) return;
+
+      const overlay = document.createElement('div');
+      overlay.className = 'blog-modal-overlay';
+      overlay.innerHTML = `
+        <div class="blog-modal">
+          <button class="blog-modal-close" onclick="this.closest('.blog-modal-overlay').remove()">&times;</button>
+          ${post.thumbnail ? `<img class="blog-modal-thumb" src="${post.thumbnail}" alt="${post.title}">` : ''}
+          <div class="blog-modal-content">
+            <div class="blog-modal-meta">
+              <span class="blog-card-cat">${post.category || 'お知らせ'}</span>
+              <time>${BlogCMS.formatDate(post.createdAt)}</time>
+            </div>
+            <h2>${post.title}</h2>
+            <div class="blog-modal-body">${post.body.replace(/\n/g, '<br>')}</div>
+          </div>
+        </div>
+      `;
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) overlay.remove();
+      });
+      document.body.appendChild(overlay);
+    }
+
+    renderBlogSection();
+
+    // 隠しアクション: ロゴを5回クリックで管理画面へ
+    (function() {
+      let tapCount = 0;
+      let tapTimer = null;
+      const logoLink = document.querySelector('.nav-logo');
+      logoLink.addEventListener('click', function(e) {
+        if (window.scrollY < 100) {
+          tapCount++;
+          clearTimeout(tapTimer);
+          tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
+          if (tapCount >= 5) {
+            e.preventDefault();
+            tapCount = 0;
+            window.location.href = 'admin.html';
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
