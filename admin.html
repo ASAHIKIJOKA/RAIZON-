@@ -481,6 +481,30 @@
 
     .btn-confirm-cancel:hover { background: var(--gray-200); }
 
+    /* 認証画面 */
+    #authOverlay {
+      position: fixed; inset: 0; background: var(--primary); z-index: 10000;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .auth-card {
+      background: var(--white); padding: 40px; border-radius: var(--radius-lg);
+      width: 100%; max-width: 400px; text-align: center; box-shadow: var(--shadow-md);
+    }
+    .auth-card h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 8px; }
+    .auth-card p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 24px; }
+    .auth-input {
+      width: 100%; padding: 14px; border: 1px solid var(--gray-200); border-radius: 8px;
+      margin-bottom: 16px; font-size: 16px; text-align: center; font-family: inherit;
+      outline: none;
+    }
+    .auth-input:focus { border-color: var(--primary); }
+    .auth-btn {
+      width: 100%; padding: 14px; background: var(--accent); color: white;
+      border: none; border-radius: 8px; font-weight: 700; cursor: pointer;
+      font-size: 1rem; font-family: inherit;
+    }
+    .auth-error { color: #e53e3e; font-size: 0.85rem; margin-top: 12px; display: none; }
+
     /* Responsive */
     @media (max-width: 768px) {
       .admin-body {
@@ -499,6 +523,17 @@
   </style>
 </head>
 <body>
+  <!-- 認証画面 -->
+  <div id="authOverlay">
+    <div class="auth-card">
+      <h2>🔐 管理画面</h2>
+      <p>パスワードを入力してください</p>
+      <input type="password" class="auth-input" id="authInput" placeholder="パスワード">
+      <button class="auth-btn" id="authBtn">ログイン</button>
+      <p class="auth-error" id="authError">パスワードが違います</p>
+    </div>
+  </div>
+
   <header class="admin-header">
     <h1>RAIZON Blog - 管理画面</h1>
     <a href="index.html">サイトに戻る</a>
@@ -806,6 +841,26 @@
       t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 2500);
     }
+
+    // 認証
+    const ADMIN_PASS = 'Hfxtn823';
+    function checkAuth() {
+      if (sessionStorage.getItem('raizon_admin') === '1') {
+        document.getElementById('authOverlay').style.display = 'none';
+      }
+    }
+    checkAuth();
+    document.getElementById('authBtn').addEventListener('click', () => {
+      if (document.getElementById('authInput').value === ADMIN_PASS) {
+        sessionStorage.setItem('raizon_admin', '1');
+        document.getElementById('authOverlay').style.display = 'none';
+      } else {
+        document.getElementById('authError').style.display = 'block';
+      }
+    });
+    document.getElementById('authInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('authBtn').click();
+    });
 
     // Init
     $('postDate').value = new Date().toISOString().split('T')[0];
