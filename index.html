@@ -870,6 +870,27 @@
               <input type="text" name="company" placeholder="会社名・屋号（任意）" class="contact-form-input">
             </div>
             <div class="contact-form-group">
+              <span class="contact-form-label">ご興味のあるサービス（複数選択可）</span>
+              <div class="contact-checkbox-group">
+                <label class="contact-checkbox">
+                  <input type="checkbox" name="service_ai" value="AI活用支援">
+                  <span>AI活用支援</span>
+                </label>
+                <label class="contact-checkbox">
+                  <input type="checkbox" name="service_dx" value="DX支援">
+                  <span>DX支援</span>
+                </label>
+                <label class="contact-checkbox">
+                  <input type="checkbox" name="service_line" value="LINE構築">
+                  <span>LINE構築</span>
+                </label>
+                <label class="contact-checkbox">
+                  <input type="checkbox" name="service_other" value="その他">
+                  <span>その他</span>
+                </label>
+              </div>
+            </div>
+            <div class="contact-form-group">
               <textarea name="message" placeholder="ご相談内容 *" rows="4" required class="contact-form-input"></textarea>
             </div>
             <button type="submit" class="btn btn-primary contact-form-submit">送信する</button>
@@ -982,6 +1003,8 @@
         try {
           const formData = new FormData(contactForm);
           const data = Object.fromEntries(formData.entries());
+          const services = [...contactForm.querySelectorAll('input[type="checkbox"]:checked')].map(cb => cb.value);
+          data.services = services.length ? services.join('、') : '未選択';
           const res = await fetch('/api/contact', {
             method: 'POST',
             body: JSON.stringify(data),

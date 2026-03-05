@@ -34,7 +34,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -1313,6 +1313,51 @@ textarea.contact-form-input {
   font-size: 1rem;
   line-height: 1.9;
   opacity: 0.95;
+}
+
+.contact-form-label {
+  display: block;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 10px;
+}
+
+.contact-checkbox-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.contact-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--white);
+  cursor: pointer;
+  padding: 9px 12px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s;
+  user-select: none;
+}
+
+.contact-checkbox:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+.contact-checkbox:has(input:checked) {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.55);
+}
+
+.contact-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
 .contact-card {

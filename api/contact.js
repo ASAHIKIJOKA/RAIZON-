@@ -8,7 +8,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, email, company, message } = req.body;
+  const { name, email, company, services, message } = req.body;
   if (!name || !email || !message) {
     return res.status(400).json({ error: '必須項目が未入力です' });
   }
@@ -31,6 +31,7 @@ module.exports = async function handler(req, res) {
         `お名前: ${name}`,
         `メールアドレス: ${email}`,
         `会社名・屋号: ${company || '未入力'}`,
+        `ご興味のあるサービス: ${services || '未選択'}`,
         '',
         `ご相談内容:`,
         message,
