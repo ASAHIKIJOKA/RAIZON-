@@ -980,10 +980,12 @@
         submitBtn.textContent = '送信中...';
         submitBtn.disabled = true;
         try {
-          const res = await fetch(contactForm.action, {
+          const formData = new FormData(contactForm);
+          const data = Object.fromEntries(formData.entries());
+          const res = await fetch('/api/contact', {
             method: 'POST',
-            body: new FormData(contactForm),
-            headers: { 'Accept': 'application/json' }
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
           });
           if (res.ok) {
             contactForm.innerHTML = '<p class="contact-form-success">ありがとうございます！<br>内容を確認の上、担当者よりご連絡いたします。</p>';
