@@ -856,24 +856,31 @@
       <div class="contact-grid">
         <div class="contact-card">
           <div class="contact-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3>お申し込みフォーム</h3>
+          <form id="contactForm" class="contact-form" action="https://formspree.io/raizon.asahi@gmail.com" method="POST">
+            <div class="contact-form-group">
+              <input type="text" name="name" placeholder="お名前 *" required class="contact-form-input">
+            </div>
+            <div class="contact-form-group">
+              <input type="email" name="email" placeholder="メールアドレス *" required class="contact-form-input">
+            </div>
+            <div class="contact-form-group">
+              <input type="text" name="company" placeholder="会社名・屋号（任意）" class="contact-form-input">
+            </div>
+            <div class="contact-form-group">
+              <textarea name="message" placeholder="ご相談内容 *" rows="4" required class="contact-form-input"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary contact-form-submit">送信する</button>
+          </form>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
-          <h3>LINE</h3>
+          <h3>公式LINE</h3>
           <p><a href="https://lin.ee/fD0d4TS" style="color:inherit;text-decoration:underline;">LINE公式アカウント</a><br>24時間受付中<br>お気軽にメッセージください</p>
-        </div>
-        <div class="contact-card">
-          <div class="contact-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <h3>メール</h3>
-          <p>raizon.asahi@gmail.com<br>詳しい内容をお送りください</p>
-        </div>
-        <div class="contact-card">
-          <div class="contact-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <h3>電話</h3>
-          <p><a href="tel:08064937744" style="color:inherit;text-decoration:none;">080-6493-7744</a><br>受付時間：9:00〜22:00（年中無休）</p>
         </div>
       </div>
     </div>
@@ -963,6 +970,35 @@
     }
 
     renderBlogSection();
+
+    // Contact form AJAX submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitBtn = contactForm.querySelector('.contact-form-submit');
+        submitBtn.textContent = '送信中...';
+        submitBtn.disabled = true;
+        try {
+          const res = await fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            contactForm.innerHTML = '<p class="contact-form-success">ありがとうございます！<br>内容を確認の上、担当者よりご連絡いたします。</p>';
+          } else {
+            submitBtn.textContent = '送信する';
+            submitBtn.disabled = false;
+            alert('送信に失敗しました。LINEよりお問い合わせください。');
+          }
+        } catch(err) {
+          submitBtn.textContent = '送信する';
+          submitBtn.disabled = false;
+          alert('送信に失敗しました。LINEよりお問い合わせください。');
+        }
+      });
+    }
 
     // 隠しアクション: ロゴを5回クリックで管理画面へ
     (function() {
