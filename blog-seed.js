@@ -26,6 +26,36 @@ function generateSvgThumbnail(title, colors, icon) {
 
 const BLOG_SEED_DATA = [
   {
+    id: 'seed-007',
+    title: '生成AIで毎日の業務が変わる——沖縄の事業者が今すぐ試せる活用法5選',
+    category: 'AI活用',
+    colors: ['#1e3a5f', '#2563eb', '#60a5fa'],
+    icon: 'AI',
+    createdAt: '2026-03-05T10:00:00.000Z',
+    body: `<h2>「AIって難しそう」と思っていませんか？</h2>
+<p>ChatGPTをはじめとする生成AIは、特別なITスキルがなくても使えるツールです。文章を入力するだけで、メール文案・資料の下書き・アイデア出しなどを瞬時にこなしてくれます。</p>
+<p>今回は、沖縄の中小事業者がすぐに実践できる生成AIの活用法を5つご紹介します。</p>
+
+<h3>活用法1：接客メール・返信文の作成</h3>
+<p>「クレームへの返信を丁寧に書きたいけど時間がない」——そんなとき、状況をAIに伝えるだけで適切な文面を提案してくれます。自分で一から書くより大幅に時短になり、文章のクオリティも上がります。観光業・飲食業・小売業など、日々多くのメール対応が発生する業種に特に効果的です。</p>
+
+<h3>活用法2：SNS投稿・キャッチコピーの作成</h3>
+<p>InstagramやFacebookの投稿文が思い浮かばない……そんな悩みもAIが解決します。「新メニューを告知する投稿を3パターン書いて」と伝えるだけで、すぐに使える文案が揃います。季節に合わせたキャッチコピーや、ターゲット別のメッセージ調整も得意です。</p>
+
+<h3>活用法3：会議・打ち合わせの議事録まとめ</h3>
+<p>音声を文字起こししたテキストをAIに貼り付けて「要点をまとめて」と指示するだけで、整った議事録が完成します。長い打ち合わせも数分で要約でき、参加者への共有がスムーズになります。</p>
+
+<h3>活用法4：求人票・スタッフ向け研修資料の作成</h3>
+<p>「アルバイト募集の求人票を作りたいけどどう書けばいいかわからない」——業種・時給・条件をAIに伝えるだけで、応募者の目を引く求人文を作成できます。新人スタッフ向けのマニュアルや研修資料の下書き作成にも活用できます。</p>
+
+<h3>活用法5：アイデア出し・企画の壁打ち相手として</h3>
+<p>「夏のキャンペーン企画を考えたいけどアイデアが浮かばない」そんなときのブレインストーミング相手にもなります。AIは否定せず、次々とアイデアを出してくれるので、思考の幅が広がります。採用するかどうかは最後に自分で判断すればOKです。</p>
+
+<h2>まずは1つ、試してみてください</h2>
+<p>生成AIは「全部任せる」ではなく「補助してもらう」感覚で使うのがポイントです。最初は小さな業務から試してみると、自然と活用範囲が広がっていきます。</p>
+<p>RAIZONでは、生成AIの導入相談から社内への定着支援まで、事業者様の状況に合わせてサポートしています。「何から始めればいいかわからない」という方もお気軽にご相談ください。</p>`
+  },
+  {
     id: 'seed-001',
     title: 'RAIZON公式ホームページを公開しました',
     category: 'お知らせ',
@@ -196,8 +226,8 @@ const BLOG_SEED_DATA = [
 // Seed data を初期化
 (function initBlogSeed() {
   const existing = BlogCMS.getAllPosts();
-  // localStorage が空、またはseedデータしかない場合に初期化
   if (existing.length === 0) {
+    // 初回訪問：全シード記事を追加
     const posts = BLOG_SEED_DATA.map(article => ({
       id: article.id,
       title: article.title,
@@ -208,5 +238,22 @@ const BLOG_SEED_DATA = [
       updatedAt: article.createdAt
     }));
     BlogCMS.savePosts(posts);
+  } else {
+    // 既存データあり：未追加のシード記事だけ先頭に挿入
+    const existingIds = new Set(existing.map(p => p.id));
+    const newPosts = BLOG_SEED_DATA
+      .filter(article => !existingIds.has(article.id))
+      .map(article => ({
+        id: article.id,
+        title: article.title,
+        body: article.body,
+        category: article.category,
+        thumbnail: generateSvgThumbnail(article.title, article.colors, article.icon),
+        createdAt: article.createdAt,
+        updatedAt: article.createdAt
+      }));
+    if (newPosts.length > 0) {
+      BlogCMS.savePosts([...newPosts, ...existing]);
+    }
   }
 })();
