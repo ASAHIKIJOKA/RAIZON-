@@ -34,6 +34,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  overflow-x: clip;
 }
 
 body {
@@ -93,6 +94,11 @@ body {
 .nav-logo-img {
   height: 52px;
   width: auto;
+  mix-blend-mode: screen;
+}
+
+.navbar.scrolled .nav-logo-img {
+  mix-blend-mode: multiply;
 }
 
 .nav-menu {
@@ -1404,6 +1410,7 @@ textarea.contact-form-input {
 .footer-logo-img {
   height: 52px;
   width: auto;
+  mix-blend-mode: screen;
 }
 
 .footer-brand p {
