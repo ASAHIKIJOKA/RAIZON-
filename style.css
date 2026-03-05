@@ -140,6 +140,16 @@ body {
   background: var(--accent-light) !important;
 }
 
+.nav-line {
+  background: #06C755 !important;
+  color: var(--white) !important;
+}
+
+.nav-line:hover {
+  background: #05b34c !important;
+  opacity: 1 !important;
+}
+
 .nav-toggle {
   display: none;
   background: none;
