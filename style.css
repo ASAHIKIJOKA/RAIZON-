@@ -92,7 +92,7 @@ body {
 }
 
 .nav-logo-img {
-  height: 52px;
+  height: 68px;
   width: auto;
   filter: brightness(0) invert(1);
 }
@@ -1408,7 +1408,7 @@ textarea.contact-form-input {
 }
 
 .footer-logo-img {
-  height: 52px;
+  height: 68px;
   width: auto;
   filter: brightness(0) invert(1);
 }
