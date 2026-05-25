@@ -1543,6 +1543,244 @@ body {
 }
 
 /* ========================================
+   LINE インパクトバナー
+   ======================================== */
+.line-impact-banner {
+  position: relative;
+  background: linear-gradient(135deg, #00a040 0%, #06C755 45%, #00c94e 100%);
+  padding: 80px 0;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* 斜めストライプ装飾 */
+.line-impact-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(255,255,255,0.04) 20px,
+    rgba(255,255,255,0.04) 40px
+  );
+  pointer-events: none;
+}
+
+/* 丸い装飾 */
+.lib-deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.lib-deco1 { width: 400px; height: 400px; top: -160px; right: -80px; }
+.lib-deco2 { width: 240px; height: 240px; bottom: -80px; left: -60px; }
+.lib-deco3 { width: 120px; height: 120px; top: 40px; left: 30%; }
+
+/* 内部レイアウト */
+.lib-inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* アイコン */
+.lib-icon-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lib-icon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.4);
+  animation: lib-pulse 2s ease-in-out infinite;
+}
+
+@keyframes lib-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.18); opacity: 0; }
+}
+
+.lib-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255,255,255,0.3);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+/* テキスト */
+.lib-body {
+  flex: 1;
+}
+
+.lib-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.2);
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 99px;
+}
+
+.lib-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.lib-title-accent {
+  background: rgba(255,255,255,0.25);
+  padding: 2px 12px;
+  border-radius: 8px;
+}
+
+.lib-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lib-tag {
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 5px 14px;
+  border-radius: 99px;
+}
+
+/* CTAボタン */
+.lib-action {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.lib-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: #06C755;
+  font-size: 1.05rem;
+  font-weight: 900;
+  padding: 18px 36px;
+  border-radius: 99px;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.2), 0 0 0 0 rgba(255,255,255,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  animation: lib-btn-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes lib-btn-pulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(0,0,0,0.2), 0 0 0 0 rgba(255,255,255,0.5); }
+  50% { box-shadow: 0 6px 24px rgba(0,0,0,0.2), 0 0 0 10px rgba(255,255,255,0); }
+}
+
+.lib-add-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+  animation: none;
+}
+
+.lib-note {
+  font-size: 0.78rem;
+  opacity: 0.8;
+  margin-top: 10px;
+  letter-spacing: 0.04em;
+}
+
+/* レスポンシブ */
+@media (max-width: 900px) {
+  .lib-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 32px;
+  }
+  .lib-features {
+    justify-content: center;
+  }
+  .lib-icon-wrap {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .line-impact-banner {
+    padding: 60px 0;
+  }
+  .lib-title {
+    font-size: 1.5rem;
+  }
+  .lib-add-btn {
+    padding: 16px 28px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ========================================
+   スマホ固定LINEボタン
+   ======================================== */
+.line-sticky-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  background: linear-gradient(135deg, #00a040, #06C755);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 99px;
+  text-decoration: none;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(6,199,85,0.5), 0 2px 8px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  animation: sticky-bounce 3s ease-in-out infinite;
+}
+
+@keyframes sticky-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+@media (max-width: 768px) {
+  .line-sticky-btn {
+    display: inline-flex;
+  }
+  /* スマホでは固定ボタンが被らないようにフッター上部に余白 */
+  .footer {
+    padding-bottom: 72px;
+  }
+}
+
+/* ========================================
    お問い合わせ
    ======================================== */
 .section-contact {
