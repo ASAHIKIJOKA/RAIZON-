@@ -1,0 +1,13 @@
+{
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/blog-list.html", "destination": "/blog-list", "permanent": true },
+    { "source": "/blog-post.html", "destination": "/blog-post", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/blog-post", "destination": "/api/blog-post" },
+    { "source": "/blog-list", "destination": "/api/blog-list" },
+    { "source": "/line", "destination": "/line.html" }
+  ]
+}
