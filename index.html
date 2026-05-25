@@ -54,34 +54,66 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "沖縄以外の事業者でも相談できますか？",
+        "name": "小規模事業者でも導入できますか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "基本的には沖縄県内の事業者を対象としていますが、まずはお気軽にご相談ください。"
+          "text": "はい、可能です。RAIZONは小規模事業者様向けのプランも豊富にご用意しています。ご予算に合わせた提案をいたします。"
         }
       },
       {
         "@type": "Question",
-        "name": "費用はどのくらいかかりますか？",
+        "name": "見積もりは無料ですか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "サービス内容や規模によって異なるため、お見積り制を採用しています。初回相談は無料です。"
+          "text": "はい、無料です。初回相談・ヒアリング・ご提案・お見積もりまで、すべて無料で対応します。"
         }
       },
       {
         "@type": "Question",
-        "name": "LINE公式アカウントを持っていなくても相談できますか？",
+        "name": "導入までどのくらいの期間がかかりますか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "はい、アカウント開設からサポートいたします。まずは無料相談からお気軽にどうぞ。"
+          "text": "プロジェクト規模により異なりますが、小規模：2週間〜1ヶ月、中規模：1〜3ヶ月、大規模：3ヶ月〜が目安です。"
         }
       },
       {
         "@type": "Question",
-        "name": "導入後のサポートはありますか？",
+        "name": "ITに詳しくないスタッフでも使えますか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "はい、保守・運用の継続サポートを提供しています。導入後も安心してご利用いただけます。"
+          "text": "はい、使えます。RAIZONはシンプルで使いやすい設計を重視。操作研修も丁寧に実施します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "既存のシステムとの連携は可能ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "多くの場合、可能です。既存システムの状況を確認した上で、最適な連携方法をご提案します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "導入後のサポート体制は？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "月額保守プランをご用意しています。操作方法のサポート、トラブル対応、システムのアップデートなどを継続的にサポートします。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "途中で解約できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、可能です。契約内容により条件が異なりますので、契約時に詳細をご説明します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "沖縄県外からの依頼は可能ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、可能です。オンラインでの対応も行っていますが、沖縄県内のお客様には対面サポートのメリットがございます。"
         }
       }
     ]
@@ -90,14 +122,31 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "RAIZON",
+    "@type": "LocalBusiness",
+    "name": "RAIZON（ライゾン）",
     "url": "https://raizon-okinawa.com",
-    "description": "沖縄県の事業者に特化したLINE公式アカウント構築・AI活用支援・DX支援。業務効率化・集客改善をデジタルで実現します。",
+    "logo": "https://raizon-okinawa.com/apple-touch-icon.png",
+    "image": "https://raizon-okinawa.com/seo-meo-thumb.webp",
+    "description": "沖縄県の事業者に特化したLINE公式アカウント構築・AI活用支援・DX支援。業務効率化・集客改善をデジタルで実現します。初回相談無料。",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "沖縄県",
+      "addressCountry": "JP"
+    },
     "areaServed": {
       "@type": "State",
       "name": "沖縄県"
     },
+    "priceRange": "¥¥",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "sameAs": [
+      "https://lin.ee/fD0d4TS"
+    ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "サービス一覧",
@@ -107,7 +156,7 @@
           "itemOffered": {
             "@type": "Service",
             "name": "LINE公式アカウント構築",
-            "description": "沖縄の事業者向けLINE公式アカウントの構築・運用支援。予約・配信・顧客管理を一気通貫で対応。"
+            "description": "沖縄の事業者向けLINE公式アカウントの構築・運用支援。予約・配信・顧客管理を一気通貫で対応。初期費用5万円〜。"
           }
         },
         {
@@ -123,7 +172,7 @@
           "itemOffered": {
             "@type": "Service",
             "name": "DX支援",
-            "description": "沖縄の中小企業向けDX推進支援。紙・Excelからの脱却、業務フローのデジタル化をサポート。"
+            "description": "沖縄の中小企業向けDX推進支援。紙・Excelからの脱却、業務フローのデジタル化をサポート。初期費用5万円〜。"
           }
         }
       ]
@@ -135,7 +184,7 @@
   <!-- ナビゲーション -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="/" class="nav-logo"><img src="RAIZONロゴ.png" alt="RAIZON" class="nav-logo-img"></a>
+      <a href="/" class="nav-logo"><img src="RAIZONロゴ.png" alt="RAIZON - 沖縄のLINE構築・AI活用・DX支援" class="nav-logo-img"></a>
       <button class="nav-toggle" id="navToggle" aria-label="メニュー">
         <span></span><span></span><span></span>
       </button>
@@ -1105,7 +1154,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="RAIZONロゴ.png" alt="RAIZON" class="footer-logo-img">
+          <img src="RAIZONロゴ.png" alt="RAIZON - 沖縄のLINE構築・AI活用・DX支援" class="footer-logo-img">
           <p>デジタルで変える。<br>働き方も、仕組みも、売り方も。</p>
         </div>
         <div class="footer-info">

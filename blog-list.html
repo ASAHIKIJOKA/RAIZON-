@@ -3,12 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ブログ一覧 | RAIZON</title>
-  <meta name="description" content="RAIZONのブログ一覧。DX支援・LINE構築・AI活用に関する最新情報をお届けします。">
+  <title>ブログ一覧 | RAIZON｜沖縄のDX・LINE・AI活用情報</title>
+  <meta name="description" content="RAIZONのブログ一覧。沖縄のDX支援・LINE構築・AI活用に関する最新情報・事例・ノウハウをお届けします。">
+  <meta property="og:title" content="ブログ一覧 | RAIZON｜沖縄のDX・LINE・AI活用情報">
+  <meta property="og:description" content="沖縄のDX支援・LINE構築・AI活用に関する最新情報をお届けするRAIZONのブログ。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://raizon-okinawa.com/blog-list.html">
+  <meta property="og:image" content="https://raizon-okinawa.com/apple-touch-icon.png">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="RAIZON">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ブログ一覧 | RAIZON">
+  <meta name="twitter:description" content="沖縄のDX支援・LINE構築・AI活用に関する最新情報をお届けするRAIZONのブログ。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://raizon-okinawa.com/blog-list.html">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vitwsmjicc");
+  </script>
   <style>
     .blog-list-hero {
       background: linear-gradient(160deg, var(--ocean-start) 0%, var(--ocean-mid) 50%, var(--ocean-end) 100%);
@@ -123,7 +144,7 @@
   <!-- ナビゲーション -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-logo"><img src="RAIZONロゴ.png" alt="RAIZON" class="nav-logo-img"></a>
+      <a href="index.html" class="nav-logo"><img src="RAIZONロゴ.png" alt="RAIZON - 沖縄のLINE構築・AI活用・DX支援" class="nav-logo-img"></a>
       <button class="nav-toggle" id="navToggle" aria-label="メニュー">
         <span></span><span></span><span></span>
       </button>
@@ -171,7 +192,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="RAIZONロゴ.png" alt="RAIZON" class="footer-logo-img">
+          <img src="RAIZONロゴ.png" alt="RAIZON - 沖縄のLINE構築・AI活用・DX支援" class="footer-logo-img">
           <p>デジタルで変える。<br>働き方も、仕組みも、売り方も。</p>
         </div>
         <div class="footer-info">
@@ -185,7 +206,6 @@
   </footer>
 
   <script src="blog.js"></script>
-  <script src="blog-seed.js"></script>
   <script>
     // モバイルメニュー
     const navToggle = document.getElementById('navToggle');
@@ -208,14 +228,18 @@
     });
 
     // 記事一覧描画
-    function renderBlogList() {
-      let posts = BlogCMS.getAllPosts();
+    async function renderBlogList() {
+      const grid = document.getElementById('blogListGrid');
+      const empty = document.getElementById('blogListEmpty');
+
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">読み込み中...</div>';
+      grid.style.display = '';
+      empty.style.display = 'none';
+
+      let posts = await BlogCMS.getAllPosts();
       if (currentFilter !== 'all') {
         posts = posts.filter(p => p.category === currentFilter);
       }
-
-      const grid = document.getElementById('blogListGrid');
-      const empty = document.getElementById('blogListEmpty');
 
       if (posts.length === 0) {
         grid.style.display = 'none';
@@ -229,7 +253,7 @@
       const noImgSvg = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" fill="#e2e8f0"><rect width="400" height="225"/><text x="200" y="118" text-anchor="middle" fill="#a0aec0" font-size="16">No Image</text></svg>');
 
       grid.innerHTML = posts.map(post => `
-        <article class="blog-card" onclick="openBlogPost('${post.id}')">
+        <article class="blog-card" onclick="location.href='blog-post.html?id=${post.id}'" style="cursor:pointer;">
           <div class="blog-card-thumb">
             <img src="${post.thumbnail || noImgSvg}" alt="${post.title}">
             <span class="blog-card-cat">${post.category || 'お知らせ'}</span>
@@ -241,33 +265,6 @@
           </div>
         </article>
       `).join('');
-    }
-
-    // ブログ記事詳細モーダル
-    function openBlogPost(id) {
-      const post = BlogCMS.getPost(id);
-      if (!post) return;
-
-      const overlay = document.createElement('div');
-      overlay.className = 'blog-modal-overlay';
-      overlay.innerHTML = `
-        <div class="blog-modal">
-          <button class="blog-modal-close" onclick="this.closest('.blog-modal-overlay').remove()">&times;</button>
-          ${post.thumbnail ? `<img class="blog-modal-thumb" src="${post.thumbnail}" alt="${post.title}">` : ''}
-          <div class="blog-modal-content">
-            <div class="blog-modal-meta">
-              <span class="blog-card-cat">${post.category || 'お知らせ'}</span>
-              <time>${BlogCMS.formatDate(post.createdAt)}</time>
-            </div>
-            <h2>${post.title}</h2>
-            <div class="blog-modal-body">${post.body.replace(/\n/g, '<br>')}</div>
-          </div>
-        </div>
-      `;
-      overlay.addEventListener('click', e => {
-        if (e.target === overlay) overlay.remove();
-      });
-      document.body.appendChild(overlay);
     }
 
     renderBlogList();
