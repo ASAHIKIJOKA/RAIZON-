@@ -406,6 +406,25 @@ body {
   padding: 36px 0;
 }
 
+.line-img-banner {
+  display: block;
+  background: #f0f9ff;
+}
+.line-img-banner a {
+  display: block;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.line-img-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity .2s;
+}
+.line-img-banner a:hover img {
+  opacity: .92;
+}
+
 .achievement-grid {
   display: flex;
   align-items: center;
