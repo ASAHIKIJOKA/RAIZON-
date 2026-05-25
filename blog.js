@@ -1,45 +1,63 @@
 // ========================================
-// RAIZON Blog CMS - LocalStorage Based
+// RAIZON Blog CMS - Firebase REST API
 // ========================================
 
 const BlogCMS = {
-  STORAGE_KEY: 'raizon_blog_posts',
+  DB: 'https://parlor-minato-default-rtdb.firebaseio.com/raizon-blog/posts',
+  SECRET: 'pyx1oEgJdwLh7gg6031seevIZN6be8zWiCHzopEO',
 
-  getAllPosts() {
-    const data = localStorage.getItem(this.STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+  async getAllPosts() {
+    try {
+      const res = await fetch(`${this.DB}.json?auth=${this.SECRET}`);
+      const data = await res.json();
+      if (!data) return [];
+      return Object.entries(data)
+        .map(([id, post]) => ({ ...post, id }))
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } catch (e) {
+      console.error('Failed to fetch posts', e);
+      return [];
+    }
   },
 
-  savePosts(posts) {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(posts));
+  async getPost(id) {
+    try {
+      const res = await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`);
+      const data = await res.json();
+      if (!data) return null;
+      return { ...data, id };
+    } catch (e) {
+      console.error('Failed to fetch post', e);
+      return null;
+    }
   },
 
-  getPost(id) {
-    return this.getAllPosts().find(p => p.id === id);
+  async addPost(post) {
+    const id = Date.now().toString();
+    const now = new Date().toISOString();
+    const newPost = { ...post, createdAt: post.createdAt || now, updatedAt: now };
+    await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newPost)
+    });
+    return { ...newPost, id };
   },
 
-  addPost(post) {
-    const posts = this.getAllPosts();
-    post.id = Date.now().toString();
-    post.createdAt = new Date().toISOString();
-    post.updatedAt = new Date().toISOString();
-    posts.unshift(post);
-    this.savePosts(posts);
-    return post;
+  async updatePost(id, updates) {
+    const patchData = { ...updates, updatedAt: new Date().toISOString() };
+    await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(patchData)
+    });
+    return { ...patchData, id };
   },
 
-  updatePost(id, updates) {
-    const posts = this.getAllPosts();
-    const idx = posts.findIndex(p => p.id === id);
-    if (idx === -1) return null;
-    posts[idx] = { ...posts[idx], ...updates, updatedAt: new Date().toISOString() };
-    this.savePosts(posts);
-    return posts[idx];
-  },
-
-  deletePost(id) {
-    const posts = this.getAllPosts().filter(p => p.id !== id);
-    this.savePosts(posts);
+  async deletePost(id) {
+    await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`, {
+      method: 'DELETE'
+    });
   },
 
   formatDate(isoString) {
