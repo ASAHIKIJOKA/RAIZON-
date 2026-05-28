@@ -113,6 +113,14 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F7SZDCFSH7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-F7SZDCFSH7');
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(post.title)} | RAIZON</title>
   <meta name="description" content="${esc(desc)}">
