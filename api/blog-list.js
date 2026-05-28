@@ -118,8 +118,13 @@ function renderHtml(posts) {
     .blog-list-body{padding:60px 0 100px;background:#f7fafc}
     .blog-list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
     .blog-card a:hover .blog-card-thumb img{transform:scale(1.05)}
+    .blog-list-service-cta{margin-top:56px;padding:28px 32px;background:#fff;border-radius:16px;border:1px solid #e2e8f0;text-align:center}
+    .blog-list-service-cta-title{font-size:.9rem;font-weight:700;color:#0e4d6e;margin-bottom:16px}
+    .blog-list-service-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+    .blog-list-service-links a{padding:9px 20px;background:#f0f9ff;border:1px solid #bee3f8;border-radius:20px;font-size:.88rem;color:#2b6cb0;text-decoration:none;font-weight:500;transition:background .2s}
+    .blog-list-service-links a:hover{background:#ebf8ff}
     @media(max-width:900px){.blog-list-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:580px){.blog-list-grid{grid-template-columns:1fr}}
+    @media(max-width:580px){.blog-list-grid{grid-template-columns:1fr}.blog-list-service-links{gap:8px}}
   </style>
 </head>
 <body class="blog-list-page">
@@ -149,6 +154,17 @@ function renderHtml(posts) {
     <div class="container">
       <div class="blog-list-grid" id="blogListGrid">
         ${cardsHtml}
+      </div>
+
+      <div class="blog-list-service-cta">
+        <p class="blog-list-service-cta-title">RAIZONのサービス</p>
+        <div class="blog-list-service-links">
+          <a href="/#service-line">LINE構築</a>
+          <a href="/#service-ai">AI活用支援</a>
+          <a href="/#service-dx">DX支援</a>
+          <a href="/#cases">導入事例</a>
+          <a href="/#contact">無料相談（無料）</a>
+        </div>
       </div>
     </div>
   </div>

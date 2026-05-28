@@ -6,6 +6,8 @@
 const FIREBASE_BASE = 'https://parlor-minato-default-rtdb.firebaseio.com/raizon-blog/posts';
 const FIREBASE_SECRET = 'pyx1oEgJdwLh7gg6031seevIZN6be8zWiCHzopEO';
 
+const FIREBASE_ALL = 'https://parlor-minato-default-rtdb.firebaseio.com/raizon-blog/posts.json';
+
 module.exports = async function handler(req, res) {
   const id = req.query.id;
 
@@ -15,9 +17,21 @@ module.exports = async function handler(req, res) {
   }
 
   let post = null;
+  let relatedPosts = [];
   try {
-    const r = await fetch(`${FIREBASE_BASE}/${id}.json?auth=${FIREBASE_SECRET}`);
-    post = await r.json();
+    const [postRes, allRes] = await Promise.all([
+      fetch(`${FIREBASE_BASE}/${id}.json?auth=${FIREBASE_SECRET}`),
+      fetch(`${FIREBASE_ALL}?auth=${FIREBASE_SECRET}`)
+    ]);
+    post = await postRes.json();
+    const allData = await allRes.json();
+    if (allData && !allData.error) {
+      relatedPosts = Object.entries(allData)
+        .map(([pid, p]) => ({ id: pid, ...p }))
+        .filter(p => p.id !== id && p.createdAt)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 3);
+    }
   } catch (e) {
     console.error('Firebase fetch error:', e);
   }
@@ -37,7 +51,7 @@ module.exports = async function handler(req, res) {
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-  res.end(renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id }));
+  res.end(renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, relatedPosts }));
 };
 
 // ----------------------------------------
@@ -66,7 +80,7 @@ function esc(str) {
 // ----------------------------------------
 // HTML テンプレート
 // ----------------------------------------
-function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id }) {
+function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, relatedPosts }) {
   const ldBlogPosting = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -149,7 +163,23 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id })
     .post-body-wrap strong{color:#0e4d6e}
     .post-body-wrap a{color:#1a7baa;text-decoration:underline}
     .post-back{margin-top:48px;display:flex;gap:12px}
-    @media(max-width:600px){.post-body-wrap{padding:28px 20px}.post-title{font-size:1.3rem}.post-back{flex-direction:column;gap:10px}.post-back .btn,.post-back .btn-outline-dark{width:100%;text-align:center;padding:11px 20px;font-size:.88rem}.post-breadcrumb .bc-title,.post-breadcrumb .bc-title-sep{display:none}}
+    .related-posts{margin-top:56px}
+    .related-posts-title{font-size:1.1rem;font-weight:700;color:#2d3748;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid #e2e8f0}
+    .related-posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .related-post-card{text-decoration:none;color:inherit;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;transition:box-shadow .2s}
+    .related-post-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.1)}
+    .related-post-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#e2e8f0}
+    .related-post-thumb img{width:100%;height:100%;object-fit:cover}
+    .related-post-thumb .blog-card-cat{position:absolute;top:8px;left:8px;font-size:.7rem}
+    .related-post-body{padding:10px 12px}
+    .related-post-date{font-size:.75rem;color:#718096;margin-bottom:4px}
+    .related-post-title{font-size:.85rem;font-weight:600;color:#2d3748;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .post-service-cta{margin-top:40px;padding:20px 24px;background:#f0f9ff;border-radius:12px;border:1px solid #bee3f8}
+    .post-service-cta-label{font-size:.85rem;color:#2b6cb0;font-weight:600;margin-bottom:12px}
+    .post-service-cta-links{display:flex;flex-wrap:wrap;gap:10px}
+    .post-service-cta-links a{padding:7px 16px;background:#fff;border:1px solid #bee3f8;border-radius:20px;font-size:.85rem;color:#2b6cb0;text-decoration:none;font-weight:500;transition:background .2s}
+    .post-service-cta-links a:hover{background:#ebf8ff}
+    @media(max-width:600px){.post-body-wrap{padding:28px 20px}.post-title{font-size:1.3rem}.post-back{flex-direction:column;gap:10px}.post-back .btn,.post-back .btn-outline-dark{width:100%;text-align:center;padding:11px 20px;font-size:.88rem}.post-breadcrumb .bc-title,.post-breadcrumb .bc-title-sep{display:none}.related-posts-grid{grid-template-columns:1fr}.post-service-cta-links{gap:8px}}
   </style>
 </head>
 <body class="blog-post-page">
@@ -188,6 +218,34 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id })
       <h1 class="post-title">${esc(post.title)}</h1>
 
       <div class="post-body-wrap">${post.body}</div>
+
+      ${relatedPosts.length > 0 ? `
+      <div class="related-posts">
+        <h2 class="related-posts-title">最新記事</h2>
+        <div class="related-posts-grid">
+          ${relatedPosts.map(p => `
+          <a href="/blog-post?id=${esc(p.id)}" class="related-post-card">
+            <div class="related-post-thumb">
+              <img src="${esc(p.thumbnail || '')}" alt="${esc(p.title)}" loading="lazy" onerror="this.style.display='none'">
+              <span class="blog-card-cat">${esc(p.category || 'お知らせ')}</span>
+            </div>
+            <div class="related-post-body">
+              <p class="related-post-date">${formatDate(p.createdAt)}</p>
+              <p class="related-post-title">${esc(p.title)}</p>
+            </div>
+          </a>`).join('')}
+        </div>
+      </div>` : ''}
+
+      <div class="post-service-cta">
+        <p class="post-service-cta-label">RAIZONのサービスを見る</p>
+        <div class="post-service-cta-links">
+          <a href="/#service-line">LINE構築</a>
+          <a href="/#service-ai">AI活用支援</a>
+          <a href="/#service-dx">DX支援</a>
+          <a href="/#contact">無料相談</a>
+        </div>
+      </div>
 
       <div class="post-back">
         <a href="/blog-list" class="btn btn-primary">← ブログ一覧に戻る</a>
