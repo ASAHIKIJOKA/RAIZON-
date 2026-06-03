@@ -1800,6 +1800,67 @@ body {
 }
 
 /* ========================================
+   ヒーロー LINE ボタン
+   ======================================== */
+.btn-line-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #00a040, #06C755);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border-radius: 99px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(6,199,85,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-line-hero:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(6,199,85,0.55);
+}
+
+/* ========================================
+   PC固定 LINE FABボタン（右下）
+   ======================================== */
+.line-fab-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 910;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #00a040, #06C755);
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(6,199,85,0.55), 0 2px 8px rgba(0,0,0,0.2);
+  animation: fab-pulse 3s ease-in-out infinite;
+}
+@keyframes fab-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(6,199,85,0.55), 0 0 0 0 rgba(6,199,85,0.4); }
+  50% { box-shadow: 0 4px 20px rgba(6,199,85,0.55), 0 0 0 10px rgba(6,199,85,0); }
+}
+.line-fab-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+}
+@media (max-width: 768px) {
+  /* スマホでは右下FABを非表示（下部固定ボタンがあるため） */
+  .line-fab-btn {
+    display: none;
+  }
+}
+
+/* ========================================
    お問い合わせ
    ======================================== */
 .section-contact {
