@@ -150,6 +150,16 @@ body {
   opacity: 1 !important;
 }
 
+.nav-contact {
+  background: #f97316 !important;
+  color: var(--white) !important;
+}
+
+.nav-contact:hover {
+  background: #ea6c0a !important;
+  opacity: 1 !important;
+}
+
 .nav-toggle {
   display: none;
   background: none;
