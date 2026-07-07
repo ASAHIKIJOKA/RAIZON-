@@ -288,6 +288,7 @@
         <h2 class="section-title">最新ブログ</h2>
         <p class="section-desc">RAIZONの最新情報・お役立ち記事をお届けします</p>
       </div>
+      <div class="blog-cat-tabs" id="blogCatTabs" style="display:none;"></div>
       <div class="blog-grid" id="blogGrid">
         <!-- JS で動的に描画 -->
       </div>
@@ -295,7 +296,7 @@
         <p>現在、記事はありません。</p>
       </div>
       <div class="blog-more" id="blogMore" style="display:none;">
-        <a href="blog-list.html" class="btn btn-outline-dark">もっと見る</a>
+        <a href="blog-list" id="blogMoreLink" class="btn btn-outline-dark">もっと見る</a>
       </div>
     </div>
   </section>
@@ -954,30 +955,63 @@
   <script src="blog.js"></script>
   <script src="script.js"></script>
   <script>
-    // ブログ記事を表示（トップは3件まで）
-    async function renderBlogSection() {
+    // ブログ記事を表示（トップは3件まで・カテゴリー絞り込み対応）
+    let allBlogPosts = [];
+    let activeBlogCategory = '';
+
+    function renderBlogTabs() {
+      const tabs = document.getElementById('blogCatTabs');
+      const categories = [...new Set(allBlogPosts.map(p => p.category || 'お知らせ'))];
+
+      if (categories.length === 0) {
+        tabs.style.display = 'none';
+        return;
+      }
+
+      tabs.style.display = 'flex';
+      tabs.innerHTML = [
+        `<button type="button" class="blog-cat-tab${activeBlogCategory ? '' : ' active'}" data-cat="">すべて</button>`,
+        ...categories.map(cat => `<button type="button" class="blog-cat-tab${activeBlogCategory === cat ? ' active' : ''}" data-cat="${cat}">${cat}</button>`)
+      ].join('');
+
+      tabs.querySelectorAll('.blog-cat-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeBlogCategory = btn.dataset.cat;
+          renderBlogTabs();
+          renderBlogCards();
+        });
+      });
+    }
+
+    function renderBlogCards() {
       const grid = document.getElementById('blogGrid');
       const empty = document.getElementById('blogEmpty');
       const more = document.getElementById('blogMore');
+      const moreLink = document.getElementById('blogMoreLink');
 
-      const posts = await BlogCMS.getAllPosts();
+      const filteredPosts = activeBlogCategory
+        ? allBlogPosts.filter(p => (p.category || 'お知らせ') === activeBlogCategory)
+        : allBlogPosts;
 
-      if (posts.length === 0) {
+      moreLink.href = activeBlogCategory ? `blog-list?category=${encodeURIComponent(activeBlogCategory)}` : 'blog-list';
+
+      if (filteredPosts.length === 0) {
         grid.style.display = 'none';
         empty.style.display = 'block';
+        empty.querySelector('p').textContent = activeBlogCategory ? `「${activeBlogCategory}」の記事は現在ありません。` : '現在、記事はありません。';
         more.style.display = 'none';
         return;
       }
 
       grid.style.display = '';
       empty.style.display = 'none';
-      more.style.display = posts.length > 3 ? 'block' : 'none';
+      more.style.display = filteredPosts.length > 3 ? 'block' : 'none';
 
       const noImgSvg = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" fill="%23e2e8f0"><rect width="400" height="225"/><text x="200" y="118" text-anchor="middle" fill="%23a0aec0" font-size="16">No Image</text></svg>');
 
-      const displayPosts = posts.slice(0, 3);
+      const displayPosts = filteredPosts.slice(0, 3);
       grid.innerHTML = displayPosts.map(post => `
-        <article class="blog-card" onclick="location.href='blog-post.html?id=${post.id}'" style="cursor:pointer;">
+        <article class="blog-card" onclick="location.href='blog-post?id=${post.id}'" style="cursor:pointer;">
           <div class="blog-card-thumb">
             <img src="${post.thumbnail || noImgSvg}" alt="${post.title}">
             <span class="blog-card-cat">${post.category || 'お知らせ'}</span>
@@ -989,6 +1023,12 @@
           </div>
         </article>
       `).join('');
+    }
+
+    async function renderBlogSection() {
+      allBlogPosts = await BlogCMS.getAllPosts();
+      renderBlogTabs();
+      renderBlogCards();
     }
 
     renderBlogSection();

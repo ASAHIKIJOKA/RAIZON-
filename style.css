@@ -2464,6 +2464,36 @@ textarea.contact-form-input {
   background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
 }
 
+.blog-cat-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.blog-cat-tab {
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.blog-cat-tab:hover {
+  background: var(--gray-100);
+}
+
+.blog-cat-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
