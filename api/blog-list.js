@@ -20,9 +20,15 @@ module.exports = async function handler(req, res) {
     console.error('Firebase fetch error:', e);
   }
 
+  const categories = [...new Set(posts.map(p => p.category || 'お知らせ'))];
+  const activeCategory = typeof req.query.category === 'string' ? req.query.category : '';
+  const filteredPosts = activeCategory
+    ? posts.filter(p => (p.category || 'お知らせ') === activeCategory)
+    : posts;
+
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-  res.end(renderHtml(posts));
+  res.end(renderHtml(filteredPosts, categories, activeCategory));
 };
 
 // ----------------------------------------
@@ -51,20 +57,38 @@ function esc(str) {
 // ----------------------------------------
 // HTML テンプレート
 // ----------------------------------------
-function renderHtml(posts) {
+function renderHtml(posts, categories, activeCategory) {
+  const pageTitle = activeCategory ? `${activeCategory}の記事一覧 | RAIZON` : 'ブログ一覧 | RAIZON｜沖縄のDX・LINE・AI活用情報';
+  const pageDesc = activeCategory
+    ? `RAIZONの「${activeCategory}」カテゴリーの記事一覧。沖縄のDX支援・LINE構築・AI活用に関する最新情報・事例・ノウハウをお届けします。`
+    : 'RAIZONのブログ一覧。沖縄のDX支援・LINE構築・AI活用に関する最新情報・事例・ノウハウをお届けします。';
+  const canonicalUrl = activeCategory
+    ? `https://raizon-okinawa.com/blog-list?category=${encodeURIComponent(activeCategory)}`
+    : 'https://raizon-okinawa.com/blog-list';
+
+  const breadcrumbItems = [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://raizon-okinawa.com/' },
+    { '@type': 'ListItem', position: 2, name: 'ブログ一覧', item: 'https://raizon-okinawa.com/blog-list' }
+  ];
+  if (activeCategory) {
+    breadcrumbItems.push({ '@type': 'ListItem', position: 3, name: activeCategory, item: canonicalUrl });
+  }
   const ldBreadcrumb = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://raizon-okinawa.com/' },
-      { '@type': 'ListItem', position: 2, name: 'ブログ一覧', item: 'https://raizon-okinawa.com/blog-list' }
-    ]
+    itemListElement: breadcrumbItems
   });
+
+  const categoryTabsHtml = `
+    <div class="blog-cat-tabs" role="navigation" aria-label="カテゴリーで絞り込み">
+      <a href="/blog-list" class="blog-cat-tab${activeCategory ? '' : ' active'}">すべて</a>
+      ${categories.map(cat => `<a href="/blog-list?category=${encodeURIComponent(cat)}" class="blog-cat-tab${activeCategory === cat ? ' active' : ''}">${esc(cat)}</a>`).join('')}
+    </div>`;
 
   const noImgSvg = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" fill="%23e2e8f0"><rect width="400" height="225"/><text x="200" y="118" text-anchor="middle" fill="%23a0aec0" font-size="16">No Image</text></svg>')}`;
 
   const cardsHtml = posts.length === 0
-    ? '<p style="text-align:center;color:#718096;padding:48px 0;">現在、記事はありません。</p>'
+    ? `<p style="text-align:center;color:#718096;padding:48px 0;">${activeCategory ? `「${esc(activeCategory)}」の記事は現在ありません。` : '現在、記事はありません。'}</p>`
     : posts.map(post => `
       <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
         <a href="/blog-post?id=${esc(post.id)}" style="text-decoration:none;color:inherit;display:block;">
@@ -93,20 +117,20 @@ function renderHtml(posts) {
     gtag('config', 'G-F7SZDCFSH7');
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ブログ一覧 | RAIZON｜沖縄のDX・LINE・AI活用情報</title>
-  <meta name="description" content="RAIZONのブログ一覧。沖縄のDX支援・LINE構築・AI活用に関する最新情報・事例・ノウハウをお届けします。">
-  <meta property="og:title" content="ブログ一覧 | RAIZON｜沖縄のDX・LINE・AI活用情報">
-  <meta property="og:description" content="沖縄のDX支援・LINE構築・AI活用に関する最新情報をお届けするRAIZONのブログ。">
+  <title>${esc(pageTitle)}</title>
+  <meta name="description" content="${esc(pageDesc)}">
+  <meta property="og:title" content="${esc(pageTitle)}">
+  <meta property="og:description" content="${esc(pageDesc)}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://raizon-okinawa.com/blog-list">
+  <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:image" content="https://raizon-okinawa.com/seo-meo-thumb.webp">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="RAIZON">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ブログ一覧 | RAIZON">
-  <meta name="twitter:description" content="沖縄のDX支援・LINE構築・AI活用に関する最新情報をお届けするRAIZONのブログ。">
+  <meta name="twitter:title" content="${esc(pageTitle)}">
+  <meta name="twitter:description" content="${esc(pageDesc)}">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://raizon-okinawa.com/blog-list">
+  <link rel="canonical" href="${canonicalUrl}">
   <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -124,6 +148,10 @@ function renderHtml(posts) {
     .blog-list-hero h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:900;margin-bottom:12px}
     .blog-list-hero p{font-size:1rem;opacity:.85}
     .blog-list-body{padding:60px 0 100px;background:#f7fafc}
+    .blog-cat-tabs{display:flex;flex-wrap:wrap;gap:10px}
+    .blog-cat-tab{padding:8px 18px;border-radius:20px;background:#fff;border:1px solid #e2e8f0;color:#2d3748;font-size:.86rem;font-weight:500;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+    .blog-cat-tab:hover{background:#edf2f7}
+    .blog-cat-tab.active{background:#0e4d6e;border-color:#0e4d6e;color:#fff}
     .blog-list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
     .blog-card a:hover .blog-card-thumb img{transform:scale(1.05)}
     .blog-list-service-cta{margin-top:56px;padding:28px 32px;background:#fff;border-radius:16px;border:1px solid #e2e8f0;text-align:center}
@@ -153,13 +181,14 @@ function renderHtml(posts) {
 
   <div class="blog-list-hero">
     <div class="container">
-      <h1>ブログ</h1>
+      <h1>${activeCategory ? esc(activeCategory) : 'ブログ'}</h1>
       <p>RAIZONの最新情報・お役立ち記事をお届けします</p>
     </div>
   </div>
 
   <div class="blog-list-body">
     <div class="container">
+      ${categoryTabsHtml}
       <div class="blog-list-grid" id="blogListGrid">
         ${cardsHtml}
       </div>
