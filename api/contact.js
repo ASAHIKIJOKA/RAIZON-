@@ -9,7 +9,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { name, email, phone, company, services, message } = req.body;
-  if (!name || !email || !message) {
+  if (!name || !email || !phone || !message) {
     return res.status(400).json({ error: '必須項目が未入力です' });
   }
 
