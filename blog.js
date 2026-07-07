@@ -41,6 +41,7 @@ const BlogCMS = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newPost)
     });
+    this.notifyIndexNow(id);
     return { ...newPost, id };
   },
 
@@ -51,7 +52,21 @@ const BlogCMS = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(patchData)
     });
+    this.notifyIndexNow(id);
     return { ...patchData, id };
+  },
+
+  notifyIndexNow(id) {
+    fetch('/api/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        urls: [
+          `https://raizon-okinawa.com/blog-post?id=${id}`,
+          'https://raizon-okinawa.com/blog-list'
+        ]
+      })
+    }).catch(e => console.error('IndexNow notify failed', e));
   },
 
   async deletePost(id) {
