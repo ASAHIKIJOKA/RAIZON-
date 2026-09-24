@@ -3,15 +3,12 @@
 // Googlebot向けにサーバーサイドでHTMLを生成する
 // ========================================
 
-const FIREBASE_BASE = 'https://parlor-minato-default-rtdb.firebaseio.com/raizon-blog/posts';
-const FIREBASE_SECRET = 'pyx1oEgJdwLh7gg6031seevIZN6be8zWiCHzopEO';
-
-const FIREBASE_ALL = 'https://parlor-minato-default-rtdb.firebaseio.com/raizon-blog/posts.json';
+const { isValidId, getAllPosts, getPost } = require('./_firebase');
 
 module.exports = async function handler(req, res) {
   const id = req.query.id;
 
-  if (!id) {
+  if (!id || !isValidId(id)) {
     res.redirect(302, '/blog-list');
     return;
   }
@@ -19,19 +16,11 @@ module.exports = async function handler(req, res) {
   let post = null;
   let relatedPosts = [];
   try {
-    const [postRes, allRes] = await Promise.all([
-      fetch(`${FIREBASE_BASE}/${id}.json?auth=${FIREBASE_SECRET}`),
-      fetch(`${FIREBASE_ALL}?auth=${FIREBASE_SECRET}`)
-    ]);
-    post = await postRes.json();
-    const allData = await allRes.json();
-    if (allData && !allData.error) {
-      relatedPosts = Object.entries(allData)
-        .map(([pid, p]) => ({ id: pid, ...p }))
-        .filter(p => p.id !== id && p.createdAt)
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        .slice(0, 3);
-    }
+    const [singlePost, allPosts] = await Promise.all([getPost(id), getAllPosts()]);
+    post = singlePost;
+    relatedPosts = allPosts
+      .filter(p => p.id !== id && p.createdAt)
+      .slice(0, 3);
   } catch (e) {
     console.error('Firebase fetch error:', e);
   }

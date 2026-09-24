@@ -1,19 +1,53 @@
 // ========================================
-// RAIZON Blog CMS - Firebase REST API
+// RAIZON Blog CMS - サーバーAPI経由
+//   読み取り: GET  /api/posts            (公開)
+//   書き込み: POST /api/admin-posts      (管理パスワード必須)
+// Firebase の認証情報はブラウザに置かない(サーバーの環境変数のみ)。
 // ========================================
 
 const BlogCMS = {
-  DB: 'https://parlor-minato-default-rtdb.firebaseio.com/raizon-blog/posts',
-  SECRET: 'pyx1oEgJdwLh7gg6031seevIZN6be8zWiCHzopEO',
+  ADMIN_KEY: 'raizon_admin_pw',
 
+  // ---- 管理パスワード(ログイン中のタブ内のみ保持) ----
+  getAdminPassword() {
+    try { return sessionStorage.getItem(this.ADMIN_KEY) || ''; } catch (e) { return ''; }
+  },
+  setAdminPassword(pw) {
+    try { sessionStorage.setItem(this.ADMIN_KEY, pw); } catch (e) { /* 保存できない環境では毎回入力 */ }
+  },
+  clearAdminPassword() {
+    try { sessionStorage.removeItem(this.ADMIN_KEY); } catch (e) { /* noop */ }
+  },
+
+  async adminRequest(payload, password) {
+    const res = await fetch('/api/admin-posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-password': password !== undefined ? password : this.getAdminPassword()
+      },
+      body: JSON.stringify(payload)
+    });
+    if (res.status === 401) this.clearAdminPassword();
+    if (!res.ok) throw new Error(`admin request failed: ${res.status}`);
+    return res.json();
+  },
+
+  async verifyAdmin(password) {
+    try {
+      await this.adminRequest({ action: 'verify' }, password);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+
+  // ---- 読み取り ----
   async getAllPosts() {
     try {
-      const res = await fetch(`${this.DB}.json?auth=${this.SECRET}`);
-      const data = await res.json();
-      if (!data) return [];
-      return Object.entries(data)
-        .map(([id, post]) => ({ ...post, id }))
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const res = await fetch('/api/posts');
+      if (!res.ok) throw new Error(res.status);
+      return await res.json();
     } catch (e) {
       console.error('Failed to fetch posts', e);
       return [];
@@ -22,57 +56,31 @@ const BlogCMS = {
 
   async getPost(id) {
     try {
-      const res = await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`);
-      const data = await res.json();
-      if (!data) return null;
-      return { ...data, id };
+      const res = await fetch(`/api/posts?id=${encodeURIComponent(id)}`);
+      if (!res.ok) return null;
+      return await res.json();
     } catch (e) {
       console.error('Failed to fetch post', e);
       return null;
     }
   },
 
-  async addPost(post) {
-    const id = Date.now().toString();
-    const now = new Date().toISOString();
-    const newPost = { ...post, createdAt: post.createdAt || now, updatedAt: now };
-    await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newPost)
-    });
-    this.notifyIndexNow(id);
-    return { ...newPost, id };
+  // ---- 書き込み(管理画面のみ) ----
+  addPost(post) {
+    return this.adminRequest({ action: 'add', post });
   },
 
-  async updatePost(id, updates) {
-    const patchData = { ...updates, updatedAt: new Date().toISOString() };
-    await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(patchData)
-    });
-    this.notifyIndexNow(id);
-    return { ...patchData, id };
+  updatePost(id, updates) {
+    return this.adminRequest({ action: 'update', id, post: updates });
   },
 
-  notifyIndexNow(id) {
-    fetch('/api/indexnow', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        urls: [
-          `https://raizon-okinawa.com/blog-post?id=${id}`,
-          'https://raizon-okinawa.com/blog-list'
-        ]
-      })
-    }).catch(e => console.error('IndexNow notify failed', e));
+  // 指定IDで丸ごと保存(初期記事の投入用)
+  putPost(id, post) {
+    return this.adminRequest({ action: 'put', id, post });
   },
 
   async deletePost(id) {
-    await fetch(`${this.DB}/${id}.json?auth=${this.SECRET}`, {
-      method: 'DELETE'
-    });
+    await this.adminRequest({ action: 'delete', id });
   },
 
   formatDate(isoString) {

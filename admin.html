@@ -4,9 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RAIZON | ブログ管理画面</title>
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vitwsmjicc");
+  </script>
   <style>
     :root {
       --primary: #0e4d6e;
@@ -601,9 +610,25 @@
     <div class="list-panel">
       <div class="list-panel-header">
         <h2>記事一覧</h2>
-        <span class="post-count" id="postCount">0件</span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="post-count" id="postCount">0件</span>
+          <button class="btn-edit" id="btnSitemap" style="font-size:0.8rem;padding:4px 10px;">🗺 サイトマップ生成</button>
+        </div>
       </div>
       <div id="postList"></div>
+    </div>
+  </div>
+
+  <!-- Sitemap Modal -->
+  <div class="modal-overlay" id="sitemapModal" style="display:none;">
+    <div class="modal" style="max-width:640px;width:90%;">
+      <h3 style="margin-bottom:12px;">サイトマップ XML</h3>
+      <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:12px;">以下をコピーして <code>sitemap.xml</code> に上書きし、Vercelにデプロイしてください。</p>
+      <textarea id="sitemapOutput" readonly style="width:100%;height:260px;font-size:0.78rem;font-family:monospace;border:1px solid var(--gray-200);border-radius:8px;padding:12px;resize:vertical;background:var(--gray-50);"></textarea>
+      <div class="modal-btns" style="margin-top:16px;">
+        <button class="btn-confirm-cancel" id="btnSitemapClose">閉じる</button>
+        <button class="btn-confirm-delete" id="btnSitemapCopy" style="background:var(--primary);">コピーする</button>
+      </div>
     </div>
   </div>
 
@@ -623,6 +648,7 @@
   <div class="toast" id="toast"></div>
 
   <script src="blog.js"></script>
+  <script src="blog-seed.js"></script>
   <script>
     const $ = id => document.getElementById(id);
 
@@ -654,7 +680,6 @@
           canvas.height = OUT_H;
           const ctx = canvas.getContext('2d');
 
-          // Center crop to 16:9
           const srcRatio = img.width / img.height;
           const tgtRatio = 16 / 9;
           let sx = 0, sy = 0, sw = img.width, sh = img.height;
@@ -699,12 +724,15 @@
     });
 
     // Save
-    $('btnSave').addEventListener('click', () => {
+    $('btnSave').addEventListener('click', async () => {
       const title = $('postTitle').value.trim();
       const body = $('postBody').value.trim();
 
       if (!title) { showToast('タイトルを入力してください'); return; }
       if (!body) { showToast('本文を入力してください'); return; }
+
+      $('btnSave').disabled = true;
+      $('btnSave').textContent = '保存中...';
 
       const editId = $('editId').value;
       const dateVal = $('postDate').value;
@@ -717,21 +745,25 @@
         thumbnail: thumbnailData
       };
 
-      if (editId) {
-        if (customDate) postData.createdAt = customDate;
-        BlogCMS.updatePost(editId, postData);
-        showToast('記事を更新しました');
-      } else {
-        const saved = BlogCMS.addPost(postData);
-        if (customDate) {
-          saved.createdAt = customDate;
-          BlogCMS.savePosts(BlogCMS.getAllPosts().map(p => p.id === saved.id ? saved : p));
+      try {
+        if (editId) {
+          if (customDate) postData.createdAt = customDate;
+          await BlogCMS.updatePost(editId, postData);
+          showToast('記事を更新しました');
+        } else {
+          if (customDate) postData.createdAt = customDate;
+          await BlogCMS.addPost(postData);
+          showToast('記事を公開しました');
         }
-        showToast('記事を公開しました');
+        clearForm();
+        await renderPosts();
+      } catch (e) {
+        showToast('保存に失敗しました');
+        console.error(e);
+      } finally {
+        $('btnSave').disabled = false;
+        $('btnSave').textContent = editId ? '更新する' : '記事を公開する';
       }
-
-      clearForm();
-      renderPosts();
     });
 
     // Cancel / Clear
@@ -754,8 +786,8 @@
     }
 
     // Edit
-    function editPost(id) {
-      const post = BlogCMS.getPost(id);
+    async function editPost(id) {
+      const post = await BlogCMS.getPost(id);
       if (!post) return;
 
       $('editId').value = post.id;
@@ -787,13 +819,18 @@
       $('deleteModal').classList.add('active');
     }
 
-    $('btnDeleteConfirm').addEventListener('click', () => {
+    $('btnDeleteConfirm').addEventListener('click', async () => {
       if (deleteTargetId) {
-        BlogCMS.deletePost(deleteTargetId);
+        try {
+          await BlogCMS.deletePost(deleteTargetId);
+          showToast('記事を削除しました');
+        } catch (e) {
+          showToast('削除に失敗しました');
+          console.error(e);
+        }
         deleteTargetId = null;
         $('deleteModal').classList.remove('active');
-        renderPosts();
-        showToast('記事を削除しました');
+        await renderPosts();
       }
     });
 
@@ -803,8 +840,10 @@
     });
 
     // Render post list
-    function renderPosts() {
-      const posts = BlogCMS.getAllPosts();
+    async function renderPosts() {
+      $('postList').innerHTML = '<div style="text-align:center;padding:24px;color:#718096;">読み込み中...</div>';
+
+      const posts = await BlogCMS.getAllPosts();
       $('postCount').textContent = `${posts.length}件`;
 
       if (posts.length === 0) {
@@ -816,9 +855,11 @@
         return;
       }
 
+      const noImg = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="68" fill="%23e2e8f0"><rect width="100" height="68"/><text x="50" y="38" text-anchor="middle" fill="%23a0aec0" font-size="10">No Image</text></svg>');
+
       $('postList').innerHTML = posts.map(post => `
         <div class="admin-post-card">
-          <img class="admin-post-thumb" src="${post.thumbnail || 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"68\" fill=\"%23e2e8f0\"><rect width=\"100\" height=\"68\"/><text x=\"50\" y=\"38\" text-anchor=\"middle\" fill=\"%23a0aec0\" font-size=\"10\">No Image</text></svg>')}" alt="${post.title}">
+          <img class="admin-post-thumb" src="${post.thumbnail || noImg}" alt="${post.title}">
           <div class="admin-post-info">
             <h3>${post.title}</h3>
             <div class="admin-post-meta">
@@ -834,6 +875,25 @@
       `).join('');
     }
 
+    // Sitemap生成
+    $('btnSitemap').addEventListener('click', async () => {
+      $('sitemapModal').style.display = 'flex';
+      $('sitemapOutput').value = '生成中...';
+      const posts = await BlogCMS.getAllPosts();
+      const today = new Date().toISOString().split('T')[0];
+      const postUrls = posts.map(p => {
+        const mod = p.updatedAt ? p.updatedAt.split('T')[0] : (p.createdAt ? p.createdAt.split('T')[0] : today);
+        return `  <url>\n    <loc>https://raizon-okinawa.com/blog-post.html?id=${p.id}</loc>\n    <lastmod>${mod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`;
+      }).join('\n');
+      $('sitemapOutput').value = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>https://raizon-okinawa.com/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n  <url>\n    <loc>https://raizon-okinawa.com/blog-list.html</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://raizon-okinawa.com/blog-post.html</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>\n${postUrls}\n</urlset>`;
+    });
+    $('btnSitemapClose').addEventListener('click', () => $('sitemapModal').style.display = 'none');
+    $('btnSitemapCopy').addEventListener('click', () => {
+      $('sitemapOutput').select();
+      document.execCommand('copy');
+      showToast('コピーしました！');
+    });
+
     // Toast
     function showToast(msg) {
       const t = $('toast');
@@ -842,18 +902,24 @@
       setTimeout(() => t.classList.remove('show'), 2500);
     }
 
-    // 認証
-    const ADMIN_PASS = 'Hfxtn823';
+    // 認証(パスワードの照合はサーバー側 /api/admin-posts で行う)
     function checkAuth() {
-      if (sessionStorage.getItem('raizon_admin') === '1') {
+      if (BlogCMS.getAdminPassword()) {
         document.getElementById('authOverlay').style.display = 'none';
+        return true;
       }
+      return false;
     }
-    checkAuth();
-    document.getElementById('authBtn').addEventListener('click', () => {
-      if (document.getElementById('authInput').value === ADMIN_PASS) {
-        sessionStorage.setItem('raizon_admin', '1');
+
+    const authed = checkAuth();
+    document.getElementById('authBtn').addEventListener('click', async () => {
+      const pw = document.getElementById('authInput').value;
+      if (await BlogCMS.verifyAdmin(pw)) {
+        BlogCMS.setAdminPassword(pw);
+        document.getElementById('authError').style.display = 'none';
         document.getElementById('authOverlay').style.display = 'none';
+        await initBlogSeed();
+        await renderPosts();
       } else {
         document.getElementById('authError').style.display = 'block';
       }
@@ -864,7 +930,9 @@
 
     // Init
     $('postDate').value = new Date().toISOString().split('T')[0];
-    renderPosts();
+    if (authed) {
+      initBlogSeed().then(() => renderPosts());
+    }
   </script>
 </body>
 </html>

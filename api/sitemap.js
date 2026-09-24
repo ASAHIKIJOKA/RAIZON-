@@ -1,18 +1,11 @@
-const FIREBASE_URL = 'https://parlor-minato-default-rtdb.firebaseio.com/raizon-blog/posts.json';
-const FIREBASE_SECRET = 'pyx1oEgJdwLh7gg6031seevIZN6be8zWiCHzopEO';
+const { getAllPosts } = require('./_firebase');
 
 module.exports = async function handler(req, res) {
   const today = new Date().toISOString().split('T')[0];
 
   let posts = [];
   try {
-    const r = await fetch(`${FIREBASE_URL}?auth=${FIREBASE_SECRET}`);
-    const data = await r.json();
-    if (data && !data.error) {
-      posts = Object.entries(data)
-        .map(([id, post]) => ({ id, ...post }))
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    }
+    posts = await getAllPosts();
   } catch (e) {
     // Firebase取得失敗時は静的ページのみ返す
   }

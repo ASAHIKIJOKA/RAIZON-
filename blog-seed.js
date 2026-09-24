@@ -1,6 +1,7 @@
 // ========================================
 // RAIZON Blog - Seed Data (初期記事データ)
-// localStorage が空の場合に自動で読み込まれる
+// Firebase が空の場合に自動で読み込まれる
+// このファイルは admin.html からのみ読み込む
 // ========================================
 
 function generateSvgThumbnail(title, colors, icon) {
@@ -91,13 +92,13 @@ const BLOG_SEED_DATA = [
 <p>AIチャットボットは、そんな課題を解決する強力なツールです。今回は、沖縄の事業者がAIチャットボットを導入すべき3つの理由をご紹介します。</p>
 
 <h3>1. 24時間365日、自動で顧客対応</h3>
-<p>営業時間外の問い合わせにも即座に対応。予約の取りこぼしがなくなり、顧客満足度も向上します。特に海外からの観光客は時差の関係で深夜に問い合わせることも多く、自動対応の効果は絶大です。</p>
+<p>営業時間外の問い合わせにも即座に対応。予約の取りこぼしがなくなり、顧客満足度も向上します。特に海外からの観光客は時差の関係で深夜に問い合わせることも多く、自動対応が役立つ場面は多いでしょう。</p>
 
 <h3>2. 多言語対応でインバウンド需要を取り込む</h3>
 <p>英語・中国語・韓国語など、主要言語に対応したチャットボットを構築可能。言語の壁を越えて、沖縄を訪れる外国人観光客にもスムーズに情報提供ができます。</p>
 
 <h3>3. スタッフの負担を大幅に軽減</h3>
-<p>よくある質問（営業時間、アクセス、料金など）をAIが自動回答することで、スタッフは本来の業務に集中できます。導入企業の実績では、問い合わせ対応時間が平均70%削減されています。</p>
+<p>よくある質問（営業時間、アクセス、料金など）をAIが自動回答することで、スタッフは本来の業務に集中できます。問い合わせ対応にかかる時間を大きく減らせる可能性があります(効果は業務内容により異なります)。</p>
 
 <h2>まとめ</h2>
 <p>AIチャットボットは、もはや大企業だけのツールではありません。RAIZONでは、沖縄の事業規模に合わせた最適なチャットボット構築をサポートしています。まずはお気軽にご相談ください。</p>`
@@ -129,14 +130,14 @@ const BLOG_SEED_DATA = [
 <p>クラウドベースのシステムなら、オフィスでも外出先でもデータにアクセス可能。スタッフ間のリアルタイムな情報共有が実現します。</p>
 
 <h3>3. コスト削減と業務効率化</h3>
-<p>印刷費・保管費の削減に加え、二重入力の排除や自動化による人的コストの削減効果も。導入企業では月間20〜30時間の業務時間削減を実現しています。</p>
+<p>印刷費・保管費の削減に加え、二重入力の排除や自動化による人的コストの削減効果も。業務時間の削減が期待できます(効果は業務内容により異なります)。</p>
 
 <h2>RAIZONのDX支援</h2>
 <p>RAIZONでは、現状の業務フロー分析から最適なデジタルツールの選定・導入・研修まで一貫してサポート。段階的な導入で、無理なくDXを進められます。</p>`
   },
   {
     id: 'seed-004',
-    title: 'LINE公式アカウントで売上アップ！飲食店の成功パターン5選',
+    title: 'LINE公式アカウントで売上アップ！飲食店の活用パターン5選',
     category: 'LINE構築',
     colors: ['#047857', '#06c755', '#34d399'],
     icon: 'LINE',
@@ -144,19 +145,19 @@ const BLOG_SEED_DATA = [
     body: `<h2>LINE公式アカウントが飲食店の味方に</h2>
 <p>日本のLINE利用者数は9,600万人以上。沖縄でもほとんどの方がLINEを日常的に使っています。この巨大なプラットフォームを活用しない手はありません。</p>
 
-<h3>成功パターン1：LINE予約で電話対応を80%削減</h3>
-<p>LINE上で予約が完結する仕組みを構築。営業中の電話対応が激減し、接客に集中できるようになった居酒屋の事例です。予約の取りこぼしもゼロになりました。</p>
+<h3>活用パターン1：LINE予約で電話対応の負担を軽減</h3>
+<p>LINE上で予約が完結する仕組みを構築。営業中の電話対応が減り、接客に集中しやすくなります。予約の取りこぼしの防止にもつながります。</p>
 
-<h3>成功パターン2：クーポン配信でリピート率30%アップ</h3>
-<p>来店後に自動でサンクスメッセージとクーポンを配信。次回来店のきっかけを作ることで、リピート率が大幅に向上しました。</p>
+<h3>活用パターン2：クーポン配信でリピートを促進</h3>
+<p>来店後に自動でサンクスメッセージとクーポンを配信。次回来店のきっかけを作ることで、リピートの促進が期待できます。</p>
 
-<h3>成功パターン3：新メニュー告知で来店数増加</h3>
+<h3>活用パターン3：新メニュー告知で来店数増加</h3>
 <p>季節限定メニューや日替わりランチをLINEで告知。写真付きのリッチメッセージで食欲を刺激し、ランチタイムの来店数が20%増加。</p>
 
-<h3>成功パターン4：スタンプカードのデジタル化</h3>
+<h3>活用パターン4：スタンプカードのデジタル化</h3>
 <p>紙のスタンプカードをLINEのショップカードに移行。紛失の心配がなく、顧客の来店頻度データも自動で蓄積されます。</p>
 
-<h3>成功パターン5：アンケート機能で顧客の声を収集</h3>
+<h3>活用パターン5：アンケート機能で顧客の声を収集</h3>
 <p>食事後にLINEで簡単アンケートを送信。リアルタイムで顧客満足度を把握し、サービス改善に活かしています。</p>
 
 <h2>まとめ</h2>
@@ -173,10 +174,10 @@ const BLOG_SEED_DATA = [
 <p>「働き方改革」という言葉が浸透して久しいですが、沖縄の中小企業ではまだまだアナログな業務が多いのが現状です。AIとDXを組み合わせることで、劇的な業務改善が可能です。</p>
 
 <h3>AI-OCRで書類処理を自動化</h3>
-<p>請求書・申込書・アンケートなど、紙の書類をAI-OCRで自動読み取り。手入力の手間とミスを大幅に削減できます。従来2時間かかっていたデータ入力作業が、わずか15分に短縮された事例もあります。</p>
+<p>請求書・申込書・アンケートなど、紙の書類をAI-OCRで自動読み取り。手入力の手間とミスを大幅に削減できます。データ入力にかかる時間の大幅な短縮が期待できます。</p>
 
 <h3>AIによる需要予測で在庫最適化</h3>
-<p>過去の売上データをAIが分析し、需要を予測。適正在庫を維持することで、廃棄ロスの削減と欠品防止を同時に実現します。飲食業や小売業で特に効果的です。</p>
+<p>過去の売上データをAIが分析し、需要を予測。適正在庫を維持することで、廃棄ロスの削減と欠品防止の両立を目指せます。飲食業や小売業で特に効果的です。</p>
 
 <h3>RPA（業務自動化ロボット）の導入</h3>
 <p>定型的な作業（データ転記、メール送信、レポート作成など）をソフトウェアロボットが代行。人が判断すべき業務に集中できる環境を構築します。</p>
@@ -223,37 +224,26 @@ const BLOG_SEED_DATA = [
   }
 ];
 
-// Seed data を初期化
-(function initBlogSeed() {
-  const existing = BlogCMS.getAllPosts();
-  if (existing.length === 0) {
-    // 初回訪問：全シード記事を追加
-    const posts = BLOG_SEED_DATA.map(article => ({
-      id: article.id,
-      title: article.title,
-      body: article.body,
-      category: article.category,
-      thumbnail: generateSvgThumbnail(article.title, article.colors, article.icon),
-      createdAt: article.createdAt,
-      updatedAt: article.createdAt
-    }));
-    BlogCMS.savePosts(posts);
-  } else {
-    // 既存データあり：未追加のシード記事だけ先頭に挿入
+// Seed data を Firebase に初期化（admin.html から呼ばれる）
+async function initBlogSeed() {
+  try {
+    const existing = await BlogCMS.getAllPosts();
     const existingIds = new Set(existing.map(p => p.id));
-    const newPosts = BLOG_SEED_DATA
-      .filter(article => !existingIds.has(article.id))
-      .map(article => ({
-        id: article.id,
-        title: article.title,
-        body: article.body,
-        category: article.category,
-        thumbnail: generateSvgThumbnail(article.title, article.colors, article.icon),
-        createdAt: article.createdAt,
-        updatedAt: article.createdAt
-      }));
-    if (newPosts.length > 0) {
-      BlogCMS.savePosts([...newPosts, ...existing]);
+
+    for (const article of BLOG_SEED_DATA) {
+      if (!existingIds.has(article.id)) {
+        const post = {
+          title: article.title,
+          body: article.body,
+          category: article.category,
+          thumbnail: generateSvgThumbnail(article.title, article.colors, article.icon),
+          createdAt: article.createdAt,
+          updatedAt: article.createdAt
+        };
+        await BlogCMS.putPost(article.id, post);
+      }
     }
+  } catch (e) {
+    console.error('Seed init failed', e);
   }
-})();
+}
