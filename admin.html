@@ -878,8 +878,10 @@
             </div>
           </div>
           <div class="admin-post-actions">
-            <button class="btn-edit" onclick="editPost('${post.id}')">編集</button>
-            <button class="btn-delete" onclick="confirmDelete('${post.id}')">削除</button>
+            ${post.source === 'file'
+              ? '<span style="font-size:0.75rem;color:#718096;">自動投稿<br>(ファイル管理)</span>'
+              : `<button class="btn-edit" onclick="editPost('${post.id}')">編集</button>
+            <button class="btn-delete" onclick="confirmDelete('${post.id}')">削除</button>`}
           </div>
         </div>
       `).join('');

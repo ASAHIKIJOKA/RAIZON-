@@ -33,7 +33,8 @@ module.exports = async function handler(req, res) {
 
   const postUrl  = `https://raizon-okinawa.com/blog-post?id=${id}`;
   const desc     = truncate(post.body || '', 120);
-  const img      = post.thumbnail || 'https://raizon-okinawa.com/seo-meo-thumb.webp';
+  // data: URI のサムネイルは SNS・検索エンジンで使えないため、共有用の画像は既定画像にする
+  const img      = (post.thumbnail && /^https?:\/\//.test(post.thumbnail)) ? post.thumbnail : 'https://raizon-okinawa.com/seo-meo-thumb.webp';
   const datePub  = new Date(post.createdAt).toISOString();
   const dateMod  = new Date(post.updatedAt || post.createdAt).toISOString();
   const fmtDate  = formatDate(post.createdAt);
@@ -56,6 +57,24 @@ function truncate(text, len) {
 function formatDate(iso) {
   const d = new Date(iso);
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// 本文の「よくある質問」(h2)の後ろにある h3(質問) と p(回答) を FAQPage の構造化データにする
+function buildFaqJsonLd(body) {
+  const start = body.indexOf('<h2>よくある質問</h2>');
+  if (start < 0) return '';
+  let section = body.slice(start + '<h2>よくある質問</h2>'.length);
+  const nextH2 = section.search(/<h2[\s>]/);
+  if (nextH2 >= 0) section = section.slice(0, nextH2);
+  const strip = t => t.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  const items = [];
+  const re = /<h3[^>]*>([\s\S]*?)<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/g;
+  let m;
+  while ((m = re.exec(section))) {
+    const q = strip(m[1]), a = strip(m[2]);
+    if (q && a) items.push({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } });
+  }
+  return items.length ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items }) : '';
 }
 
 function esc(str) {
@@ -89,6 +108,8 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
     mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
     url: postUrl
   });
+
+  const ldFaq = buildFaqJsonLd(post.body || '');
 
   const ldBreadcrumb = JSON.stringify({
     '@context': 'https://schema.org',
@@ -136,6 +157,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
   <link rel="stylesheet" href="/style.css">
   <script type="application/ld+json">${ldBlogPosting}</script>
   <script type="application/ld+json">${ldBreadcrumb}</script>
+  ${ldFaq ? `<script type="application/ld+json">${ldFaq.replace(/</g, '\\u003c')}</script>` : ''}
   <style>
     .blog-post-page .navbar{background:rgba(255,255,255,.97);box-shadow:0 1px 3px rgba(0,0,0,.08);backdrop-filter:blur(12px)}
     .blog-post-page .nav-logo-img{filter:none}

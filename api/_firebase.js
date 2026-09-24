@@ -25,11 +25,23 @@ async function request(path, method = 'GET', body) {
   return data;
 }
 
+// ファイル管理の記事(content/articles → api/_posts-static.json)。自動投稿で使う。
+// 同じidがDBにもある場合は、ファイル側を正とする。
+const { svgThumbnail } = require('./_thumb');
+function staticPosts() {
+  try {
+    return require('./_posts-static.json').map(p => ({ ...p, thumbnail: p.thumbnail || svgThumbnail(p.title, p.category) }));
+  } catch (e) {
+    return [];
+  }
+}
+
 async function getAllPosts() {
-  const data = await request(POSTS_PATH);
-  if (!data) return [];
-  return Object.entries(data)
-    .map(([id, post]) => ({ ...post, id }))
+  const data = await request(POSTS_PATH).catch(e => { if (staticPosts().length === 0) throw e; console.error('DB read failed, using file posts only:', e.message); return null; });
+  const fromDb = data ? Object.entries(data).map(([id, post]) => ({ ...post, id })) : [];
+  const files = staticPosts();
+  const fileIds = new Set(files.map(p => p.id));
+  return [...files, ...fromDb.filter(p => !fileIds.has(p.id))]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }
 
@@ -47,6 +59,8 @@ async function getPublishedPosts() {
 
 async function getPost(id) {
   if (!isValidId(id)) return null;
+  const fromFile = staticPosts().find(p => p.id === id);
+  if (fromFile) return fromFile;
   const data = await request(`${POSTS_PATH}/${id}`);
   return data ? { ...data, id } : null;
 }
