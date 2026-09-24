@@ -2,15 +2,24 @@
 // 管理API: ブログ記事の作成・更新・削除(パスワード認証必須)
 //   POST /api/admin-posts
 //   ヘッダー  x-admin-password: 管理パスワード(環境変数 ADMIN_PASSWORD と照合)
-//   body      { action: 'verify' | 'add' | 'update' | 'put' | 'delete', id?, post? }
+//   body      { action: 'verify' | 'list' | 'add' | 'import' | 'update' | 'put' | 'delete', id?, post?, posts? }
+//   list   : 予約中の記事を含む全記事
+//   import : 記事の一括登録(予約投稿)。post.createdAt が公開日時(未来なら公開日まで非公開)
 // ========================================
 
 const crypto = require('crypto');
-const { isValidId, putPost, patchPost, deletePost } = require('./_firebase');
+const { isValidId, isPublished, getAllPosts, putPost, patchPost, deletePost } = require('./_firebase');
 
 const HOST = 'raizon-okinawa.com';
 const INDEXNOW_KEY = 'e05e507884b16deb8e3fa6c6771abddc';
 const ALLOWED_FIELDS = ['title', 'body', 'category', 'thumbnail', 'createdAt', 'updatedAt'];
+const MAX_IMPORT = 40;
+
+let idCounter = 0;
+function newPostId() {
+  idCounter = (idCounter + 1) % 1000;
+  return `${Date.now()}${String(idCounter).padStart(3, '0')}`;
+}
 
 function passwordMatches(input) {
   const expected = process.env.ADMIN_PASSWORD;
@@ -69,14 +78,50 @@ module.exports = async function handler(req, res) {
   try {
     if (action === 'verify') return res.status(200).json({ ok: true });
 
+    if (action === 'list') return res.status(200).json(await getAllPosts());
+
+    if (action === 'import') {
+      const items = Array.isArray(body.posts) ? body.posts : null;
+      if (!items || items.length === 0 || items.length > MAX_IMPORT) {
+        return res.status(400).json({ error: `posts must be 1-${MAX_IMPORT} items` });
+      }
+      const nowIso = new Date().toISOString();
+      const prepared = [];
+      for (const item of items) {
+        const data = pickFields(item);
+        const validDate = data.createdAt && !Number.isNaN(new Date(data.createdAt).getTime());
+        if (typeof data.title !== 'string' || !data.title.trim() || typeof data.body !== 'string' || !data.body.trim() || !validDate) {
+          return res.status(400).json({ error: 'each post needs title, body and a valid createdAt' });
+        }
+        data.updatedAt = nowIso;
+        if (item.id !== undefined && !isValidId(item.id)) {
+          return res.status(400).json({ error: 'invalid id (use letters, numbers, - and _ up to 64 chars)' });
+        }
+        prepared.push({ id: item.id, data });
+      }
+      const created = [];
+      const seen = new Set();
+      for (const { id: givenId } of prepared) {
+        if (givenId && seen.has(givenId)) return res.status(400).json({ error: 'duplicate id in import' });
+        if (givenId) seen.add(givenId);
+      }
+      for (const { id: givenId, data } of prepared) {
+        const newId = givenId || newPostId();
+        await putPost(newId, data);
+        created.push({ id: newId, title: data.title, createdAt: data.createdAt, published: isPublished(data) });
+      }
+      await notifyIndexNow(null);
+      return res.status(200).json({ ok: true, created });
+    }
+
     const now = new Date().toISOString();
 
     if (action === 'add') {
-      const newId = Date.now().toString();
+      const newId = newPostId();
       const data = { ...pickFields(post), updatedAt: now };
       data.createdAt = data.createdAt || now;
       await putPost(newId, data);
-      await notifyIndexNow(newId);
+      if (isPublished(data)) await notifyIndexNow(newId);
       return res.status(200).json({ ...data, id: newId });
     }
 

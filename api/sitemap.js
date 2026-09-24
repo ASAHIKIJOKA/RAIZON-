@@ -1,11 +1,11 @@
-const { getAllPosts } = require('./_firebase');
+const { getPublishedPosts } = require('./_firebase');
 
 module.exports = async function handler(req, res) {
   const today = new Date().toISOString().split('T')[0];
 
   let posts = [];
   try {
-    posts = await getAllPosts();
+    posts = await getPublishedPosts();
   } catch (e) {
     // Firebase取得失敗時は静的ページのみ返す
   }

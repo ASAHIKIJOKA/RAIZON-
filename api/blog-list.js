@@ -3,12 +3,12 @@
 // Googlebot向けにサーバーサイドでHTMLを生成する
 // ========================================
 
-const { getAllPosts } = require('./_firebase');
+const { getPublishedPosts } = require('./_firebase');
 
 module.exports = async function handler(req, res) {
   let posts = [];
   try {
-    posts = await getAllPosts();
+    posts = await getPublishedPosts();
   } catch (e) {
     console.error('Firebase fetch error:', e);
   }
@@ -28,7 +28,9 @@ module.exports = async function handler(req, res) {
 // ユーティリティ
 // ----------------------------------------
 function truncate(text, len) {
-  const plain = text.replace(/<[^>]*>/g, '');
+  // 冒頭の段落(<p>)を優先して使い、改行や余分な空白は詰める(検索結果の説明文・一覧の抜粋用)
+  const p = text.match(/<p[^>]*>([\s\S]*?)<\/p>/);
+  const plain = (p ? p[1] : text).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
   return plain.length > len ? plain.substring(0, len) + '...' : plain;
 }
 

@@ -616,6 +616,14 @@
         </div>
       </div>
       <div id="postList"></div>
+
+      <div class="bulk-import" style="margin-top:24px;padding:16px;border:1px dashed #cbd5e0;border-radius:12px;background:#f7fafc;">
+        <h3 style="font-size:0.95rem;margin-bottom:6px;">📥 記事の一括登録(予約投稿)</h3>
+        <p style="font-size:0.8rem;color:#718096;margin-bottom:10px;">JSONファイルを選ぶと、記事をまとめて登録します。公開日が未来の記事は、その日まで非公開で、公開日になると自動で表示されます。</p>
+        <input type="file" id="bulkFile" accept=".json,application/json" style="font-size:0.85rem;margin-bottom:8px;">
+        <div id="bulkPreview" style="font-size:0.82rem;color:#2d3748;margin-bottom:8px;"></div>
+        <button class="btn-edit" id="btnBulkImport" style="font-size:0.85rem;padding:6px 14px;" disabled>この内容で登録する</button>
+      </div>
     </div>
   </div>
 
@@ -648,7 +656,6 @@
   <div class="toast" id="toast"></div>
 
   <script src="blog.js"></script>
-  <script src="blog-seed.js"></script>
   <script>
     const $ = id => document.getElementById(id);
 
@@ -787,7 +794,7 @@
 
     // Edit
     async function editPost(id) {
-      const post = await BlogCMS.getPost(id);
+      const post = await BlogCMS.getPostAdmin(id);
       if (!post) return;
 
       $('editId').value = post.id;
@@ -843,8 +850,10 @@
     async function renderPosts() {
       $('postList').innerHTML = '<div style="text-align:center;padding:24px;color:#718096;">読み込み中...</div>';
 
-      const posts = await BlogCMS.getAllPosts();
-      $('postCount').textContent = `${posts.length}件`;
+      let posts = [];
+      try { posts = await BlogCMS.getAllPostsAdmin(); } catch (e) { $('postList').innerHTML = '<div style="text-align:center;padding:24px;color:#c53030;">記事を読み込めません。ログインし直してください。</div>'; return; }
+      const scheduledCount = posts.filter(p => BlogCMS.isScheduled(p)).length;
+      $('postCount').textContent = `${posts.length}件` + (scheduledCount ? `(予約${scheduledCount}件)` : '');
 
       if (posts.length === 0) {
         $('postList').innerHTML = `
@@ -865,6 +874,7 @@
             <div class="admin-post-meta">
               <span class="cat">${post.category || 'お知らせ'}</span>
               <span>${BlogCMS.formatDate(post.createdAt)}</span>
+              ${BlogCMS.isScheduled(post) ? '<span style="background:#fef3c7;color:#92400e;border-radius:99px;padding:1px 10px;font-weight:700;">予約(公開前)</span>' : ''}
             </div>
           </div>
           <div class="admin-post-actions">
@@ -879,7 +889,7 @@
     $('btnSitemap').addEventListener('click', async () => {
       $('sitemapModal').style.display = 'flex';
       $('sitemapOutput').value = '生成中...';
-      const posts = await BlogCMS.getAllPosts();
+      const posts = (await BlogCMS.getAllPostsAdmin()).filter(p => !BlogCMS.isScheduled(p));
       const today = new Date().toISOString().split('T')[0];
       const postUrls = posts.map(p => {
         const mod = p.updatedAt ? p.updatedAt.split('T')[0] : (p.createdAt ? p.createdAt.split('T')[0] : today);
@@ -892,6 +902,50 @@
       $('sitemapOutput').select();
       document.execCommand('copy');
       showToast('コピーしました！');
+    });
+
+    // 一括登録(予約投稿)
+    // JSON形式: [{ "title": "", "category": "LINE構築", "publishAt": "2026-10-01", "body": "<h2>…" }, ...]
+    let bulkPosts = null;
+    function parseBulk(text) {
+      const arr = JSON.parse(text);
+      if (!Array.isArray(arr) || arr.length === 0) throw new Error('記事の配列(JSON)ではありません');
+      if (arr.length > 40) throw new Error('一度に登録できるのは40件までです');
+      return arr.map((a, i) => {
+        if (!a.title || !a.body) throw new Error(`${i + 1}件目: title と body が必要です`);
+        const d = a.publishAt || a.createdAt;
+        const iso = d ? (/^\d{4}-\d{2}-\d{2}$/.test(d) ? new Date(d + 'T10:00:00+09:00').toISOString() : new Date(d).toISOString()) : null;
+        if (!iso) throw new Error(`${i + 1}件目: publishAt(公開日)が必要です`);
+        const category = a.category || 'お知らせ';
+        return { id: a.id, title: a.title, body: a.body, category, createdAt: iso, thumbnail: a.thumbnail || BlogCMS.svgThumbnail(a.title, category) };
+      });
+    }
+    $('bulkFile').addEventListener('change', async (e) => {
+      bulkPosts = null; $('btnBulkImport').disabled = true; $('bulkPreview').textContent = '';
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        bulkPosts = parseBulk(await file.text());
+        $('bulkPreview').innerHTML = `<strong>${bulkPosts.length}件</strong>を登録します:<br>` + bulkPosts.map(p =>
+          `・${BlogCMS.formatDate(p.createdAt)} ${new Date(p.createdAt) > new Date() ? '(予約)' : '(すぐ公開)'} ${p.title.replace(/[<>&]/g, '')}`).join('<br>');
+        $('btnBulkImport').disabled = false;
+      } catch (err) {
+        $('bulkPreview').textContent = '読み込みエラー: ' + err.message;
+      }
+    });
+    $('btnBulkImport').addEventListener('click', async () => {
+      if (!bulkPosts) return;
+      $('btnBulkImport').disabled = true; $('btnBulkImport').textContent = '登録中...';
+      try {
+        const r = await BlogCMS.importPosts(bulkPosts);
+        showToast(`${r.created.length}件を登録しました`);
+        bulkPosts = null; $('bulkFile').value = ''; $('bulkPreview').textContent = '';
+        await renderPosts();
+      } catch (err) {
+        showToast('登録に失敗しました');
+        $('btnBulkImport').disabled = false;
+      }
+      $('btnBulkImport').textContent = 'この内容で登録する';
     });
 
     // Toast
@@ -918,7 +972,6 @@
         BlogCMS.setAdminPassword(pw);
         document.getElementById('authError').style.display = 'none';
         document.getElementById('authOverlay').style.display = 'none';
-        await initBlogSeed();
         await renderPosts();
       } else {
         document.getElementById('authError').style.display = 'block';
@@ -931,7 +984,7 @@
     // Init
     $('postDate').value = new Date().toISOString().split('T')[0];
     if (authed) {
-      initBlogSeed().then(() => renderPosts());
+      renderPosts();
     }
   </script>
 </body>

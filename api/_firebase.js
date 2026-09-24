@@ -33,6 +33,18 @@ async function getAllPosts() {
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }
 
+// 予約投稿: createdAt(公開日時)が未来の記事は、公開日まで一般公開しない
+function isPublished(post, now = Date.now()) {
+  if (!post || !post.createdAt) return false;
+  const t = new Date(post.createdAt).getTime();
+  return !Number.isNaN(t) && t <= now;
+}
+
+async function getPublishedPosts() {
+  const now = Date.now();
+  return (await getAllPosts()).filter(p => isPublished(p, now));
+}
+
 async function getPost(id) {
   if (!isValidId(id)) return null;
   const data = await request(`${POSTS_PATH}/${id}`);
@@ -51,4 +63,4 @@ async function deletePost(id) {
   return request(`${POSTS_PATH}/${id}`, 'DELETE');
 }
 
-module.exports = { isValidId, getAllPosts, getPost, putPost, patchPost, deletePost };
+module.exports = { isValidId, isPublished, getAllPosts, getPublishedPosts, getPost, putPost, patchPost, deletePost };
