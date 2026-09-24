@@ -2788,3 +2788,230 @@ textarea.contact-form-input {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
+/* ========================================
+   料金プラン(HTML版)
+   ======================================== */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: stretch;
+}
+
+.price-card {
+  --plan: var(--primary);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-top: 6px solid var(--plan);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.price-card--basic { --plan: #06C755; }
+.price-card--standard { --plan: var(--ocean-end); }
+.price-card--premium { --plan: var(--primary); }
+
+.price-card-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--plan);
+  background: var(--gray-50);
+  border: 1px solid var(--plan);
+  border-radius: 99px;
+  padding: 3px 12px;
+  margin-bottom: 10px;
+}
+
+.price-card-head h3,
+.price-buyout h3 {
+  font-size: 1.35rem;
+  color: var(--plan);
+  margin-bottom: 8px;
+}
+
+.price-card-lead {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  min-height: 3.4em;
+}
+
+.price-amount {
+  margin: 18px 0 2px;
+  color: var(--text);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.price-unit {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--plan);
+  border: 1px solid var(--plan);
+  border-radius: 6px;
+  padding: 1px 8px;
+  margin-right: 6px;
+}
+
+.price-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--plan);
+}
+
+.price-yen {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.price-tax {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.price-sub {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.price-features {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 16px 0 0;
+  border-top: 1px dashed var(--gray-200);
+}
+
+.price-features li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+  font-size: 0.92rem;
+}
+
+.price-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 900;
+  color: var(--plan);
+}
+
+.price-for {
+  margin-top: auto;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.price-for h4,
+.price-buyout-detail h4 {
+  font-size: 0.85rem;
+  color: var(--plan);
+  margin-bottom: 6px;
+}
+
+.price-for ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.price-for li {
+  font-size: 0.85rem;
+  color: var(--text);
+  padding-left: 14px;
+  position: relative;
+  margin-bottom: 3px;
+}
+
+.price-for li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+  color: var(--plan);
+}
+
+.price-buyout {
+  --plan: var(--primary);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 32px;
+  background: linear-gradient(135deg, #f4f9fc 0%, #e6f1f8 100%);
+  border: 1px solid var(--gray-200);
+  border-left: 8px solid var(--plan);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 28px 32px;
+  margin-bottom: 20px;
+}
+
+.price-buyout .price-features {
+  border-top: none;
+  padding-top: 0;
+  columns: 2;
+  column-gap: 24px;
+}
+
+.price-buyout-detail h4 {
+  margin-bottom: 8px;
+}
+
+.price-buyout-for {
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.price-note {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  text-align: center;
+  margin: 0 0 24px;
+}
+
+.price-cta {
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .price-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .price-card-lead {
+    min-height: 0;
+  }
+
+  .price-buyout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 20px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .price-num {
+    font-size: 2.1rem;
+  }
+
+  .price-buyout .price-features {
+    columns: 1;
+  }
+}
