@@ -49,9 +49,15 @@ for (const f of files) {
     const id = l.match(/id=([^"]+)"/)[1];
     if (!allIds.has(id)) errors.push(`${f}: 内部リンク先の記事がありません (${id})`);
   }
+  posts.__links = posts.__links || []; for (const l of body.match(/href="\/blog-post\?id=[^"]+"/g) || []) posts.__links.push({ from: meta.id, fromDate: meta.publishAt, to: l.match(/id=([^"]+)"/)[1], file: f });
   posts.push({ id: meta.id, title: meta.title, category: meta.category, createdAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), updatedAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), body, source: 'file', ...(meta.thumbnail ? { thumbnail: meta.thumbnail } : {}) });
 }
 
+// 内部リンク先が、リンク元より後に公開される場合は、公開直後にリンク切れ(404)になるため、エラーにする
+const dateOf = Object.fromEntries(posts.map(p => [p.id, p.createdAt.slice(0, 10)]));
+for (const l of posts.__links || []) {
+  if (dateOf[l.to] && dateOf[l.to] > l.fromDate) errors.push(`${l.file}: リンク先 ${l.to} の公開日(${dateOf[l.to]})が、この記事(${l.fromDate})より後です。公開直後にリンク切れになります`);
+}
 warnings.forEach(w => console.log((strict ? 'エラー(strict): ' : '警告: ') + w));
 if (errors.length || (strict && warnings.length)) { errors.forEach(e => console.error('エラー: ' + e)); process.exit(1); }
 if (dry) { console.log(`検証OK(--dry): ${posts.length}件`); process.exit(0); }
