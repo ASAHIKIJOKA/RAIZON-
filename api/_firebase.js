@@ -36,12 +36,18 @@ function staticPosts() {
   }
 }
 
+// 非表示にする記事(DBに残っている旧記事など)。DBのデータは消さずに、公開だけ止める。
+function hiddenIds() {
+  try { return new Set(require('./_hidden-ids.json')); } catch (e) { return new Set(); }
+}
+
 async function getAllPosts() {
   const data = await request(POSTS_PATH).catch(e => { if (staticPosts().length === 0) throw e; console.error('DB read failed, using file posts only:', e.message); return null; });
   const fromDb = data ? Object.entries(data).map(([id, post]) => ({ ...post, id })) : [];
   const files = staticPosts();
   const fileIds = new Set(files.map(p => p.id));
-  return [...files, ...fromDb.filter(p => !fileIds.has(p.id))]
+  const hidden = hiddenIds();
+  return [...files, ...fromDb.filter(p => !fileIds.has(p.id) && !hidden.has(p.id))]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }
 
@@ -61,6 +67,7 @@ async function getPost(id) {
   if (!isValidId(id)) return null;
   const fromFile = staticPosts().find(p => p.id === id);
   if (fromFile) return fromFile;
+  if (hiddenIds().has(id)) return null;
   const data = await request(`${POSTS_PATH}/${id}`);
   return data ? { ...data, id } : null;
 }

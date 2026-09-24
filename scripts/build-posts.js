@@ -46,6 +46,9 @@ for (const f of files) {
 
 warnings.forEach(w => console.log((strict ? 'エラー(strict): ' : '警告: ') + w));
 if (errors.length || (strict && warnings.length)) { errors.forEach(e => console.error('エラー: ' + e)); process.exit(1); }
+// 非表示にする記事id(DB側の旧記事など)。content/hidden-ids.json → api/_hidden-ids.json
+const hiddenSrc = path.join(__dirname, '..', 'content', 'hidden-ids.json');
+if (fs.existsSync(hiddenSrc)) fs.copyFileSync(hiddenSrc, path.join(__dirname, '..', 'api', '_hidden-ids.json'));
 posts.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 fs.writeFileSync(out, JSON.stringify(posts, null, 1) + '\n', 'utf8');
 const now = Date.now();
