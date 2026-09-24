@@ -3,6 +3,7 @@ const THEMES = {
   'LINE構築': { colors: ['#065f46', '#06C755', '#6ee7b7'], icon: 'LINE' },
   'AI活用': { colors: ['#1e3a5f', '#2563eb', '#60a5fa'], icon: 'AI' },
   'DX支援': { colors: ['#134e4a', '#0d9488', '#5eead4'], icon: 'DX' },
+  '制作実績': { colors: ['#7c2d12', '#ea580c', '#fdba74'], icon: 'WORK' },
   'お知らせ': { colors: ['#334155', '#64748b', '#cbd5e1'], icon: 'NEWS' },
 };
 const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

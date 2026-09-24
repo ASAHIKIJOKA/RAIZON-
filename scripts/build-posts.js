@@ -1,20 +1,26 @@
 // 記事ファイル(content/articles/*.html)を、サイトが読む api/_posts-static.json に変換する
 // 使い方: node scripts/build-posts.js [--strict]
 //   --strict : 警告もエラー扱いにする(自動投稿で使用。危険な表現・短すぎる記事を通さない)
+//   --dry    : 検証だけ行い、書き出さない  /  --dir=PATH : 記事フォルダを指定(下書きの検証用)
 // 記事ファイルの先頭に <!--meta ... --> で id / title / category / publishAt(YYYY-MM-DD, 日本時間10:00公開)を書く。
 const fs = require('fs');
 const path = require('path');
 
 const strict = process.argv.includes('--strict');
-const dir = path.join(__dirname, '..', 'content', 'articles');
+const dry = process.argv.includes('--dry'); // 検証だけ行い、書き出さない(下書きの確認用)
+const dirArg = process.argv.find(a => a.startsWith('--dir='));
+const dir = dirArg ? path.resolve(dirArg.slice(6)) : path.join(__dirname, '..', 'content', 'articles');
 const out = path.join(__dirname, '..', 'api', '_posts-static.json');
-const CATEGORIES = ['お知らせ', 'AI活用', 'DX支援', 'LINE構築'];
+const CATEGORIES = ['お知らせ', 'AI活用', 'DX支援', 'LINE構築', '制作実績'];
 // 根拠のない断定・数字の効果表現を防ぐ簡易チェック
 const RISKY = [/\d+\s*[%％]/, /\d+倍/, /No\.?\s*1/i, /ナンバー\s*1/, /必ず(成功|売上|増)/, /絶対/, /100\s*%/, /確実に(売上|集客|増)/, /業界(最安|最高)/, /日本一|県内一|沖縄一/];
 
 const files = fs.readdirSync(dir).filter(f => f.endsWith('.html')).sort();
 const metaOf = f => { const m = fs.readFileSync(path.join(dir, f), 'utf8').match(/^<!--meta\r?\n([\s\S]*?)-->/); const o = {}; if (m) for (const l of m[1].split(/\r?\n/)) { const i = l.indexOf(':'); if (i > 0) o[l.slice(0, i).trim()] = l.slice(i + 1).trim(); } return o; };
-const allIds = new Set(files.map(f => metaOf(f).id).filter(Boolean));
+// 内部リンクの確認には、公開用フォルダ(content/articles)の記事も含める(下書きフォルダを検証するとき用)
+const mainDir = path.join(__dirname, '..', 'content', 'articles');
+const metaIn = (d, f) => { const m = fs.readFileSync(path.join(d, f), 'utf8').match(/^<!--meta\r?\n([\s\S]*?)-->/); const o = {}; if (m) for (const l of m[1].split(/\r?\n/)) { const i = l.indexOf(':'); if (i > 0) o[l.slice(0, i).trim()] = l.slice(i + 1).trim(); } return o; };
+const allIds = new Set([...files.map(f => metaOf(f).id), ...fs.readdirSync(mainDir).filter(f => f.endsWith('.html')).map(f => metaIn(mainDir, f).id)].filter(Boolean));
 
 const posts = [], errors = [], warnings = [], seen = new Set();
 for (const f of files) {
@@ -46,6 +52,7 @@ for (const f of files) {
 
 warnings.forEach(w => console.log((strict ? 'エラー(strict): ' : '警告: ') + w));
 if (errors.length || (strict && warnings.length)) { errors.forEach(e => console.error('エラー: ' + e)); process.exit(1); }
+if (dry) { console.log(`検証OK(--dry): ${posts.length}件`); process.exit(0); }
 // 非表示にする記事id(DB側の旧記事など)。content/hidden-ids.json → api/_hidden-ids.json
 const hiddenSrc = path.join(__dirname, '..', 'content', 'hidden-ids.json');
 if (fs.existsSync(hiddenSrc)) fs.copyFileSync(hiddenSrc, path.join(__dirname, '..', 'api', '_hidden-ids.json'));
