@@ -224,24 +224,26 @@ const BLOG_SEED_DATA = [
   }
 ];
 
-// Seed data を Firebase に初期化（admin.html から呼ばれる）
+// 初期記事の投入(admin.html から呼ばれる)
+// DBが空のときだけ投入する。1件でも記事があれば何もしない(削除した記事が復活しないように)。
+// 取得に失敗した場合も何もしない(既存記事の上書きを防ぐため)。
 async function initBlogSeed() {
   try {
-    const existing = await BlogCMS.getAllPosts();
-    const existingIds = new Set(existing.map(p => p.id));
+    const res = await fetch('/api/posts');
+    if (!res.ok) return;
+    const existing = await res.json();
+    if (!Array.isArray(existing) || existing.length > 0) return;
 
     for (const article of BLOG_SEED_DATA) {
-      if (!existingIds.has(article.id)) {
-        const post = {
-          title: article.title,
-          body: article.body,
-          category: article.category,
-          thumbnail: generateSvgThumbnail(article.title, article.colors, article.icon),
-          createdAt: article.createdAt,
-          updatedAt: article.createdAt
-        };
-        await BlogCMS.putPost(article.id, post);
-      }
+      const post = {
+        title: article.title,
+        body: article.body,
+        category: article.category,
+        thumbnail: generateSvgThumbnail(article.title, article.colors, article.icon),
+        createdAt: article.createdAt,
+        updatedAt: article.createdAt
+      };
+      await BlogCMS.putPost(article.id, post);
     }
   } catch (e) {
     console.error('Seed init failed', e);
