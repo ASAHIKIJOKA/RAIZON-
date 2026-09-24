@@ -36,6 +36,8 @@ for (const f of files) {
   if (!meta.title) errors.push(`${f}: title がありません`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.publishAt || '')) errors.push(`${f}: publishAt は YYYY-MM-DD 形式`);
   if (!CATEGORIES.includes(meta.category)) errors.push(`${f}: category は ${CATEGORIES.join('/')} のいずれか`);
+  if (meta.thumbnail && !/^https:\/\//.test(meta.thumbnail)) errors.push(`${f}: thumbnail は https:// から始まるURL`);
+  for (const src of body.match(/<img [^>]*src="([^"]+)"/g) || []) { const u = src.match(/src="([^"]+)"/)[1]; if (u.startsWith('/') && !fs.existsSync(path.join(__dirname, '..', u.slice(1)))) errors.push(`${f}: 画像ファイルがありません (${u})`); if (!/alt="[^"]+"/.test(body.slice(body.indexOf(src), body.indexOf(src) + 400))) warnings.push(`${f}: 画像に alt がありません (${u})`); }
   if (plain.length < 900) warnings.push(`${f}: 本文が短めです(${plain.length}文字)`);
   const intro = ((body.match(/<p>([\s\S]*?)<\/p>/) || [])[1] || '').replace(/<[^>]*>/g, '');
   if (intro.length < 60 || intro.length > 130) warnings.push(`${f}: 冒頭の段落が${intro.length}文字です(目安は60〜120文字。検索結果の説明文になる)`);
@@ -47,7 +49,7 @@ for (const f of files) {
     const id = l.match(/id=([^"]+)"/)[1];
     if (!allIds.has(id)) errors.push(`${f}: 内部リンク先の記事がありません (${id})`);
   }
-  posts.push({ id: meta.id, title: meta.title, category: meta.category, createdAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), updatedAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), body, source: 'file' });
+  posts.push({ id: meta.id, title: meta.title, category: meta.category, createdAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), updatedAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), body, source: 'file', ...(meta.thumbnail ? { thumbnail: meta.thumbnail } : {}) });
 }
 
 warnings.forEach(w => console.log((strict ? 'エラー(strict): ' : '警告: ') + w));
