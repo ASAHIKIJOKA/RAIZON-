@@ -288,7 +288,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 RAIZON. All rights reserved.</p>
+        <p>&copy; 2026 RAIZON. All rights reserved.</p>
       </div>
     </div>
   </footer>

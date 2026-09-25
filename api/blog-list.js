@@ -214,7 +214,7 @@ function renderHtml(posts, categories, activeCategory) {
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 RAIZON. All rights reserved.</p>
+        <p>&copy; 2026 RAIZON. All rights reserved.</p>
       </div>
     </div>
   </footer>
