@@ -10,7 +10,7 @@ module.exports = async function handler(req, res) {
 
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
-  const { name, email, phone, company, services, message, website } = body || {};
+  const { name, email, phone, company, services, message, website, source } = body || {};
   // ハニーポット: 人には見えない入力欄に値が入っていたら、迷惑な自動送信とみなして、成功を装って破棄する
   if (website) return res.status(200).json({ ok: true });
   if (!name || !email || !phone || !message) {
@@ -40,6 +40,7 @@ module.exports = async function handler(req, res) {
         `電話番号: ${phone || '未入力'}`,
         `会社名・屋号: ${company || '未入力'}`,
         `ご興味のあるサービス: ${services || '未選択'}`,
+        `流入元(サイトに来たきっかけ): ${String(source || '不明').slice(0, 200)}`,
         '',
         `ご相談内容:`,
         message,

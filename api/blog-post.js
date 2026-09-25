@@ -202,6 +202,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
     .post-service-cta-links a:hover{background:#ebf8ff}
     @media(max-width:600px){.post-body-wrap{padding:28px 20px}.post-title{font-size:1.3rem}.post-back{flex-direction:column;gap:10px}.post-back .btn,.post-back .btn-outline-dark{width:100%;text-align:center;padding:11px 20px;font-size:.88rem}.post-breadcrumb .bc-title,.post-breadcrumb .bc-title-sep{display:none}.related-posts-grid{grid-template-columns:1fr}.post-service-cta-links{gap:8px}}
   </style>
+<script>try{if(!localStorage.getItem('raizon_src')){var p=new URLSearchParams(location.search),r='';try{r=document.referrer?new URL(document.referrer).hostname:''}catch(e){}localStorage.setItem('raizon_src',[p.get('utm_source')||r||'direct',p.get('utm_medium')||'',p.get('utm_campaign')||'',location.pathname].join('|'))}}catch(e){}</script>
 </head>
 <body class="blog-post-page">
   <nav class="navbar" id="navbar">

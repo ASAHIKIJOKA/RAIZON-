@@ -53,6 +53,10 @@
     {
       "source": "/line",
       "destination": "/line.html"
+    },
+    {
+      "source": "/links",
+      "destination": "/links.html"
     }
   ]
 }

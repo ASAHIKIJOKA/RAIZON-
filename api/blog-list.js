@@ -157,6 +157,7 @@ function renderHtml(posts, categories, activeCategory) {
     @media(max-width:900px){.blog-list-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:580px){.blog-list-grid{grid-template-columns:1fr}.blog-list-service-links{gap:8px}}
   </style>
+<script>try{if(!localStorage.getItem('raizon_src')){var p=new URLSearchParams(location.search),r='';try{r=document.referrer?new URL(document.referrer).hostname:''}catch(e){}localStorage.setItem('raizon_src',[p.get('utm_source')||r||'direct',p.get('utm_medium')||'',p.get('utm_campaign')||'',location.pathname].join('|'))}}catch(e){}</script>
 </head>
 <body class="blog-list-page">
   <nav class="navbar" id="navbar">

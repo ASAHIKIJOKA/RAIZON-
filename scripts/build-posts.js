@@ -69,20 +69,21 @@ posts.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 fs.writeFileSync(out, JSON.stringify(posts, null, 1) + '\n', 'utf8');
 const now = Date.now();
 // トップページ(index.html)に、新着記事のリンク一覧を埋め込む(JavaScriptを使わないクローラーにも、記事へのリンクが見えるようにする)
-{
-  const idx = path.join(__dirname, '..', 'index.html');
+for (const [file, count, withHeading] of [['index.html', 6, true], ['links.html', 3, false]]) {
+  const idx = path.join(__dirname, '..', file);
+  if (!fs.existsSync(idx)) continue;
   let html = fs.readFileSync(idx, 'utf8');
   const nl = html.includes('\r\n') ? '\r\n' : '\n';
   const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const latest = posts.filter(p => new Date(p.createdAt) <= now).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 6);
+  const latest = posts.filter(p => new Date(p.createdAt) <= now).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, count);
   const list = latest.map(p => `<li><time datetime="${p.createdAt.slice(0, 10)}">${p.createdAt.slice(0, 10).replace(/-/g, '.')}</time><a href="/blog/${p.id}">${esc(p.title)}</a></li>`).join('');
-  const block = latest.length ? `<h3>新着記事</h3><ul>${list}</ul>` : '';
+  const block = latest.length ? `${withHeading ? '<h3>新着記事</h3>' : ''}<ul>${list}</ul>` : '';
   const re = /<!--LATEST_POSTS_START-->[\s\S]*?<!--LATEST_POSTS_END-->/;
   if (re.test(html)) {
     const updated = html.replace(re, `<!--LATEST_POSTS_START-->${block}<!--LATEST_POSTS_END-->`);
     if (updated !== html) fs.writeFileSync(idx, updated, 'utf8');
   } else {
-    console.log('警告: index.html に LATEST_POSTS のマーカーがありません');
+    console.log(`警告: ${file} に LATEST_POSTS のマーカーがありません`);
   }
 }
 console.log(`OK: ${posts.length}件 → api/_posts-static.json (公開中 ${posts.filter(p => new Date(p.createdAt) <= now).length} / 予約 ${posts.filter(p => new Date(p.createdAt) > now).length})`);
