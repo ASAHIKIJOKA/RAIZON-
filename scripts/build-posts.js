@@ -43,13 +43,14 @@ for (const f of files) {
   if (intro.length < 60 || intro.length > 130) warnings.push(`${f}: 冒頭の段落が${intro.length}文字です(目安は60〜120文字。検索結果の説明文になる)`);
   if (meta.title && meta.title.length > 45) warnings.push(`${f}: タイトルが${meta.title.length}文字です(目安は30〜40文字)`);
   if (!/よくある質問/.test(body)) warnings.push(`${f}: 「よくある質問」の見出しがありません`);
-  if (!/lin\.ee\/fD0d4TS/.test(body)) warnings.push(`${f}: 相談用のLINEリンクがありません`);
+  if (!/href="\/#contact"/.test(body)) warnings.push(`${f}: お問い合わせフォームへのリンク(/#contact)がありません`);
+  if (/blog-post\?id=/.test(body)) warnings.push(`${f}: 古い形式の内部リンク(blog-post?id=)があります。/blog/ID を使う`);
   for (const re of RISKY) if (re.test(plain)) warnings.push(`${f}: 根拠が必要な表現の可能性 (${re})`);
-  for (const l of body.match(/href="\/blog-post\?id=[^"]+"/g) || []) {
-    const id = l.match(/id=([^"]+)"/)[1];
+  for (const l of body.match(/href="\/blog\/[^"]+"/g) || []) {
+    const id = l.match(/blog\/([^"]+)"/)[1];
     if (!allIds.has(id)) errors.push(`${f}: 内部リンク先の記事がありません (${id})`);
   }
-  posts.__links = posts.__links || []; for (const l of body.match(/href="\/blog-post\?id=[^"]+"/g) || []) posts.__links.push({ from: meta.id, fromDate: meta.publishAt, to: l.match(/id=([^"]+)"/)[1], file: f });
+  posts.__links = posts.__links || []; for (const l of body.match(/href="\/blog\/[^"]+"/g) || []) posts.__links.push({ from: meta.id, fromDate: meta.publishAt, to: l.match(/blog\/([^"]+)"/)[1], file: f });
   posts.push({ id: meta.id, title: meta.title, category: meta.category, createdAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), updatedAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), body, source: 'file', ...(meta.thumbnail ? { thumbnail: meta.thumbnail } : {}) });
 }
 
@@ -67,5 +68,22 @@ if (fs.existsSync(hiddenSrc)) fs.copyFileSync(hiddenSrc, path.join(__dirname, '.
 posts.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 fs.writeFileSync(out, JSON.stringify(posts, null, 1) + '\n', 'utf8');
 const now = Date.now();
+// トップページ(index.html)に、新着記事のリンク一覧を埋め込む(JavaScriptを使わないクローラーにも、記事へのリンクが見えるようにする)
+{
+  const idx = path.join(__dirname, '..', 'index.html');
+  let html = fs.readFileSync(idx, 'utf8');
+  const nl = html.includes('\r\n') ? '\r\n' : '\n';
+  const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const latest = posts.filter(p => new Date(p.createdAt) <= now).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 6);
+  const list = latest.map(p => `<li><time datetime="${p.createdAt.slice(0, 10)}">${p.createdAt.slice(0, 10).replace(/-/g, '.')}</time><a href="/blog/${p.id}">${esc(p.title)}</a></li>`).join('');
+  const block = latest.length ? `<h3>新着記事</h3><ul>${list}</ul>` : '';
+  const re = /<!--LATEST_POSTS_START-->[\s\S]*?<!--LATEST_POSTS_END-->/;
+  if (re.test(html)) {
+    const updated = html.replace(re, `<!--LATEST_POSTS_START-->${block}<!--LATEST_POSTS_END-->`);
+    if (updated !== html) fs.writeFileSync(idx, updated, 'utf8');
+  } else {
+    console.log('警告: index.html に LATEST_POSTS のマーカーがありません');
+  }
+}
 console.log(`OK: ${posts.length}件 → api/_posts-static.json (公開中 ${posts.filter(p => new Date(p.createdAt) <= now).length} / 予約 ${posts.filter(p => new Date(p.createdAt) > now).length})`);
 posts.forEach(p => console.log(` - ${p.createdAt.slice(0, 10)} [${p.category}] ${p.title}`));

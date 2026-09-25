@@ -86,7 +86,7 @@ function renderHtml(posts, categories, activeCategory) {
     ? `<p style="text-align:center;color:#718096;padding:48px 0;">${activeCategory ? `「${esc(activeCategory)}」の記事は現在ありません。` : '現在、記事はありません。'}</p>`
     : posts.map(post => `
       <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
-        <a href="/blog-post?id=${esc(post.id)}" style="text-decoration:none;color:inherit;display:block;">
+        <a href="/blog/${esc(post.id)}" style="text-decoration:none;color:inherit;display:block;">
           <div class="blog-card-thumb">
             <img src="${esc(post.thumbnail || noImgSvg)}" alt="${esc(post.title)}" loading="lazy" itemprop="image">
             <span class="blog-card-cat">${esc(post.category || 'お知らせ')}</span>

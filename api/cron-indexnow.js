@@ -17,7 +17,7 @@ module.exports = async function handler(req, res) {
     const recent = (await getPublishedPosts()).filter(p => new Date(p.createdAt).getTime() >= cutoff);
     if (recent.length === 0) return res.status(200).json({ ok: true, notified: 0 });
 
-    const urlList = [`https://${HOST}/blog-list`, ...recent.map(p => `https://${HOST}/blog-post?id=${p.id}`)];
+    const urlList = [`https://${HOST}/blog-list`, ...recent.map(p => `https://${HOST}/blog/${p.id}`)];
     const r = await fetch('https://api.indexnow.org/indexnow', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },

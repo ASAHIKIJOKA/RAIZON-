@@ -8,9 +8,16 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, email, phone, company, services, message } = req.body;
+  let body = req.body;
+  if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
+  const { name, email, phone, company, services, message, website } = body || {};
+  // ハニーポット: 人には見えない入力欄に値が入っていたら、迷惑な自動送信とみなして、成功を装って破棄する
+  if (website) return res.status(200).json({ ok: true });
   if (!name || !email || !phone || !message) {
     return res.status(400).json({ error: '必須項目が未入力です' });
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email)) || String(name).length > 100 || String(message).length > 5000 || String(company || '').length > 200 || String(phone).length > 40) {
+    return res.status(400).json({ error: '入力内容を確認してください' });
   }
 
   const transporter = nodemailer.createTransport({

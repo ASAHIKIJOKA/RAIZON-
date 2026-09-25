@@ -10,25 +10,23 @@ module.exports = async function handler(req, res) {
     // Firebase取得失敗時は静的ページのみ返す
   }
 
+  // lastmod は、実際に更新された日だけを書く(常に「今日」にすると、検索エンジンに信用されなくなる)
+  const latestPost = posts.reduce((m, p) => { const d = (p.updatedAt || p.createdAt || '').split('T')[0]; return d > m ? d : m; }, '');
   const staticPages = [
-    { loc: 'https://raizon-okinawa.com/', lastmod: today, changefreq: 'weekly', priority: '1.0' },
-    { loc: 'https://raizon-okinawa.com/line', lastmod: today, changefreq: 'monthly', priority: '0.9' },
-    { loc: 'https://raizon-okinawa.com/blog-list', lastmod: today, changefreq: 'weekly', priority: '0.8' },
+    { loc: 'https://raizon-okinawa.com/' },
+    { loc: 'https://raizon-okinawa.com/line' },
+    { loc: 'https://raizon-okinawa.com/blog-list', lastmod: latestPost || undefined },
   ];
 
   const urlTags = [
     ...staticPages,
     ...posts.map(p => ({
-      loc: `https://raizon-okinawa.com/blog-post?id=${p.id}`,
-      lastmod: (p.updatedAt || p.createdAt || today).split('T')[0],
-      changefreq: 'monthly',
-      priority: '0.6',
+      loc: `https://raizon-okinawa.com/blog/${p.id}`,
+      lastmod: (p.updatedAt || p.createdAt || '').split('T')[0] || undefined,
     })),
   ].map(u => `  <url>
-    <loc>${u.loc}</loc>
-    <lastmod>${u.lastmod}</lastmod>
-    <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
+    <loc>${u.loc}</loc>${u.lastmod ? `
+    <lastmod>${u.lastmod}</lastmod>` : ''}
   </url>`).join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

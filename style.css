@@ -3015,3 +3015,13 @@ textarea.contact-form-input {
     columns: 1;
   }
 }
+
+
+/* 新着記事のリンク一覧(トップページ。ビルド時に自動で生成) */
+.blog-latest-links { max-width: 720px; margin: 32px auto 0; }
+.blog-latest-links h3 { font-size: 1rem; color: var(--primary); margin-bottom: 10px; text-align: center; }
+.blog-latest-links ul { list-style: none; margin: 0; padding: 0; }
+.blog-latest-links li { display: flex; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--gray-200); font-size: 0.92rem; }
+.blog-latest-links time { color: var(--text-light); font-size: 0.8rem; white-space: nowrap; }
+.blog-latest-links a { color: var(--text); text-decoration: none; }
+.blog-latest-links a:hover { color: var(--primary-light); text-decoration: underline; }

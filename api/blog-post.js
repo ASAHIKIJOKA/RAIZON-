@@ -31,7 +31,7 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const postUrl  = `https://raizon-okinawa.com/blog-post?id=${id}`;
+  const postUrl  = `https://raizon-okinawa.com/blog/${id}`;
   const desc     = truncate(post.body || '', 120);
   // data: URI のサムネイルは SNS・検索エンジンで使えないため、共有用の画像は既定画像にする
   const img      = (post.thumbnail && /^https?:\/\//.test(post.thumbnail)) ? post.thumbnail : 'https://raizon-okinawa.com/seo-meo-thumb.webp';
@@ -245,7 +245,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
         <h2 class="related-posts-title">最新記事</h2>
         <div class="related-posts-grid">
           ${relatedPosts.map(p => `
-          <a href="/blog-post?id=${esc(p.id)}" class="related-post-card">
+          <a href="/blog/${esc(p.id)}" class="related-post-card">
             <div class="related-post-thumb">
               <img src="${esc(p.thumbnail || '')}" alt="${esc(p.title)}" loading="lazy" onerror="this.style.display='none'">
               <span class="blog-card-cat">${esc(p.category || 'お知らせ')}</span>

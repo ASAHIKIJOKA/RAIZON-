@@ -39,7 +39,7 @@ function pickFields(post) {
 
 async function notifyIndexNow(id) {
   const urlList = [`https://${HOST}/blog-list`];
-  if (id) urlList.unshift(`https://${HOST}/blog-post?id=${id}`);
+  if (id) urlList.unshift(`https://${HOST}/blog/${id}`);
   try {
     await fetch('https://api.indexnow.org/indexnow', {
       method: 'POST',
