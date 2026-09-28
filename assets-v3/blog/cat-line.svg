@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#146EF5"/>
+      <stop offset="100%" stop-color="#0B2E6B"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <circle cx="660" cy="90" r="180" fill="#FFFFFF" opacity="0.05"/>
+  <circle cx="60" cy="400" r="140" fill="#FFFFFF" opacity="0.05"/>
+  <g transform="translate(80,140)">
+    <rect x="0" y="0" width="150" height="110" rx="24" fill="#06C755"/>
+    <path d="M20 110 L20 140 L55 110 Z" fill="#06C755"/>
+    <text x="75" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#FFFFFF">LINE</text>
+  </g>
+  <text x="80" y="330" font-family="'Noto Sans JP', sans-serif" font-size="42" font-weight="800" fill="#FFFFFF">LINE構築</text>
+  <text x="80" y="368" font-family="Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="#9EC1FA">RAIZON BLOG</text>
+</svg>

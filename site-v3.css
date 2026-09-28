@@ -1,0 +1,158 @@
+/* ========================================
+   RAIZON サイト v3 (design_handoff_raizon_home 準拠)
+   トークン: docs/デザイン定義書.pdf 準拠。青(#146EF5)基調。
+   ======================================== */
+
+:root {
+  --c-blue: #146EF5;
+  --c-blue-hover: #0F58C4;
+  --c-blue-tint: #EEF4FE;
+  --c-blue-border: #CFE0FD;
+  --c-blue-border2: #D6E4FC;
+  --c-blue-light: #7FB0FA;
+  --c-line-green: #06C755;
+  --c-line-green-hover: #05B04B;
+  --c-line-text: #05A847;
+  --c-line-tint: #EAF9F0;
+  --c-ink: #111827;
+  --c-body: #374151;
+  --c-muted: #6B7280;
+  --c-subtle: #9CA3AF;
+  --c-surface: #FFFFFF;
+  --c-section: #F5F7FA;
+  --c-border: #E5E9F0;
+  --c-border2: #EEF1F5;
+  --shadow-card: 0 10px 30px rgba(17, 24, 39, 0.12);
+  --radius-card: 24px;
+  --radius-inner: 16px;
+  --radius-chip: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body.rz3 {
+  margin: 0;
+  font-family: 'Inter', 'Noto Sans JP', 'BIZ UDPGothic', sans-serif;
+  color: var(--c-ink);
+  background: #FFFFFF;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.rz3 img { max-width: 100%; display: block; }
+.rz3 a { color: var(--c-blue); text-decoration: none; }
+.rz3 a:hover { color: var(--c-blue-hover); }
+.rz3 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.rz3 .wrap-wide { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 767px) {
+  .rz3 .wrap { padding: 0 20px; }
+  .rz3 .wrap-wide { padding: 0 20px; }
+}
+
+/* section rhythm */
+.rz3 section { padding: 140px 40px; }
+@media (max-width: 767px) { .rz3 section { padding: 80px 20px; } }
+
+/* ---------- ボタン ---------- */
+.rz3 .btn { display: inline-flex; align-items: center; gap: 10px; padding: 18px 32px; border-radius: 999px; font-size: 16px; font-weight: 700; white-space: nowrap; border: none; cursor: pointer; transition: background .2s ease; font-family: inherit; }
+.rz3 .btn-primary { background: var(--c-blue); color: #FFFFFF; }
+.rz3 .btn-primary:hover { background: var(--c-blue-hover); color: #FFFFFF; }
+.rz3 .btn-line { background: var(--c-line-green); color: #FFFFFF; }
+.rz3 .btn-line:hover { background: var(--c-line-green-hover); color: #FFFFFF; }
+.rz3 .btn-line-outline { background: #FFFFFF; color: var(--c-ink); border: 1.5px solid var(--c-line-green); display: inline-flex; align-items: center; gap: 10px; }
+.rz3 .btn-line-outline:hover { background: #F0FBF4; color: var(--c-ink); }
+.rz3 .btn-sm { padding: 10px 20px; font-size: 14px; }
+.rz3 .btn-text { font-size: 14px; font-weight: 700; color: var(--c-blue); }
+
+/* ---------- ヘッダー ---------- */
+.rz3-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--c-border2); }
+.rz3-header-in { max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+@media (max-width: 767px) { .rz3-header-in { padding: 0 16px; } }
+.rz3-logo { display: flex; align-items: center; }
+.rz3-logo img { height: 48px; width: auto; display: block; }
+@media (max-width: 767px) { .rz3-logo img { height: 40px; } }
+.rz3-nav { display: flex; align-items: center; gap: 32px; font-size: 14px; font-weight: 500; }
+.rz3-nav a { color: var(--c-ink); }
+.rz3-nav-links { display: flex; align-items: center; gap: 32px; }
+@media (max-width: 900px) { .rz3-nav-links { display: none; } }
+
+/* ---------- ハンバーガーメニュー(モバイル) ---------- */
+.rz3-nav-toggle { display: none; background: none; border: none; padding: 8px; cursor: pointer; margin-left: 4px; }
+.rz3-nav-toggle span { display: block; width: 22px; height: 2px; background: var(--c-ink); margin: 5px 0; border-radius: 2px; transition: transform .25s ease, opacity .25s ease; }
+.rz3-nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.rz3-nav-toggle.open span:nth-child(2) { opacity: 0; }
+.rz3-nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.rz3-mobile-nav { display: none; }
+@media (max-width: 900px) {
+  .rz3-nav-toggle { display: block; }
+  .rz3-header-in .btn-line { display: none; }
+  .rz3-mobile-nav {
+    display: flex; flex-direction: column; gap: 4px;
+    position: fixed; top: 76px; left: 0; right: 0;
+    height: calc(100vh - 76px); height: calc(100dvh - 76px);
+    background: #FFFFFF; padding: 20px 24px; overflow-y: auto;
+    transform: translateX(100%); transition: transform .28s ease; z-index: 49;
+  }
+  .rz3-mobile-nav.open { transform: translateX(0); }
+  .rz3-mobile-nav a:not(.btn) { padding: 16px 4px; font-size: 16px; font-weight: 600; color: var(--c-ink); border-bottom: 1px solid var(--c-border); }
+}
+
+/* ---------- 見出し共通 ---------- */
+.rz3-eyebrow { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; color: var(--c-blue); }
+.rz3-eyebrow.green { color: var(--c-line-green); }
+.rz3-h2 { margin: 14px 0 0; font-size: clamp(24px, 3vw, 38px); font-weight: 800; line-height: 1.5; }
+.rz3-lead { font-size: 15px; line-height: 2; color: var(--c-muted); }
+
+/* ---------- カード共通 ---------- */
+.rz3-card { background: #FFFFFF; border: 1px solid var(--c-border); border-radius: var(--radius-card); transition: transform .35s ease, border-color .35s ease; }
+.rz3-card:hover { transform: translateY(-6px); border-color: var(--c-blue); }
+
+/* ---------- FAQ ---------- */
+.rz3-faq-item { border-bottom: 1px solid var(--c-border); }
+.rz3-faq-q { width: 100%; text-align: left; background: none; border: none; padding: 26px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer; color: var(--c-ink); }
+.rz3-faq-icon { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--c-blue-tint); color: var(--c-blue); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.rz3-faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+.rz3-faq-a-in { padding: 0 0 26px; font-size: 15px; line-height: 2; color: var(--c-body); }
+.rz3-faq-item.open .rz3-faq-a { max-height: 400px; }
+
+/* ---------- モバイル固定CTA ---------- */
+.rz3-mobile-cta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: #FFFFFF; border-top: 1px solid var(--c-border); padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rz3-mobile-cta a { display: flex; align-items: center; justify-content: center; height: 50px; border-radius: 999px; font-size: 15px; font-weight: 700; white-space: nowrap; }
+@media (min-width: 768px) { .rz3-mobile-cta { display: none; } }
+
+/* ---------- デスクトップ側面CTA ---------- */
+.rz3-side-cta { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 55; display: flex; flex-direction: column; gap: 8px; opacity: 0; pointer-events: none; transition: opacity .35s ease, transform .35s ease; }
+.rz3-side-cta.show { opacity: 1; pointer-events: auto; }
+.rz3-side-cta a { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 13px 20px; border-radius: 16px 0 0 16px; font-size: 14px; font-weight: 700; letter-spacing: 0.12em; writing-mode: vertical-rl; transition: padding .25s ease; }
+.rz3-side-cta a:hover { padding-right: 19px; }
+@media (max-width: 900px) { .rz3-side-cta { display: none; } }
+
+/* ---------- FVビジュアル(電話モック + 変化パネル) ---------- */
+.rz3-hero-visual { display: flex; align-items: center; gap: 32px; }
+.rz3-hero-phone-col { flex: none; width: 284px; }
+.rz3-hero-changepanel { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px; min-width: 0; }
+@media (max-width: 767px) {
+  .rz3-hero-visual { display: block; }
+  .rz3-hero-phone-col { width: 100%; }
+  .rz3-hero-changepanel { display: none; }
+}
+
+@media (max-width: 899px) { .rz3-flow-branch { display: none; } }
+
+/* ---------- FVの業種タブ ---------- */
+.rz3-sc-tab { font-family: inherit; font-size: 11px; font-weight: 700; border: 0; border-radius: 999px; padding: 7px 6px; cursor: pointer; background: transparent; color: var(--c-muted); flex: 1; white-space: nowrap; }
+.rz3-sc-tab.active { background: #FFFFFF; color: var(--c-blue); }
+
+/* ---------- スクロールリビール ---------- */
+/* main.js の setupMotion() が WAAPI(el.animate)で直接制御するため、CSSでの初期非表示は行わない */
+
+/* ---------- フッター ---------- */
+.rz3-footer { background: #FFFFFF; color: var(--c-ink); padding: 88px 40px 40px; border-top: 1px solid var(--c-border); }
+@media (max-width: 767px) { .rz3-footer { padding: 56px 20px 100px; } }
+.rz3-footer-in { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 48px; }
+.rz3-footer-nav { display: grid; grid-template-columns: repeat(2, minmax(120px, auto)); gap: 14px 56px; font-size: 14px; align-content: start; }
+.rz3-footer-nav a { color: var(--c-body); }
+.rz3-footer-bottom { max-width: 1200px; margin: 56px auto 0; border-top: 1px solid var(--c-border); padding-top: 24px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--c-muted); }
