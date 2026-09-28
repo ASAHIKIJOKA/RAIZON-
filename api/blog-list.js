@@ -27,6 +27,12 @@ module.exports = async function handler(req, res) {
 // ----------------------------------------
 // ユーティリティ
 // ----------------------------------------
+const THUMB_BY_CAT = { 'LINE構築': 'cat-line', 'DX支援': 'cat-dx', '制作実績': 'cat-case', 'お知らせ': 'cat-news', 'AI活用': 'cat-ai' };
+function thumbOf(post) {
+  if (post.thumbnail && /^https?:\/\//.test(post.thumbnail)) return post.thumbnail;
+  return `/assets-v3/blog/${THUMB_BY_CAT[post.category] || 'cat-news'}.svg`;
+}
+
 function truncate(text, len) {
   // 冒頭の段落(<p>)を優先して使い、改行や余分な空白は詰める(検索結果の説明文・一覧の抜粋用)
   const p = text.match(/<p[^>]*>([\s\S]*?)<\/p>/);
@@ -75,29 +81,22 @@ function renderHtml(posts, categories, activeCategory) {
   });
 
   const categoryTabsHtml = `
-    <div class="blog-cat-tabs" role="navigation" aria-label="カテゴリーで絞り込み">
-      <a href="/blog-list" class="blog-cat-tab${activeCategory ? '' : ' active'}">すべて</a>
-      ${categories.map(cat => `<a href="/blog-list?category=${encodeURIComponent(cat)}" class="blog-cat-tab${activeCategory === cat ? ' active' : ''}">${esc(cat)}</a>`).join('')}
+    <div class="rz3-blog-cat-tabs" role="navigation" aria-label="カテゴリーで絞り込み">
+      <a href="/blog-list" class="rz3-blog-cat-btn${activeCategory ? '' : ' on'}">すべて</a>
+      ${categories.map(cat => `<a href="/blog-list?category=${encodeURIComponent(cat)}" class="rz3-blog-cat-btn${activeCategory === cat ? ' on' : ''}">${esc(cat)}</a>`).join('')}
     </div>`;
 
-  const noImgSvg = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" fill="%23e2e8f0"><rect width="400" height="225"/><text x="200" y="118" text-anchor="middle" fill="%23a0aec0" font-size="16">No Image</text></svg>')}`;
-
   const cardsHtml = posts.length === 0
-    ? `<p style="text-align:center;color:#718096;padding:48px 0;">${activeCategory ? `「${esc(activeCategory)}」の記事は現在ありません。` : '現在、記事はありません。'}</p>`
-    : posts.map(post => `
-      <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
-        <a href="/blog/${esc(post.id)}" style="text-decoration:none;color:inherit;display:block;">
-          <div class="blog-card-thumb">
-            <img src="${esc(post.thumbnail || noImgSvg)}" alt="${esc(post.title)}" loading="lazy" itemprop="image">
-            <span class="blog-card-cat">${esc(post.category || 'お知らせ')}</span>
-          </div>
-          <div class="blog-card-body">
-            <time class="blog-card-date" datetime="${new Date(post.createdAt).toISOString()}" itemprop="datePublished">${formatDate(post.createdAt)}</time>
-            <h2 class="blog-card-title" itemprop="headline">${esc(post.title)}</h2>
-            <p class="blog-card-excerpt" itemprop="description">${esc(truncate(post.body || '', 80))}</p>
-          </div>
-        </a>
-      </article>`).join('');
+    ? `<p style="text-align:center;color:#6B7280;padding:48px 0;">${activeCategory ? `「${esc(activeCategory)}」の記事は現在ありません。` : '現在、記事はありません。'}</p>`
+    : `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;">${posts.map(post => `
+      <a class="rz3-blog-card" href="/blog/${esc(post.id)}" itemscope itemtype="https://schema.org/BlogPosting">
+        <div class="rz3-blog-thumb"><img src="${esc(thumbOf(post))}" alt="" loading="lazy" itemprop="image"></div>
+        <div class="rz3-blog-body">
+          <div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(post.category || 'お知らせ')}</span><time class="rz3-blog-date" datetime="${new Date(post.createdAt).toISOString()}" itemprop="datePublished">${formatDate(post.createdAt)}</time></div>
+          <h2 style="margin:0;font-size:17px;font-weight:700;line-height:1.7;" itemprop="headline">${esc(post.title)}</h2>
+          <p style="margin:0;font-size:13px;line-height:1.9;color:#6B7280;" itemprop="description">${esc(truncate(post.body || '', 80))}</p>
+        </div>
+      </a>`).join('')}</div>`;
 
   return `<!DOCTYPE html>
 <html lang="ja">
@@ -130,104 +129,86 @@ function renderHtml(posts, categories, activeCategory) {
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site-v3.css?v=2">
   <script type="application/ld+json">${ldBreadcrumb}</script>
   <style>
-    .blog-list-page .navbar{background:rgba(255,255,255,.97);box-shadow:0 1px 3px rgba(0,0,0,.08);backdrop-filter:blur(12px)}
-    .blog-list-page .nav-logo-img{filter:none}
-    .blog-list-page .nav-menu a{color:#2d3748}
-    .blog-list-page .nav-menu a:hover{background:#edf2f7;color:#0e4d6e}
-    .blog-list-page .nav-toggle span{background:#2d3748}
-    .blog-list-hero{background:linear-gradient(160deg,#0a3d5c 0%,#0e6b8e 50%,#17a2b8 100%);padding:140px 0 60px;text-align:center;color:#fff}
-    .blog-list-hero h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:900;margin-bottom:12px}
-    .blog-list-hero p{font-size:1rem;opacity:.85}
-    .blog-list-body{padding:60px 0 100px;background:#f7fafc}
-    .blog-cat-tabs{display:flex;flex-wrap:wrap;gap:10px}
-    .blog-cat-tab{padding:8px 18px;border-radius:20px;background:#fff;border:1px solid #e2e8f0;color:#2d3748;font-size:.86rem;font-weight:500;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
-    .blog-cat-tab:hover{background:#edf2f7}
-    .blog-cat-tab.active{background:#0e4d6e;border-color:#0e4d6e;color:#fff}
-    .blog-list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
-    .blog-card a:hover .blog-card-thumb img{transform:scale(1.05)}
-    .blog-list-service-cta{margin-top:56px;padding:28px 32px;background:#fff;border-radius:16px;border:1px solid #e2e8f0;text-align:center}
-    .blog-list-service-cta-title{font-size:.9rem;font-weight:700;color:#0e4d6e;margin-bottom:16px}
-    .blog-list-service-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
-    .blog-list-service-links a{padding:9px 20px;background:#f0f9ff;border:1px solid #bee3f8;border-radius:20px;font-size:.88rem;color:#2b6cb0;text-decoration:none;font-weight:500;transition:background .2s}
-    .blog-list-service-links a:hover{background:#ebf8ff}
-    @media(max-width:900px){.blog-list-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:580px){.blog-list-grid{grid-template-columns:1fr}.blog-list-service-links{gap:8px}}
+    .rz3-blog-hero{background:linear-gradient(160deg,#146EF5 0%,#0B2E6B 100%);padding:64px 40px;text-align:center;color:#fff;}
+    .rz3-blog-hero h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;margin-bottom:10px;}
+    .rz3-blog-hero p{font-size:1rem;opacity:.85;}
+    .rz3-blog-cat-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
   </style>
 <script>try{if(!localStorage.getItem('raizon_src')){var p=new URLSearchParams(location.search),r='';try{r=document.referrer?new URL(document.referrer).hostname:''}catch(e){}localStorage.setItem('raizon_src',[p.get('utm_source')||r||'direct',p.get('utm_medium')||'',p.get('utm_campaign')||'',location.pathname].join('|'))}}catch(e){}</script>
 </head>
-<body class="blog-list-page">
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="/" class="nav-logo"><img src="/RAIZONロゴ.png" alt="RAIZON - 沖縄のLINE構築・AI活用・DX支援" class="nav-logo-img"></a>
-      <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="/#service-ai">サービス</a></li>
-        <li><a href="/#cases">導入事例</a></li>
-        <li><a href="/blog-list">ブログ</a></li>
-        <li><a href="/#faq">FAQ</a></li>
-        <li><a href="/#contact" class="nav-cta">無料相談</a></li>
-        <li><a href="https://lin.ee/fD0d4TS" target="_blank" rel="noopener" class="nav-line">公式LINE</a></li>
-      </ul>
+<body class="rz3">
+  <header class="rz3-header">
+    <div class="rz3-header-in">
+      <a href="/" class="rz3-logo"><img src="/assets-v3/raizon-logo.png" alt="RAIZON"></a>
+      <nav class="rz3-nav">
+        <div class="rz3-nav-links">
+          <a href="/#service">サービス</a>
+          <a href="/#price">料金</a>
+          <a href="/#case">導入事例</a>
+          <a href="/#company">会社概要</a>
+          <a href="/blog-list">ブログ</a>
+        </div>
+        <a href="https://lin.ee/fD0d4TS" target="_blank" rel="noopener" class="btn btn-line btn-sm">LINEで無料相談</a>
+        <button class="rz3-nav-toggle" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+      </nav>
     </div>
-  </nav>
+    <div class="rz3-mobile-nav">
+      <a href="/#service">サービス</a>
+      <a href="/#price">料金</a>
+      <a href="/#case">導入事例</a>
+      <a href="/#company">会社概要</a>
+      <a href="/blog-list">ブログ</a>
+      <a href="/#contact">お問い合わせ</a>
+      <a href="https://lin.ee/fD0d4TS" target="_blank" rel="noopener" class="btn btn-line" style="margin-top:8px;justify-content:center;">LINEで無料相談</a>
+    </div>
+  </header>
 
-  <div class="blog-list-hero">
-    <div class="container">
-      <h1>${activeCategory ? esc(activeCategory) : 'ブログ'}</h1>
-      <p>RAIZONの最新情報・お役立ち記事をお届けします</p>
-    </div>
+  <div class="rz3-blog-hero">
+    <h1>${activeCategory ? esc(activeCategory) : 'ブログ'}</h1>
+    <p>RAIZONの最新情報・お役立ち記事をお届けします</p>
   </div>
 
-  <div class="blog-list-body">
-    <div class="container">
+  <section style="background:#F5F7FA;padding:56px 40px 100px;">
+    <div class="wrap" style="padding:0;">
       ${categoryTabsHtml}
-      <div class="blog-list-grid" id="blogListGrid">
-        ${cardsHtml}
-      </div>
+      ${cardsHtml}
 
-      <div class="blog-list-service-cta">
-        <p class="blog-list-service-cta-title">RAIZONのサービス</p>
-        <div class="blog-list-service-links">
-          <a href="/#service-line">LINE構築</a>
-          <a href="/#service-ai">AI活用支援</a>
-          <a href="/#service-dx">DX支援</a>
-          <a href="/#cases">導入事例</a>
-          <a href="/#contact">無料相談（無料）</a>
+      <div style="margin-top:56px;padding:28px 32px;background:#FFFFFF;border-radius:16px;border:1px solid #E5E9F0;text-align:center;">
+        <p style="font-size:14px;font-weight:700;color:#146EF5;margin-bottom:16px;">RAIZONのサービス</p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
+          <a href="/#service" style="padding:9px 20px;background:#EEF4FE;border:1px solid #D6E4FC;border-radius:999px;font-size:13px;color:#146EF5;font-weight:600;">LINE構築</a>
+          <a href="/#service" style="padding:9px 20px;background:#EEF4FE;border:1px solid #D6E4FC;border-radius:999px;font-size:13px;color:#146EF5;font-weight:600;">AI活用支援</a>
+          <a href="/#service" style="padding:9px 20px;background:#EEF4FE;border:1px solid #D6E4FC;border-radius:999px;font-size:13px;color:#146EF5;font-weight:600;">DX支援</a>
+          <a href="/#case" style="padding:9px 20px;background:#EEF4FE;border:1px solid #D6E4FC;border-radius:999px;font-size:13px;color:#146EF5;font-weight:600;">導入事例</a>
+          <a href="/#contact" style="padding:9px 20px;background:#EEF4FE;border:1px solid #D6E4FC;border-radius:999px;font-size:13px;color:#146EF5;font-weight:600;">無料相談</a>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="/RAIZONロゴ.png" alt="RAIZON - 沖縄のLINE構築・AI活用・DX支援" class="footer-logo-img">
-          <p>デジタルで変える。<br>働き方も、仕組みも、売り方も。</p>
-        </div>
-        <div class="footer-info">
-          <p>沖縄県 | LINE・メール：24時間受付（年中無休）</p>
-        </div>
+  <footer class="rz3-footer">
+    <div class="rz3-footer-in">
+      <div style="max-width:440px;">
+        <img src="/assets-v3/raizon-logo.png" alt="RAIZON" style="height:64px;width:auto;">
+        <p style="margin:24px 0 0;font-size:16px;font-weight:700;">沖縄の事業者に、デジタル担当者を。</p>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 RAIZON. All rights reserved.</p>
-      </div>
+      <nav class="rz3-footer-nav">
+        <a href="/#service">サービス</a><a href="/#price">料金</a><a href="/#case">導入事例</a><a href="/#company">会社概要</a><a href="/blog-list">ブログ</a><a href="/#contact">お問い合わせ</a>
+      </nav>
     </div>
+    <div class="rz3-footer-bottom">© RAIZON</div>
   </footer>
 
-  <script>
-    const nt = document.getElementById('navToggle');
-    const nm = document.getElementById('navMenu');
-    nt.addEventListener('click', () => nm.classList.toggle('active'));
-    nm.querySelectorAll('a').forEach(l => l.addEventListener('click', () => nm.classList.remove('active')));
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-    });
-  </script>
+  <div class="rz3-mobile-cta">
+    <a href="https://lin.ee/fD0d4TS" target="_blank" rel="noopener" style="background:#06C755;color:#FFFFFF;">LINEで相談</a>
+    <a href="/#contact" style="background:#146EF5;color:#FFFFFF;">無料相談</a>
+  </div>
+
+  <script src="/site-v3.js?v=2"></script>
 </body>
 </html>`;
 }
