@@ -1,27 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#146EF5"/>
-      <stop offset="100%" stop-color="#0B2E6B"/>
+      <stop offset="0%" stop-color="#1C7CFB"/>
+      <stop offset="100%" stop-color="#0A2559"/>
     </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#FFFFFF" opacity="0.10"/>
+    </pattern>
   </defs>
   <rect width="800" height="450" fill="url(#g)"/>
-  <circle cx="660" cy="90" r="180" fill="#FFFFFF" opacity="0.05"/>
-  <circle cx="60" cy="400" r="140" fill="#FFFFFF" opacity="0.05"/>
-  <g transform="translate(90,150)" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="55" cy="55" r="40"/>
-    <circle cx="55" cy="55" r="14" fill="#FFFFFF" stroke="none"/>
-    <g stroke-width="6">
-      <line x1="55" y1="2" x2="55" y2="18"/>
-      <line x1="55" y1="92" x2="55" y2="108"/>
-      <line x1="2" y1="55" x2="18" y2="55"/>
-      <line x1="92" y1="55" x2="108" y2="55"/>
-      <line x1="20" y1="20" x2="31" y2="31"/>
-      <line x1="79" y1="79" x2="90" y2="90"/>
-      <line x1="90" y1="20" x2="79" y2="31"/>
-      <line x1="31" y1="79" x2="20" y2="90"/>
+  <rect width="800" height="450" fill="url(#dots)"/>
+  <circle cx="700" cy="40" r="230" fill="#FFFFFF" opacity="0.06"/>
+  <circle cx="40" cy="430" r="160" fill="#06C755" opacity="0.08"/>
+
+  <!-- device card: schedule / workflow mockup -->
+  <g transform="translate(430,64)">
+    <rect x="6" y="10" width="292" height="300" rx="26" fill="#0B2E6B" opacity="0.35"/>
+    <rect width="292" height="300" rx="26" fill="#FFFFFF"/>
+    <text x="24" y="42" font-family="'Noto Sans JP',sans-serif" font-size="15" font-weight="700" fill="#6B7280">本日の予定</text>
+
+    <g font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#6B7280">
+      <text x="24" y="80">09:00</text>
+      <rect x="80" y="66" width="188" height="26" rx="8" fill="#EEF4FE"/>
+      <text x="92" y="84" fill="#146EF5">利用者様 訪問</text>
+
+      <text x="24" y="122">13:00</text>
+      <rect x="80" y="108" width="188" height="26" rx="8" fill="#06C755"/>
+      <text x="92" y="126" fill="#FFFFFF">対応中</text>
+
+      <text x="24" y="164">16:30</text>
+      <rect x="80" y="150" width="130" height="26" rx="8" fill="#F5F7FA"/>
+      <text x="92" y="168" fill="#9CA3AF">記録・報告</text>
     </g>
+
+    <line x1="24" y1="198" x2="268" y2="198" stroke="#EEF1F5" stroke-width="1.5"/>
+
+    <g stroke="#06C755" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(24,214)">
+      <path d="M0 14 L10 24 L28 2"/>
+    </g>
+    <text x="60" y="234" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#111827">シフト提出が完了しました</text>
+
+    <g stroke="#06C755" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(24,254)">
+      <path d="M0 14 L10 24 L28 2"/>
+    </g>
+    <text x="60" y="274" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#111827">報告書の下書きが完成</text>
   </g>
-  <text x="80" y="330" font-family="'Noto Sans JP', sans-serif" font-size="42" font-weight="800" fill="#FFFFFF">DX支援</text>
-  <text x="80" y="368" font-family="Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="#9EC1FA">RAIZON BLOG</text>
+
+  <g transform="translate(64,150)">
+    <rect width="24" height="2.5" fill="#7FB0FA"/>
+    <text x="0" y="30" font-family="Inter,sans-serif" font-size="14" font-weight="700" letter-spacing="3" fill="#7FB0FA">RAIZON BLOG</text>
+  </g>
+  <text x="64" y="218" font-family="'Noto Sans JP', sans-serif" font-size="52" font-weight="800" fill="#FFFFFF">DX支援</text>
+  <text x="64" y="258" font-family="'Noto Sans JP', sans-serif" font-size="18" fill="#C7DBFB">繰り返し作業を仕組みに変える</text>
 </svg>

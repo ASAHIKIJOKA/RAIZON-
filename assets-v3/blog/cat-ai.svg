@@ -1,20 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#146EF5"/>
-      <stop offset="100%" stop-color="#0B2E6B"/>
+      <stop offset="0%" stop-color="#1C7CFB"/>
+      <stop offset="100%" stop-color="#0A2559"/>
     </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#FFFFFF" opacity="0.10"/>
+    </pattern>
   </defs>
   <rect width="800" height="450" fill="url(#g)"/>
-  <circle cx="660" cy="90" r="180" fill="#FFFFFF" opacity="0.05"/>
-  <circle cx="60" cy="400" r="140" fill="#FFFFFF" opacity="0.05"/>
-  <g transform="translate(95,140)" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M55 0 C25 0 8 22 8 46 C8 62 16 72 16 84 C16 92 20 96 28 96 L82 96 C90 96 94 92 94 84 C94 72 102 62 102 46 C102 22 85 0 55 0 Z"/>
-    <line x1="55" y1="0" x2="55" y2="96"/>
-    <path d="M8 46 L102 46"/>
-    <circle cx="55" cy="120" r="0" fill="none"/>
+  <rect width="800" height="450" fill="url(#dots)"/>
+  <circle cx="700" cy="40" r="230" fill="#FFFFFF" opacity="0.06"/>
+  <circle cx="40" cy="430" r="160" fill="#06C755" opacity="0.08"/>
+
+  <!-- device card: AI draft mockup -->
+  <g transform="translate(430,84)">
+    <rect x="6" y="10" width="292" height="260" rx="20" fill="#0B2E6B" opacity="0.35"/>
+    <rect width="292" height="260" rx="20" fill="#FFFFFF"/>
+
+    <rect x="20" y="24" width="252" height="52" rx="14" fill="#F5F7FA"/>
+    <text x="34" y="55" font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#374151">この問い合わせの返信文をつくって</text>
+
+    <rect x="20" y="92" width="252" height="90" rx="14" fill="#EEF4FE"/>
+    <g stroke="#146EF5" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(36,106)">
+      <path d="M10 0 L12.5 7 L20 9.5 L12.5 12 L10 19 L7.5 12 L0 9.5 L7.5 7 Z"/>
+    </g>
+    <text x="62" y="118" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#146EF5">下書きができました</text>
+    <rect x="36" y="132" width="216" height="8" rx="4" fill="#CFE0FD"/>
+    <rect x="36" y="148" width="180" height="8" rx="4" fill="#CFE0FD"/>
+    <rect x="36" y="164" width="140" height="8" rx="4" fill="#CFE0FD"/>
+
+    <rect x="20" y="200" width="140" height="34" rx="17" fill="#146EF5"/>
+    <text x="90" y="222" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">確認して送信</text>
   </g>
-  <circle cx="150" cy="252" r="6" fill="#06C755"/>
-  <text x="80" y="330" font-family="'Noto Sans JP', sans-serif" font-size="42" font-weight="800" fill="#FFFFFF">AI活用</text>
-  <text x="80" y="368" font-family="Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="3" fill="#9EC1FA">RAIZON BLOG</text>
+
+  <g transform="translate(64,150)">
+    <rect width="24" height="2.5" fill="#7FB0FA"/>
+    <text x="0" y="30" font-family="Inter,sans-serif" font-size="14" font-weight="700" letter-spacing="3" fill="#7FB0FA">RAIZON BLOG</text>
+  </g>
+  <text x="64" y="218" font-family="'Noto Sans JP', sans-serif" font-size="52" font-weight="800" fill="#FFFFFF">AI活用</text>
+  <text x="64" y="258" font-family="'Noto Sans JP', sans-serif" font-size="18" fill="#C7DBFB">仕事がラクになるAIの使い方</text>
 </svg>
