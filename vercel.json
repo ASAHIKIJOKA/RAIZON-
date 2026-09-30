@@ -31,6 +31,36 @@
       "source": "/blog-post.html",
       "destination": "/blog-post",
       "permanent": true
+    },
+    {
+      "source": "/service.html",
+      "destination": "/#service",
+      "permanent": true
+    },
+    {
+      "source": "/pricing.html",
+      "destination": "/#price",
+      "permanent": true
+    },
+    {
+      "source": "/cases.html",
+      "destination": "/#case",
+      "permanent": true
+    },
+    {
+      "source": "/company.html",
+      "destination": "/#company",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/#faq",
+      "permanent": true
     }
   ],
   "rewrites": [
