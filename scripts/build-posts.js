@@ -77,13 +77,19 @@ for (const [file, count, withHeading, cards] of [['index.html', 6, true, true], 
   let html = fs.readFileSync(idx, 'utf8');
   const nl = html.includes('\r\n') ? '\r\n' : '\n';
   const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const latest = posts.filter(p => new Date(p.createdAt) <= now).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, count);
+  const published = posts.filter(p => new Date(p.createdAt) <= now).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  // 導入事例(制作実績)は資産として常にホームページに残す。残りの枠を新着順で埋める
+  const cases = published.filter(p => p.category === '制作実績');
+  const rest = published.filter(p => p.category !== '制作実績');
+  const latest = cards
+    ? [...cases, ...rest].slice(0, count).sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    : published.slice(0, count);
   let block;
   if (cards) {
     const gridItems = latest.map(p => {
-      const thumb = THUMB_BY_CAT[p.category] || 'cat-news';
+      const thumb = (p.thumbnail && /^https?:\/\//.test(p.thumbnail)) ? p.thumbnail : `/assets-v3/blog/${THUMB_BY_CAT[p.category] || 'cat-news'}.svg`;
       const dateStr = p.createdAt.slice(0, 10).replace(/-/g, '.');
-      return `<a class="rz3-blog-card" data-cat="${esc(p.category)}" href="/blog/${p.id}"><div class="rz3-blog-thumb"><img src="/assets-v3/blog/${thumb}.svg" alt="" loading="lazy"></div><div class="rz3-blog-body"><div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(p.category)}</span><span class="rz3-blog-date">${dateStr}</span></div><h3>${esc(p.title)}</h3><p>${esc(excerptOf(p.body))}</p></div></a>`;
+      return `<a class="rz3-blog-card" data-cat="${esc(p.category)}" href="/blog/${p.id}"><div class="rz3-blog-thumb"><img src="${esc(thumb)}" alt="" loading="lazy"></div><div class="rz3-blog-body"><div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(p.category)}</span><span class="rz3-blog-date">${dateStr}</span></div><h3>${esc(p.title)}</h3><p>${esc(excerptOf(p.body))}</p></div></a>`;
     }).join('');
     block = latest.length ? `<div id="rz3-blog-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;">${gridItems}</div>` : '';
   } else {
