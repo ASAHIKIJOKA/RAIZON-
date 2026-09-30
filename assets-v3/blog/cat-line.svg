@@ -13,31 +13,11 @@
   <circle cx="700" cy="40" r="230" fill="#FFFFFF" opacity="0.06"/>
   <circle cx="40" cy="430" r="160" fill="#06C755" opacity="0.08"/>
 
-  <!-- device card: LINE chat mockup -->
-  <g transform="translate(430,64)">
-    <rect x="6" y="10" width="292" height="300" rx="26" fill="#0B2E6B" opacity="0.35"/>
-    <rect width="292" height="300" rx="26" fill="#FFFFFF"/>
-    <rect x="0" y="0" width="292" height="54" rx="26" fill="#F5F7FA"/>
-    <rect x="0" y="28" width="292" height="26" fill="#F5F7FA"/>
-    <circle cx="34" cy="27" r="14" fill="#06C755"/>
-    <path d="M27 24 h14 v9 h-14 z" fill="#FFFFFF" opacity="0"/>
-    <text x="58" y="32" font-family="'Noto Sans JP',sans-serif" font-size="15" font-weight="700" fill="#111827">公式アカウント</text>
-
-    <rect x="24" y="80" width="170" height="40" rx="14" fill="#F5F7FA"/>
-    <text x="38" y="105" font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#374151">予約できますか？</text>
-
-    <rect x="98" y="134" width="170" height="40" rx="14" fill="#06C755"/>
-    <text x="114" y="159" font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#FFFFFF">空き枠はこちらです</text>
-
-    <rect x="24" y="192" width="60" height="34" rx="10" fill="#FFFFFF" stroke="#146EF5" stroke-width="2"/>
-    <text x="54" y="214" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#146EF5">13:00</text>
-    <rect x="92" y="192" width="60" height="34" rx="10" fill="#146EF5"/>
-    <text x="122" y="214" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">14:00</text>
-    <rect x="160" y="192" width="60" height="34" rx="10" fill="#FFFFFF" stroke="#146EF5" stroke-width="2"/>
-    <text x="190" y="214" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#146EF5">15:30</text>
-
-    <rect x="24" y="248" width="244" height="30" rx="15" fill="#EEF4FE"/>
-    <text x="146" y="268" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#146EF5">✓ ご予約が確定しました</text>
+  <!-- unified icon badge -->
+  <circle cx="600" cy="225" r="118" fill="#FFFFFF" opacity="0.08"/>
+  <circle cx="600" cy="225" r="92" fill="#FFFFFF"/>
+  <g transform="translate(556,181)" fill="none" stroke="#06C755" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 40 C0 18 20 0 44 0 C68 0 88 18 88 40 C88 62 68 80 44 80 C36 80 29 79 23 76 L4 84 L10 65 C4 58 0 49 0 40 Z"/>
   </g>
 
   <g transform="translate(64,150)">

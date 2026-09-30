@@ -13,26 +13,13 @@
   <circle cx="700" cy="40" r="230" fill="#FFFFFF" opacity="0.06"/>
   <circle cx="40" cy="430" r="160" fill="#06C755" opacity="0.08"/>
 
-  <!-- device card: AI draft mockup -->
-  <g transform="translate(430,84)">
-    <rect x="6" y="10" width="292" height="260" rx="20" fill="#0B2E6B" opacity="0.35"/>
-    <rect width="292" height="260" rx="20" fill="#FFFFFF"/>
-
-    <rect x="20" y="24" width="252" height="52" rx="14" fill="#F5F7FA"/>
-    <text x="34" y="55" font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#374151">この問い合わせの返信文をつくって</text>
-
-    <rect x="20" y="92" width="252" height="90" rx="14" fill="#EEF4FE"/>
-    <g stroke="#146EF5" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(36,106)">
-      <path d="M10 0 L12.5 7 L20 9.5 L12.5 12 L10 19 L7.5 12 L0 9.5 L7.5 7 Z"/>
-    </g>
-    <text x="62" y="118" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#146EF5">下書きができました</text>
-    <rect x="36" y="132" width="216" height="8" rx="4" fill="#CFE0FD"/>
-    <rect x="36" y="148" width="180" height="8" rx="4" fill="#CFE0FD"/>
-    <rect x="36" y="164" width="140" height="8" rx="4" fill="#CFE0FD"/>
-
-    <rect x="20" y="200" width="140" height="34" rx="17" fill="#146EF5"/>
-    <text x="90" y="222" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">確認して送信</text>
+  <!-- unified icon badge -->
+  <circle cx="600" cy="225" r="118" fill="#FFFFFF" opacity="0.08"/>
+  <circle cx="600" cy="225" r="92" fill="#FFFFFF"/>
+  <g transform="translate(556,181)" fill="#146EF5">
+    <path d="M40 0 L48 30 L80 40 L48 50 L40 80 L32 50 L0 40 L32 30 Z"/>
   </g>
+  <circle cx="648" cy="184" r="8" fill="#06C755"/>
 
   <g transform="translate(64,150)">
     <rect width="24" height="2.5" fill="#7FB0FA"/>

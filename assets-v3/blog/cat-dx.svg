@@ -13,37 +13,22 @@
   <circle cx="700" cy="40" r="230" fill="#FFFFFF" opacity="0.06"/>
   <circle cx="40" cy="430" r="160" fill="#06C755" opacity="0.08"/>
 
-  <!-- device card: schedule / workflow mockup -->
-  <g transform="translate(430,64)">
-    <rect x="6" y="10" width="292" height="300" rx="26" fill="#0B2E6B" opacity="0.35"/>
-    <rect width="292" height="300" rx="26" fill="#FFFFFF"/>
-    <text x="24" y="42" font-family="'Noto Sans JP',sans-serif" font-size="15" font-weight="700" fill="#6B7280">本日の予定</text>
-
-    <g font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#6B7280">
-      <text x="24" y="80">09:00</text>
-      <rect x="80" y="66" width="188" height="26" rx="8" fill="#EEF4FE"/>
-      <text x="92" y="84" fill="#146EF5">利用者様 訪問</text>
-
-      <text x="24" y="122">13:00</text>
-      <rect x="80" y="108" width="188" height="26" rx="8" fill="#06C755"/>
-      <text x="92" y="126" fill="#FFFFFF">対応中</text>
-
-      <text x="24" y="164">16:30</text>
-      <rect x="80" y="150" width="130" height="26" rx="8" fill="#F5F7FA"/>
-      <text x="92" y="168" fill="#9CA3AF">記録・報告</text>
+  <!-- unified icon badge -->
+  <circle cx="600" cy="225" r="118" fill="#FFFFFF" opacity="0.08"/>
+  <circle cx="600" cy="225" r="92" fill="#FFFFFF"/>
+  <g transform="translate(556,181)" fill="none" stroke="#146EF5" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="44" cy="40" r="34"/>
+    <circle cx="44" cy="40" r="11" fill="#146EF5" stroke="none"/>
+    <g stroke-width="6">
+      <line x1="44" y1="0" x2="44" y2="12"/>
+      <line x1="44" y1="68" x2="44" y2="80"/>
+      <line x1="4" y1="40" x2="16" y2="40"/>
+      <line x1="72" y1="40" x2="84" y2="40"/>
+      <line x1="14" y1="10" x2="22" y2="18"/>
+      <line x1="66" y1="62" x2="74" y2="70"/>
+      <line x1="74" y1="10" x2="66" y2="18"/>
+      <line x1="22" y1="62" x2="14" y2="70"/>
     </g>
-
-    <line x1="24" y1="198" x2="268" y2="198" stroke="#EEF1F5" stroke-width="1.5"/>
-
-    <g stroke="#06C755" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(24,214)">
-      <path d="M0 14 L10 24 L28 2"/>
-    </g>
-    <text x="60" y="234" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#111827">シフト提出が完了しました</text>
-
-    <g stroke="#06C755" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(24,254)">
-      <path d="M0 14 L10 24 L28 2"/>
-    </g>
-    <text x="60" y="274" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#111827">報告書の下書きが完成</text>
   </g>
 
   <g transform="translate(64,150)">
