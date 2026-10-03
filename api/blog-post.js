@@ -35,7 +35,7 @@ module.exports = async function handler(req, res) {
   const postUrl  = `https://raizon-okinawa.com/blog/${id}`;
   const desc     = truncate(post.body || '', 120);
   // data: URI のサムネイルは SNS・検索エンジンで使えないため、共有用の画像は既定画像にする
-  const img      = (post.thumbnail && /^https?:\/\//.test(post.thumbnail)) ? post.thumbnail : 'https://raizon-okinawa.com/seo-meo-thumb.webp';
+  const img      = (post.thumbnail && /^https?:\/\//.test(post.thumbnail)) ? post.thumbnail : 'https://raizon-okinawa.com/ogp-line.png';
   const datePub  = new Date(post.createdAt).toISOString();
   const dateMod  = new Date(post.updatedAt || post.createdAt).toISOString();
   const fmtDate  = formatDate(post.createdAt);

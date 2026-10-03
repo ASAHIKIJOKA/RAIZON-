@@ -298,7 +298,7 @@
       // タイトルとOGPを動的設定
       const postUrl = `https://raizon-okinawa.com/blog-post?id=${id}`;
       const postDesc = BlogCMS.truncate(post.body, 120);
-      const postImg = post.thumbnail || 'https://raizon-okinawa.com/seo-meo-thumb.webp';
+      const postImg = post.thumbnail || 'https://raizon-okinawa.com/ogp-line.png';
 
       document.title = `${post.title} | RAIZON`;
       document.querySelector('meta[name="description"]').setAttribute('content', postDesc);
