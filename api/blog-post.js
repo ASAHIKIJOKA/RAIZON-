@@ -3,7 +3,7 @@
 // Googlebot向けにサーバーサイドでHTMLを生成する
 // ========================================
 
-const { isValidId, isPublished, getPublishedPosts, getPost } = require('./_firebase');
+const { isValidId, isPublished, hiddenIds, getPublishedPosts, getPost } = require('./_firebase');
 
 module.exports = async function handler(req, res) {
   const id = req.query.id;
@@ -26,7 +26,8 @@ module.exports = async function handler(req, res) {
   }
 
   if (!post || post.error || !isPublished(post)) {
-    res.status(404).setHeader('Content-Type', 'text/html; charset=utf-8');
+    // 意図的に取り下げた記事は410(完全に削除済み)を返し、検索エンジンの索引から早く外れるようにする
+    res.status(hiddenIds().has(id) ? 410 : 404).setHeader('Content-Type', 'text/html; charset=utf-8');
     res.end(notFoundHtml());
     return;
   }

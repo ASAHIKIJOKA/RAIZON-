@@ -84,4 +84,4 @@ async function deletePost(id) {
   return request(`${POSTS_PATH}/${id}`, 'DELETE');
 }
 
-module.exports = { isValidId, isPublished, getAllPosts, getPublishedPosts, getPost, putPost, patchPost, deletePost };
+module.exports = { isValidId, isPublished, hiddenIds, getAllPosts, getPublishedPosts, getPost, putPost, patchPost, deletePost };
