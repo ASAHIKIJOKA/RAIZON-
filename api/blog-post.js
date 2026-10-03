@@ -156,8 +156,11 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
   <meta name="twitter:image" content="${esc(img)}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="${postUrl}">
-  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32.png?v=2" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-48.png?v=2" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicon-192.png?v=2" sizes="192x192">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
