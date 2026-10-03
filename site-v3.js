@@ -182,9 +182,14 @@
         b.addEventListener('click', function () {
           var cat = b.getAttribute('data-cat');
           catBtns.forEach(function (o) { o.classList.toggle('on', o === b); });
+          var shown = 0;
           document.querySelectorAll('.rz3-blog-card').forEach(function (card) {
-            card.style.display = (cat === 'すべて' || card.getAttribute('data-cat') === cat) ? '' : 'none';
+            var ok = cat === 'すべて' ? card.hasAttribute('data-home') : card.getAttribute('data-cat') === cat;
+            card.style.display = ok ? '' : 'none';
+            if (ok) shown++;
           });
+          var empty = document.getElementById('rz3-blog-empty');
+          if (empty) empty.style.display = shown ? 'none' : '';
         });
       });
     }

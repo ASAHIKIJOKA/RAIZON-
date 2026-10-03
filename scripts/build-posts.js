@@ -86,10 +86,15 @@ for (const [file, count, withHeading, cards] of [['index.html', 6, true, true], 
     : published.slice(0, count);
   let block;
   if (cards) {
-    const gridItems = latest.map(p => {
+    // カテゴリボタンで絞り込んだときに表示する記事も埋め込む(カテゴリごとに最新6件)。初期表示は latest のみ
+    const homeIds = new Set(latest.map(p => p.id));
+    const perCat = CATEGORIES.flatMap(c => published.filter(p => p.category === c).slice(0, count));
+    const shown = [...latest, ...perCat.filter(p => !homeIds.has(p.id)).sort((a, b) => b.createdAt.localeCompare(a.createdAt))];
+    const gridItems = shown.map(p => {
       const thumb = (p.thumbnail && /^https?:\/\//.test(p.thumbnail)) ? p.thumbnail : `/assets-v3/blog/${THUMB_BY_CAT[p.category] || 'cat-news'}.svg`;
       const dateStr = p.createdAt.slice(0, 10).replace(/-/g, '.');
-      return `<a class="rz3-blog-card" data-cat="${esc(p.category)}" href="/blog/${p.id}"><div class="rz3-blog-thumb"><img src="${esc(thumb)}" alt="" loading="lazy"></div><div class="rz3-blog-body"><div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(p.category)}</span><span class="rz3-blog-date">${dateStr}</span></div><h3>${esc(p.title)}</h3><p>${esc(excerptOf(p.body))}</p></div></a>`;
+      const home = homeIds.has(p.id);
+      return `<a class="rz3-blog-card" data-cat="${esc(p.category)}"${home ? ' data-home="1"' : ' style="display:none"'} href="/blog/${p.id}"><div class="rz3-blog-thumb"><img src="${esc(thumb)}" alt="" loading="lazy"></div><div class="rz3-blog-body"><div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(p.category)}</span><span class="rz3-blog-date">${dateStr}</span></div><h3>${esc(p.title)}</h3><p>${esc(excerptOf(p.body))}</p></div></a>`;
     }).join('');
     block = latest.length ? `<div id="rz3-blog-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;">${gridItems}</div>` : '';
   } else {
