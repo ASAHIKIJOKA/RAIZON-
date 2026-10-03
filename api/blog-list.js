@@ -117,7 +117,7 @@ function renderHtml(posts, categories, activeCategory) {
   <meta property="og:description" content="${esc(pageDesc)}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="${canonicalUrl}">
-  <meta property="og:image" content="https://raizon-okinawa.com/ogp-line.png">
+  <meta property="og:image" content="https://raizon-okinawa.com/ogp-logo.png">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="RAIZON">
   <meta name="twitter:card" content="summary_large_image">
