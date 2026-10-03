@@ -33,6 +33,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 
@@ -112,9 +113,9 @@ body.rz3 {
     position: fixed; top: 76px; left: 0; right: 0;
     height: calc(100vh - 76px); height: calc(100dvh - 76px);
     background: #FFFFFF; padding: 20px 24px; overflow-y: auto;
-    transform: translateX(100%); transition: transform .28s ease; z-index: 49;
+    transform: translateY(-12px); opacity: 0; visibility: hidden; pointer-events: none; transition: transform .28s ease, opacity .28s ease, visibility 0s linear .28s; z-index: 49;
   }
-  .rz3-mobile-nav.open { transform: translateX(0); }
+  .rz3-mobile-nav.open { transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto; transition: transform .28s ease, opacity .28s ease, visibility 0s; }
   .rz3-mobile-nav a:not(.btn) { padding: 16px 4px; font-size: 16px; font-weight: 600; color: var(--c-ink); border-bottom: 1px solid var(--c-border); }
 }
 
@@ -188,3 +189,22 @@ body.rz3 {
 .rz3-footer-nav { display: grid; grid-template-columns: repeat(2, minmax(120px, auto)); gap: 14px 56px; font-size: 14px; align-content: start; }
 .rz3-footer-nav a { color: var(--c-body); }
 .rz3-footer-bottom { max-width: 1200px; margin: 56px auto 0; border-top: 1px solid var(--c-border); padding-top: 24px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--c-muted); }
+
+/* ---- スマホ: ヘッダー固定(iPhoneのSafariでstickyが効かないため fixed にする) ---- */
+@media (max-width: 900px) {
+  .rz3-header { position: fixed; top: 0; left: 0; right: 0; }
+  body.rz3 { padding-top: 76px; }
+  html { scroll-padding-top: 84px; }
+}
+/* ---- LINEカード: 01〜05のステップを、スマホで折り返さず5等分に ---- */
+.rz3-jsteps { gap: 0; }
+.rz3-jnode { flex: 1 1 0; min-width: 0; }
+.rz3-jnode > span:last-child { white-space: nowrap; }
+@media (max-width: 520px) {
+  .rz3-lcard { padding: 36px 16px 28px !important; gap: 32px !important; }
+  .rz3-lcard-tag { left: 20px !important; }
+  .rz3-jcard { padding: 24px 14px !important; }
+  .rz3-jnode > span:first-child { width: 38px !important; height: 38px !important; font-size: 12px !important; }
+  .rz3-jnode > span:last-child { font-size: 10.5px !important; letter-spacing: -0.04em; }
+  .rz3-jline { left: 10% !important; right: 10% !important; top: 18px !important; }
+}
