@@ -174,24 +174,57 @@
       });
     }
 
-    /* ---------- ブログプレビュー(サーバー生成済みカードをカテゴリ絞り込み) ---------- */
+    /* ---------- ブログ(カテゴリ絞り込み + 横スライド) ---------- */
     var blogCats = document.getElementById('rz3-blog-cats');
-    if (blogCats) {
+    var track = document.getElementById('rz3-blog-grid');
+    if (blogCats && track) {
       var catBtns = blogCats.querySelectorAll('.rz3-blog-cat-btn');
+      var prevBtn = document.getElementById('rz3-blog-prev');
+      var nextBtn = document.getElementById('rz3-blog-next');
+      var countEl = document.getElementById('rz3-blog-count');
+      var pagerEl = document.getElementById('rz3-blog-pager');
+      var gapOf = function () { return parseFloat(getComputedStyle(track).columnGap) || 24; };
+      var geom = function () {
+        var cards = Array.prototype.filter.call(track.querySelectorAll('.rz3-blog-card'), function (c) { return c.style.display !== 'none'; });
+        if (!cards.length) return { n: 0, per: 1, step: 1, pages: 1, page: 1 };
+        var step = cards[0].offsetWidth + gapOf();
+        var per = Math.max(1, Math.floor((track.clientWidth + gapOf()) / step));
+        var pages = Math.max(1, Math.ceil(cards.length / per));
+        var max = track.scrollWidth - track.clientWidth;
+        var page = track.scrollLeft >= max - 2 ? pages : Math.min(pages, Math.round(track.scrollLeft / (per * step)) + 1);
+        return { n: cards.length, per: per, step: step, pages: pages, page: page, atStart: track.scrollLeft <= 2, atEnd: track.scrollLeft >= max - 2 };
+      };
+      var update = function () {
+        var g = geom();
+        if (countEl) countEl.textContent = g.page + ' / ' + g.pages;
+        if (prevBtn) prevBtn.disabled = !!g.atStart;
+        if (nextBtn) nextBtn.disabled = !!g.atEnd;
+        if (pagerEl) pagerEl.style.display = g.pages > 1 ? '' : 'none';
+      };
+      var go = function (dir) { var g = geom(); track.scrollBy({ left: dir * g.per * g.step, behavior: 'smooth' }); };
+      if (prevBtn) prevBtn.addEventListener('click', function () { go(-1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { go(1); });
+      var ticking = false;
+      track.addEventListener('scroll', function () { if (ticking) return; ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); }, { passive: true });
+      window.addEventListener('resize', update);
       catBtns.forEach(function (b) {
         b.addEventListener('click', function () {
           var cat = b.getAttribute('data-cat');
           catBtns.forEach(function (o) { o.classList.toggle('on', o === b); });
           var shown = 0;
-          document.querySelectorAll('.rz3-blog-card').forEach(function (card) {
+          track.querySelectorAll('.rz3-blog-card').forEach(function (card) {
             var ok = cat === 'すべて' ? card.hasAttribute('data-home') : card.getAttribute('data-cat') === cat;
             card.style.display = ok ? '' : 'none';
             if (ok) shown++;
           });
           var empty = document.getElementById('rz3-blog-empty');
           if (empty) empty.style.display = shown ? 'none' : '';
+          track.scrollLeft = 0;
+          update();
         });
       });
+      update();
+      window.addEventListener('load', update);
     }
   });
 })();

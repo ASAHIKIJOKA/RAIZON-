@@ -71,7 +71,7 @@ const now = Date.now();
 // トップページ(index.html)に、新着記事のリンク一覧を埋め込む(JavaScriptを使わないクローラーにも、記事へのリンクが見えるようにする)
 const THUMB_BY_CAT = { 'LINE構築': 'cat-line', 'DX支援': 'cat-dx', '制作実績': 'cat-case', 'お知らせ': 'cat-news', 'AI活用': 'cat-ai' };
 const excerptOf = body => { const m = body.match(/<p>([\s\S]*?)<\/p>/); const t = (m ? m[1] : '').replace(/<[^>]*>/g, ''); return t.length > 72 ? t.slice(0, 72) + '…' : t; };
-for (const [file, count, withHeading, cards] of [['index.html', 6, true, true], ['links.html', 3, false, false]]) {
+for (const [file, count, withHeading, cards] of [['index.html', 12, true, true], ['links.html', 3, false, false]]) {
   const idx = path.join(__dirname, '..', file);
   if (!fs.existsSync(idx)) continue;
   let html = fs.readFileSync(idx, 'utf8');
@@ -96,7 +96,7 @@ for (const [file, count, withHeading, cards] of [['index.html', 6, true, true], 
       const home = homeIds.has(p.id);
       return `<a class="rz3-blog-card" data-cat="${esc(p.category)}"${home ? ' data-home="1"' : ' style="display:none"'} href="/blog/${p.id}"><div class="rz3-blog-thumb"><img src="${esc(thumb)}" alt="" loading="lazy"></div><div class="rz3-blog-body"><div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(p.category)}</span><span class="rz3-blog-date">${dateStr}</span></div><h3>${esc(p.title)}</h3><p>${esc(excerptOf(p.body))}</p></div></a>`;
     }).join('');
-    block = latest.length ? `<div id="rz3-blog-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;">${gridItems}</div>` : '';
+    block = latest.length ? `<div id="rz3-blog-grid" class="rz3-blog-track">${gridItems}</div>` : '';
   } else {
     const list = latest.map(p => `<li><time datetime="${p.createdAt.slice(0, 10)}">${p.createdAt.slice(0, 10).replace(/-/g, '.')}</time><a href="/blog/${p.id}">${esc(p.title)}</a></li>`).join('');
     block = latest.length ? `${withHeading ? '<h3>新着記事</h3>' : ''}<ul>${list}</ul>` : '';
