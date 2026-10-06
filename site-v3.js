@@ -67,6 +67,11 @@
         if (tab.classList.contains('active')) return;
         scTabs.forEach(function (t) { t.classList.toggle('active', t === tab); });
         scPanels.forEach(function (p) { p.style.display = (p.getAttribute('data-sc-panel') === key) ? '' : 'none'; });
+        /* 美容室タブは専用のリッチメニュー画像、それ以外は共通のメニューを表示 */
+        document.querySelectorAll('[data-sc-menu]').forEach(function (m) {
+          var isSalon = m.getAttribute('data-sc-menu') === 'salon';
+          m.style.display = (isSalon === (key === 'salon')) ? (isSalon ? '' : 'grid') : 'none';
+        });
         requestAnimationFrame(function () {
           if (!window.__rzAttachPhone) return;
           window.__rzPhoneAnims = (window.__rzPhoneAnims || []).filter(function (an) { return an.effect && an.effect.target && an.effect.target.isConnected; });
