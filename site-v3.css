@@ -228,3 +228,7 @@ body.rz3 {
 
 /* LINEデモ: QRはPC向け(スマホではボタンから追加するため非表示) */
 @media (max-width: 767px) { .rz3-demo-qr { display: none !important; } }
+
+/* ---------- LINEデモ内のスマホ見本(メインビューから移設) ---------- */
+.rz3-demo-phone { zoom: 1.32; }
+@media (max-width: 480px) { .rz3-demo-phone { zoom: 1.1; } }
