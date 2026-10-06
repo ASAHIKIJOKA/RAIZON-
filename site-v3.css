@@ -232,7 +232,7 @@ body.rz3 {
 /* ---------- FV: 動く背景 + 大きなスマホ ---------- */
 .rz3-hero-section {
   position: relative; overflow: hidden;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F6FAFF 100%) !important;
+  background: transparent !important;
 }
 .rz3-hero-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .rz3-deco { position: absolute; display: block; will-change: transform; }
@@ -443,3 +443,23 @@ body.rz3 {
   .rz3-hero-stage { padding-top: 6px !important; flex-direction: column; }
   .rz3-hero-tilt { display: flex; flex-direction: column; align-items: center; }
 }
+
+/* ---------- 背景の統一: 淡い色のセクションはすべて透明にして、共通の固定背景(bg-fx)を見せる ---------- */
+.rz3 section[style*="background:#FFFFFF"],
+.rz3 section[style*="background:#F5F7FA"],
+.rz3 section[style*="background:#F1FAF4"] { background: transparent !important; }
+.rz3-wave { display: none; }
+.rz3-footer { background: rgba(255,255,255,.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+/* ---------- スクロールで動く仕掛け(追加) ---------- */
+.rz3-ticker { overflow: hidden; padding: 18px 0 6px; }
+.rz3-ticker-in { display: flex; align-items: center; gap: 40px; width: max-content; white-space: nowrap; will-change: transform; }
+.rz3-ticker-in span { font-family: Inter, sans-serif; font-weight: 900; font-size: clamp(48px, 8vw, 104px); letter-spacing: .04em; line-height: 1.1; color: transparent; -webkit-text-stroke: 1.5px #BCCDE8; }
+.rz3-ticker-in span:nth-of-type(5n+1) { color: rgba(20,110,245,.12); -webkit-text-stroke-color: #146EF5; }
+.rz3-ticker-in i { flex: none; width: 14px; height: 14px; border-radius: 50%; background: #06C755; }
+.rz3-h2 { position: relative; }
+.rz3-h2::after { content: ""; display: block; width: 0; height: 4px; margin-top: 16px; border-radius: 2px; background: linear-gradient(90deg, #146EF5, #06C755); transition: width .9s cubic-bezier(.2,.8,.3,1) .25s; }
+.rz3-h2.rz3-in::after { width: 56px; }
+.rz3-vision-section .rz3-h2::after { display: none; }
+@media (prefers-reduced-motion: reduce) { .rz3-h2::after { width: 56px; transition: none; } }
+.rz3-h2-c::after { margin-left: auto; margin-right: auto; }

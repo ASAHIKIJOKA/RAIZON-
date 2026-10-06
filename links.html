@@ -36,6 +36,7 @@
   // 流入元の記録(問い合わせフォームで「どこから来たか」を分かるようにする)
   try { if (!localStorage.getItem('raizon_src')) { var p = new URLSearchParams(location.search); var ref = ''; try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) {} localStorage.setItem('raizon_src', [p.get('utm_source') || ref || 'direct', p.get('utm_medium') || '', p.get('utm_campaign') || '', location.pathname].join('|')); } } catch (e) {}
 </script>
+  <link rel="stylesheet" href="/bg-fx.css?v=1">
 </head>
 <body>
 <div class="wrap">
@@ -53,5 +54,6 @@
   <div class="latest"><h2>新着記事</h2><!--LATEST_POSTS_START--><ul><li><time datetime="2026-10-03">2026.10.03</time><a href="/blog/line-kouchiku-daiko-toha">LINE公式アカウントの構築代行とは｜依頼できる内容と依頼から納品までの流れ</a></li><li><time datetime="2026-10-03">2026.10.03</time><a href="/blog/line-yoyaku-uketsuke-houhou">LINE公式アカウントで予約を受け付ける方法｜店舗向けの選択肢と運用のコツ</a></li><li><time datetime="2026-10-03">2026.10.03</time><a href="/blog/seitai-line-katsuyo">整体院・整骨院のLINE公式アカウント活用術｜予約・リピートの仕組みづくり</a></li></ul><!--LATEST_POSTS_END--></div>
   <p class="foot">© RAIZON（ライゾン）沖縄県</p>
 </div>
+  <script src="/bg-fx.js?v=1" defer></script>
 </body>
 </html>
