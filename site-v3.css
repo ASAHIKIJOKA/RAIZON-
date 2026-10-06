@@ -232,10 +232,7 @@ body.rz3 {
 /* ---------- FV: 動く背景 + 大きなスマホ ---------- */
 .rz3-hero-section {
   position: relative; overflow: hidden;
-  background:
-    radial-gradient(760px 620px at 80% 46%, #E6F0FF 0%, rgba(230,240,255,0) 68%),
-    radial-gradient(620px 520px at 4% 96%, #E6F8EE 0%, rgba(230,248,238,0) 70%),
-    #FFFFFF !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F6FAFF 100%) !important;
 }
 .rz3-hero-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .rz3-deco { position: absolute; display: block; will-change: transform; }
@@ -398,3 +395,51 @@ body.rz3 {
 .rz3-deco2.r3 { width: 26px; height: 26px; left: 46%; top: 9%; border-radius: 50%; background: #FFD58A; }
 @media (max-width: 767px) { .rz3-deco2.r1 { width: 170px; height: 170px; border-width: 26px; } }
 @media (prefers-reduced-motion: reduce) { .rz3-scroll i::after { animation: none; } }
+
+/* ---------- FVの背景(オーロラ + ドット + 波) ---------- */
+.rz3-aur { position: absolute; display: block; border-radius: 50%; will-change: transform; }
+.rz3-aur.a1 { width: 760px; height: 760px; right: -140px; top: -140px; background: radial-gradient(circle, rgba(120,170,255,.50) 0%, rgba(120,170,255,0) 68%); animation: rz3Aur1 22s ease-in-out infinite alternate; }
+.rz3-aur.a2 { width: 680px; height: 680px; left: -200px; bottom: -120px; background: radial-gradient(circle, rgba(90,220,150,.42) 0%, rgba(90,220,150,0) 68%); animation: rz3Aur2 26s ease-in-out infinite alternate; }
+.rz3-aur.a3 { width: 520px; height: 520px; left: 34%; top: 38%; background: radial-gradient(circle, rgba(255,205,130,.38) 0%, rgba(255,205,130,0) 68%); animation: rz3Aur3 30s ease-in-out infinite alternate; }
+@keyframes rz3Aur1 { to { translate: -90px 70px; scale: 1.12; } }
+@keyframes rz3Aur2 { to { translate: 110px -60px; scale: 1.15; } }
+@keyframes rz3Aur3 { to { translate: -120px -50px; scale: .9; } }
+.rz3-dotgrid { position: absolute; inset: 0; background-image: radial-gradient(#B9C9E4 1.3px, transparent 1.4px); background-size: 30px 30px; opacity: .55; -webkit-mask-image: radial-gradient(ellipse 70% 65% at 62% 45%, #000 0%, transparent 78%); mask-image: radial-gradient(ellipse 70% 65% at 62% 45%, #000 0%, transparent 78%); }
+.rz3-wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 70px; z-index: 1; display: block; pointer-events: none; }
+.rz3-pc-only { display: inline; } .rz3-sp-only { display: none; }
+.rz3-hero-peek { display: none; }
+@media (prefers-reduced-motion: reduce) { .rz3-aur { animation: none; } }
+
+/* ---------- スマホ最適化: メインビュー(PCは変更なし) ---------- */
+@media (max-width: 767px) {
+  .rz3-pc-only { display: none; } .rz3-sp-only { display: inline; }
+  .rz3-hero-section { padding: 26px 20px 70px !important; }
+  .rz3-hero-grid { gap: 28px !important; }
+  .rz3-wave { height: 34px; }
+  .rz3-aur.a1 { width: 440px; height: 440px; right: -190px; top: -80px; }
+  .rz3-aur.a2 { width: 420px; height: 420px; left: -200px; bottom: 60px; }
+  .rz3-aur.a3 { display: none; }
+  .rz3-dotgrid { background-size: 24px 24px; -webkit-mask-image: radial-gradient(ellipse 90% 40% at 50% 28%, #000 0%, transparent 80%); mask-image: radial-gradient(ellipse 90% 40% at 50% 28%, #000 0%, transparent 80%); }
+  .rz3-hero-eyebrow { font-size: 11px !important; letter-spacing: .16em !important; }
+  .rz3-hero-h1 { margin-top: 16px !important; font-size: 33px !important; line-height: 1.36 !important; }
+  .rz3-hero-sub { margin-top: 16px !important; font-size: 14.5px !important; line-height: 1.85 !important; }
+  .rz3-hero-price { margin-top: 20px !important; flex-wrap: nowrap !important; gap: 14px !important; background: #FFFFFF; border: 1px solid #E5EBF5; border-radius: 22px; padding: 12px 18px 12px 12px; box-shadow: 0 12px 28px rgba(20,60,140,.08); width: fit-content; max-width: 100%; }
+  .rz3-hero-badge { width: 76px !important; height: 76px !important; }
+  .rz3-hero-badge span:first-child { font-size: 9.5px !important; }
+  .rz3-hero-badge span:last-child { font-size: 26px !important; }
+  .rz3-hero-price span[data-count] { font-size: 38px !important; }
+  .rz3-hero-price > div:last-child { white-space: nowrap; }
+  .rz3-hero-price > div:last-child span:last-child { font-size: 10.5px !important; margin-left: 2px !important; }
+  .rz3-hero-price > div:last-child span:nth-child(2) { font-size: 18px !important; }
+  .rz3-deco.ring { top: auto !important; bottom: 120px; left: -150px !important; }
+  .rz3-deco.d3 { display: none; }
+  .rz3-hero-ctas { margin-top: 18px !important; flex-direction: column; gap: 10px !important; }
+  .rz3-hero-ctas .btn { width: 100%; justify-content: center; padding: 16px 20px; font-size: 15.5px; }
+  .rz3-hero-note { margin-top: 12px !important; font-size: 12.5px !important; text-align: center; }
+  .rz3-hero-ticks { margin-top: 12px !important; gap: 6px 14px !important; justify-content: center; font-size: 11.5px !important; }
+  .rz3-hero-peek { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-bottom: 14px; font-size: 12px; font-weight: 800; color: #146EF5; letter-spacing: .06em; }
+  .rz3-hero-peek span { flex: 1; max-width: 56px; height: 1.5px; background: linear-gradient(90deg, transparent, #9DBCF5); }
+  .rz3-hero-peek span:last-child { background: linear-gradient(270deg, transparent, #9DBCF5); }
+  .rz3-hero-stage { padding-top: 6px !important; flex-direction: column; }
+  .rz3-hero-tilt { display: flex; flex-direction: column; align-items: center; }
+}
