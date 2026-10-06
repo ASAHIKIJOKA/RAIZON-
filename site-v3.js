@@ -232,4 +232,29 @@
       window.addEventListener('load', update);
     }
   });
+
+  // FV: スクロール連動の動き(背景パーツは速度差で流れ、スマホはゆっくり傾いて浮く)
+  (function () {
+    var hero = document.querySelector('.rz3-hero-section');
+    if (!hero || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var items = [].slice.call(hero.querySelectorAll('[data-speed]'));
+    var tilt = hero.querySelector('[data-tilt]');
+    var ticking = false;
+    function frame() {
+      ticking = false;
+      var y = window.pageYOffset || 0;
+      var h = hero.offsetHeight || 1;
+      if (y > h + 200) return;
+      items.forEach(function (el) {
+        el.style.transform = 'translate3d(0,' + (y * parseFloat(el.getAttribute('data-speed'))).toFixed(1) + 'px,0)';
+      });
+      if (tilt) {
+        var k = window.innerWidth < 768 ? 0.35 : 1;
+        var p = Math.min(y / Math.min(h, 900), 1);
+        tilt.style.transform = 'translate3d(0,' + (-p * 70 * k).toFixed(1) + 'px,0) rotate(' + (p * 7 * k).toFixed(2) + 'deg) scale(' + (1 - p * 0.06 * k).toFixed(3) + ')';
+      }
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+    frame();
+  })();
 })();

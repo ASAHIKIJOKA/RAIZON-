@@ -229,6 +229,64 @@ body.rz3 {
 /* LINEデモ: QRはPC向け(スマホではボタンから追加するため非表示) */
 @media (max-width: 767px) { .rz3-demo-qr { display: none !important; } }
 
-/* ---------- LINEデモ内のスマホ見本(メインビューから移設) ---------- */
-.rz3-demo-phone { zoom: 1.32; }
-@media (max-width: 480px) { .rz3-demo-phone { zoom: 1.1; } }
+/* ---------- FV: 動く背景 + 大きなスマホ ---------- */
+.rz3-hero-section {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(760px 620px at 80% 46%, #E6F0FF 0%, rgba(230,240,255,0) 68%),
+    radial-gradient(620px 520px at 4% 96%, #E6F8EE 0%, rgba(230,248,238,0) 70%),
+    #FFFFFF !important;
+}
+.rz3-hero-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.rz3-deco { position: absolute; display: block; will-change: transform; }
+.rz3-deco.ring { width: 380px; height: 380px; left: -170px; top: 36%; border-radius: 50%; border: 54px solid #CDEFDB; border-top-color: #06C755; border-right-color: #7BDDA3; animation: rz3Spin 38s linear infinite; }
+.rz3-deco.sq { width: 150px; height: 150px; right: 3%; top: 54%; border-radius: 38px; background: linear-gradient(135deg, #146EF5, #6BA6FF); opacity: .92; rotate: 14deg; animation: rz3Bob 7s ease-in-out infinite; }
+.rz3-deco.dia { width: 84px; height: 84px; left: 41%; bottom: 7%; border: 15px solid #FFD58A; border-radius: 22px; rotate: 38deg; animation: rz3Bob 8s ease-in-out -2s infinite; }
+.rz3-deco.dot { border-radius: 50%; }
+.rz3-deco.d1 { width: 30px; height: 30px; left: 47%; top: 14%; background: #BFD7FF; animation: rz3Bob 6s ease-in-out infinite; }
+.rz3-deco.d2 { width: 18px; height: 18px; right: 9%; top: 16%; background: #7BDDA3; animation: rz3Bob 5s ease-in-out -1s infinite; }
+.rz3-deco.d3 { width: 44px; height: 44px; left: 5%; top: 12%; background: #FFE3B0; animation: rz3Bob 9s ease-in-out -3s infinite; }
+.rz3-deco.bar { width: 120px; height: 28px; right: 24%; top: 6%; border-radius: 999px; background: #D9E8FF; rotate: -24deg; animation: rz3Bob 7.5s ease-in-out -4s infinite; }
+@keyframes rz3Bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -22px; } }
+@keyframes rz3Spin { to { rotate: 360deg; } }
+
+.rz3-hero-stage { position: relative; display: flex; justify-content: center; align-items: center; min-height: 520px; }
+.rz3-hero-glow { position: absolute; width: 440px; height: 440px; left: 50%; top: 50%; margin: -220px 0 0 -220px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #DCEBFF 45%, #D3F3E2 100%); opacity: .9; }
+.rz3-hero-tilt { position: relative; will-change: transform; filter: drop-shadow(0 40px 50px rgba(20,60,140,.22)); }
+.rz3-hero-phone { zoom: 1.12; }
+@media (max-width: 1100px) { .rz3-hero-phone { zoom: 1.08; } .rz3-hero-stage { min-height: 520px; } .rz3-hero-glow { width: 400px; height: 400px; margin: -200px 0 0 -200px; } }
+@media (max-width: 480px) { .rz3-hero-phone { zoom: 1.05; } }
+
+.rz3-chip { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border-radius: 16px; padding: 11px 16px; font-size: 13px; font-weight: 800; color: #111827; box-shadow: 0 14px 30px rgba(17,24,39,.14); white-space: nowrap; will-change: transform; animation: rz3Bob 6s ease-in-out infinite; }
+.rz3-chip i { width: 10px; height: 10px; border-radius: 50%; }
+.rz3-chip.c1 { left: 0; top: 17%; animation-delay: -1s; }
+.rz3-chip.c2 { right: -2%; top: 42%; animation-delay: -3s; }
+.rz3-chip.c3 { left: -1%; bottom: 13%; animation-delay: -2s; }
+@media (max-width: 1100px) { .rz3-chip.c1 { left: -3%; } .rz3-chip.c2 { right: -4%; } .rz3-chip.c3 { left: -4%; } }
+@media (max-width: 767px) { .rz3-chip { display: none; } .rz3-hero-stage { min-height: 0; padding: 24px 0 8px; } .rz3-hero-glow { width: 330px; height: 330px; margin: -165px 0 0 -165px; } .rz3-deco.ring { width: 240px; height: 240px; border-width: 36px; left: -110px; } .rz3-deco.sq { width: 90px; height: 90px; border-radius: 24px; } }
+
+.rz3-try { position: absolute; z-index: 3; right: 2%; bottom: 6%; width: 118px; height: 118px; border-radius: 50%; background: #06C755; color: #FFFFFF !important; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; font-weight: 700; line-height: 1.5; text-decoration: none; box-shadow: 0 14px 28px rgba(6,199,85,.4); will-change: transform; }
+.rz3-try b { font-size: 15px; font-weight: 800; }
+.rz3-try::before, .rz3-try::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #06C755; animation: rz3Ping 2.4s ease-out infinite; }
+.rz3-try::after { animation-delay: 1.2s; }
+@keyframes rz3Ping { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.6); opacity: 0; } }
+.rz3-try:hover { background: #05B34C; }
+@media (max-width: 767px) { .rz3-try { width: 96px; height: 96px; font-size: 11px; right: 0; bottom: 4%; } .rz3-try b { font-size: 13px; } }
+
+.rz3-hero-demo-btn { display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 24px rgba(6,199,85,.32); }
+.rz3-pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #FFFFFF; animation: rz3Blink 1.4s ease-in-out infinite; }
+@keyframes rz3Blink { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.7); } }
+@media (prefers-reduced-motion: reduce) { .rz3-deco, .rz3-chip, .rz3-try::before, .rz3-try::after, .rz3-pulse-dot { animation: none !important; } }
+
+/* ---------- LINEデモ枠: 体験の流れカード ---------- */
+.rz3-demo-card { width: 100%; max-width: 420px; background: #FFFFFF; border-radius: 28px; padding: 28px; box-shadow: 0 24px 50px rgba(17,24,39,.08); }
+.rz3-demo-qrbox { display: flex; align-items: center; gap: 18px; padding-bottom: 22px; border-bottom: 1px dashed #D9E2EC; }
+.rz3-demo-qrbox img { flex: none; width: 128px; height: 128px; border-radius: 14px; border: 1px solid #E5E9F0; padding: 5px; }
+.rz3-demo-qrbox b { display: block; font-size: 15px; line-height: 1.6; }
+.rz3-demo-qrbox span { display: block; margin-top: 6px; font-size: 12px; line-height: 1.7; color: #6B7280; }
+.rz3-demo-steps { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.rz3-demo-steps li { display: flex; gap: 14px; align-items: flex-start; font-size: 13px; line-height: 1.7; color: #4B5563; }
+.rz3-demo-steps li > span { flex: none; width: 28px; height: 28px; border-radius: 50%; background: #06C755; color: #FFFFFF; font-family: Inter; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+.rz3-demo-steps b { display: block; font-size: 14.5px; color: #111827; }
+@media (max-width: 767px) { .rz3-demo-qr { display: none !important; } .rz3-demo-card { padding: 22px; } .rz3-demo-steps { margin-top: 0; } }
+@media (max-width: 767px) { .rz3-deco.bar, .rz3-deco.d1 { display: none; } }
