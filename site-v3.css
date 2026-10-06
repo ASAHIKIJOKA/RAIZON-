@@ -463,3 +463,8 @@ body.rz3 {
 .rz3-vision-section .rz3-h2::after { display: none; }
 @media (prefers-reduced-motion: reduce) { .rz3-h2::after { width: 56px; transition: none; } }
 .rz3-h2-c::after { margin-left: auto; margin-right: auto; }
+
+/* 背景を透明にしたぶん、枠だけのカードは白で塗って読みやすくする */
+.rz3 section div[style*="border:1px solid #E5E9F0"]:not([style*="background"]),
+.rz3 section div[style*="border:1px solid #DCE1E8"]:not([style*="background"]),
+.rz3 section a[style*="border:1px solid #E5E9F0"]:not([style*="background"]) { background: #FFFFFF; }

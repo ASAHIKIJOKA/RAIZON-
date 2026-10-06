@@ -36,7 +36,7 @@
   // 流入元の記録(問い合わせフォームで「どこから来たか」を分かるようにする)
   try { if (!localStorage.getItem('raizon_src')) { var p = new URLSearchParams(location.search); var ref = ''; try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) {} localStorage.setItem('raizon_src', [p.get('utm_source') || ref || 'direct', p.get('utm_medium') || '', p.get('utm_campaign') || '', location.pathname].join('|')); } } catch (e) {}
 </script>
-  <link rel="stylesheet" href="/bg-fx.css?v=1">
+  <link rel="stylesheet" href="/bg-fx.css?v=2">
 </head>
 <body>
 <div class="wrap">

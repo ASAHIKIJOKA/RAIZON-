@@ -1,9 +1,9 @@
 /* 全ページ共通の背景(固定レイヤー + スクロール連動)。bg-fx.js が .rzbg を挿入する */
 .rzbg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: #F7FAFF; }
 .rzbg i { position: absolute; display: block; border-radius: 50%; will-change: transform; }
-.rzbg .b1 { width: 900px; height: 900px; right: -260px; top: -240px; background: radial-gradient(circle, rgba(120,170,255,.42) 0%, rgba(120,170,255,0) 66%); }
-.rzbg .b2 { width: 820px; height: 820px; left: -300px; bottom: -260px; background: radial-gradient(circle, rgba(90,220,150,.36) 0%, rgba(90,220,150,0) 66%); }
-.rzbg .b3 { width: 620px; height: 620px; left: 38%; top: 30%; background: radial-gradient(circle, rgba(255,205,130,.30) 0%, rgba(255,205,130,0) 66%); }
+.rzbg .b1 { width: 900px; height: 900px; right: -260px; top: -240px; background: radial-gradient(circle, rgba(120,170,255,.30) 0%, rgba(120,170,255,0) 66%); }
+.rzbg .b2 { width: 820px; height: 820px; left: -300px; bottom: -260px; background: radial-gradient(circle, rgba(90,220,150,.24) 0%, rgba(90,220,150,0) 66%); }
+.rzbg .b3 { width: 620px; height: 620px; left: 38%; top: 30%; background: radial-gradient(circle, rgba(255,205,130,.20) 0%, rgba(255,205,130,0) 66%); }
 .rzbg .dots { position: absolute; inset: 0; background-image: radial-gradient(#C2D0E8 1.2px, transparent 1.3px); background-size: 32px 32px; opacity: .45; will-change: transform; }
 @media (max-width: 767px) {
   .rzbg .b1 { width: 560px; height: 560px; right: -240px; top: -160px; }
