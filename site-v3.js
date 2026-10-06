@@ -258,4 +258,48 @@
     frame();
   })();
 
+
+  // ちょっとした動き: 読み進めバー / SCROLL表示 / 料金のカウントアップ / デモ枠の背景パーツ
+  (function () {
+    var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var bar = document.createElement('div');
+    bar.className = 'rz3-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+    var cue = document.querySelector('.rz3-scroll');
+    var pars = [].slice.call(document.querySelectorAll('[data-par]'));
+    var ticking = false;
+    function frame() {
+      ticking = false;
+      var y = window.pageYOffset || 0;
+      var max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      bar.style.transform = 'scaleX(' + Math.min(y / max, 1).toFixed(4) + ')';
+      if (cue) cue.classList.toggle('hide', y > 80);
+      if (reduced) return;
+      pars.forEach(function (el) {
+        var r = el.parentNode.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > window.innerHeight + 200) return;
+        var off = (r.top + r.height / 2 - window.innerHeight / 2) * parseFloat(el.getAttribute('data-par'));
+        el.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
+      });
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+    window.addEventListener('resize', frame);
+    frame();
+
+    var num = document.querySelector('[data-count]');
+    if (num && !reduced && 'requestAnimationFrame' in window) {
+      var to = parseInt(num.getAttribute('data-count'), 10);
+      num.textContent = '0';
+      var t0 = null;
+      setTimeout(function () {
+        requestAnimationFrame(function step(t) {
+          if (t0 === null) t0 = t;
+          var p = Math.min((t - t0) / 1300, 1);
+          num.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US');
+          if (p < 1) requestAnimationFrame(step);
+        });
+      }, 500);
+    }
+  })();
 })();

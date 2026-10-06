@@ -374,3 +374,27 @@ body.rz3 {
 .rz3-spec li { position: relative; padding-left: 16px; font-size: 13px; line-height: 1.75; color: #4B5563; }
 .rz3-spec li::before { content: ""; position: absolute; left: 0; top: .72em; width: 6px; height: 6px; border-radius: 50%; background: #06C755; }
 .rz3-spec li b { color: #111827; }
+
+/* ---------- ちょっとした動き(スクロールしたくなる仕掛け) ---------- */
+.rz3-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 9999; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, #146EF5, #06C755); pointer-events: none; }
+
+.rz3-scroll { position: absolute; z-index: 2; left: 50%; bottom: 22px; margin-left: -22px; width: 44px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: #6B7280; font-family: Inter; font-size: 10px; font-weight: 800; letter-spacing: .2em; transition: opacity .3s; }
+.rz3-scroll.hide { opacity: 0; pointer-events: none; }
+.rz3-scroll i { position: relative; display: block; width: 2px; height: 46px; background: #D6DEEA; border-radius: 2px; overflow: hidden; }
+.rz3-scroll i::after { content: ""; position: absolute; left: 0; top: 0; width: 2px; height: 18px; border-radius: 2px; background: linear-gradient(#146EF5, #06C755); animation: rz3Drop 1.8s cubic-bezier(.6,0,.3,1) infinite; }
+@keyframes rz3Drop { 0% { transform: translateY(-20px); } 70%,100% { transform: translateY(48px); } }
+@media (max-width: 767px) { .rz3-scroll { display: none; } }
+
+.rz3 .btn { transition: background .2s ease, transform .25s cubic-bezier(.2,.8,.3,1), box-shadow .25s ease; }
+.rz3 .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(17,24,39,.16); }
+.rz3 .btn:active { transform: translateY(0) scale(.97); }
+.rz3-hero-demo-btn:hover { box-shadow: 0 16px 30px rgba(6,199,85,.45); }
+
+.rz3-demo-section { position: relative; overflow: hidden; }
+.rz3-demo-section > .wrap { position: relative; z-index: 1; }
+.rz3-deco2 { position: absolute; display: block; pointer-events: none; will-change: transform; }
+.rz3-deco2.r1 { width: 260px; height: 260px; right: -90px; top: 8%; border-radius: 50%; border: 38px solid #D3F1E0; }
+.rz3-deco2.r2 { width: 90px; height: 90px; left: 3%; bottom: 10%; border-radius: 26px; background: #CFE2FF; rotate: -14deg; }
+.rz3-deco2.r3 { width: 26px; height: 26px; left: 46%; top: 9%; border-radius: 50%; background: #FFD58A; }
+@media (max-width: 767px) { .rz3-deco2.r1 { width: 170px; height: 170px; border-width: 26px; } }
+@media (prefers-reduced-motion: reduce) { .rz3-scroll i::after { animation: none; } }
