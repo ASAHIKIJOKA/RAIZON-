@@ -225,3 +225,6 @@ body.rz3 {
 .rz3 a.rz3-blog-card { color: var(--c-ink); }
 .rz3 a.rz3-blog-card:hover h3 { color: var(--c-blue); }
 .rz3 a.rz3-blog-all { color: #FFFFFF; }
+
+/* LINEデモ: QRはPC向け(スマホではボタンから追加するため非表示) */
+@media (max-width: 767px) { .rz3-demo-qr { display: none !important; } }
