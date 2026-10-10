@@ -115,7 +115,7 @@
     <div class="rz3-consult-book">
       <div class="rz3-eyebrow" style="color:#06C755;">BOOKING</div>
       <h2 class="rz3-h2" style="margin-top:12px;">日時を選んで、予約する</h2>
-      <p style="margin:16px 0 0;font-size:15px;line-height:1.9;color:#374151;">予約すると、Google Meetのリンクが、メールで届きます。<br><b>平日 18:30以降／土日 21:00まで</b>の中から、選べます。</p>
+      <p style="margin:16px 0 0;font-size:15px;line-height:1.9;color:#374151;">日時を選んで予約すると、確定のご連絡とGoogle Meetのリンクが、LINEで届きます。<br><b>平日 18:30以降／土日 21:00まで</b>の中から、選べます。</p>
       <div style="margin-top:28px;"><a id="rz-book" href="https://line.me/R/ti/p/%40400mmccb" target="_blank" rel="noopener" class="btn btn-line rz3-hero-demo-btn">LINEで、日程を相談する →</a></div>
       <p id="rz-book-note" style="margin:16px 0 0;font-size:12.5px;line-height:1.8;color:#6B7280;">※予約の受付ページを準備中です。それまでは、LINEで、ご希望の日時をお送りください（24時間いつでも受付）。</p>
     </div>
@@ -145,7 +145,7 @@
 
 <script>
 // 予約ページのURL(Googleカレンダーの予約スケジュール)ができたら、ここに入れる。空の間は、LINEでの日程相談を表示する。
-window.RZ_BOOKING_URL = '';
+window.RZ_BOOKING_URL = 'https://raizon.k-kijoka17.workers.dev/o?liffId=2011901640-VpFRCiut&page=salon-book&menu_id=07935b32-a027-4f09-8099-619e07677bc9';
 </script>
 <script src="/site-v3.js?v=9"></script>
 <script src="/bg-fx.js?v=2" defer></script>
@@ -156,7 +156,7 @@ window.RZ_BOOKING_URL = '';
   var a = document.getElementById('rz-book'), n = document.getElementById('rz-book-note');
   if (a) { a.href = url; a.textContent = '日時を選んで、予約する →'; }
   document.querySelectorAll('a[href="#book"]').forEach(function (b) { b.href = url; b.target = '_blank'; b.rel = 'noopener'; });
-  if (n) n.textContent = '※Googleの予約ページが開きます。予約が完了すると、Google Meetのリンクがメールで届きます。';
+  if (n) n.textContent = '※LINEの予約画面が開きます（LINEの友だち追加の確認が出ます）。日時を選ぶだけで、予約のリクエストが届きます。確定のご連絡と、Google Meetのリンクは、LINEでお送りします。';
 })();
 </script>
 </body>
