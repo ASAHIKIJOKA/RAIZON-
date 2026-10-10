@@ -342,4 +342,19 @@
       update();
     }
   })();
+  // 導入事例(スマホ): 横スワイプの位置に合わせて、ページ送りの点を切り替える
+  (function () {
+    var box = document.querySelector('.rzcs');
+    var dots = [].slice.call(document.querySelectorAll('.rzcs-dots i'));
+    if (!box || !dots.length) return;
+    var cards = [].slice.call(box.querySelectorAll('.rzcs-card'));
+    var tk = false;
+    function update() {
+      tk = false;
+      var mid = box.scrollLeft + box.clientWidth / 2, best = 0, bd = 1e9;
+      cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      dots.forEach(function (d, i) { d.classList.toggle('on', i === best); });
+    }
+    box.addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(update); } }, { passive: true });
+  })();
 })();
