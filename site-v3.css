@@ -468,3 +468,20 @@ body.rz3 {
 .rz3 section div[style*="border:1px solid #E5E9F0"]:not([style*="background"]),
 .rz3 section div[style*="border:1px solid #DCE1E8"]:not([style*="background"]),
 .rz3 section a[style*="border:1px solid #E5E9F0"]:not([style*="background"]) { background: #FFFFFF; }
+
+/* ---------- WEB相談ページ ---------- */
+.rz3-consult-h1 { margin: 22px 0 0; font-size: clamp(34px, 4.6vw, 56px); line-height: 1.38; font-weight: 800; }
+.rz3-consult-badges { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.rz3-consult-badges li { background: #FFFFFF; border: 1px solid #DDEFE3; color: #166534; font-weight: 700; font-size: 13px; padding: 7px 14px; border-radius: 999px; }
+.rz3-consult-steps { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+.rz3-consult-step { display: flex; gap: 18px; align-items: flex-start; background: #FFFFFF; border: 1px solid #E5E9F0; border-radius: 18px; padding: 20px 22px; }
+.rz3-consult-min { flex: none; min-width: 58px; text-align: center; background: #06C755; color: #FFFFFF; font-weight: 800; font-size: 15px; border-radius: 999px; padding: 7px 0; }
+.rz3-consult-step b { font-size: 16px; }
+.rz3-consult-step p { margin: 6px 0 0; font-size: 14px; line-height: 1.85; color: #4B5563; }
+.rz3-consult-faq { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+.rz3-consult-faq details { background: #FFFFFF; border: 1px solid #E5E9F0; border-radius: 16px; padding: 16px 20px; }
+.rz3-consult-faq summary { cursor: pointer; font-weight: 700; font-size: 15.5px; }
+.rz3-consult-faq details p { margin: 12px 0 0; font-size: 14px; line-height: 1.9; color: #4B5563; }
+.rz3-consult-book { background: #FFFFFF; border: 1px solid #DDEFE3; border-radius: 28px; padding: 40px; box-shadow: 0 24px 50px rgba(17,24,39,.07); }
+@media (max-width: 767px) { .rz3-consult-book { padding: 26px 22px; } .rz3-consult-step { padding: 16px; gap: 12px; } }
+@media (max-width: 767px) { .rz3 main > section { padding-left: 20px !important; padding-right: 20px !important; } }

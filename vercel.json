@@ -87,6 +87,10 @@
     {
       "source": "/links",
       "destination": "/links.html"
+    },
+    {
+      "source": "/consult",
+      "destination": "/consult.html"
     }
   ]
 }
