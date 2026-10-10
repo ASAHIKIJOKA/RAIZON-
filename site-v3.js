@@ -287,20 +287,8 @@
     window.addEventListener('resize', frame);
     frame();
 
-    var num = document.querySelector('[data-count]');
-    if (num && !reduced && 'requestAnimationFrame' in window) {
-      var to = parseInt(num.getAttribute('data-count'), 10);
-      num.textContent = '0';
-      var t0 = null;
-      setTimeout(function () {
-        requestAnimationFrame(function step(t) {
-          if (t0 === null) t0 = t;
-          var p = Math.min((t - t0) / 1300, 1);
-          num.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US');
-          if (p < 1) requestAnimationFrame(step);
-        });
-      }, 500);
-    }
+    // 1画面目の月額は、開いた直後から正しい金額(5,500)を表示する。
+    // 以前は0から数え上げていたため、離脱の早い訪問者に誤った金額(0円〜など)が見えていた(2026-10-10 修正)。
   })();
 
   // スクロールで動く仕掛け: 流れる文字帯 / 見出しの下線 / 画像のズームイン / 料金のカウントアップ

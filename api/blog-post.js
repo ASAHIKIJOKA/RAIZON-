@@ -61,6 +61,27 @@ function truncate(text, len) {
   return plain.length > len ? plain.substring(0, len) + '...' : plain;
 }
 
+
+// 見出し(h2)が3つ以上ある記事に、目次を自動で付ける(記事の本文ファイルは変更しない)。
+// すでに目次(rz-toc)がある記事、見出しが少ない記事はそのまま返す。
+function withToc(body) {
+  if (!body || body.includes('rz-toc')) return body;
+  const heads = [];
+  let n = 0;
+  const out = body.replace(/<h2(\s[^>]*)?>([\s\S]*?)<\/h2>/g, (m, attrs, inner) => {
+    const text = inner.replace(/<[^>]*>/g, '').trim();
+    const has = /\sid="([^"]+)"/.exec(attrs || '');
+    const id = has ? has[1] : 'sec' + (++n);
+    heads.push({ id, text });
+    return has ? m : `<h2 id="${id}"${attrs || ''}>${inner}</h2>`;
+  });
+  if (heads.length < 3) return body;
+  const li = heads.map(h => `<li><a href="#${h.id}">${h.text.replace(/</g, '&lt;')}</a></li>`).join('');
+  const toc = `<nav class="rz-toc"><strong>目次</strong><ol>${li}</ol></nav>`;
+  const i = out.indexOf('</p>');
+  return i < 0 ? toc + out : out.slice(0, i + 4) + toc + out.slice(i + 4);
+}
+
 function formatDate(iso) {
   const d = new Date(iso);
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
@@ -188,6 +209,34 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
     .post-body-wrap li{margin-bottom:.4em;}
     .post-body-wrap strong{color:#146EF5;}
     .post-body-wrap a{color:#146EF5;text-decoration:underline;}
+    /* 記事の見やすさ用の部品(2026-10-10 追加): 要点ボックス・目次・手順・囲み・表・図 */
+    .post-body-wrap .rz-lead{background:#EEF4FE;border-radius:16px;padding:20px 24px;margin:0 0 1.6em;border-left:5px solid #146EF5;}
+    .post-body-wrap .rz-lead>strong{display:block;margin-bottom:.4em;color:#0B3E91;}
+    .post-body-wrap .rz-lead ul{margin:0;padding-left:1.3em;}
+    .post-body-wrap .rz-toc{background:#F8FAFC;border:1px solid #E5E9F0;border-radius:16px;padding:18px 24px;margin:0 0 2em;}
+    .post-body-wrap .rz-toc>strong{display:block;margin-bottom:.4em;color:#374151;font-size:.95rem;}
+    .post-body-wrap .rz-toc ol{margin:0;padding-left:1.4em;}
+    .post-body-wrap .rz-toc li{margin-bottom:.2em;}
+    .post-body-wrap .rz-toc a{text-decoration:none;color:#146EF5;}
+    .post-body-wrap h2{scroll-margin-top:90px;}
+    .post-body-wrap .rz-steps{list-style:none;counter-reset:rzs;padding:0;margin:0 0 1.6em;}
+    .post-body-wrap .rz-steps>li{counter-increment:rzs;position:relative;padding:14px 16px 14px 62px;margin:0 0 12px;background:#fff;border:1px solid #E5E9F0;border-radius:14px;}
+    .post-body-wrap .rz-steps>li::before{content:counter(rzs);position:absolute;left:14px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;background:#146EF5;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;}
+    .post-body-wrap .rz-steps>li strong{display:block;color:#111827;margin-bottom:2px;}
+    .post-body-wrap .rz-point,.post-body-wrap .rz-warn{border-radius:14px;padding:16px 20px;margin:0 0 1.6em;line-height:1.8;}
+    .post-body-wrap .rz-point{background:#ECFDF3;border:1px solid #B7EBCB;}
+    .post-body-wrap .rz-warn{background:#FFF7E6;border:1px solid #FFE0A3;}
+    .post-body-wrap .rz-point>strong,.post-body-wrap .rz-warn>strong{display:block;margin-bottom:.2em;color:#111827;}
+    .post-body-wrap .rz-table{width:100%;border-collapse:collapse;margin:0 0 1.6em;font-size:.95rem;display:block;overflow-x:auto;}
+    .post-body-wrap .rz-table th,.post-body-wrap .rz-table td{border:1px solid #E5E9F0;padding:10px 12px;text-align:left;vertical-align:top;line-height:1.6;}
+    .post-body-wrap .rz-table th{background:#EEF4FE;color:#0B3E91;white-space:nowrap;}
+    .post-body-wrap .rz-table tr:nth-child(even) td{background:#FAFBFD;}
+    .post-body-wrap figure.rz-fig{margin:0 0 1.8em;}
+    .post-body-wrap figure.rz-fig img{width:100%;height:auto;display:block;border-radius:14px;border:1px solid #E5E9F0;}
+    .post-body-wrap figure.rz-fig figcaption{font-size:.85rem;color:#6B7280;margin-top:8px;text-align:center;}
+    .post-body-wrap .rz-ex{background:#F5F7FA;border-radius:12px;padding:14px 18px;margin:0 0 1.4em;font-size:.95rem;line-height:1.8;border-left:4px solid #9CA3AF;}
+    .post-body-wrap .rz-ex>strong{display:block;color:#374151;margin-bottom:.2em;}
+    .post-body-wrap .rz-src{font-size:.85rem;color:#6B7280;line-height:1.7;border-top:1px dashed #D1D5DB;padding-top:12px;margin-top:2em;}
     .post-back{margin-top:40px;display:flex;gap:12px;}
     .related-posts{margin-top:56px;}
     .related-posts-title{font-size:17px;font-weight:800;color:#111827;margin-bottom:18px;padding-bottom:8px;border-bottom:2px solid #E5E9F0;}
@@ -201,7 +250,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
     .post-service-cta-label{font-size:14px;color:#146EF5;font-weight:700;margin-bottom:12px;}
     .post-service-cta-links{display:flex;flex-wrap:wrap;gap:10px;}
     .post-service-cta-links a{padding:8px 18px;background:#FFFFFF;border:1px solid #D6E4FC;border-radius:999px;font-size:13px;color:#146EF5;font-weight:600;}
-    @media(max-width:600px){.post-body-wrap{padding:28px 20px;}.post-title{font-size:1.3rem;}.post-back{flex-direction:column;gap:10px;}.post-breadcrumb .bc-title{display:none;}.related-posts-grid{grid-template-columns:1fr;}}
+    @media(max-width:600px){.post-body-wrap{padding:28px 20px;}.post-body-wrap .rz-steps>li{padding:12px 12px 12px 56px;}.post-title{font-size:1.3rem;}.post-back{flex-direction:column;gap:10px;}.post-breadcrumb .bc-title{display:none;}.related-posts-grid{grid-template-columns:1fr;}}
   </style>
 <script>try{if(!localStorage.getItem('raizon_src')){var p=new URLSearchParams(location.search),r='';try{r=document.referrer?new URL(document.referrer).hostname:''}catch(e){}localStorage.setItem('raizon_src',[p.get('utm_source')||r||'direct',p.get('utm_medium')||'',p.get('utm_campaign')||'',location.pathname].join('|'))}}catch(e){}</script>
 </head>
@@ -251,7 +300,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
 
       <h1 class="post-title">${esc(post.title)}</h1>
 
-      <div class="post-body-wrap">${post.body}</div>
+      <div class="post-body-wrap">${withToc(post.body)}</div>
 
       ${relatedPosts.length > 0 ? `
       <div class="related-posts">
