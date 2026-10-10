@@ -17,3 +17,5 @@ body.rzbg-old .post-page-body,
 body.rzbg-old .blog-list-body,
 body.rzbg-old .section-alt,
 body.rzbg-old .line-reasons { background: transparent !important; }
+
+.rzbg .rzp { position: absolute; left: 0; top: 0; display: block; border-radius: 50%; opacity: 0; will-change: transform, opacity; filter: blur(.4px); }
