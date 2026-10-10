@@ -266,7 +266,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
           <a href="/#company">会社概要</a>
           <a href="/blog-list">ブログ</a>
         </div>
-        <a href="https://lin.ee/fD0d4TS" target="_blank" rel="noopener" class="btn btn-line btn-sm">LINEで無料相談</a>
+        <a href="https://line.me/R/ti/p/%40154yajce" target="_blank" rel="noopener" class="btn btn-line btn-sm">LINEで無料相談</a>
         <button class="rz3-nav-toggle" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
       </nav>
     </div>
@@ -277,7 +277,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
       <a href="/#company">会社概要</a>
       <a href="/blog-list">ブログ</a>
       <a href="/#contact">お問い合わせ</a>
-      <a href="https://lin.ee/fD0d4TS" target="_blank" rel="noopener" class="btn btn-line" style="margin-top:8px;justify-content:center;">LINEで無料相談</a>
+      <a href="https://line.me/R/ti/p/%40154yajce" target="_blank" rel="noopener" class="btn btn-line" style="margin-top:8px;justify-content:center;">LINEで無料相談</a>
     </div>
   </header>
 
@@ -350,7 +350,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
   </footer>
 
   <div class="rz3-mobile-cta">
-    <a href="https://lin.ee/fD0d4TS" target="_blank" rel="noopener" style="background:#06C755;color:#FFFFFF;">LINEで相談</a>
+    <a href="https://line.me/R/ti/p/%40154yajce" target="_blank" rel="noopener" style="background:#06C755;color:#FFFFFF;">LINEで相談</a>
     <a href="/#contact" style="background:#146EF5;color:#FFFFFF;">無料相談</a>
   </div>
 
