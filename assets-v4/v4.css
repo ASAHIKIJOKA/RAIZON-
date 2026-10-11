@@ -585,7 +585,8 @@ a{color:inherit}
 @media (max-width:900px){.illx{min-height:200px}.illx img{max-height:260px}.person{height:120px}.person:nth-child(odd){height:105px}}
 
 /* v4.3: 線画アイコン(Lucide)。薄緑のタイルに入れる */
-img[src*="/icons-line/"]{background:var(--g-l);padding:22%;box-sizing:border-box;border-radius:14px}
+img[src*="/icons-line/"]{background:var(--g-l);padding:11px;box-sizing:border-box;border-radius:14px}
+.gs-card .ico[src*="/icons-line/"]{padding:9px}.grid2 .it img[src*="/icons-line/"]{padding:8px}.card .ico[src*="/icons-line/"]{padding:13px}
 .mq-track span img[src*="/icons-line/"]{padding:7px;border-radius:10px}
 .wall div img[src*="/icons-line/"]{padding:9px;border-radius:12px}
 .sec-dark img[src*="/icons-line/"],.dk img[src*="/icons-line/"]{background:rgba(6,199,85,.14)}

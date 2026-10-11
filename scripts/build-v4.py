@@ -73,7 +73,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v4/v4.css?v=6">
+<link rel="stylesheet" href="/assets-v4/v4.css?v=7">
 {lds}
 {CLARITY}
 </head>
