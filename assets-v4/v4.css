@@ -531,3 +531,15 @@ a{color:inherit}
   .ph2-in{grid-template-columns:1fr;padding:36px 22px 48px}
 }
 .demo .m.car em{font-style:normal;font-weight:800}
+.dk .eb{color:#7FE3A8}
+.dk .ill{border-color:#56606B;background:repeating-linear-gradient(135deg,#2C3035 0 14px,#33383E 14px 28px);color:#AEB6BF}
+.dk .ill b{color:#fff}
+.dk .ill .tag{background:var(--g);color:#fff}
+@media (max-width:900px){
+  .fphoto{display:none}
+  .concept{padding:72px 0 64px}
+  .gs-shapes{display:none}
+  .gs{background:var(--g) radial-gradient(circle at 110% -10%,var(--ink) 0 120px,transparent 121px) no-repeat}
+  .hero2 h1{font-size:clamp(30px,8.4vw,40px)}
+  .demo{width:min(270px,72vw)}
+}
