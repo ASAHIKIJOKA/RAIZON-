@@ -38,7 +38,7 @@ html {
 }
 
 body {
-  font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","BIZ UDPGothic","Yu Gothic UI","YuGothic",Meiryo,sans-serif;
   color: var(--text);
   line-height: 1.8;
   background: var(--white);

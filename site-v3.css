@@ -39,7 +39,7 @@ html {
 
 body.rz3 {
   margin: 0;
-  font-family: 'Inter', 'Noto Sans JP', 'BIZ UDPGothic', sans-serif;
+  font-family: 'Inter', "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","BIZ UDPGothic","Yu Gothic UI","YuGothic",Meiryo,sans-serif;
   color: var(--c-ink);
   background: #FFFFFF;
   line-height: 1.8;
