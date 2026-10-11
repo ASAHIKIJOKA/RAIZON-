@@ -91,6 +91,14 @@
     {
       "source": "/consult",
       "destination": "/consult.html"
+    },
+    {
+      "source": "/apply",
+      "destination": "/apply.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
     }
   ],
   "headers": [
