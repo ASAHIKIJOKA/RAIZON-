@@ -101,7 +101,7 @@
     if (gs && gsT && innerWidth > 900) {
       var r = gs.getBoundingClientRect(), total = gs.offsetHeight - (vh - 72), p = Math.min(1, Math.max(0, -r.top / total));
       var max = gsT.scrollWidth - innerWidth + 40; gsT.style.transform = 'translateX(' + (-p * Math.max(0, max)) + 'px)';
-      gsS.forEach(function (s) { s.style.transform = 'translateY(' + ((.5 - p) * 140) + 'px) rotate(' + (p * 6 - 3) + 'deg)'; });
+      gsS.forEach(function (s) { s.style.transform = 'translateY(' + ((.5 - p) * 140) + 'px)'; });
       if (gsBar) gsBar.style.width = (p * 100) + '%';
     } 
   }

@@ -594,7 +594,7 @@ img[src*="/icons-line/"]{background:var(--g-l);padding:11px;box-sizing:border-bo
 
 /* v4.4: 背景はロゴのRを1つだけ / 人物は白いカードに乗せて背景と同化させない / 全体を一回り大きく */
 .gs-shapes{width:640px;height:100%;display:flex;align-items:center;justify-content:center}
-.gs-shapes span{position:relative;left:auto;width:640px;height:517px;border-radius:0;background:var(--ink);-webkit-mask:url(/assets-v4/r-mark.png) center/contain no-repeat;mask:url(/assets-v4/r-mark.png) center/contain no-repeat;opacity:.92}
+.gs-shapes span{position:relative;left:auto;width:640px;height:517px;border-radius:0;background:var(--ink);-webkit-mask:url(/assets-v4/r-mark.png?v=2) center/contain no-repeat;mask:url(/assets-v4/r-mark.png?v=2) center/contain no-repeat;opacity:.92}
 .gs-shapes span::after{display:none}
 .person{background:#fff;border-radius:26px 26px 0 0;padding:14px 22px 0;box-shadow:0 -6px 24px rgba(0,0,0,.06)}
 .person img{height:100%}
@@ -635,3 +635,7 @@ img[src*="/icons-line/"]{background:var(--g-l);padding:11px;box-sizing:border-bo
   .mq-track span{font-size:17px}.mq-track img{width:40px;height:40px}
   .ft p,.ft-cols a{font-size:14.5px}
 }
+
+.gs-shapes{left:auto;right:3%;transform:none;width:680px}
+.gs-shapes span{width:680px;height:550px;opacity:1}
+@media (min-width:901px){.hero2-in{grid-template-columns:1.3fr .9fr}.hero2 h1{font-size:clamp(38px,4.6vw,66px)}}
