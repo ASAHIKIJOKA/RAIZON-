@@ -17,17 +17,18 @@ CLARITY = '''<script>window.addEventListener('load',function(){setTimeout(functi
 INTER = 'https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap'
 
 
-# イラストは shigureni free illust の5点だけを使う(商用は1制作物5点まで無料。6点目からは有料ライセンス)
-ILLUST = {'phone-girl': 'スマホを見る人', 'desk': 'パソコンで作業する人', 'present': 'グラフで説明する人', 'meeting': 'オンライン会議', 'map-hand': '地図アプリのスマホ'}
+# イラストは Canva AI(Canva Pro)で作成した10点(assets-v4/illust/c-*.webp)。アイコンは Lucide(ISC)の線画SVG
+ILLUST = {'salon': '美容師', 'food': '飲食店の店主', 'manager': '現場管理の担当者', 'customer': 'LINEを使うお客様', 'desk': 'パソコンで作業する人',
+          'ai': '店主とAIアシスタント', 'consult': 'オンライン相談', 'present': 'グラフで説明する人', 'therapist': '整体師', 'tourist': '観光客'}
 VIS = {
-    'T-11': 'img:phone-girl', 'T-12': 'icons:mail,tix,heart', 'T-13': 'img:present',
-    'L-01': 'img:phone-girl', 'L-02': 'icons:cal,bell,clock', 'L-03': 'icons:tix,star,heart',
-    'W-00': 'img:desk', 'W-01': 'icons:coins,cal,thumb', 'W-02': 'icons:web,chat,cal', 'W-03': 'img:map-hand',
-    'S-00': 'img:present', 'S-01': 'icons:clock,note,mail', 'S-02': 'icons:note,cal,heart', 'S-03': 'icons:gear,bot,chartup',
-    'A-00': 'img:present', 'P-00': 'icons:chat,web,gear', 'C-00': 'photos', 'F-00': 'img:meeting',
-    'F-01': 'img:meeting', 'F-02': 'img:present', 'F-03': 'icons:note,shield,thumb', 'F-04': 'img:desk', 'F-05': 'icons:trophy,chartup,star',
-    'M-00': 'photo:/assets-v3/philosophy-photo.webp', 'Q-00': 'icons:qa,bulb,chat', 'K-00': 'img:meeting',
-    'T-02': 'img:map-hand', 'T-03': 'img:present', 'T-04': 'img:desk',
+    'T-11': 'img:customer', 'T-12': 'img:food', 'T-13': 'img:present',
+    'L-01': 'img:customer', 'L-02': 'img:salon', 'L-03': 'img:customer',
+    'W-00': 'img:desk', 'W-01': 'img:manager', 'W-02': 'img:desk', 'W-03': 'img:tourist',
+    'S-00': 'img:present', 'S-01': 'img:manager', 'S-02': 'img:therapist', 'S-03': 'img:ai',
+    'A-00': 'img:ai', 'P-00': 'img:ai', 'C-00': 'photos', 'F-00': 'img:consult',
+    'F-01': 'img:consult', 'F-02': 'img:present', 'F-03': 'img:manager', 'F-04': 'img:desk', 'F-05': 'img:present',
+    'M-00': 'photo:/assets-v3/philosophy-photo.webp', 'Q-00': 'img:consult', 'K-00': 'img:consult',
+    'T-02': 'img:tourist', 'T-03': 'img:present', 'T-04': 'img:desk',
 }
 
 
@@ -36,17 +37,17 @@ def ill(id_, title, desc, cls=''):
     v = VIS.get(id_, 'icons:chat,web,gear')
     if v.startswith('img:'):
         n = v[4:]
-        return f'<div class="illx {cls}"><span class="blob"></span><img src="/assets-v4/illust/{n}.webp" alt="{ILLUST[n]}のイラスト" loading="lazy"></div>'
+        return f'<div class="illx {cls}"><span class="blob"></span><img src="/assets-v4/illust/c-{n}.webp" alt="{ILLUST[n]}のイラスト" loading="lazy"></div>'
     if v.startswith('photo:'):
         return f'<div class="illp {cls}" style="background-image:url({v[6:]})" role="img" aria-label="{title}"></div>'
     if v == 'photos':
         return '<div class="illps ' + cls + '">' + ''.join(f'<span style="background-image:url({u})"></span>' for u in ['/assets-v3/case-building.jpg', '/assets-v3/case2-photo.webp', '/assets-v3/case-parlor-minato.jpg']) + '</div>'
     ics = v[6:].split(',')
-    return f'<div class="icx {cls}" role="img" aria-label="{title}"><span class="ring"></span>' + ''.join(f'<img class="i{k}" src="/assets-v4/icons/{n}.webp" alt="" loading="lazy">' for k, n in enumerate(ics)) + '</div>'
+    return f'<div class="icx {cls}" role="img" aria-label="{title}"><span class="ring"></span>' + ''.join(f'<img class="i{k}" src="/assets-v4/icons-line/{n}.svg" alt="" loading="lazy">' for k, n in enumerate(ics)) + '</div>'
 
 
 def icon(name):
-    return f'/assets-v4/icons/{name}.webp'
+    return f'/assets-v4/icons-line/{name}.svg'
 
 
 def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollow'):
@@ -72,7 +73,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v4/v4.css?v=5">
+<link rel="stylesheet" href="/assets-v4/v4.css?v=6">
 {lds}
 {CLARITY}
 </head>
@@ -224,8 +225,8 @@ def demo_phone(cap=True):
 
 
 def people_band():
-    order = ['phone-girl', 'desk', 'map-hand', 'present', 'meeting']
-    items = ''.join(f'<div class="person"><img src="/assets-v4/illust/{n}.webp" alt="" loading="lazy"></div>' for n in order)
+    order = ['salon', 'food', 'manager', 'customer', 'therapist', 'tourist', 'desk', 'ai']
+    items = ''.join(f'<div class="person"><img src="/assets-v4/illust/c-{n}.webp" alt="" loading="lazy"></div>' for n in order)
     return f'<div class="people" aria-hidden="true"><div class="people-track">{items * 2}{items * 2}</div></div>'
 
 

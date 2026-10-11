@@ -583,3 +583,10 @@ a{color:inherit}
 .concept .bub{background:var(--g)}.concept .bub::after{border-top-color:var(--g);border-left-color:var(--g)}
 .concept .bub i{background:#fff}
 @media (max-width:900px){.illx{min-height:200px}.illx img{max-height:260px}.person{height:120px}.person:nth-child(odd){height:105px}}
+
+/* v4.3: 線画アイコン(Lucide)。薄緑のタイルに入れる */
+img[src*="/icons-line/"]{background:var(--g-l);padding:22%;box-sizing:border-box;border-radius:14px}
+.mq-track span img[src*="/icons-line/"]{padding:7px;border-radius:10px}
+.wall div img[src*="/icons-line/"]{padding:9px;border-radius:12px}
+.sec-dark img[src*="/icons-line/"],.dk img[src*="/icons-line/"]{background:rgba(6,199,85,.14)}
+.gs-card .ico{border-radius:12px}
