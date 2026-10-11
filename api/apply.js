@@ -4,6 +4,12 @@
 const nodemailer = require('nodemailer');
 
 const TERMS_VERSION = '1.0';
+// 同意した版の利用規約(PDF)を、受付メールに添付する。規約を改定したら、PDFを作り直して版とURLを上げる
+const TERMS_PDF = {
+  filename: `RAIZONサービス利用規約_第${TERMS_VERSION}版.pdf`,
+  href: 'https://raizon-okinawa.com/legal/raizon-terms-v1.0.pdf',
+  contentType: 'application/pdf',
+};
 const FIELDS = [
   ['plan', 'プラン', 200], ['payment', 'お支払い方法', 100], ['quote', 'お見積もり番号・金額', 200], ['company', '会社名・屋号', 200],
   ['representative', '代表者名', 100], ['contact', 'ご担当者名', 100], ['address', '所在地', 300],
@@ -55,6 +61,7 @@ module.exports = async function handler(req, res) {
         `IPアドレス: ${ip}`,
         `ブラウザ: ${ua}`,
       ].join('\n'),
+      attachments: [TERMS_PDF],
     });
     await transporter.sendMail({
       from: '"RAIZON" <raizon.asahi@gmail.com>',
@@ -71,7 +78,7 @@ module.exports = async function handler(req, res) {
         ...lines,
         '',
         `受付日時: ${at}`,
-        `同意いただいた規約: サービス利用規約 第${TERMS_VERSION}版`,
+        `同意いただいた規約: サービス利用規約 第${TERMS_VERSION}版（このメールにPDFを添付しています。大切に保管してください）`,
         'https://raizon-okinawa.com/terms',
         '',
         'お心当たりのない場合や、内容に誤りがある場合は、このメールにご返信ください。',
@@ -80,6 +87,7 @@ module.exports = async function handler(req, res) {
         '沖縄県中頭郡北谷町字砂辺301-7',
         'raizon.asahi@gmail.com / 080-6493-7744',
       ].join('\n'),
+      attachments: [TERMS_PDF],
     });
     return res.status(200).json({ ok: true });
   } catch (err) {

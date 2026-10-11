@@ -103,6 +103,12 @@
   ],
   "headers": [
     {
+      "source": "/legal/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
       "source": "/assets-line/(.*)",
       "headers": [
         {
