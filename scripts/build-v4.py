@@ -49,7 +49,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v4/v4.css?v=3">
+<link rel="stylesheet" href="/assets-v4/v4.css?v=4">
 {lds}
 {CLARITY}
 </head>
@@ -220,10 +220,10 @@ def people_band():
 
 def ph_hero(crumb, eb, h1, sub, chips, vis):
     return f'''<section class="ph2"><div class="ph2-in">
-<div class="rv"><div class="crumb"><a href="/">ホーム</a> ＞ {crumb}</div><div class="eb" style="margin-top:16px;">{eb}</div><h1>{h1}</h1><p class="sub">{sub}</p>
+<div class="rvh"><div class="crumb"><a href="/">ホーム</a> ＞ {crumb}</div><div class="eb" style="margin-top:16px;">{eb}</div><h1>{h1}</h1><p class="sub">{sub}</p>
 <div class="chips">{"".join(f"<span>{c}</span>" for c in chips)}</div>
 <div class="ctas" style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center"><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-wg">LINEで無料相談 <span class="ar">→</span></a><a href="/price" class="btn-link-w">料金を見る</a></div></div>
-<div class="rv" style="position:relative">{vis}</div></div></section>'''
+<div class="rvh d2" style="position:relative">{vis}</div></div></section>'''
 
 
 def gs_cards(items):
@@ -243,12 +243,12 @@ GS_ITEMS = [
 
 top = f'''<section class="hero2">
 <div class="hero2-in">
-<div class="rv"><div class="mini"><img src="/assets-v3/raizon-logo-240.webp" alt="" width="240" height="170">沖縄の事業者の、デジタル担当者</div>
+<div class="rvh"><div class="mini"><img src="/assets-v3/raizon-logo-240.webp" alt="" width="240" height="170">沖縄の事業者の、デジタル担当者</div>
 <h1>集客も、予約も、<br>面倒な業務も。<br>まずは<span class="pill-ic" aria-hidden="true"><i></i><i></i></span>LINEから。</h1>
 <p class="sub">LINE公式アカウントを入口に、ホームページ・業務システム・AI活用まで。会社の「もっとラクにしたい」を、一緒に仕組みにします。</p>
 <div class="ctas"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-wg">デモLINEを触ってみる <span class="ar">→</span></a><a href="/contact" class="btn-link-w">うちの場合、何ができる？</a></div>
 <p class="note2">初期費用0円・月額5,000円（税別）〜・契約期間の縛りなし</p></div>
-<div class="hero2-vis rv"><div class="halo"></div>{demo_phone()}</div>
+<div class="hero2-vis rvh d2"><div class="halo"></div>{demo_phone()}</div>
 </div>
 {people_band()}
 <div class="hero2-cap">※画面はデモ用のサンプルです</div>
