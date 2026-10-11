@@ -49,7 +49,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v4/v4.css?v=1">
+<link rel="stylesheet" href="/assets-v4/v4.css?v=2">
 {lds}
 {CLARITY}
 </head>
@@ -85,7 +85,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
   </div>
 </footer>
 <div class="sp-cta"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-o">デモを触る</a><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-g">LINEで相談</a></div>
-<script src="/assets-v4/v4.js?v=1" defer></script>
+<script src="/assets-v4/v4.js?v=2" defer></script>
 </body>
 </html>
 '''
@@ -155,14 +155,6 @@ def faq_ld(items):
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub('<[^>]+>', '', a)}} for q, a in items]}
 
 
-def ph_hero(crumb, eb, h1, sub, chips, vis):
-    return f'''<section class="ph-hero"><div class="wrap ph-hero-in">
-<div class="rv"><div class="crumb"><a href="/">ホーム</a> ＞ {crumb}</div><div class="eb" style="margin-top:18px;">{eb}</div><h1>{h1}</h1><p class="sub">{sub}</p>
-<div class="chips">{"".join(f"<span>{c}</span>" for c in chips)}</div>
-<div class="hero-ctas"><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-g">LINEで無料相談 <span class="ar">→</span></a><a href="/price" class="btn btn-o">料金を見る</a></div></div>
-<div class="rv">{vis}</div></div></section>'''
-
-
 def feat(no, h3, p, items, vis, more=None):
     return f'''<div class="feat"><div class="feat-vis rv">{vis}</div><div class="rv"><div class="feat-no">{no}</div><h3>{h3}</h3><p>{p}</p><ul>{"".join(f"<li>{i}</li>" for i in items)}</ul>{f"<a class=\"more\" href=\"{more[0]}\">{more[1]} →</a>" if more else ""}</div></div>'''
 
@@ -180,7 +172,7 @@ def posts_html():
         posts = json.loads((ROOT / 'api/_posts-static.json').read_text(encoding='utf-8'))
     except Exception:
         return ''
-    posts = sorted(posts, key=lambda p: p.get('createdAt', ''), reverse=True)[:3]
+    posts = sorted(posts, key=lambda p: p.get('createdAt', ''), reverse=True)[:6]
     return '<div class="posts">' + ''.join(f'<a class="post rv" href="/blog/{p["id"]}"><span class="ct">{p.get("category","")}</span><b>{p["title"]}</b><time>{p.get("createdAt","")[:10].replace("-", ".")}</time></a>' for p in posts) + '</div>'
 
 
@@ -197,78 +189,154 @@ TOP_FAQ = [
     ('初期費用はかかりますか？', 'かかりません。LINE・ホームページ・システムの構築にかかる初期費用は0円です。'),
     ('相談したら、契約しないといけませんか？', 'いいえ。まずは今のお悩みをお聞かせください。必要なものがなければ、無理におすすめすることはありません。'),
 ]
-top = f'''<section class="hero"><div class="wrap hero-in">
-<div class="rv"><span class="badge">沖縄の事業者の、デジタル担当者</span>
-<h1>集客も、予約も、<br>面倒な業務も。<br><em>まずは</em><span class="ic" aria-hidden="true"></span><em>LINEから。</em></h1>
-<p class="sub">LINE公式アカウントを入口に、ホームページ・業務システム・AI活用まで。<br>会社の「もっとラクにしたい」を、一緒に仕組みにします。</p>
-<div class="hero-ctas"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-g">デモLINEを触ってみる <span class="ar">→</span></a><a href="/contact" class="btn btn-o">うちの場合、何ができる？</a></div>
-<p class="hero-note">初期費用0円・月額5,000円（税別）〜・契約期間の縛りなし</p></div>
-<div class="hero-vis rv">{phone()}<div class="float-chip" style="left:2%;top:18%"><i>✓</i>予約は24時間いつでも</div><div class="float-chip" style="right:0;top:52%"><i>⏰</i>前日リマインドも自動</div><div class="float-chip" style="left:6%;bottom:10%"><i>🎁</i>クーポンで、また来店</div></div>
-</div></section>
-<div class="strip"><div class="wrap strip-in"><span><img src="{icon('house')}" alt="" width="30" height="30">美容室・サロン</span><span><img src="{icon('note')}" alt="" width="30" height="30">飲食店</span><span><img src="{icon('heart')}" alt="" width="30" height="30">整体・治療院</span><span><img src="{icon('building')}" alt="" width="30" height="30">ビル管理・清掃</span><span><img src="{icon('shield')}" alt="" width="30" height="30">医療・介護</span><span><img src="{icon('globe')}" alt="" width="30" height="30">観光・不動産</span></div></div>
+def demo_phone(cap=True):
+    return f'''<div class="demo"><div class="scr">
+<div class="bar"><i>A</i><div>Atelier Hair salon<small>公式アカウント（デモ）</small></div></div>
+<div class="chat"></div>
+<div class="rmn"></div>
+<div class="sheet"><h5>日時を選ぶ</h5><div class="dts"><span>17<br>金</span><span>18<br>土</span><span>19<br>日</span><span>20<br>月</span></div>
+<div class="sls"><span class="off">11:00</span><span>13:00</span><span>14:00</span><span>15:30</span><span>17:00</span><span class="off">18:30</span></div><div class="cfm">予約を確定する</div></div>
+<span class="tap"></span>
+</div></div>{'<div class="demo-cap"><b>01</b>お客様は、タップするだけ</div>' if cap else ''}'''
 
-{sec('', head('ALL IN ONE', 'お店と会社の毎日に、<br>必要な仕組みは<em>全部ここに。</em>', 'LINE、ホームページ、予約、顧客管理、シフト、AI。ばらばらに頼むと、つながらず、手間も費用も増えます。RAIZONは、ひとつの窓口で、まとめて設計します。', True) + f"""<div class="hub rv"><div class="hub-c">RAIZON<small>デジタル担当者</small></div>
-<div class="hub-n" style="left:16%;top:14%"><img src="{icon('chat')}" alt="" width="40" height="40">LINE公式アカウント</div>
-<div class="hub-n" style="left:84%;top:14%"><img src="{icon('web')}" alt="" width="40" height="40">ホームページ</div>
-<div class="hub-n" style="left:8%;top:50%"><img src="{icon('cal')}" alt="" width="40" height="40">予約管理</div>
-<div class="hub-n" style="left:92%;top:50%"><img src="{icon('note')}" alt="" width="40" height="40">顧客管理</div>
-<div class="hub-n" style="left:16%;top:86%"><img src="{icon('clock')}" alt="" width="40" height="40">シフト管理</div>
-<div class="hub-n" style="left:84%;top:86%"><img src="{icon('bot')}" alt="" width="40" height="40">AI活用</div></div>""")}
 
-<section class="sec sec-green"><div class="bigshape" aria-hidden="true"></div><div class="bigshape2" aria-hidden="true"></div><div class="wrap">
-{head('WHAT CHANGES', '面倒をゼロにして、<br>本業に集中できること。', '')}
-{cards_html([
-  ('ph', '予約の電話が減る', 'お客様はLINEからタップで予約。営業中に電話に出られなくても、予約を逃しません。', '美容室・サロン・整体などに'),
-  ('chat', '問い合わせに、24時間こたえる', 'よくある質問・営業時間・場所は、自動で返信。夜や休みの日の問い合わせにも、すぐに答えられます。', 'すべての業種に'),
-  ('heart', 'また来てもらえる仕組み', 'ご来店のお礼、次回のクーポン、スタンプカード。忘れられない仕組みで、リピートにつなげます。', '飲食店・サロンなどに'),
-  ('chartup', '集計・転記が減る', '予約・顧客・シフトの情報が一か所にまとまり、ノートやExcelへの書き写しが減ります。', '事務作業が多い会社に'),
-  ('mail', 'スタッフへの連絡が、まとまる', 'シフトの締め切り、確定のお知らせ、欠勤の連絡。バラバラだった連絡を、仕組みにまとめます。', 'シフト勤務の会社に'),
-  ('gear', '更新も改善も、まかせられる', '営業時間やメニューの変更、配信の改善まで。作って終わりにせず、毎月一緒に育てます。', '時間がない方に'),
-])}
+PEOPLE = [
+    ('H-01', '美容師が、スマホの予約通知を見てにっこり', 'ハサミを持った美容師（エプロン）が、片手のスマホに届いた「予約が入りました」の通知を見て笑顔。全身、横向き少し。'),
+    ('H-02', '飲食店の店主が、LINEでメニューを配信', 'カウンター越しに、店主（タオル鉢巻）がスマホを掲げている。吹き出しに料理のアイコン。'),
+    ('H-03', '作業着の管理者が、シフトをスマホで承認', 'ヘルメットを小脇に抱えた作業着の管理者が、スマホの「承認」ボタンを親指で押している。'),
+    ('H-04', '整体師が、お客様とLINEでやりとり', '白衣の整体師がタブレットを見せながら、お客様（座っている）と話している。'),
+    ('H-05', 'パソコンでホームページを更新する人', '小さなデスクでノートPCに向かう女性。画面からホームページのパーツが浮かび上がる。'),
+    ('H-06', 'AIの小さな相棒と、文章を考える人', '店主の肩の上に、丸い形のAIキャラクター（顔は点と線）。2人で吹き出しの文章を見ている。'),
+    ('H-07', '観光のお客様が、地図を見てお店へ向かう', 'リュックの観光客がスマホの地図を見ながら歩いている。遠くに赤瓦のお店。'),
+]
+
+
+def people_band():
+    items = ''.join(f'<div class="person"><small>ILLUSTRATION {i}</small><b>{t}</b></div>' for i, t, d in PEOPLE)
+    for i, t, d in PEOPLE:
+        ILLS.append((i, t + '（最初の画面の下を横に流れる人物）', d + ' 背景は透過。高さをそろえ、足元を下端に合わせる（約600×520px）。'))
+    return f'<div class="people" aria-hidden="true"><div class="people-track">{items}{items}</div></div>'
+
+
+def ph_hero(crumb, eb, h1, sub, chips, vis):
+    return f'''<section class="ph2"><div class="ph2-in">
+<div class="rv"><div class="crumb"><a href="/">ホーム</a> ＞ {crumb}</div><div class="eb" style="margin-top:16px;">{eb}</div><h1>{h1}</h1><p class="sub">{sub}</p>
+<div class="chips">{"".join(f"<span>{c}</span>" for c in chips)}</div>
+<div class="ctas" style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center"><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-wg">LINEで無料相談 <span class="ar">→</span></a><a href="/price" class="btn-link-w">料金を見る</a></div></div>
+<div class="rv" style="position:relative">{vis}</div></div></section>'''
+
+
+def gs_cards(items):
+    return ''.join(f'<div class="gs-card"><img class="ico" src="{icon(ic)}" alt="" width="44" height="44" loading="lazy"><h3>{t}</h3><p>{d}</p><div class="who"><span>{w}</span><i>ILL</i></div></div>' for ic, t, d, w in items)
+
+
+GS_ITEMS = [
+    ('ph', '予約の電話が、減る', 'お客様はLINEからタップで予約。営業中に電話に出られなくても、予約を逃しません。', '美容室・サロン・整体に'),
+    ('chat', '問い合わせに、24時間こたえる', 'よくある質問・営業時間・場所は、自動で返信。夜や休みの日の問い合わせにも、すぐ答えます。', 'すべての業種に'),
+    ('heart', 'また来てもらえる', 'ご来店のお礼、次回のクーポン、スタンプカード。忘れられない仕組みで、リピートにつなげます。', '飲食店・サロンに'),
+    ('chartup', '集計・転記が、減る', '予約・顧客・シフトの情報が一か所にまとまり、ノートやExcelへの書き写しが減ります。', '事務作業が多い会社に'),
+    ('mail', 'スタッフ連絡が、まとまる', 'シフトの締め切り、確定のお知らせ、欠勤の連絡。バラバラの連絡を、仕組みにまとめます。', 'シフト勤務の会社に'),
+    ('gear', '更新も改善も、まかせられる', '営業時間やメニューの変更、配信の改善まで。作って終わりにせず、毎月一緒に育てます。', '時間がない方に'),
+    ('web', '検索から、選ばれる', 'スマホで見やすく、速いホームページ。見た人が迷わず、LINEや予約に進めます。', 'ホームページがない・古い方に'),
+    ('bot', 'AIで、文章づくりが速い', 'お知らせやSNSの文章、返信の下書きを、AIでさっと。最後は人が確認します。', '発信に時間がかかる方に'),
+]
+
+top = f'''<section class="hero2">
+<div class="hero2-in">
+<div class="rv"><div class="mini"><img src="/assets-v3/raizon-logo-240.webp" alt="" width="240" height="170">沖縄の事業者の、デジタル担当者</div>
+<h1>集客も、予約も、<br>面倒な業務も。<br>まずは<span class="pill-ic" aria-hidden="true"><i></i><i></i></span>LINEから。</h1>
+<p class="sub">LINE公式アカウントを入口に、ホームページ・業務システム・AI活用まで。会社の「もっとラクにしたい」を、一緒に仕組みにします。</p>
+<div class="ctas"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-wg">デモLINEを触ってみる <span class="ar">→</span></a><a href="/contact" class="btn-link-w">うちの場合、何ができる？</a></div>
+<p class="note2">初期費用0円・月額5,000円（税別）〜・契約期間の縛りなし</p></div>
+<div class="hero2-vis rv"><div class="halo"></div>{demo_phone()}</div>
+</div>
+{people_band()}
+<div class="hero2-cap">※画面はデモ用のサンプルです</div>
+</section>
+
+<div class="mq" aria-label="対応している業種"><div class="mq-track">{''.join(f'<span><img src="{icon(i)}" alt="" width="34" height="34">{t}</span>' for i, t in [('house','美容室・サロン'),('note','飲食店'),('heart','整体・治療院'),('building','ビル管理・清掃'),('shield','医療・介護'),('globe','観光・ホテル'),('star','小売・ショップ'),('book','教室・スクール'),('trophy','フィットネス'),('camera','写真・スタジオ')] * 2)}</div></div>
+
+<section class="concept">
+<div class="fphoto" data-par="0.6" data-rot="-3" style="left:4%;top:90px;width:210px;height:150px"><img src="/assets-v3/worry-1.webp" alt="" loading="lazy"></div>
+<div class="fphoto" data-par="1.1" data-rot="2" style="left:9%;top:330px;width:170px;height:210px"><img src="/assets-v3/worry-3.webp" alt="" loading="lazy"></div>
+<div class="fphoto" data-par="0.8" data-rot="-2" style="left:2%;bottom:120px;width:230px;height:160px"><img src="/assets-v3/ind-food.webp" alt="" loading="lazy"></div>
+<div class="fphoto" data-par="0.9" data-rot="3" style="right:5%;top:70px;width:190px;height:240px"><img src="/assets-v3/ind-build.webp" alt="" loading="lazy"></div>
+<div class="fphoto" data-par="0.5" data-rot="-2" style="right:3%;top:380px;width:230px;height:160px"><img src="/assets-v3/ind-beauty.webp" alt="" loading="lazy"></div>
+<div class="fphoto" data-par="1.2" data-rot="2" style="right:10%;bottom:90px;width:170px;height:200px"><img src="/assets-v3/worry-5.webp" alt="" loading="lazy"></div>
+<div class="c-in rv"><div class="eb">RAIZON WAY</div>
+<h2>お店の面倒は、ゼロに。<br>必要な仕組みは、全部。<br>RAIZON<span class="pill-ic" aria-hidden="true"><i></i><i></i></span>で。</h2>
+<p>予約、問い合わせ、リピート、シフト、ホームページ、AI。<br>ばらばらに頼むと、つながらず、手間も費用も増えます。<br>RAIZONは、ひとつの窓口で、まとめて設計し、毎月一緒に育てます。</p>
+<div class="video"><video src="/assets-v4/raizon-demo.mp4" poster="/assets-v4/raizon-demo-poster.webp" muted loop playsinline autoplay preload="none"></video></div>
+<div class="video-cap">15秒でわかる、お店のLINE（デモ）</div></div>
+</section>
+
+<section class="gs"><div class="gs-sticky">
+<div class="gs-shapes" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="gs-head"><div class="eb">WHAT CHANGES</div><h2>面倒をゼロにして、<br>実現できること。</h2></div>
+<div class="gs-track">{gs_cards(GS_ITEMS)}</div>
+<div class="gs-prog"><div><i></i></div></div>
 </div></section>
+
+<section class="dk"><div class="wrap">
+<div class="ttl rv"><div class="eb">FEATURES</div><h2>お店と会社のための機能が、詰まっています。</h2></div>
+<div class="row3">
+<div class="rv">{ill('T-11', 'スマホを見ながら歩く店主', '開店準備中の店主が、エプロン姿でスマホを見ながら歩いている全身イラスト。足元に段ボール。', 'tall')}</div>
+<div class="rv" style="display:flex;justify-content:center">{demo_phone(False)}</div>
+<div class="fx rv"><div class="k">タップするだけで、<br>24時間つながる<b>LINEの予約</b></div><p>メニュー・担当・日時を選ぶだけ。確定とリマインドは自動で届きます。お店は、一覧で確認するだけです。</p><div class="stat"><b data-count="24">0<small>時間</small></b><span>予約の受付（お店が閉まっていても）</span></div></div>
+</div>
+<div class="row2">
+<div class="fx rv"><div class="k">お客様に合わせて、<br>届け方を選べる。<br><b>配信・クーポン・スタンプ</b></div><p>全員へのお知らせ、来店したお客様へのお礼、誕生月のクーポン。タグで分けて、必要な人にだけ届けます。</p><div class="stat"><b data-count="0">0<small>円</small></b><span>初期費用（LINE・ホームページ・システム）</span></div></div>
+<div class="rv">{ill('T-12', 'お客様のグループごとに届くメッセージ', '3つのグループ（新規・常連・誕生月）の人物アイコンに、それぞれ違う色の吹き出しが届いている図。', 'sq')}</div>
+</div>
+<div class="row2">
+<div class="rv">{ill('T-13', 'シフトの提出と承認がスマホで完結', 'スタッフ3人がそれぞれスマホからシフトを送り、中央の管理者のスマホに集まって「承認」のチェックがつく。', 'sq')}</div>
+<div class="fx rv"><div class="k">紙・Excel・電話から、<br><b>業務システムへ</b></div><p>シフト提出、予約管理、顧客管理、請求。今のやり方に合わせて、必要なところから仕組みにします。</p><div class="stat"><b data-count="5000">0<small>円〜</small></b><span>月額（税別）。LINEから始めて、一段ずつ</span></div></div>
+</div>
+<div class="row2">
+<div class="media rv"><img src="/assets-v3/case2-photo.webp" alt="理容室の店内" loading="lazy"></div>
+<div class="fx rv"><div class="k">見つけてもらって、<br>選ばれる。<b>ホームページ</b></div><p>スマホで見やすく、表示が速いホームページ。見た人が迷わず、LINEや予約に進める導線をつくります。<a href="/web" style="color:#7FE3A8">ホームページ制作を見る →</a></p></div>
+</div>
+<div class="row2">
+<div class="media rv"><img src="/assets-v3/philosophy-photo.webp" alt="打ち合わせの様子" loading="lazy"></div>
+<div class="fx rv"><div class="k">使える場面から、<br>一緒に。<b>AI活用</b></div><p>文章の下書き、問い合わせの整理、マニュアル作り。AIを使うことが目的ではなく、業務がラクになる使い方を見つけます。<a href="/ai" style="color:#7FE3A8">AI活用支援を見る →</a></p></div>
+</div>
+<div class="grid2">
+<div class="it rv"><img src="{icon('chat')}" alt="" width="40" height="40"><b>タブで切り替わるリッチメニュー</b><p>メニュー・予約・料金・お店の情報を、タブで整理。たくさんの案内も、迷わず届きます。</p></div>
+<div class="it rv"><img src="{icon('bell')}" alt="" width="40" height="40"><b>前日・直前のリマインド</b><p>予約の前日と直前に、自動でお知らせ。うっかり忘れや、確認の電話を減らします。</p></div>
+<div class="it rv"><img src="{icon('mail')}" alt="" width="40" height="40"><b>友だち追加からのステップ配信</b><p>追加した日から順番に、お店の紹介やクーポンを届けて、来店につなげます。</p></div>
+<div class="it rv"><img src="{icon('note')}" alt="" width="40" height="40"><b>顧客管理・タグ</b><p>来店履歴やメモ、興味のあるメニューを記録。次の提案に活かせます。</p></div>
+<div class="it rv"><img src="{icon('shield')}" alt="" width="40" height="40"><b>安心の運用</b><p>アカウントはお客様の名義。権限とパスワードの管理を徹底します。</p></div>
+</div>
+</div></section>
+
+{sec('', head('3 STEPS', 'LINEから始めて、<em>一段ずつ</em>広げる。', '全部を一度に始める必要はありません。今のお店に合うところから、いつでも上の段階に進めます。', True) + f"""<div class="steps3">
+<div class="st3 rv"><div class="vis"><span class="a">LINE</span></div><div class="nm">STEP 1 ／ BASIC</div><h3>LINEで、つながる</h3><p>LINE公式アカウントの構築、リッチメニュー、配信。まずはお客様との入口を。</p><a href="/line">LINE構築を見る →</a></div>
+<div class="st3 rv"><div class="vis"><span class="a">LINE</span><span class="b">HP</span></div><div class="nm">STEP 2 ／ STANDARD</div><h3>ホームページで、選ばれる</h3><p>LINEとホームページをまとめて。予約・問い合わせの導線を一体で設計します。</p><a href="/web">ホームページを見る →</a></div>
+<div class="st3 rv"><div class="vis"><span class="a">LINE</span><span class="b">HP</span><span class="c">SYS</span></div><div class="nm">STEP 3 ／ PREMIUM</div><h3>システムで、ラクになる</h3><p>予約・顧客・シフト・請求まで。業務を、まるごと効率化します。</p><a href="/system">業務システムを見る →</a></div>
+</div>""")}
+
+{sec('sec-gray', head('WHAT WE DO', '小さなお店から、<em>現場のある会社</em>まで。', '', True) + '<div class="wall rv">' + ''.join(f'<div><img src="{icon(i)}" alt="" width="42" height="42" loading="lazy">{t}</div>' for i, t in [('chat','LINE公式アカウント'),('web','ホームページ制作'),('cal','予約システム'),('note','顧客管理'),('clock','シフト管理'),('tix','クーポン・スタンプ'),('mail','ステップ配信'),('bot','AI活用'),('chartup','集計・レポート'),('qa','自動応答・FAQ'),('camera','写真・素材の整理'),('gear','業務の自動化')]) + '</div>')}
 
 <section class="sec sec-dark"><div class="wrap">
-{head('FEATURES', 'お店と会社のための機能が、<br><em>ひとつに</em>詰まっています。', 'LINEを入口に、必要なところから一段ずつ。全部を一度に始める必要はありません。')}
-{feat('01', 'LINE公式アカウント<br>「お客様の入口」をつくる', 'メニュー・予約・クーポンを、LINEひとつに。お客様は、いつものLINEから、タップするだけで予約やお問い合わせができます。', ['リッチメニュー（タブ切り替えにも対応）', '予約の受付と、前日のリマインド', 'クーポン・スタンプカード', '自動応答・ステップ配信'], phone(), ('/line', 'LINE公式アカウント構築を見る'))}
-{feat('02', 'ホームページ<br>「探される」から「選ばれる」へ', '検索やSNSから来た人が、迷わずLINEや予約に進めるホームページ。初期費用0円、月額で作って、更新もおまかせいただけます。', ['スマホで見やすく、表示が速い', 'LINE・予約への導線を設計', '営業時間・メニューの更新もおまかせ', '3年以上のご利用で譲渡'], ill('T-02', 'ホームページを見て、LINEで予約する人', 'スマホでお店のホームページを見ている女性。画面からLINEのアイコンへ矢印がのび、「予約完了」のチェックマーク。背景に沖縄らしい街並み（赤瓦・シーサーは控えめ）。', 'sq'), ('/web', 'ホームページ制作を見る'))}
-{feat('03', '業務システム<br>「面倒な作業」を仕組みに', 'シフト提出、予約管理、顧客管理、請求。紙・Excel・電話でやっている作業を、お店や会社のやり方に合わせて仕組みにします。', ['シフトの提出・承認・欠勤連絡', '予約・顧客の一覧と履歴', '提出や申請の自動通知', 'LINEとの連携'], ill('T-03', 'シフト表と格闘していた人が、スマホで一瞬で確認', '左側に紙のシフト表と電話に囲まれて困っている管理者、右側でスマホの一覧画面を見て笑顔になった同じ人。ビフォー・アフターの2コマ構成。', 'sq'), ('/system', '業務システムを見る'))}
-{feat('04', 'AI活用<br>「使える場面」から一緒に', '文章の下書き、問い合わせの整理、情報のまとめ。AIを使うことが目的ではなく、業務がラクになる使い方を、一緒に見つけます。', ['お知らせ・SNS文章の下書き', '問い合わせ内容の整理・分類', '社内マニュアルやFAQの作成', '使い方の説明と、ルールづくり'], ill('T-04', 'AIと相談しながら仕事を進めるお店の人', 'カウンターでノートPCに向かう店主の横に、やわらかい形のAIアシスタント（丸いキャラクター、顔は簡単な点と線）。吹き出しに文章の下書き。', 'sq'), ('/ai', 'AI活用支援を見る'))}
-{icons_html([
-  ('chat', 'リッチメニュー', 'タブ切り替え・画像デザインまで'),
-  ('cal', '予約受付', '空いている時間だけ選べる'),
-  ('bell', 'リマインド', '前日・直前に自動でお知らせ'),
-  ('tix', 'クーポン', '初回・再来店のきっかけに'),
-  ('star', 'スタンプカード', 'LINEでためて、また来店'),
-  ('mail', 'ステップ配信', '友だち追加から順番に案内'),
-  ('note', '顧客管理', 'タグ・履歴・メモを一か所に'),
-  ('web', 'ホームページ', '作成・更新・速さの改善'),
-  ('clock', 'シフト管理', '提出・承認・欠勤連絡'),
-  ('chartup', '集計・レポート', '友だち数や予約数を見える化'),
-  ('bot', 'AI活用', '文章作成・情報整理'),
-  ('shield', '安心の運用', '権限・パスワードの管理'),
-])}
-</div></section>
-
-{sec('', head('PRICE', '必要なところから、<em>一段ずつ。</em>', 'LINEから始めて、ホームページ、業務システムへ。お店の成長に合わせて、いつでも上のプランに切り替えられます。', True) + plans_html() + '<div class="center" style="margin-top:28px"><a href="/price" class="btn btn-o">料金の詳しい説明を見る <span class="ar">→</span></a></div>')}
-
-{sec('sec-gray', head('CASE STUDY', '導入事例', '業種も、困りごとも、さまざまです。実際に一緒につくった仕組みをご紹介します。', True) + cases_html() + '<div class="center" style="margin-top:28px"><a href="/cases" class="btn btn-o">導入事例をもっと見る <span class="ar">→</span></a></div>')}
-
-<section class="sec sec-dark"><div class="wrap">
-{head('INDUSTRY', 'RAIZONは、あらゆる<br>お店と会社に<em>フィットします。</em>', '', True)}
-<div class="inds">
-<div class="ind rv"><div class="ph" style="background-image:url(/assets-v3/ind-beauty.webp)"></div><div class="bd"><b>美容室・サロン</b><p>予約・リマインド・次回クーポンで、リピートの仕組みを。</p></div></div>
-<div class="ind rv"><div class="ph" style="background-image:url(/assets-v3/ind-food.webp)"></div><div class="bd"><b>飲食店</b><p>メニュー・営業時間・テイクアウトの案内を、LINEで。</p></div></div>
-<div class="ind rv"><div class="ph" style="background-image:url(/assets-v3/ind-build.webp)"></div><div class="bd"><b>ビル管理・建設</b><p>シフト提出や現場の連絡を、スマホで完結。</p></div></div>
-<div class="ind rv"><div class="ph" style="background-image:url(/assets-v3/ind-estate.webp)"></div><div class="bd"><b>不動産・観光</b><p>問い合わせの自動応答と、物件・施設の案内を。</p></div></div>
+{head('INDUSTRY', 'RAIZONは、<br>あらゆるお店と会社に<em>フィットします。</em>')}
+<div class="inds2">
+<a class="ind2 rv" href="/line" style="background-image:url(/assets-v3/ind-beauty.webp)"><b>美容室・サロン</b><p>予約・リマインド・次回クーポンで、リピートの仕組みを。</p></a>
+<a class="ind2 rv" href="/line" style="background-image:url(/assets-v3/ind-food.webp)"><b>飲食店</b><p>メニュー・営業時間・テイクアウトの案内を、LINEで。</p></a>
+<a class="ind2 rv" href="/system" style="background-image:url(/assets-v3/ind-build.webp)"><b>ビル管理・建設</b><p>シフト提出や現場の連絡を、スマホで完結。</p></a>
+<a class="ind2 rv" href="/web" style="background-image:url(/assets-v3/ind-estate.webp)"><b>不動産・観光</b><p>問い合わせの自動応答と、物件・施設の案内を。</p></a>
 </div></div></section>
 
-{sec('', head('FLOW', 'ご相談から、使いはじめるまで', '', True) + '<div class="flow"><div class="rv"><b>無料相談</b><p>LINEまたはWEB相談で、今の困りごとをお聞きします。</p></div><div class="rv"><b>ご提案</b><p>必要なものだけを、画面を見ながらご提案します。</p></div><div class="rv"><b>お申し込み</b><p>内容と料金にご納得いただいてから、お申し込みです。</p></div><div class="rv"><b>構築</b><p>アカウントやページを作り、一緒に確認します。</p></div><div class="rv"><b>運用・改善</b><p>使いながら、毎月一緒に改善します。</p></div></div><div class="center" style="margin-top:28px"><a href="/flow" class="btn btn-o">ご利用の流れを詳しく <span class="ar">→</span></a></div>')}
+{sec('sec-gray', head('PRICE', '料金プラン', '初期費用0円・最低契約期間なし。必要なところから、一段ずつ。', True) + plans_html() + '<div class="center" style="margin-top:28px"><a href="/price" class="btn" style="background:var(--ink);color:#fff">料金の詳しい説明を見る <span class="ar">→</span></a></div>')}
 
-{sec('sec-gray', head('FAQ', 'よくあるご質問', '', True) + faq_html(TOP_FAQ) + '<div class="center" style="margin-top:28px"><a href="/faq" class="btn btn-o">質問をもっと見る <span class="ar">→</span></a></div>')}
+{sec('', head('CASE STUDY', 'あらゆる課題に、<em>フィット</em>します。', '業種も、困りごとも、さまざまです。一緒につくった仕組みをご紹介します。', True) + '<div class="slider"><div class="slider-track">' + ''.join(f'<a class="case" href="{u}"><div class="ph" style="background-image:url({img})"></div><div class="bd"><div class="tg">{"".join(f"<span>{t}</span>" for t in tags)}</div><h3>{who}</h3><p>{txt}</p><span class="go">事例を読む →</span></div></a>' for img, tags, who, txt, u in CASES) + '<a class="case" href="/contact"><div class="ph" style="background:var(--g-l);display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--g-d)">NEXT CASE</div><div class="bd"><div class="tg"><span>募集中</span></div><h3>次は、あなたのお店の番です</h3><p>まだ事例がない業種でも大丈夫です。今の困りごとから、一緒に考えます。</p><span class="go">相談してみる →</span></div></a></div><div class="slider-nav"><button aria-label="前へ">←</button><button aria-label="次へ">→</button></div></div>')}
 
-{sec('', head('BLOG', 'デジタル活用のヒント', 'LINE公式アカウントの使い方や、業務をラクにするヒントを発信しています。') + posts_html() + '<div style="margin-top:24px"><a href="/blog-list" class="btn btn-o">記事一覧へ <span class="ar">→</span></a></div>')}
+{sec('', head('FAQ', 'よくあるご質問', '', True) + faq_html(TOP_FAQ) + '<div class="center" style="margin-top:28px"><a href="/faq" class="btn btn-o">質問をもっと見る <span class="ar">→</span></a></div>')}
 
-{cta_band()}
+{sec('sec-gray', head('BLOG', 'デジタル活用のヒントをチェック。', 'LINE公式アカウントの使い方や、業務をラクにするヒントを発信しています。', True) + '<div class="slider">' + posts_html().replace('class="posts"', 'class="slider-track"') + '<div class="slider-nav"><button aria-label="前へ">←</button><button aria-label="次へ">→</button></div></div><div class="center" style="margin-top:12px"><a href="/blog-list" style="color:var(--g-d);font-weight:800;text-decoration:none">記事一覧へ →</a></div>')}
+
+<section class="cta2"><div class="wrap rv"><h2>さあ、お店の「面倒」を、仕組みに変えましょう。</h2>
+<div class="bs"><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-g">LINEで無料相談 <span class="ar">→</span></a><a href="/contact" class="btn btn-g">お問い合わせ <span class="ar">→</span></a></div>
+<a class="lk" href="{DEMO}" target="_blank" rel="noopener">まずはデモLINEを触ってみる →</a></div></section>
 '''
 
 PAGES = {}
@@ -284,7 +352,7 @@ LINE_FAQ = [
     ('どのくらいで使い始められますか？', '内容によって変わります。基本的な設定なら、資料や写真をいただいてから、短期間で始められます。'),
     ('配信の文章は、作ってもらえますか？', 'はい。配信の内容や頻度の設計から、文章の作成までご相談いただけます。'),
 ]
-line_body = ph_hero('LINE公式アカウント構築', 'LINE', '沖縄のLINE公式アカウント構築は、<br><em>RAIZON</em>へ。', 'メニュー・予約・クーポンを、LINEひとつに。お客様はタップするだけ、お店は自動で。開設から、毎月の改善まで一緒に進めます。', ['初期費用0円', '月額5,000円（税別）〜', '予約・リマインド', 'クーポン・スタンプ', '縛りなし'], phone()) + \
+line_body = ph_hero('LINE公式アカウント構築', 'LINE', '沖縄のLINE公式アカウント構築は、<br><em>RAIZON</em>へ。', 'メニュー・予約・クーポンを、LINEひとつに。お客様はタップするだけ、お店は自動で。開設から、毎月の改善まで一緒に進めます。', ['初期費用0円', '月額5,000円（税別）〜', '予約・リマインド', 'クーポン・スタンプ', '縛りなし'], '<div style="display:flex;justify-content:center;padding-bottom:20px">' + demo_phone() + '</div>') + \
     sec('', head('PROBLEM', 'こんなお悩みはありませんか？', '', True) + cards_html([
         ('ph', '営業中に、予約の電話に出られない', '施術中や調理中に鳴る電話。出られなかった予約は、そのまま他のお店へ。', ''),
         ('chat', '問い合わせが、あちこちに届く', '電話・Instagram・メール・LINE。確認するだけで時間がかかる。', ''),
