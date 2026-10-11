@@ -5,12 +5,12 @@ const nodemailer = require('nodemailer');
 
 const TERMS_VERSION = '1.0';
 const FIELDS = [
-  ['plan', 'プラン', 200], ['quote', 'お見積もり番号・金額', 200], ['company', '会社名・屋号', 200],
+  ['plan', 'プラン', 200], ['payment', 'お支払い方法', 100], ['quote', 'お見積もり番号・金額', 200], ['company', '会社名・屋号', 200],
   ['representative', '代表者名', 100], ['contact', 'ご担当者名', 100], ['address', '所在地', 300],
   ['phone', '電話番号', 40], ['email', 'メールアドレス', 200], ['industry', '業種', 100],
   ['lineAccount', 'LINE公式アカウント', 50], ['start', '利用開始の希望時期', 100], ['note', 'ご要望・備考', 3000],
 ];
-const REQUIRED = ['plan', 'company', 'representative', 'address', 'phone', 'email', 'lineAccount'];
+const REQUIRED = ['plan', 'payment', 'company', 'representative', 'address', 'phone', 'email', 'lineAccount'];
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
