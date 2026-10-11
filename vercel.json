@@ -93,6 +93,14 @@
       "destination": "/consult.html"
     },
     {
+      "source": "/web",
+      "destination": "/web.html"
+    },
+    {
+      "source": "/system",
+      "destination": "/system.html"
+    },
+    {
       "source": "/apply",
       "destination": "/apply.html"
     },

@@ -51,7 +51,7 @@ for (const f of files) {
     if (!allIds.has(id)) errors.push(`${f}: 内部リンク先の記事がありません (${id})`);
   }
   posts.__links = posts.__links || []; for (const l of body.match(/href="\/blog\/[^"]+"/g) || []) posts.__links.push({ from: meta.id, fromDate: meta.publishAt, to: l.match(/blog\/([^"]+)"/)[1], file: f });
-  posts.push({ id: meta.id, title: meta.title, category: meta.category, createdAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), updatedAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), body, source: 'file', ...(meta.thumbnail ? { thumbnail: meta.thumbnail } : {}) });
+  posts.push({ id: meta.id, title: meta.title, category: meta.category, createdAt: new Date(meta.publishAt + 'T10:00:00+09:00').toISOString(), updatedAt: new Date(((/^\d{4}-\d{2}-\d{2}$/.test(meta.updatedAt || '') ? meta.updatedAt : meta.publishAt)) + 'T10:00:00+09:00').toISOString(), body, source: 'file', ...(meta.thumbnail ? { thumbnail: meta.thumbnail } : {}) });
 }
 
 // 内部リンク先が、リンク元より後に公開される場合は、公開直後にリンク切れ(404)になるため、エラーにする
