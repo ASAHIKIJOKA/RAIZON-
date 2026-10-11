@@ -17,9 +17,32 @@ CLARITY = '''<script>window.addEventListener('load',function(){setTimeout(functi
 INTER = 'https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap'
 
 
+# イラストは shigureni free illust の5点だけを使う(商用は1制作物5点まで無料。6点目からは有料ライセンス)
+ILLUST = {'phone-girl': 'スマホを見る人', 'desk': 'パソコンで作業する人', 'present': 'グラフで説明する人', 'meeting': 'オンライン会議', 'map-hand': '地図アプリのスマホ'}
+VIS = {
+    'T-11': 'img:phone-girl', 'T-12': 'icons:mail,tix,heart', 'T-13': 'img:present',
+    'L-01': 'img:phone-girl', 'L-02': 'icons:cal,bell,clock', 'L-03': 'icons:tix,star,heart',
+    'W-00': 'img:desk', 'W-01': 'icons:coins,cal,thumb', 'W-02': 'icons:web,chat,cal', 'W-03': 'img:map-hand',
+    'S-00': 'img:present', 'S-01': 'icons:clock,note,mail', 'S-02': 'icons:note,cal,heart', 'S-03': 'icons:gear,bot,chartup',
+    'A-00': 'img:present', 'P-00': 'icons:chat,web,gear', 'C-00': 'photos', 'F-00': 'img:meeting',
+    'F-01': 'img:meeting', 'F-02': 'img:present', 'F-03': 'icons:note,shield,thumb', 'F-04': 'img:desk', 'F-05': 'icons:trophy,chartup,star',
+    'M-00': 'photo:/assets-v3/philosophy-photo.webp', 'Q-00': 'icons:qa,bulb,chat', 'K-00': 'img:meeting',
+    'T-02': 'img:map-hand', 'T-03': 'img:present', 'T-04': 'img:desk',
+}
+
+
 def ill(id_, title, desc, cls=''):
     ILLS.append((id_, title, desc))
-    return f'<div class="ill {cls}" role="img" aria-label="{title}"><span class="tag">ILLUSTRATION {id_}</span><b>{title}</b><small>{desc}</small></div>'
+    v = VIS.get(id_, 'icons:chat,web,gear')
+    if v.startswith('img:'):
+        n = v[4:]
+        return f'<div class="illx {cls}"><span class="blob"></span><img src="/assets-v4/illust/{n}.webp" alt="{ILLUST[n]}のイラスト" loading="lazy"></div>'
+    if v.startswith('photo:'):
+        return f'<div class="illp {cls}" style="background-image:url({v[6:]})" role="img" aria-label="{title}"></div>'
+    if v == 'photos':
+        return '<div class="illps ' + cls + '">' + ''.join(f'<span style="background-image:url({u})"></span>' for u in ['/assets-v3/case-building.jpg', '/assets-v3/case2-photo.webp', '/assets-v3/case-parlor-minato.jpg']) + '</div>'
+    ics = v[6:].split(',')
+    return f'<div class="icx {cls}" role="img" aria-label="{title}"><span class="ring"></span>' + ''.join(f'<img class="i{k}" src="/assets-v4/icons/{n}.webp" alt="" loading="lazy">' for k, n in enumerate(ics)) + '</div>'
 
 
 def icon(name):
@@ -49,7 +72,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v4/v4.css?v=4">
+<link rel="stylesheet" href="/assets-v4/v4.css?v=5">
 {lds}
 {CLARITY}
 </head>
@@ -85,7 +108,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
   </div>
 </footer>
 <div class="sp-cta"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-o">デモを触る</a><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-g">LINEで相談</a></div>
-<script src="/assets-v4/v4.js?v=3" defer></script>
+<script src="/assets-v4/v4.js?v=4" defer></script>
 </body>
 </html>
 '''
@@ -200,22 +223,10 @@ def demo_phone(cap=True):
 </div></div>{'<div class="demo-cap"><b>01</b>お客様は、タップするだけ</div>' if cap else ''}'''
 
 
-PEOPLE = [
-    ('H-01', '美容師が、スマホの予約通知を見てにっこり', 'ハサミを持った美容師（エプロン）が、片手のスマホに届いた「予約が入りました」の通知を見て笑顔。全身、横向き少し。'),
-    ('H-02', '飲食店の店主が、LINEでメニューを配信', 'カウンター越しに、店主（タオル鉢巻）がスマホを掲げている。吹き出しに料理のアイコン。'),
-    ('H-03', '作業着の管理者が、シフトをスマホで承認', 'ヘルメットを小脇に抱えた作業着の管理者が、スマホの「承認」ボタンを親指で押している。'),
-    ('H-04', '整体師が、お客様とLINEでやりとり', '白衣の整体師がタブレットを見せながら、お客様（座っている）と話している。'),
-    ('H-05', 'パソコンでホームページを更新する人', '小さなデスクでノートPCに向かう女性。画面からホームページのパーツが浮かび上がる。'),
-    ('H-06', 'AIの小さな相棒と、文章を考える人', '店主の肩の上に、丸い形のAIキャラクター（顔は点と線）。2人で吹き出しの文章を見ている。'),
-    ('H-07', '観光のお客様が、地図を見てお店へ向かう', 'リュックの観光客がスマホの地図を見ながら歩いている。遠くに赤瓦のお店。'),
-]
-
-
 def people_band():
-    items = ''.join(f'<div class="person"><small>ILLUSTRATION {i}</small><b>{t}</b></div>' for i, t, d in PEOPLE)
-    for i, t, d in PEOPLE:
-        ILLS.append((i, t + '（最初の画面の下を横に流れる人物）', d + ' 背景は透過。高さをそろえ、足元を下端に合わせる（約600×520px）。'))
-    return f'<div class="people" aria-hidden="true"><div class="people-track">{items}{items}</div></div>'
+    order = ['phone-girl', 'desk', 'map-hand', 'present', 'meeting']
+    items = ''.join(f'<div class="person"><img src="/assets-v4/illust/{n}.webp" alt="" loading="lazy"></div>' for n in order)
+    return f'<div class="people" aria-hidden="true"><div class="people-track">{items * 2}{items * 2}</div></div>'
 
 
 def ph_hero(crumb, eb, h1, sub, chips, vis):
@@ -227,7 +238,7 @@ def ph_hero(crumb, eb, h1, sub, chips, vis):
 
 
 def gs_cards(items):
-    return ''.join(f'<div class="gs-card"><img class="ico" src="{icon(ic)}" alt="" width="44" height="44" loading="lazy"><h3>{t}</h3><p>{d}</p><div class="who"><span>{w}</span><i>ILL</i></div></div>' for ic, t, d, w in items)
+    return ''.join(f'<div class="gs-card"><img class="ico" src="{icon(ic)}" alt="" width="44" height="44" loading="lazy"><h3>{t}</h3><p>{d}</p><div class="who"><span>{w}</span></div></div>' for ic, t, d, w in items)
 
 
 GS_ITEMS = [
@@ -244,7 +255,7 @@ GS_ITEMS = [
 top = f'''<section class="hero2">
 <div class="hero2-in">
 <div class="rvh"><div class="mini"><img src="/assets-v3/raizon-logo-240.webp" alt="" width="240" height="170">沖縄の事業者の、デジタル担当者</div>
-<h1>集客も、予約も、<br>面倒な業務も。<br>まずは<span class="pill-ic" aria-hidden="true"><i></i><i></i></span>LINEから。</h1>
+<h1>集客も、予約も、<br>面倒な業務も。<br>まずは<span class="bub" aria-hidden="true"><i></i><i></i><i></i></span>LINEから。</h1>
 <p class="sub">LINE公式アカウントを入口に、ホームページ・業務システム・AI活用まで。会社の「もっとラクにしたい」を、一緒に仕組みにします。</p>
 <div class="ctas"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-wg">デモLINEを触ってみる <span class="ar">→</span></a><a href="/contact" class="btn-link-w">うちの場合、何ができる？</a></div>
 <p class="note2">初期費用0円・月額5,000円（税別）〜・契約期間の縛りなし</p></div>
@@ -264,10 +275,9 @@ top = f'''<section class="hero2">
 <div class="fphoto" data-par="0.5" data-rot="-2" style="right:3%;top:380px;width:230px;height:160px"><img src="/assets-v3/ind-beauty.webp" alt="" loading="lazy"></div>
 <div class="fphoto" data-par="1.2" data-rot="2" style="right:10%;bottom:90px;width:170px;height:200px"><img src="/assets-v3/worry-5.webp" alt="" loading="lazy"></div>
 <div class="c-in rv"><div class="eb">RAIZON WAY</div>
-<h2>お店の面倒は、ゼロに。<br>必要な仕組みは、全部。<br>RAIZON<span class="pill-ic" aria-hidden="true"><i></i><i></i></span>で。</h2>
+<h2>お店の面倒は、ゼロに。<br>必要な仕組みは、全部。<br>RAIZON<span class="bub" aria-hidden="true"><i></i><i></i><i></i></span>で。</h2>
 <p>予約、問い合わせ、リピート、シフト、ホームページ、AI。<br>ばらばらに頼むと、つながらず、手間も費用も増えます。<br>RAIZONは、ひとつの窓口で、まとめて設計し、毎月一緒に育てます。</p>
-<div class="video"><video src="/assets-v4/raizon-demo.mp4" poster="/assets-v4/raizon-demo-poster.webp" muted loop playsinline autoplay preload="none"></video></div>
-<div class="video-cap">15秒でわかる、お店のLINE（デモ）</div></div>
+<div style="margin-top:32px"><a href="/company" class="btn btn-o">RAIZONについて <span class="ar">→</span></a></div></div>
 </section>
 
 <section class="gs"><div class="gs-sticky">

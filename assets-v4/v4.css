@@ -548,3 +548,38 @@ a{color:inherit}
 .rvh.d2{animation-delay:.15s}
 @keyframes fadeup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.rvh{animation:none}}
+
+/* ===== v4.2: イラスト(shigureni)・アイコンの組み合わせ・吹き出しのマーク ===== */
+.illx{position:relative;display:flex;align-items:center;justify-content:center;padding:18px;min-height:240px}
+.illx .blob{position:absolute;inset:8% 6%;border-radius:46% 54% 50% 50%/52% 46% 54% 48%;background:var(--g-l);animation:morph 10s ease-in-out infinite}
+.dk .illx .blob,.sec-dark .illx .blob{background:#33383E}
+.ph2 .illx .blob{background:rgba(255,255,255,.18)}
+.illx img{position:relative;max-width:88%;max-height:360px;width:auto;height:auto;animation:floaty 6s ease-in-out infinite}
+.illx.tall img{max-height:420px}
+.illx.wide{min-height:300px}
+@keyframes morph{0%,100%{border-radius:46% 54% 50% 50%/52% 46% 54% 48%}50%{border-radius:56% 44% 42% 58%/44% 58% 42% 56%}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.icx{position:relative;min-height:260px;display:flex;align-items:center;justify-content:center}
+.icx.sq{aspect-ratio:1/1;min-height:0}
+.icx .ring{position:absolute;width:62%;aspect-ratio:1/1;border-radius:50%;background:var(--g-l);box-shadow:0 0 0 22px rgba(6,199,85,.06)}
+.dk .icx .ring,.sec-dark .icx .ring{background:#33383E;box-shadow:0 0 0 22px rgba(255,255,255,.03)}
+.ph2 .icx .ring{background:rgba(255,255,255,.18);box-shadow:0 0 0 22px rgba(255,255,255,.07)}
+.icx img{position:absolute;width:28%;max-width:130px;border-radius:26px;background:#fff;padding:10px;box-shadow:0 18px 36px rgba(20,23,26,.14);animation:floaty 5s ease-in-out infinite}
+.icx .i0{left:16%;top:22%}.icx .i1{right:16%;top:30%;animation-delay:-1.6s}.icx .i2{left:38%;bottom:12%;animation-delay:-3.2s}
+.illp{border-radius:24px;background:#DDE3E8 center/cover;min-height:280px;box-shadow:0 24px 50px rgba(20,23,26,.16)}
+.illp.wide{aspect-ratio:16/9;min-height:0}
+.illps{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1fr 1fr;gap:10px;aspect-ratio:16/10}
+.illps span{border-radius:18px;background:#DDE3E8 center/cover}
+.illps span:first-child{grid-row:1/3}
+/* 人物の帯: 実際のイラストが流れる */
+.person{width:auto;height:170px;border:0;background:transparent;padding:0;display:flex;align-items:flex-end}
+.person:nth-child(odd){height:150px}
+.person img{height:100%;width:auto}
+/* 見出しの中の、LINEの吹き出し(…が動く) */
+.bub{display:inline-flex;vertical-align:.02em;align-items:center;justify-content:center;gap:.08em;width:1.25em;height:.9em;margin:0 .12em;border-radius:.45em;background:#fff;position:relative}
+.bub::after{content:"";position:absolute;left:.18em;bottom:-.14em;border:.11em solid transparent;border-top-color:#fff;border-left-color:#fff}
+.bub i{width:.15em;height:.15em;border-radius:50%;background:var(--g);animation:tp 1.1s infinite}
+.bub i:nth-child(2){animation-delay:.18s}.bub i:nth-child(3){animation-delay:.36s}
+.concept .bub{background:var(--g)}.concept .bub::after{border-top-color:var(--g);border-left-color:var(--g)}
+.concept .bub i{background:#fff}
+@media (max-width:900px){.illx{min-height:200px}.illx img{max-height:260px}.person{height:120px}.person:nth-child(odd){height:105px}}
