@@ -591,3 +591,47 @@ img[src*="/icons-line/"]{background:var(--g-l);padding:11px;box-sizing:border-bo
 .wall div img[src*="/icons-line/"]{padding:9px;border-radius:12px}
 .sec-dark img[src*="/icons-line/"],.dk img[src*="/icons-line/"]{background:rgba(6,199,85,.14)}
 .gs-card .ico{border-radius:12px}
+
+/* v4.4: 背景はロゴのRを1つだけ / 人物は白いカードに乗せて背景と同化させない / 全体を一回り大きく */
+.gs-shapes{width:640px;height:100%;display:flex;align-items:center;justify-content:center}
+.gs-shapes span{position:relative;left:auto;width:640px;height:517px;border-radius:0;background:var(--ink);-webkit-mask:url(/assets-v4/r-mark.png) center/contain no-repeat;mask:url(/assets-v4/r-mark.png) center/contain no-repeat;opacity:.92}
+.gs-shapes span::after{display:none}
+.person{background:#fff;border-radius:26px 26px 0 0;padding:14px 22px 0;box-shadow:0 -6px 24px rgba(0,0,0,.06)}
+.person img{height:100%}
+.people{height:210px}.person{height:190px}.person:nth-child(odd){height:170px}
+.ph2 .illx .blob,.hero2 .illx .blob{background:#fff;opacity:.96}
+.ph2 .icx .ring{background:#fff}
+@media (min-width:901px){
+  .wrap{max-width:1280px}
+  .hd-nav{font-size:15px;gap:26px}
+  .btn{font-size:16px;padding:16px 30px}
+  .btn-sm{font-size:14px;padding:11px 20px}
+  .sec{padding:140px 0}
+  .h2{font-size:clamp(32px,4.2vw,56px)}
+  .lead{font-size:18px;max-width:800px}
+  .eb{font-size:13px}
+  .hero2-in{max-width:1380px;padding:96px 64px 0;gap:36px}
+  .hero2 h1{font-size:clamp(40px,5.6vw,78px)}
+  .hero2 .sub{font-size:19px;max-width:640px}
+  .hero2 .mini{font-size:14px}
+  .demo{width:min(360px,78vw)}
+  .ph2-in{max-width:1380px}
+  .ph2 h1{font-size:clamp(34px,4.8vw,64px)}
+  .ph2 .sub{font-size:18.5px}
+  .concept h2{font-size:clamp(32px,4.6vw,62px)}
+  .concept p{font-size:17.5px}
+  .concept .c-in{max-width:760px}
+  .gs-head{max-width:1380px}.gs-head h2{font-size:clamp(32px,4.4vw,58px)}
+  .gs-track{padding-left:64px}.gs-card{width:400px;padding:28px 28px 20px}
+  .gs-card h3{font-size:21px}.gs-card p{font-size:15.5px}
+  .card p,.feat p,.fx p,.grid2 .it p,.box p,.box li{font-size:16px}
+  .card h3{font-size:20px}.feat h3{font-size:clamp(26px,3vw,38px)}.feat li{font-size:16px}
+  .grid2 .it b,.case h3,.ind b{font-size:19px}.case p,.ind p,.flow p{font-size:15px}
+  .flow b{font-size:18px}.faq summary{font-size:17.5px}.faq details p{font-size:16px}
+  .plan li{font-size:15.5px}.plan .nm{font-size:15px}.tbl{font-size:16px}
+  .icon-it b{font-size:17px}.icon-it span{font-size:14px}
+  .illx img{max-height:440px}.illx.tall img{max-height:500px}
+  .cta2 h2{font-size:clamp(28px,3.6vw,46px)}.cta p,.cta2 p{font-size:17px}
+  .mq-track span{font-size:17px}.mq-track img{width:40px;height:40px}
+  .ft p,.ft-cols a{font-size:14.5px}
+}

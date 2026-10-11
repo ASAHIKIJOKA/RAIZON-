@@ -101,9 +101,9 @@
     if (gs && gsT && innerWidth > 900) {
       var r = gs.getBoundingClientRect(), total = gs.offsetHeight - (vh - 72), p = Math.min(1, Math.max(0, -r.top / total));
       var max = gsT.scrollWidth - innerWidth + 40; gsT.style.transform = 'translateX(' + (-p * Math.max(0, max)) + 'px)';
-      gsS.forEach(function (s, i) { s.style.transform = 'translateY(' + ((i * 360 - 120) - p * 520) + 'px)'; });
+      gsS.forEach(function (s) { s.style.transform = 'translateY(' + ((.5 - p) * 140) + 'px) rotate(' + (p * 6 - 3) + 'deg)'; });
       if (gsBar) gsBar.style.width = (p * 100) + '%';
-    } else if (gs) { gsS.forEach(function (s, i) { s.style.transform = 'translateY(' + (i * 260 - 60) + 'px)'; }); }
+    } 
   }
   addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(frame); } }, { passive: true });
   addEventListener('resize', frame); frame();

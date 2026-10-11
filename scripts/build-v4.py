@@ -73,7 +73,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v4/v4.css?v=7">
+<link rel="stylesheet" href="/assets-v4/v4.css?v=8">
 {lds}
 {CLARITY}
 </head>
@@ -109,7 +109,7 @@ def layout(path, title, desc, body, active='', ld=None, robots='noindex, nofollo
   </div>
 </footer>
 <div class="sp-cta"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-o">デモを触る</a><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-g">LINEで相談</a></div>
-<script src="/assets-v4/v4.js?v=4" defer></script>
+<script src="/assets-v4/v4.js?v=5" defer></script>
 </body>
 </html>
 '''
@@ -282,7 +282,7 @@ top = f'''<section class="hero2">
 </section>
 
 <section class="gs"><div class="gs-sticky">
-<div class="gs-shapes" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="gs-shapes" aria-hidden="true"><span></span></div>
 <div class="gs-head"><div class="eb">WHAT CHANGES</div><h2>面倒をゼロにして、<br>実現できること。</h2></div>
 <div class="gs-track">{gs_cards(GS_ITEMS)}</div>
 <div class="gs-prog"><div><i></i></div></div>
