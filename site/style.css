@@ -478,3 +478,35 @@ p,ul,ol{margin:0}
 .pv__b a{color:var(--blue,#1a56db);text-decoration:underline}
 .pv__d{margin-top:20px!important;color:#6b7280;font-size:13px;border-top:1px dashed #d1d5db;padding-top:12px}
 @media(max-width:600px){.pv__b{padding:20px 16px 14px;font-size:14px}}
+
+/* 地域の補足文 */
+.area__lead--s{margin-top:10px;font-size:13.5px;color:#4b5563}
+
+/* 料金のくわしい内訳 */
+.inc--pt{margin-top:12px}
+.pt{padding:4px 4px 8px}
+.pt__w{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pt__t{width:100%;border-collapse:collapse;font-size:14px;min-width:420px}
+.pt__t th,.pt__t td{border:1px solid #e3e8ef;padding:10px 12px;text-align:left;vertical-align:top;line-height:1.6}
+.pt__t thead th{background:#eef4fe;color:#0d2a66;font-weight:800}
+.pt__t tbody th{background:#f8fafc;font-weight:700;white-space:nowrap}
+.pt__t td small{display:block;color:#6b7280;font-size:12px;margin-top:2px}
+.pt__n{margin:14px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.8;color:#374151}
+.pt__n li{margin:0 0 8px;padding:10px 14px;background:#f8fafc;border:1px solid #eef1f5;border-radius:10px}
+.pt__n b{color:#0d2a66}
+@media(max-width:600px){.pt__t{font-size:13px;min-width:0}.pt__t th,.pt__t td{padding:8px 8px}.pt__t tbody th{white-space:normal}}
+
+/* 運営者情報 */
+.ab{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.ab__c{background:#fff;border:1px solid #e3e8ef;border-radius:16px;padding:20px 20px 16px}
+.ab__c h3{font-size:16px;font-weight:800;margin:0 0 10px;color:#0d2a66}
+.ab__c ul{margin:0;padding-left:1.2em;font-size:14px;line-height:1.8;color:#374151}
+.ab__c li{margin:0 0 6px}
+.ab__c--no{background:#fffaf0;border-color:#f4dfb2}
+.ab__c--no h3{color:#92400e}
+.ab__i{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;margin:22px 0 0;padding:6px 20px;background:#fff;border:1px solid #e3e8ef;border-radius:16px}
+.ab__i>div{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid #eef1f5;font-size:14px;line-height:1.7}
+.ab__i dt{flex:0 0 5.5em;color:#6b7280;font-weight:700}
+.ab__i dd{margin:0;color:#1f2937}
+.ab__i a{color:var(--blue);text-decoration:underline}
+@media(max-width:900px){.ab{grid-template-columns:1fr}.ab__i{grid-template-columns:1fr}}
