@@ -103,6 +103,15 @@ const ld = [
   { '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqGroups.flatMap(([, items]) => items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))) }
 ];
+// 制作イメージ(スマホ5台): 画像は Canva から書き出した高解像度版。並びは暗い・明るいが交互になるようにする
+const SHOTS = [
+  ['tenka', 'ヘアサロン（理容室）のホームページ（制作イメージ）', 500, 1016],
+  ['matsushita', '建設会社のホームページ（制作イメージ）', 474, 959],
+  ['okiribu', '不動産エージェントのホームページ（制作イメージ）', 500, 1017],
+  ['midori', '不動産会社のホームページ（制作イメージ）', 500, 1017],
+  ['yamada', '製造業のホームページ（制作イメージ）', 500, 1016]
+];
+const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h]) => `<div class="shots__i"><img src="assets/shots/${k}.webp" alt="${hide ? '' : alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
 const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -125,7 +134,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=24">
+<link rel="stylesheet" href="style.css?v=26">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -159,7 +168,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   <div class="shots__in">
     <div class="shots__h"><div class="st__label" style="justify-content:center">制作イメージ</div><h2 id="shotsT">業種や雰囲気に合わせて、<span class="nb">一からデザインします</span></h2></div>
   </div>
-  <div class="shots__v" role="group" aria-label="制作イメージ（横に流れます）"><div class="mq mq--hover shots__m"><div class="shots__g"><div class="shots__i"><img src="assets/shots/s1.webp" alt="和の雰囲気の飲食店のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s2.webp" alt="建設会社のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s3.webp" alt="不動産エージェントのホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s4.webp" alt="理容室のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s5.webp" alt="製造業のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s1.webp" alt="和の雰囲気の飲食店のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s2.webp" alt="建設会社のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s3.webp" alt="不動産エージェントのホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s4.webp" alt="理容室のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s5.webp" alt="製造業のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></div></div><div class="shots__g" aria-hidden="true"><div class="shots__i"><img src="assets/shots/s1.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s2.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s3.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s4.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s5.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s1.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s2.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s3.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s4.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div><div class="shots__i"><img src="assets/shots/s5.webp" alt="" width="327" height="656" loading="lazy" decoding="async"></div></div></div></div>
+  <div class="shots__v" role="group" aria-label="制作イメージ（横に流れます）"><div class="mq mq--hover shots__m"><div class="shots__g">${shotsHtml(false)}</div><div class="shots__g" aria-hidden="true">${shotsHtml(true)}</div></div></div>
   <p class="shots__n">※ 掲載しているのは、制作イメージです（サンプルデザインを含みます）。</p>
 </section>
 
