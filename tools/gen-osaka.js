@@ -125,7 +125,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=22">
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -154,6 +154,14 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 </section>
 
 <div class="tk" aria-hidden="true"><div class="mq">${tkHalf}${tkHalf}</div></div>
+
+<section class="shots" aria-labelledby="shotsT">
+  <div class="shots__in">
+    <div class="shots__h"><div class="st__label" style="justify-content:center">制作イメージ</div><h2 id="shotsT">業種や雰囲気に合わせて、<span class="nb">一からデザインします</span></h2></div>
+    <ul class="shots__r"><li class="shots__i"><img src="assets/shots/s1.webp" alt="和の雰囲気の飲食店のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></li><li class="shots__i"><img src="assets/shots/s2.webp" alt="建設会社のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></li><li class="shots__i"><img src="assets/shots/s3.webp" alt="不動産エージェントのホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></li><li class="shots__i"><img src="assets/shots/s4.webp" alt="理容室のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></li><li class="shots__i"><img src="assets/shots/s5.webp" alt="製造業のホームページ（制作イメージ）" width="327" height="656" loading="lazy" decoding="async"></li></ul>
+    <p class="shots__n">※ 掲載しているのは、制作イメージです（サンプルデザインを含みます）。</p>
+  </div>
+</section>
 
 <section class="sec sec--tint">
   <div class="wrap">
