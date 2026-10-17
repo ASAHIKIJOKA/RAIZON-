@@ -104,19 +104,18 @@ const ld = [
     mainEntity: faqGroups.flatMap(([, items]) => items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))) }
 ];
 // 制作イメージ(スマホ5台): 画像は Canva から書き出した高解像度版。並びは暗い・明るいが交互になるようにする
-const SHOTS = [
-  ['tenka', '理容室のホームページ（制作イメージ）', 500, 1003],          // 暗
-  ['midori', '不動産会社のホームページ（制作イメージ）', 500, 1003],      // 明
-  ['izakaya', '居酒屋のホームページ（制作イメージ）', 500, 1001],         // 暗
-  ['houkan', '訪問看護のホームページ（制作イメージ）', 500, 1002],        // 明
-  ['minato', '食堂のホームページ（制作イメージ）', 500, 1001],            // 暗
-  ['okiribu', '不動産エージェントのホームページ（制作イメージ）', 500, 1002], // 明
-  ['cafe', 'カフェのホームページ（制作イメージ）', 500, 1002],            // 暗
-  ['english', '英会話教室のホームページ（制作イメージ）', 500, 1000],      // 明
-  ['hair', '美容室のホームページ（制作イメージ）', 500, 1000],            // 暗
-  ['yamada', '製造業のホームページ（制作イメージ）', 500, 1004]           // 明
+const SHOTS = [ // [ファイル名, 説明, 幅, 高さ, 色(d=黒系 / l=明るい系)]。黒系どうしが隣り合わないように並べる
+  ['tenka', '理容室のホームページ（制作イメージ）', 500, 1003, 'd'],
+  ['midori', '不動産会社のホームページ（制作イメージ）', 500, 1003, 'l'],
+  ['izakaya', '居酒屋のホームページ（制作イメージ）', 500, 1001, 'd'],
+  ['houkan', '訪問看護のホームページ（制作イメージ）', 500, 1002, 'l'],
+  ['minato', '食堂のホームページ（制作イメージ）', 500, 1001, 'd'],
+  ['english', '英会話教室のホームページ（制作イメージ）', 500, 1000, 'l'],
+  ['cafe', 'カフェのホームページ（制作イメージ）', 500, 1002, 'd'],
+  ['yamada', '製造業のホームページ（制作イメージ）', 500, 1004, 'l'],
+  ['hair', '美容室のホームページ（制作イメージ）', 500, 1000, 'l']
 ];
-const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h]) => `<div class="shots__i"><img src="assets/shots/${k}.webp" alt="${hide ? '' : alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
+const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h, tone]) => `<div class="shots__i is-${tone}"><img src="assets/shots/${k}.webp" alt="${hide ? '' : alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
 const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -139,7 +138,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=27">
+<link rel="stylesheet" href="style.css?v=28">
 </head>
 <body id="top">
 <header class="hd" id="hd">
