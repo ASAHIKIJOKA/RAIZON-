@@ -1,0 +1,50 @@
+# main の site/ などが変わったら、東大阪サイトをヘテムルへ自動で反映する。
+# 反映先のフォルダ(OSAKA_DEPLOY_DIR)と、公開URL(OSAKA_SITE_URL)は、リポジトリの「Variables」で決める。
+# OSAKA_DEPLOY_DIR が未設定のうちは、何もしない(公開前)。
+name: Deploy Osaka site to heteml
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'osaka/**', 'heteml/_lib/mail.php', 'scripts/build-osaka.js', '.github/workflows/deploy-osaka.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-osaka
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ vars.OSAKA_DEPLOY_DIR != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build
+        env:
+          SITE_URL: ${{ vars.OSAKA_SITE_URL }}
+        run: node scripts/build-osaka.js
+
+      - name: Prepare SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: Upload (rsync)
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_DIR: ${{ vars.OSAKA_DEPLOY_DIR }}
+        run: |
+          rsync -rltz --no-perms \
+            --exclude='_secrets/mail.json' --exclude='_data/' \
+            -e "ssh -i ~/.ssh/deploy_key -p 2222 -o UserKnownHostsFile=$HOME/.ssh/known_hosts -o StrictHostKeyChecking=yes" \
+            dist-osaka/ "$DEPLOY_USER@$DEPLOY_HOST:web/$DEPLOY_DIR/"
