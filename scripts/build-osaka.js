@@ -95,6 +95,13 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 ${SITE ? '' : '# 公開前: 検索エンジンに載せない\n<IfModule mod_headers.c>\n  Header set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n'}
 RewriteRule ^api/contact/?$ /api/contact.php [L]
 
+# ページ(HTML・サイトマップ)は、開くたびに、更新の有無を確認させる(古いページが残らないように。変わっていなければ、すぐに表示される)
+<IfModule mod_headers.c>
+  <FilesMatch "\\.(html|xml)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/webp "access plus 1 year"
