@@ -71,7 +71,7 @@ const head = (o) => `<!DOCTYPE html>
 <link rel="apple-touch-icon" href="${o.base}apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${o.base}style.css?v=${ver}">
 </head>
 <body>

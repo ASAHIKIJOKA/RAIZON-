@@ -7,8 +7,8 @@ const TI = {"design": [696, 554], "wallet": [710, 678], "consult": [752, 588], "
 const tImg = (k, alt, cls) => { const t = TI[k]; return `<img class="ti ${cls||''}" src="assets/illust-t/${k}.webp" alt="${alt}" width="${t[0]}" height="${t[1]}" loading="lazy" decoding="async">`; };
 const IW = {youngM:508}, IH = {youngM:635};
 const FACE = {work:[50,35,2.4],waiter:[42,15,3.6],hair:[47,21,3.6],carpenter:[50,20,3.8],coat:[56,35,2.6],clerk:[50,18,3.8]};
-const ill = (k, alt, cls) => { const f = cls==='il--face' && FACE[k]; const st = f ? ` style="transform:scale(${f[2]}) translate(${(50-f[0]).toFixed(1)}%,${(50-f[1]).toFixed(1)}%)"` : ''; return `<img class="il ${cls||''}"${st} src="assets/illust/${IL[k]}.png" alt="${alt}" width="${IW[k]||1080}" height="${IH[k]||1080}" loading="lazy">`; };
-const have = (k) => !!k && require('fs').existsSync('/Users/asahikijoka/Desktop/RAIZON-osaka/site/assets/illust/' + IL[k] + '.png');
+const ill = (k, alt, cls) => { const f = cls==='il--face' && FACE[k]; const st = f ? ` style="transform:scale(${f[2]}) translate(${(50-f[0]).toFixed(1)}%,${(50-f[1]).toFixed(1)}%)"` : ''; return `<img class="il ${cls||''}"${st} src="assets/illust/${IL[k]}.webp" alt="${alt}" width="${IW[k]||1080}" height="${IH[k]||1080}" loading="lazy">`; };
+const have = (k) => !!k && require('fs').existsSync('/Users/asahikijoka/Desktop/RAIZON-osaka/site/assets/illust/' + IL[k] + '.webp');
 const frame = (cls, label, k0, alt, fit) => { const k = have(k0) ? k0 : null; return frame0(cls, label, k, alt, fit); };
 const frame0 = (cls, label, k, alt, fit) => `<div class="frame ${cls}${k?' frame--il':''}">${k ? ill(k, alt||'', fit||'il--cover') : ph(label)}</div>`;
 const st = (label, title) => `<div class="st"><div class="st__label">${label}</div><h2>${title}</h2></div>`;
@@ -144,13 +144,13 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=59">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=61">
 </head>
 <body id="top">
 <header class="hd" id="hd">
   <div class="hd__in">
-    <a class="hd__logo" href="#top" aria-label="RAIZON トップへ"><img src="assets/raizon-logo.png" alt="RAIZON" width="69" height="48"></a>
+    <a class="hd__logo" href="#top" aria-label="RAIZON トップへ"><img src="assets/raizon-logo.webp" alt="RAIZON" width="69" height="48"></a>
     <nav class="hd__nav" aria-label="メインメニュー">${navLinks('<a class="hd__cta" href="#contact">無料相談・お問い合わせ</a>')}</nav>
     <button class="hd__btn" id="hdBtn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="hdPanel"><span></span><span></span><span></span></button>
   </div>
@@ -434,7 +434,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <footer class="ftr">
   <div class="ftr__in">
     <div class="ftr__l">
-      <img src="assets/raizon-logo.png" alt="RAIZON" width="91" height="64" loading="lazy">
+      <img src="assets/raizon-logo.webp" alt="RAIZON" width="91" height="64" loading="lazy">
       <p>ホームページ制作を通じて、事業の情報発信を支える。困ったときに気軽に相談できる、身近なパートナーを目指しています。</p>
       <address>〒577-0803　大阪府東大阪市下小阪5丁目7-20</address>
       <dl class="ftr__meta"><div><dt>屋号</dt><dd>RAIZON</dd></div><div><dt>設立</dt><dd>2025年10月</dd></div></dl>

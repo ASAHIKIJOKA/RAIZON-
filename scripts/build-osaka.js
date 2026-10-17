@@ -97,13 +97,16 @@ RewriteRule ^api/contact/?$ /api/contact.php [L]
 
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/webp "access plus 30 days"
-  ExpiresByType image/png "access plus 30 days"
-  ExpiresByType text/css "access plus 1 day"
-  ExpiresByType text/javascript "access plus 1 day"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType text/javascript "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
 </IfModule>
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml application/xml
 </IfModule>
 `);
 console.log(JSON.stringify({ out: OUT, site: SITE || '(未指定: noindex)', mailConfigured: fs.existsSync(path.join(OUT, '_secrets/mail.json')) }, null, 2));
