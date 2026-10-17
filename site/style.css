@@ -703,3 +703,11 @@ p,ul,ol{margin:0}
 }
 @media(min-width:1041px){.cta__in{max-width:1200px}.cta__t{padding-left:0}.cta__p--il{padding-right:0}}
 @media(max-width:600px){.cta__b{flex-direction:column;gap:10px}.cta__b .btn{width:100%;justify-content:space-between;min-width:0}}
+
+/* 背景なしのイラスト(選ばれる理由・代表のあいさつ) */
+.ti{display:block;width:100%;height:auto}
+.rs__fig{flex:1 1 380px;display:flex;align-items:center;justify-content:center;min-height:260px}
+.rs__fig .ti{width:auto;max-width:min(100%,460px);max-height:300px;object-fit:contain}
+.msg__fig{display:flex;align-items:flex-end;justify-content:center}
+.msg__fig .ti{width:auto;max-width:min(100%,380px);max-height:520px;object-fit:contain}
+@media(max-width:700px){.rs__fig{min-height:0;flex-basis:100%}.rs__fig .ti{max-height:220px}.msg__fig .ti{max-height:340px}}

@@ -2,6 +2,9 @@ const fs = require('fs');
 const ph = (label) => `<div class="ph" aria-hidden="true"><span>${label}</span></div>`;
 const IL = {work:'workweary_25562_color',waiter:'waiter_4304_color-1',hair:'hairdresser_25845_color',carpenter:'carpenter_20754_color',coat:'malewhitecoat_27579_color',clerk:'clerk_4237_color',youngM:'representative',consultM:'consult_15692_color',consultW:'consult_15709_color',consultM2:'consult_15719_color',creative:'creative_17623_color',wallet:'wallet_woman_8205_color',opW:'operator_guide_21265_color',opM:'operator_guide_21253_color',chatbot:'chatbot_21135_color',designW:'design_17597_color',mobile:'mobile_reservation_23570_color',wrench:'programming_icon_17567_color',chat:'chat_21151_color',ai:'ai_11772_color',mail:'mail_11207_color',prog:'programming_17549_color',form:'questionnaire_21373_color',inbox:'mail_11213_color',graph:'graph_17915_color',lock:'server_15162_color',lens:'business_point_17023_color',webinar:'webinar_2422_color'};
 // 丸アイコン用: [顔の中心x%, y%, 拡大率]
+// 背景が透明のイラスト(四角い枠なし)。assets/illust-t/ に、余白を切り落とした透明のWebPを置いている
+const TI = {"design": [696, 554], "wallet": [710, 678], "consult": [752, 588], "chat": [800, 416], "bow": [440, 674]};
+const tImg = (k, alt, cls) => { const t = TI[k]; return `<img class="ti ${cls||''}" src="assets/illust-t/${k}.webp" alt="${alt}" width="${t[0]}" height="${t[1]}" loading="lazy" decoding="async">`; };
 const IW = {youngM:508}, IH = {youngM:635};
 const FACE = {work:[50,35,2.4],waiter:[42,15,3.6],hair:[47,21,3.6],carpenter:[50,20,3.8],coat:[56,35,2.6],clerk:[50,18,3.8]};
 const ill = (k, alt, cls) => { const f = cls==='il--face' && FACE[k]; const st = f ? ` style="transform:scale(${f[2]}) translate(${(50-f[0]).toFixed(1)}%,${(50-f[1]).toFixed(1)}%)"` : ''; return `<img class="il ${cls||''}"${st} src="assets/illust/${IL[k]}.png" alt="${alt}" width="${IW[k]||1080}" height="${IH[k]||1080}" loading="lazy">`; };
@@ -42,10 +45,10 @@ const areas = [
   ['業種',['町工場・製造業','飲食店','美容・サロン','整骨院・治療院','工務店・建設','士業','そのほか業種は問いません']]
 ];
 const reasons = [
-  ['01','テンプレートは使いません','既製のテンプレートに当てはめるのではなく、事業の内容やお客様、伝えたいことに合わせて一からデザインします。制作費0円でも、あなたの事業だけのホームページです。','イラスト：理由01（オリジナルデザインの制作例）','creative','デザインのイラスト'],
-  ['02','初期制作費が0円です','初期制作費は0円。月額料金で費用を管理しやすく、開業時など初期投資を抑えたい方にもご利用いただけます。公開後の月額料金や契約条件は、事前にすべてご説明します。','イラスト：理由02','wallet','財布を持つ人のイラスト'],
-  ['03','作ったあとも、気軽に聞けます','納品して終わりではありません。軽微な更新・修正のご依頼を通じて、公開後も関係を続けていきます。','イラスト：理由03','opW','案内するオペレーターのイラスト'],
-  ['04','ホームページ以外のことも相談できます','公式LINE・業務システム・AI活用など、ホームページ以外のご相談もお受けします。月額プランには含まれず、内容を伺ったうえで別途お見積りします。不要なサービスを売り込むことはありません。','イラスト：理由04','chatbot','チャットボットのイラスト']
+  ['01','テンプレートは使いません','既製のテンプレートに当てはめるのではなく、事業の内容やお客様、伝えたいことに合わせて一からデザインします。制作費0円でも、あなたの事業だけのホームページです。','イラスト：理由01（オリジナルデザインの制作例）','design','デザインをする女性のイラスト'],
+  ['02','初期制作費が0円です','初期制作費は0円。月額料金で費用を管理しやすく、開業時など初期投資を抑えたい方にもご利用いただけます。公開後の月額料金や契約条件は、事前にすべてご説明します。','イラスト：理由02','wallet','財布を持つ男性のイラスト'],
+  ['03','作ったあとも、気軽に聞けます','納品して終わりではありません。軽微な更新・修正のご依頼を通じて、公開後も関係を続けていきます。','イラスト：理由03','consult','電話で相談する女性のイラスト'],
+  ['04','ホームページ以外のことも相談できます','公式LINE・業務システム・AI活用など、ホームページ以外のご相談もお受けします。月額プランには含まれず、内容を伺ったうえで別途お見積りします。不要なサービスを売り込むことはありません。','イラスト：理由04','chat','チャットで相談するイラスト']
 ];
 const features = [
   ['ホームページ制作','目的に合わせて、<span class="nb">オリジナルで制作</span>','オリジナルデザインで、目的に合わせたページ構成・導線設計を行います。スマホ最適化と文章作成サポートも含めて、ホームページを制作します。','イラスト：ホームページ制作','designW','デザインをする人のイラスト'],
@@ -142,7 +145,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=52">
+<link rel="stylesheet" href="style.css?v=54">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -300,7 +303,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <section class="sec" id="reason">
   <div class="wrap">
     ${st('選ばれる理由','RAIZONに頼むと、何が違う？')}
-    <div class="rs">${reasons.map(([n,t,b,p,k,alt]) => `<div class="rs__r">${frame('r-3-2',p,k,alt)}<div class="rs__t"><div class="rs__no">理由 <b>${n}</b></div><h3>${t}</h3><p>${b}</p></div></div>`).join('')}</div>
+    <div class="rs">${reasons.map(([n,t,b,p,k,alt]) => `<div class="rs__r"><div class="rs__fig">${tImg(k,alt)}</div><div class="rs__t"><div class="rs__no">理由 <b>${n}</b></div><h3>${t}</h3><p>${b}</p></div></div>`).join('')}</div>
   </div>
 </section>
 
@@ -325,7 +328,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 
 <section class="sec sec--tint" id="about">
   <div class="msg wrap">
-    ${frame('r-4-5 frame--rep','イラスト：代表者','youngM','代表者のイラスト','il--contain')}
+    <div class="msg__fig">${tImg('bow','お辞儀をして、あいさつする男性のイラスト')}</div>
     <div>
       ${st('代表メッセージ','代表のあいさつ')}
       <div class="msg__t">
