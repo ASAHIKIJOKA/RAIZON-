@@ -105,11 +105,16 @@ const ld = [
 ];
 // 制作イメージ(スマホ5台): 画像は Canva から書き出した高解像度版。並びは暗い・明るいが交互になるようにする
 const SHOTS = [
-  ['tenka', 'ヘアサロン（理容室）のホームページ（制作イメージ）', 500, 1016],
-  ['matsushita', '建設会社のホームページ（制作イメージ）', 474, 959],
-  ['okiribu', '不動産エージェントのホームページ（制作イメージ）', 500, 1017],
-  ['midori', '不動産会社のホームページ（制作イメージ）', 500, 1017],
-  ['yamada', '製造業のホームページ（制作イメージ）', 500, 1016]
+  ['tenka', '理容室のホームページ（制作イメージ）', 500, 1003],          // 暗
+  ['midori', '不動産会社のホームページ（制作イメージ）', 500, 1003],      // 明
+  ['izakaya', '居酒屋のホームページ（制作イメージ）', 500, 1001],         // 暗
+  ['houkan', '訪問看護のホームページ（制作イメージ）', 500, 1002],        // 明
+  ['minato', '食堂のホームページ（制作イメージ）', 500, 1001],            // 暗
+  ['okiribu', '不動産エージェントのホームページ（制作イメージ）', 500, 1002], // 明
+  ['cafe', 'カフェのホームページ（制作イメージ）', 500, 1002],            // 暗
+  ['english', '英会話教室のホームページ（制作イメージ）', 500, 1000],      // 明
+  ['hair', '美容室のホームページ（制作イメージ）', 500, 1000],            // 暗
+  ['yamada', '製造業のホームページ（制作イメージ）', 500, 1004]           // 明
 ];
 const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h]) => `<div class="shots__i"><img src="assets/shots/${k}.webp" alt="${hide ? '' : alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
 const html = `<!DOCTYPE html>
@@ -134,7 +139,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=26">
+<link rel="stylesheet" href="style.css?v=27">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -168,7 +173,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   <div class="shots__in">
     <div class="shots__h"><div class="st__label" style="justify-content:center">制作イメージ</div><h2 id="shotsT">業種や雰囲気に合わせて、<span class="nb">一からデザインします</span></h2></div>
   </div>
-  <div class="shots__v" role="group" aria-label="制作イメージ（横に流れます）"><div class="mq mq--hover shots__m"><div class="shots__g">${shotsHtml(false)}</div><div class="shots__g" aria-hidden="true">${shotsHtml(true)}</div></div></div>
+  <div class="shots__v" role="group" aria-label="制作イメージ（横に流れます）"><div class="mq shots__m"><div class="shots__g">${shotsHtml(false)}</div><div class="shots__g" aria-hidden="true">${shotsHtml(true)}</div></div></div>
   <p class="shots__n">※ 掲載しているのは、制作イメージです（サンプルデザインを含みます）。</p>
 </section>
 
@@ -432,7 +437,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <div class="sp-spacer"></div>
 <div class="sp-cta"><a href="#price">料金を見る</a><a href="#contact">無料で相談する</a></div>
 <script>window.FAQ=${faqJson};</script>
-<script src="main.js?v=19"></script>
+<script src="main.js?v=27"></script>
 </body>
 </html>
 `;

@@ -8,7 +8,7 @@
      確認用: URLに ?placeholder=1 を付けると仮枠で表示する。 */
   var WORKS = [];
   /* SHOWCASE: スマホ表示画像を流す帯。phone1〜8.webp の順に流れる。暗い配色(2,4,7番)を離して並べてある。6番はおきりぶ(HTML版)のスマホ画面 */
-  var SHOWCASE = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) { return { src: 'assets/works/phone' + n + '.webp', alt: 'スマートフォンでの表示例 ' + n, w: 185, h: 376 }; });
+  var SHOWCASE = []; /* ファーストビュー下の「制作イメージ」に統合したため、ここは空(実績が増えたら WORKS に追加する) */
   var MOCKUPS = [];
 
   /* ===== 日本語の改行を文節ごとにそろえる（Safari等で語の途中や括弧の途中で折り返さないため） =====
