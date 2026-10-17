@@ -83,6 +83,10 @@ DirectoryIndex index.html
 AddDefaultCharset UTF-8
 RewriteEngine On
 
+# www あり → www なしに統一(検索エンジンに、同じサイトが2つあると思われないように)
+RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
 # HTTPSに統一
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !=https
