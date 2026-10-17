@@ -12,7 +12,7 @@ const st = (label, title) => `<div class="st"><div class="st__label">${label}</d
 const chunks = (arr) => arr.map(w => `<span class="inline">${w}</span>`).join('');
 const arrow = '<i>→</i>';
 
-const nav = [['#works','制作実績'],['#price','料金'],['#area','対応エリア'],['#reason','選ばれる理由'],['#flow','導入の流れ'],['#faq','よくある質問'],['#about','会社概要']];
+const nav = [['#works','制作実績'],['#price','料金'],['#reason','選ばれる理由'],['#flow','導入の流れ'],['#faq','よくある質問'],['#about','会社概要'],['#area','対応エリア']];
 const navLinks = (extra) => nav.map(([h,l]) => `<a href="${h}"${h==='#works'?' data-nav="works"':''}>${l}</a>`).join('') + extra;
 
 const ticker = ['東大阪のホームページ屋さん','制作費0円','月々9,800円','最低契約期間なし','ご相談は無料です'];
@@ -138,7 +138,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=37">
+<link rel="stylesheet" href="style.css?v=38">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -276,21 +276,6 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   </div>
 </section>
 
-<section class="sec" id="area">
-  <div class="area wrap">
-    <div>
-      ${st('対応エリア','事務所は東大阪の下小阪にあります')}
-      <p class="area__lead">東大阪市内なら、お店や会社に伺ってのご相談もできます。奈良・京都をはじめ、全国どこでも対応可能です。遠方の方や、お忙しい方はオンラインでもどうぞ。</p>
-      <p class="area__lead area__lead--s">近鉄奈良線・大阪線沿線（布施・河内小阪・八戸ノ里・若江岩田・河内花園・東花園・瓢箪山・石切）や、けいはんな線・大阪メトロ中央線沿線（長田・高井田）の事業者さんを中心に、大阪市・八尾市など、大阪府内のご相談もお受けしています。</p>
-      <div class="area__g">${areas.map(([l,items]) => `<div><div class="area__lab">${l}</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`).join('')}</div>
-    </div>
-    <div>
-      <div class="map"><iframe title="RAIZON 事務所の地図" src="https://maps.google.com/maps?q=${mapQ}&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      <div class="map__f"><address><b>RAIZON</b>　〒577-0803 大阪府東大阪市下小阪5丁目7-20</address><a href="https://www.google.com/maps/search/?api=1&amp;query=${mapQ}" target="_blank" rel="noopener">Googleマップで開く →</a></div>
-    </div>
-  </div>
-</section>
-
 <section class="sec sec--gray" id="reason">
   <div class="wrap">
     ${st('選ばれる理由','RAIZONに頼むと、何がちがうん？')}
@@ -326,7 +311,20 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 </section>
 
 <section class="sec sec--tint" id="about">
-  <div class="wrap">
+  <div class="msg wrap">
+    ${frame('r-4-5 frame--rep','イラスト：代表者','youngM','代表者のイラスト','il--contain')}
+    <div>
+      ${st('代表メッセージ','代表のあいさつ')}
+      <div class="msg__t">
+        <p>RAIZONは沖縄で始まりました。沖縄では、地元のお店のホームページや公式LINEづくりを手伝ってきました。［移住のきっかけ］で大阪に移り、今は東大阪を拠点にしています。</p>
+        <p>場所が変わっても、相談される内容はあまり変わりません。「ホームページは欲しいけど、最初にまとまったお金は出しにくい」「作ったあと、誰に聞けばいいかわからない」。</p>
+        <p>だから、初期制作費0円の月額制にしました。まずは事業の情報をきちんと載せられる場所を持ってもらいたいと思っています。</p>
+        <p>ホームページを作れば必ずお客さんが増える、とは言いません。ただ、公開したあとも更新や相談に付き合い、必要なことがあれば一緒に考えます。</p>
+        <p>ホームページのことで困ったときに、まず声をかけてもらえる存在でいたいと思っています。</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap about__ov">
     ${st('会社概要','RAIZONの会社概要')}
     <dl class="ab__i">
       <div><dt>屋号</dt><dd>RAIZON（ライゾン）</dd></div>
@@ -336,6 +334,21 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
       <div><dt>対応エリア</dt><dd>東大阪市・大阪府内、奈良・京都ほか全国（遠方はオンライン）</dd></div>
       <div><dt>ご連絡</dt><dd><a href="#contact">お問い合わせフォーム</a>から承ります</dd></div>
     </dl>
+  </div>
+</section>
+
+<section class="sec" id="area">
+  <div class="area wrap">
+    <div>
+      ${st('対応エリア','事務所は東大阪の下小阪にあります')}
+      <p class="area__lead">東大阪市内なら、お店や会社に伺ってのご相談もできます。奈良・京都をはじめ、全国どこでも対応可能です。遠方の方や、お忙しい方はオンラインでもどうぞ。</p>
+      <p class="area__lead area__lead--s">近鉄奈良線・大阪線沿線（布施・河内小阪・八戸ノ里・若江岩田・河内花園・東花園・瓢箪山・石切）や、けいはんな線・大阪メトロ中央線沿線（長田・高井田）の事業者さんを中心に、大阪市・八尾市など、大阪府内のご相談もお受けしています。</p>
+      <div class="area__g">${areas.map(([l,items]) => `<div><div class="area__lab">${l}</div><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div>`).join('')}</div>
+    </div>
+    <div>
+      <div class="map"><iframe title="RAIZON 事務所の地図" src="https://maps.google.com/maps?q=${mapQ}&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <div class="map__f"><address><b>RAIZON</b>　〒577-0803 大阪府東大阪市下小阪5丁目7-20</address><a href="https://www.google.com/maps/search/?api=1&amp;query=${mapQ}" target="_blank" rel="noopener">Googleマップで開く →</a></div>
+    </div>
   </div>
 </section>
 

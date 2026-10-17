@@ -602,3 +602,6 @@ p,ul,ol{margin:0}
 /* 月払い側の見えない余白(年払いの「おすすめ」「おトクの枠」と行の高さをそろえる。PCの横並びのときだけ) */
 .pl__ghost{visibility:hidden}
 @media(max-width:900px){.pl__ghost{display:none}}
+
+/* 会社概要の節: 代表のあいさつ + 会社概要 */
+.about__ov{margin-top:clamp(56px,7vw,88px)}
