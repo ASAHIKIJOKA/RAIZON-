@@ -125,7 +125,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=21">
+<link rel="stylesheet" href="style.css?v=22">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -158,7 +158,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <section class="sec sec--tint">
   <div class="wrap">
     ${st('こんな声、よう聞きます','東大阪の事業者さん、こんなこと言うてません？')}
-    <div class="aru">${aruaru.map(([t,w,k]) => `<div class="aru__c"><div class="bub" data-pop>「${t}」</div><div class="aru__who"><div class="aru__ic">${ill(k,'','il--face')}</div><span>${w}</span></div></div>`).join('')}</div>
+    <div class="aru">${aruaru.map(([t,w,k]) => `<div class="aru__c"><div class="bub" data-pop><div class="bub__in"><span class="bub__q" aria-hidden="true">「</span><span class="bub__t">${t}」</span></div></div><div class="aru__who"><div class="aru__ic">${ill(k,'','il--face')}</div><span>${w}</span></div></div>`).join('')}</div>
     <div class="aru__bar"><p>それ、ぜんぶ<span class="mk2">RAIZONに相談してください。</span></p><a class="btn btn--white" href="#contact" style="min-width:220px">相談してみる${arrow}</a></div>
   </div>
 </section>

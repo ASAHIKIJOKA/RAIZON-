@@ -510,3 +510,10 @@ p,ul,ol{margin:0}
 .ab__i dd{margin:0;color:#1f2937}
 .ab__i a{color:var(--blue);text-decoration:underline}
 @media(max-width:900px){.ab{grid-template-columns:1fr}.ab__i{grid-template-columns:1fr}}
+
+/* 「こんな声」: 吹き出しの高さと括弧の位置をそろえる */
+.aru__c .bub{flex:1;display:flex;align-items:center}
+.bub__in{display:flex;align-items:flex-start;width:100%}
+.bub__q{flex:none}
+.bub__t{display:block;min-width:0}
+.sec--tint .st h2{font-size:clamp(24px,2.7vw,34px)}
