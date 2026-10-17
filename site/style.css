@@ -765,3 +765,5 @@ p,ul,ol{margin:0}
 .art__bc span:nth-last-child(2){display:none}
 .art__cta .btn{min-width:230px;white-space:nowrap}
 @media(max-width:600px){.art__cta-b{flex-direction:column}.art__cta .btn{width:100%;justify-content:space-between}}
+/* 料金の見出し下の一文: スマホでは1行に収める */
+@media(max-width:600px){.pl__lead{white-space:nowrap;font-size:clamp(10.5px,3vw,14px);letter-spacing:0}}
