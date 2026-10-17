@@ -538,3 +538,50 @@ p,ul,ol{margin:0}
   .shots__i.is-l img{transform:translateY(16px)}
 }
 @media(prefers-reduced-motion:reduce){.shots__v{overflow-x:auto}}
+
+/* 料金カード: 年払いを「おすすめ」にし、レシート風の内訳を入れる */
+.plans--rc{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);align-items:stretch;gap:56px clamp(22px,2.6vw,38px)}
+.plans--rc .pl__card--year{padding-top:clamp(44px,5vw,56px);border-width:3px;box-shadow:8px 8px 0 var(--ink)}
+@media(min-width:901px){
+  .plans--rc .pl__card--month .pr__n{font-size:clamp(72px,7vw,96px)}
+  .plans--rc .pl__card--month .pl__zero b{font-size:clamp(66px,7.6vw,92px)}
+  .plans--rc .pl__card--year .pr__n{font-size:clamp(88px,8.4vw,120px)}
+}
+.pl__rec{display:inline-flex;align-items:center;gap:6px;margin:2px auto 14px;padding:5px 16px;border-radius:999px;background:#FF3131;color:#fff;font-size:13px;font-weight:800;letter-spacing:.08em}
+.pl__rec::before{content:"★";font-size:12px}
+.pl__save{margin:16px auto 0;padding:10px 16px;border-radius:12px;background:#fff;border:2px dashed #FF3131;font-size:clamp(13px,1.4vw,15px);font-weight:800;line-height:1.5}
+.pl__save b{margin:0 3px;font-family:var(--sora);font-size:1.5em;color:#FF3131;background:linear-gradient(transparent 62%,var(--mark) 62%);padding:0 3px}
+.pl__save small{font-size:.8em;font-weight:700;color:var(--muted)}
+.rc{margin:18px 0 0;padding:6px 16px;background:#fff;border-top:2px dashed #cbd5e1;border-bottom:2px dashed #cbd5e1;text-align:left;font-variant-numeric:tabular-nums}
+.pl__card--year .rc{background:rgba(255,255,255,.78)}
+.rc>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:8px 0;font-size:13.5px;line-height:1.55;border-bottom:1px dotted #d6dce6}
+.rc>div:last-child{border-bottom:0}
+.rc dt{font-weight:700;color:var(--body)}
+.rc dt small{display:block;font-size:11.5px;font-weight:500;color:var(--muted)}
+.rc dd{margin:0;flex:none;font-weight:800;text-align:right;color:var(--ink)}
+.rc dd small{display:block;font-size:11.5px;font-weight:500;color:var(--muted)}
+.rc s{font-weight:500;color:var(--muted);margin-right:4px}
+.rc__t{margin-top:4px;border-top:2px solid var(--ink)!important;border-bottom:0!important;padding-top:10px!important}
+.rc__t dt{color:var(--ink)}
+.rc__t dd{font-size:1.15em}
+.pl__card--year .rc__t dd{color:#FF3131}
+@media(max-width:900px){
+  .plans--rc{grid-template-columns:minmax(0,1fr)}
+  .plans--rc .pl__card--year{order:-1}
+}
+
+.pl__nudge{margin:18px 0 0;padding:10px 14px;border-radius:12px;background:#fff7e0;font-size:13px;font-weight:700;line-height:1.7;color:var(--body)}
+.pl__nudge b{color:#FF3131;font-size:1.15em;font-weight:800}
+.pl__nudge small{font-size:.85em;color:var(--muted);font-weight:500}
+.plans--rc .pl__card--month .btn{margin-top:auto}
+.plans--rc .pl__card--month .pl__nudge{margin-bottom:22px}
+.pl__nudge .sp{display:none}
+@media(max-width:480px){.pl__nudge .sp{display:inline}}
+
+@media(max-width:480px){
+  .plans--rc .pl__card{padding-left:16px;padding-right:16px}
+  .plans--rc .rc{padding:4px 12px}
+  .plans--rc .rc>div{font-size:13px;gap:10px}
+  .pl__save{font-size:13px;padding:9px 10px}
+}
+.plans--rc .pl__card--year .rc{margin-bottom:24px}
