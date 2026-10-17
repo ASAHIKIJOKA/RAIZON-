@@ -138,7 +138,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=28">
+<link rel="stylesheet" href="style.css?v=29">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -173,7 +173,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
     <div class="shots__h"><div class="st__label" style="justify-content:center">制作イメージ</div><h2 id="shotsT">業種や雰囲気に合わせて、<span class="nb">一からデザインします</span></h2></div>
   </div>
   <div class="shots__v" role="group" aria-label="制作イメージ（横に流れます）"><div class="mq shots__m"><div class="shots__g">${shotsHtml(false)}</div><div class="shots__g" aria-hidden="true">${shotsHtml(true)}</div></div></div>
-  <p class="shots__n">※ 掲載しているのは、制作イメージです（サンプルデザインを含みます）。</p>
+  <p class="shots__n">※掲載しているのは、制作実績と一部イメージ画像がございます。</p>
 </section>
 
 <section class="sec sec--tint">
