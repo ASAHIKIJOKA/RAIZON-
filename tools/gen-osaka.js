@@ -141,7 +141,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=40">
+<link rel="stylesheet" href="style.css?v=41">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -268,6 +268,14 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   </div>
 </section>
 
+<section class="sec">
+  <div class="wrap">
+    ${st('できること','月々の料金で、ここまでやります')}
+    <div class="fcards" id="fcards">${features.map(([cat,t,body,p,k,alt],i) => `<button class="fc" type="button" data-i="${i}" aria-expanded="false" aria-controls="fd"><span class="fc__img">${frame('r-16-10',p,k,alt)}</span><span class="fc__cat">${cat}</span><strong class="fc__t">${t}</strong><span class="fc__more"><span class="fc__txt">詳しく見る</span><i aria-hidden="true"></i></span></button>`).join('')}</div>
+    <script>window.FEATURES=${JSON.stringify(features.map(([cat,t,body]) => ({t:cat,b:body})))};</script>
+  </div>
+</section>
+
 <section class="sec--gray cmp">
   <div class="cmp__in">
     <div class="st__label cmp__lab">比較</div>
@@ -282,7 +290,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   </div>
 </section>
 
-<section class="sec sec--gray" id="reason">
+<section class="sec" id="reason">
   <div class="wrap">
     ${st('選ばれる理由','RAIZONに頼むと、何がちがうん？')}
     <div class="rs">${reasons.map(([n,t,b,p,k,alt]) => `<div class="rs__r">${frame('r-3-2',p,k,alt)}<div class="rs__t"><div class="rs__no">理由 <b>${n}</b></div><h3>${t}</h3><p>${b}</p></div></div>`).join('')}</div>
@@ -290,14 +298,6 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 </section>
 
 ${cta('まずは、','話を聞かせてください','相談したからといって、契約をすすめることはありません。','イラスト：打ち合わせの様子','consultM','打ち合わせのイラスト')}
-
-<section class="sec">
-  <div class="wrap">
-    ${st('できること','月々の料金で、ここまでやります')}
-    <div class="fcards" id="fcards">${features.map(([cat,t,body,p,k,alt],i) => `<button class="fc" type="button" data-i="${i}" aria-expanded="false" aria-controls="fd"><span class="fc__img">${frame('r-16-10',p,k,alt)}</span><span class="fc__cat">${cat}</span><strong class="fc__t">${t}</strong><span class="fc__more"><span class="fc__txt">詳しく見る</span><i aria-hidden="true"></i></span></button>`).join('')}</div>
-    <script>window.FEATURES=${JSON.stringify(features.map(([cat,t,body]) => ({t:cat,b:body})))};</script>
-  </div>
-</section>
 
 <section class="sec sec--gray" id="flow">
   <div class="wrap">
