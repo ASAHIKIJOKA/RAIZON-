@@ -585,3 +585,20 @@ p,ul,ol{margin:0}
   .pl__save{font-size:13px;padding:9px 10px}
 }
 .plans--rc .pl__card--year .rc{margin-bottom:24px}
+
+/* 料金カード: 月払いと年払いの大きさをそろえる(違いは色と「おすすめ」表示だけ) */
+.plans--rc{grid-template-columns:repeat(2,minmax(0,1fr))}
+.plans--rc .pl__card--year{border-width:2px;box-shadow:6px 6px 0 var(--ink);padding-top:clamp(44px,5vw,56px)}
+@media(min-width:901px){
+  .plans--rc .pl__card--month .pr__n,.plans--rc .pl__card--year .pr__n{font-size:clamp(76px,7.4vw,100px)}
+  .plans--rc .pl__card--month .pl__zero b,.plans--rc .pl__card--year .pl__zero b{font-size:clamp(70px,7.4vw,96px)}
+}
+@media(max-width:900px){.plans--rc{grid-template-columns:minmax(0,1fr)}}
+/* 会社概要 */
+.ab__h{margin:44px 0 0;font-size:clamp(17px,1.8vw,20px);font-weight:800;color:var(--ink)}
+.ab__h+.ab{margin-top:16px}
+#about .ab__i{margin-top:28px}
+
+/* 月払い側の見えない余白(年払いの「おすすめ」「おトクの枠」と行の高さをそろえる。PCの横並びのときだけ) */
+.pl__ghost{visibility:hidden}
+@media(max-width:900px){.pl__ghost{display:none}}
