@@ -15,7 +15,7 @@ const st = (label, title) => `<div class="st"><div class="st__label">${label}</d
 const chunks = (arr) => arr.map(w => `<span class="inline">${w}</span>`).join('');
 const arrow = '<i>→</i>';
 
-const nav = [['#works','制作実績'],['#price','料金'],['#reason','選ばれる理由'],['#flow','導入の流れ'],['#faq','よくある質問'],['#about','会社概要'],['#area','対応エリア']];
+const nav = [['#works','制作実績'],['#price','料金'],['#reason','選ばれる理由'],['#flow','導入の流れ'],['#faq','よくある質問'],['column/','コラム'],['#about','会社概要'],['#area','対応エリア']];
 const navLinks = (extra) => nav.map(([h,l]) => `<a href="${h}"${h==='#works'?' data-nav="works"':''}>${l}</a>`).join('') + extra;
 
 const ticker = ['東大阪のホームページ屋さん','制作費0円','月々9,800円','最低契約期間なし','ご相談は無料です'];
@@ -145,7 +145,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=56">
+<link rel="stylesheet" href="style.css?v=59">
 </head>
 <body id="top">
 <header class="hd" id="hd">

@@ -34,6 +34,29 @@ if (SITE) {
 }
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 
+// コラム(site/column/): 公開用のとき、検索に載せる設定・canonical・絶対URLに切り替える
+const colFiles = [];
+(function walk(dir) {
+  if (!fs.existsSync(dir)) return;
+  for (const n of fs.readdirSync(dir)) {
+    const f = path.join(dir, n);
+    if (fs.statSync(f).isDirectory()) walk(f); else if (n === 'index.html') colFiles.push(f);
+  }
+})(path.join(OUT, 'column'));
+const colUrls = [];
+for (const f of colFiles) {
+  let h = fs.readFileSync(f, 'utf8');
+  const pth = (h.match(/<html lang="ja" data-path="([^"]+)"/) || [])[1] || '/column/';
+  const mod = (h.match(/"dateModified":"(\d{4}-\d{2}-\d{2})"/) || [])[1];
+  colUrls.push({ pth, mod });
+  if (SITE) {
+    h = h.replace(/<!--[^>]*公開前[^>]*-->\n?/, '')
+      .replace('<meta name="robots" content="noindex, nofollow">', `<meta name="robots" content="index, follow">\n<link rel="canonical" href="${SITE}${pth}">\n<meta property="og:url" content="${SITE}${pth}">\n<meta property="og:image" content="${SITE}/assets/ogp.png">`);
+  }
+  h = h.split('__SITE__').join(SITE);
+  fs.writeFileSync(f, h);
+}
+
 // PHP(フォーム受付)と、メール送信の共通部品
 copyTree(path.join(ROOT, 'osaka/api'), path.join(OUT, 'api'));
 fs.mkdirSync(path.join(OUT, '_lib'), { recursive: true });
@@ -48,7 +71,8 @@ if (fs.existsSync(mailSec)) fs.copyFileSync(mailSec, path.join(OUT, '_secrets/ma
 if (SITE) {
   fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
   const day = new Date().toISOString().slice(0, 10);
-  fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${SITE}/</loc>\n    <lastmod>${day}</lastmod>\n  </url>\n</urlset>\n`);
+  const urls = [`  <url>\n    <loc>${SITE}/</loc>\n    <lastmod>${day}</lastmod>\n  </url>`].concat(colUrls.map((u) => `  <url>\n    <loc>${SITE}${u.pth}</loc>\n    <lastmod>${u.mod || day}</lastmod>\n  </url>`));
+  fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
 } else {
   fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 }
