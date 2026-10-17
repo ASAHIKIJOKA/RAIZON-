@@ -68,6 +68,7 @@ const faqGroups = [
     ['初期費用は本当にかかりませんか？','初期制作費は0円です。月払いの場合のみ、初回の契約手数料5,000円（税抜）がかかります。月額9,800円（税抜）のお支払いは、ホームページの公開後から始まります。'],
     ['最低契約期間はありますか？','最低契約期間は設けていません。解約の条件やデータ・ドメインの扱いは、ご契約前にご説明します。'],
     ['ホームページ制作の費用は、どのくらいが相場ですか？','制作会社や内容によって、大きく異なります。制作時にまとまった費用がかかり、公開後の保守費用が別になる場合もあります。RAIZONは、初期制作費0円・月額9,800円（税抜）で、更新・修正までを含めたプランです。'],
+    ['ホームページは何ページ作れますか？','6ページ構成で制作します。7ページ目以降のページ追加は、内容を伺ったうえで、別途お見積りします。'],
     ['税込ではいくらになりますか？','月額9,800円（税抜）は、税込10,780円です。月払いの契約手数料5,000円（税抜）は税込5,500円、年払いの107,800円（税抜）は税込118,580円です。'],
     ['独自ドメインやサーバーの費用は、別にかかりますか？','独自ドメインの取得、SSL対応（通信の暗号化）、サーバー管理は、月額プランに含まれます。解約時のデータ・ドメインの扱いは、ご契約前にご説明します。'],
     ['月額料金の請求はいつから始まりますか？','ホームページの公開日から請求を開始します。制作期間中に月額料金は発生しません。'],
@@ -102,7 +103,7 @@ const ld = [
     foundingDate: '2025-10',
     address: { '@type': 'PostalAddress', postalCode: '577-0803', addressRegion: '大阪府', addressLocality: '東大阪市', streetAddress: '下小阪5丁目7-20', addressCountry: 'JP' },
     areaServed: ['東大阪市', '大阪府', '奈良県', '京都府'],
-    makesOffer: { '@type': 'Offer', name: 'ホームページ制作（月額プラン）', priceCurrency: 'JPY', price: '9800', description: '初期制作費0円・最低契約期間なし。価格は税抜。' } },
+    makesOffer: { '@type': 'Offer', name: 'ホームページ制作（月額プラン）', priceCurrency: 'JPY', price: '9800', description: '6ページ構成のホームページ制作。初期制作費0円・最低契約期間なし。価格は税抜。' } },
   { '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqGroups.flatMap(([, items]) => items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))) }
 ];
@@ -141,7 +142,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=44">
+<link rel="stylesheet" href="style.css?v=46">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -202,6 +203,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   <div class="wrap">
     ${st('料金プラン','料金プランはひとつだけです')}
     <p class="pl__lead">お支払い方法は、<b>月払い</b>と<b>年払い</b>からお選びいただけます。</p>
+    <div class="pl__six"><span class="pl__six__ic" aria-hidden="true">6</span><p><b>6ページ構成のホームページを制作</b><span>事業に必要なページを、<span class="nb">6ページで</span>ご用意します</span></p></div>
     <div class="plans plans--rc">
       <div class="pl__card pl__card--month">
         <div class="pl__ribbon">STANDARD<small>月払い</small></div>
@@ -242,7 +244,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
     </div>
     <details class="inc">
       <summary><span class="inc__t"><b>プランに含まれるもの</b><small>ホームページの制作から、公開後の運用・改善まで</small></span><span class="inc__i" aria-hidden="true"></span></summary>
-      <ul class="inc__l"><li>オリジナルデザイン</li><li>目的に合わせたページ構成・導線設計</li><li>スマホ最適化</li><li>文章作成サポート</li><li>フォトギャラリー設置</li><li>営業カレンダー設置</li><li>メールフォーム設置</li><li>Googleマップ連携</li><li>SNS連携</li><li>SEO内部対策</li><li>独自ドメイン取得</li><li>SSL対応（通信の暗号化）</li><li>サーバー管理</li><li>アクセス解析設置</li><li>アクセス分析ツールの提供</li><li>サイトの状況・分析結果の確認</li><li>問い合わせのメール通知</li><li>問い合わせの有効・無効チェック</li><li>改善提案</li><li>承認後の修正・実装</li><li>月4回の修正・更新</li><li>LINE・メールでの相談・更新依頼</li><li>無料オンラインセミナー</li></ul>
+      <ul class="inc__l"><li>6ページ構成のホームページ制作</li><li>オリジナルデザイン</li><li>目的に合わせたページ構成・導線設計</li><li>スマホ最適化</li><li>文章作成サポート</li><li>フォトギャラリー設置</li><li>営業カレンダー設置</li><li>メールフォーム設置</li><li>Googleマップ連携</li><li>SNS連携</li><li>SEO内部対策</li><li>独自ドメイン取得</li><li>SSL対応（通信の暗号化）</li><li>サーバー管理</li><li>アクセス解析設置</li><li>アクセス分析ツールの提供</li><li>サイトの状況・分析結果の確認</li><li>問い合わせのメール通知</li><li>問い合わせの有効・無効チェック</li><li>改善提案</li><li>承認後の修正・実装</li><li>月4回の修正・更新</li><li>LINE・メールでの相談・更新依頼</li><li>無料オンラインセミナー</li></ul>
     </details>
     <details class="inc inc--pt">
       <summary><span class="inc__t"><b>料金のくわしい内訳</b><small>税込の金額・契約手数料・解約について</small></span><span class="inc__i" aria-hidden="true"></span></summary>
@@ -258,8 +260,8 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
           </tbody>
         </table></div>
         <ul class="pt__n">
-          <li><b>月額に含まれるもの：</b>独自ドメインの取得、SSL対応、サーバー管理、月4回の修正・更新など。上の「プランに含まれるもの」をご覧ください。</li>
-          <li><b>月額に含まれないもの：</b>新しいページの追加、デザイン全体の変更、公式LINE・業務システム・AI活用などのご相談は、内容を伺ったうえで、別途お見積りします。</li>
+          <li><b>月額に含まれるもの：</b>6ページ構成のホームページ制作、独自ドメインの取得、SSL対応、サーバー管理、月4回の修正・更新など。上の「プランに含まれるもの」をご覧ください。</li>
+          <li><b>月額に含まれないもの：</b>7ページ目以降のページ追加、デザイン全体の変更、公式LINE・業務システム・AI活用などのご相談は、内容を伺ったうえで、別途お見積りします。</li>
           <li><b>解約について：</b>最低契約期間は設けていません。年払いは前払いのため、途中で解約された場合の返金は、原則としてありません。解約時のデータ・ドメインの扱いは、ご契約前にご説明します。</li>
           <li><b>月額料金のお支払い開始：</b>ホームページの公開日からです。制作期間中に、月額料金は発生しません。</li>
         </ul>
