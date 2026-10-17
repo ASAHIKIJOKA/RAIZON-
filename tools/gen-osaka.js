@@ -145,7 +145,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=55">
+<link rel="stylesheet" href="style.css?v=56">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -220,14 +220,14 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
         <div class="pl__plus" aria-hidden="true">＋</div>
         <div class="pr"><span class="pr__k">月額</span><span class="pr__n">9,800</span><span class="pr__y">円</span><span class="pr__t">（税抜）</span></div>
         <div class="pl__sub">税込 10,780円 ／ <span class="nb">最低契約期間なし</span></div>
-        <div class="pl__save pl__ghost" aria-hidden="true">月払いにくらべて、1年で14,800円おトク（税抜）</div>
+        <div class="pl__save pl__ghost" aria-hidden="true">月払いにくらべて、1年で16,280円おトク（税込）</div>
         <dl class="rc" aria-label="月払いの内訳（1年間の目安）">
           <div><dt>初期制作費</dt><dd>0円</dd></div>
           <div><dt>契約手数料<small>（初回のみ）</small></dt><dd>5,000円</dd></div>
           <div><dt>月額<small>（公開日から）</small></dt><dd>9,800円 × 12か月</dd></div>
           <div class="rc__t"><dt>1年間の合計<small>（税抜）</small></dt><dd>122,600円<small>税込 134,860円</small></dd></div>
         </dl>
-        <p class="pl__nudge">年払いなら、契約手数料が無料。<br class="sp">1年で<b>14,800円</b>おトクです<small>（税抜）</small></p>
+        <p class="pl__nudge">年払いなら、契約手数料が無料。<br class="sp">1年で<b>16,280円</b>おトクです<small>（税込）</small></p>
         <a class="btn btn--full" href="#contact">月払いで相談する${arrow}</a>
       </div>
       <div class="pl__card pl__card--year">
@@ -239,7 +239,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
         <div class="pl__plus" aria-hidden="true">＋</div>
         <div class="pr"><span class="pr__k">月々</span><span class="pr__n">8,983</span><span class="pr__y">円</span><span class="pr__t">（税抜）</span></div>
         <div class="pl__sub">年額 107,800円（税抜） ／ 税込 118,580円</div>
-        <div class="pl__save">月払いにくらべて、1年で<b>14,800円</b>おトク<small>（税抜）</small></div>
+        <div class="pl__save">月払いにくらべて、1年で<b>16,280円</b>おトク<small>（税込）</small></div>
         <dl class="rc" aria-label="年払いの内訳">
           <div><dt>初期制作費</dt><dd>0円</dd></div>
           <div><dt>契約手数料<small>（初回）</small></dt><dd><s>5,000円</s> 無料</dd></div>
