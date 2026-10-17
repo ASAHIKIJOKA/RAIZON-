@@ -605,3 +605,31 @@ p,ul,ol{margin:0}
 
 /* 会社概要の節: 代表のあいさつ + 会社概要 */
 .about__ov{margin-top:clamp(56px,7vw,88px)}
+
+/* 比較: 3行の見出し + RAIZONの列を目立たせた表 */
+.cmp{padding-top:clamp(48px,6vw,84px)}
+.cmp__in{max-width:1040px}
+.cmp__lab{justify-content:center}
+.cmp__h{margin:14px 0 0;text-align:center;font-size:clamp(26px,4.2vw,50px);font-weight:900;line-height:1.5;letter-spacing:.02em;color:var(--ink)}
+.cmp__l{display:block}
+.cmp__h em{font-style:normal;color:var(--blue);background:linear-gradient(transparent 70%,var(--mark) 70%);padding:0 2px}
+.cmp__w{margin-top:clamp(28px,4vw,48px);overflow:visible}
+.cmp .cmp__t{margin:0;width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;background:transparent;font-size:clamp(11px,2.9vw,15px);line-height:1.55}
+.cmp .cmp__t th,.cmp .cmp__t td{padding:clamp(12px,2.6vw,22px) clamp(4px,1.4vw,14px);border-bottom:1px solid #e3e8ef;text-align:center;vertical-align:middle}
+.cmp .cmp__t thead th{padding:clamp(12px,2.6vw,20px) 4px;background:#f1f4f8;border-bottom:1px solid #e3e8ef;font-size:clamp(11px,2.8vw,15px);font-weight:800;color:var(--body)}
+.cmp .cmp__t thead th:first-child{background:transparent;border-bottom:0;width:21%}
+.cmp .cmp__t thead th:nth-child(3){border-top-left-radius:0}
+.cmp .cmp__t thead th:last-child{border-top-right-radius:16px}
+.cmp .cmp__t thead th.me{background:linear-gradient(135deg,#146EF5 0%,#3b8bff 100%);color:#fff;font-size:clamp(13px,3.4vw,18px);border:0;border-radius:16px 16px 0 0;letter-spacing:.04em}
+.cmp .cmp__t tbody th{background:#f1f4f8;text-align:center;font-weight:800;font-size:clamp(11px,2.8vw,14.5px);color:var(--ink)}
+.cmp .cmp__t tbody tr:first-child th{border-top-left-radius:16px}
+.cmp .cmp__t tbody tr:last-child th{border-bottom-left-radius:16px}
+.cmp .cmp__t td{background:#fff;color:var(--body)}
+.cmp .cmp__t tbody tr:last-child td:last-child{border-bottom-right-radius:16px}
+.cmp .cmp__t td.me{background:linear-gradient(180deg,#f2f7ff,#e8f1ff);border-left:2px solid var(--blue);border-right:2px solid var(--blue);border-bottom:1px solid #cfe0fd;font-weight:800;color:var(--navy);font-size:clamp(12px,3vw,16px)}
+.cmp .cmp__t tbody tr:last-child td.me{border-bottom:2px solid var(--blue);border-radius:0 0 16px 16px}
+.cmp .cmp__t tbody tr:last-child td,.cmp .cmp__t tbody tr:last-child th{border-bottom-color:#e3e8ef}
+@media(max-width:600px){
+  .cmp .cmp__t th,.cmp .cmp__t td{padding:11px 3px}
+  .cmp .cmp__t td.me{font-size:12px}
+}

@@ -27,10 +27,13 @@ const aruaru = [
   ['うちみたいな小さい店でも頼めるん？','開業したての店主','clerk']
 ];
 const compare = [
-  [['制作費用'],['0円'],['ツール代＋','作業時間'],['高額に','なりやすい']],
+  [['制作費用'],['0円'],['ツール代＋','自分の作業時間'],['高額に','なりやすい']],
   [['月額費用'],['9,800円','（税抜）'],['ツール','利用料'],['別途','保守契約']],
-  [['更新・修正'],['プラン内で','対応'],['自分で','対応'],['都度','見積もり']],
-  [['契約期間'],['最低契約','期間なし'],['—'],['契約内容','による']]
+  [['デザイン'],['オリジナル','（一から制作）'],['似た印象に','なりやすい'],['会社や','プランによる']],
+  [['SSL・','サーバー'],['月額に','含まれる'],['自分で','管理・対応'],['契約内容','による']],
+  [['更新・修正'],['月4回まで','プラン内で対応'],['自分で','対応'],['都度','見積もり']],
+  [['契約期間'],['最低契約','期間なし'],['—'],['契約内容','による']],
+  [['まとめ'],['作ったあとも、','気軽に相談できる'],['手間と時間は','自分で用意'],['納品後の対応は','契約内容による']]
 ];
 const areas = [
   ['東大阪市',['布施','小阪','八戸ノ里','若江岩田','河内花園','東花園','瓢箪山','石切','高井田','長田','鴻池']],
@@ -138,7 +141,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=39">
+<link rel="stylesheet" href="style.css?v=40">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -267,11 +270,14 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 
 <section class="sec--gray cmp">
   <div class="cmp__in">
-    ${st('比較','ほかの方法とくらべると')}
-    <table>
-      <thead><tr><th></th><th class="me">RAIZON</th><th>${chunks(['自分で','作る'])}</th><th>${chunks(['一般的な','制作会社'])}</th></tr></thead>
-      <tbody>${compare.map(([k,a,b,c]) => `<tr><th>${chunks(k)}</th><td class="me">${chunks(a)}</td><td>${chunks(b)}</td><td>${chunks(c)}</td></tr>`).join('')}</tbody>
-    </table>
+    <div class="st__label cmp__lab">比較</div>
+    <h2 class="cmp__h"><span class="cmp__l">自分で作るか。</span><span class="cmp__l">制作会社に頼むか。</span><span class="cmp__l">公開後も<em>気軽に相談できるか。</em></span></h2>
+    <div class="cmp__w">
+      <table class="cmp__t">
+        <thead><tr><th></th><th class="me">RAIZON</th><th>${chunks(['自分で','作る'])}</th><th>${chunks(['一般的な','制作会社'])}</th></tr></thead>
+        <tbody>${compare.map(([k,a,b,c]) => `<tr><th>${chunks(k)}</th><td class="me">${chunks(a)}</td><td>${chunks(b)}</td><td>${chunks(c)}</td></tr>`).join('')}</tbody>
+      </table>
+    </div>
     <p class="cmp__note">※自作・制作会社の内容は一般的な傾向です。</p>
   </div>
 </section>
