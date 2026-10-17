@@ -141,7 +141,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=43">
+<link rel="stylesheet" href="style.css?v=44">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -293,7 +293,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 
 <section class="sec" id="reason">
   <div class="wrap">
-    ${st('選ばれる理由','RAIZONに頼むと、何がちがうん？')}
+    ${st('選ばれる理由','RAIZONに頼むと、何が違う？')}
     <div class="rs">${reasons.map(([n,t,b,p,k,alt]) => `<div class="rs__r">${frame('r-3-2',p,k,alt)}<div class="rs__t"><div class="rs__no">理由 <b>${n}</b></div><h3>${t}</h3><p>${b}</p></div></div>`).join('')}</div>
   </div>
 </section>
