@@ -673,3 +673,15 @@ p,ul,ol{margin:0}
   .pl__six__t b{font-size:15.5px;white-space:nowrap}
   .pl__six__t>span{font-size:12px}
 }
+/* 6ページ構成の帯: スマホでは、ひとまわり小さくコンパクトにする */
+@media(max-width:760px){
+  .pl__six{margin-top:22px;padding:11px 14px;gap:6px 10px;border-radius:16px;box-shadow:3px 3px 0 var(--blue)}
+  .pl__six__n b{font-size:40px;padding:0 3px}
+  .pl__six__n small{font-size:13px}
+  .pl__six__t{gap:1px}
+  .pl__six__t b{font-size:14px}
+  .pl__six__t>span{font-size:11.5px;line-height:1.5}
+  .pl__six__pg{gap:6px;margin-top:2px}
+  .pl__six__pg i{width:20px;border-width:1.5px;border-radius:4px}
+  .pl__six+.plans{margin-top:34px}
+}
