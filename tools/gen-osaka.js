@@ -138,7 +138,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;family=Sora:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=38">
+<link rel="stylesheet" href="style.css?v=39">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -316,7 +316,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
     <div>
       ${st('代表メッセージ','代表のあいさつ')}
       <div class="msg__t">
-        <p>RAIZONは沖縄で始まりました。沖縄では、地元のお店のホームページや公式LINEづくりを手伝ってきました。［移住のきっかけ］で大阪に移り、今は東大阪を拠点にしています。</p>
+        <p>RAIZONは沖縄で始まりました。沖縄では、地元のお店のホームページや公式LINEづくりを手伝ってきました。結婚をきっかけに大阪に移り、今は東大阪を拠点にしています。</p>
         <p>場所が変わっても、相談される内容はあまり変わりません。「ホームページは欲しいけど、最初にまとまったお金は出しにくい」「作ったあと、誰に聞けばいいかわからない」。</p>
         <p>だから、初期制作費0円の月額制にしました。まずは事業の情報をきちんと載せられる場所を持ってもらいたいと思っています。</p>
         <p>ホームページを作れば必ずお客さんが増える、とは言いません。ただ、公開したあとも更新や相談に付き合い、必要なことがあれば一緒に考えます。</p>
