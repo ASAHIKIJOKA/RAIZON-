@@ -685,3 +685,21 @@ p,ul,ol{margin:0}
   .pl__six__pg i{width:20px;border-width:1.5px;border-radius:4px}
   .pl__six+.plans{margin-top:34px}
 }
+
+/* CTA(まずは、話を聞かせてください): 帯の中にきれいに収める */
+.cta{margin:0;overflow:hidden}
+.cta__in{max-width:1120px;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(8px,3vw,40px);align-items:center}
+.cta__t{padding:clamp(52px,6vw,84px) var(--gutter)}
+.cta h2{font-size:clamp(26px,3.4vw,42px)}
+.cta p{margin-top:16px;font-size:clamp(14.5px,1.4vw,17px);font-weight:500;line-height:1.8;color:#fff;opacity:.94}
+.cta__p--il{padding:clamp(32px,4vw,56px) var(--gutter)}
+.cta__c{width:min(78%,340px);margin:0;border:clamp(5px,.7vw,8px) solid #fff;box-shadow:0 0 0 clamp(8px,1.2vw,14px) rgba(255,255,255,.10),0 16px 34px rgba(3,14,46,.34)}
+.cta__p--il::before{right:14%;top:10%}
+.cta__p--il::after{left:12%;bottom:12%}
+@media(max-width:1040px){
+  .cta__in{grid-template-columns:minmax(0,1fr)}
+  .cta__p--il{padding-top:0;padding-bottom:clamp(36px,8vw,52px)}
+  .cta__c{width:min(62%,260px)}
+}
+@media(min-width:1041px){.cta__in{max-width:1200px}.cta__t{padding-left:0}.cta__p--il{padding-right:0}}
+@media(max-width:600px){.cta__b{flex-direction:column;gap:10px}.cta__b .btn{width:100%;justify-content:space-between;min-width:0}}
