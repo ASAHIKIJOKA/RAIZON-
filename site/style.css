@@ -633,3 +633,17 @@ p,ul,ol{margin:0}
   .cmp .cmp__t th,.cmp .cmp__t td{padding:11px 3px}
   .cmp .cmp__t td.me{font-size:12px}
 }
+
+/* 比較表: 列の幅の配分と、スマホでの読みやすさ */
+.cmp .cmp__t .c0{width:19%}.cmp .cmp__t .c1{width:29%}.cmp .cmp__t .c2{width:26%}.cmp .cmp__t .c3{width:26%}
+.cmp .cmp__t thead th:first-child{width:auto}
+@media(max-width:600px){
+  .cmp__h{font-size:clamp(21px,5.9vw,30px);line-height:1.55}
+  .cmp__l{white-space:nowrap}
+  .cmp .cmp__t{font-size:12.5px}
+  .cmp .cmp__t th,.cmp .cmp__t td{padding:14px 4px;height:62px}
+  .cmp .cmp__t tbody th{font-size:12.5px;padding-left:2px;padding-right:2px}
+  .cmp .cmp__t td.me{font-size:13px}
+  .cmp .cmp__t thead th{font-size:12px;height:auto;padding:14px 2px}
+  .cmp .cmp__t thead th.me{font-size:14px}
+}
