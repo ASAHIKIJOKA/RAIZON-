@@ -1,0 +1,45 @@
+# main にマージ(push)されたら、ヘテムルに自動で反映する。
+# サーバー上の _secrets(管理パスワード・メール設定)と _data(管理画面で書いた記事)は、触らない。
+name: Deploy to heteml
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-heteml
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build
+        run: node scripts/build-heteml.js
+
+      - name: Prepare SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: Upload (rsync)
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          rsync -rltz --no-perms \
+            --exclude='_secrets/admin.json' --exclude='_secrets/mail.json' --exclude='_data/' \
+            -e "ssh -i ~/.ssh/deploy_key -p 2222 -o UserKnownHostsFile=$HOME/.ssh/known_hosts -o StrictHostKeyChecking=yes" \
+            dist-heteml/ "$DEPLOY_USER@$DEPLOY_HOST:web/raizon-okinawa.com/"
