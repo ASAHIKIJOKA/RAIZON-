@@ -8,7 +8,7 @@
 }
 html{scroll-behavior:smooth;scroll-padding-top:84px;overflow-x:clip}
 *{box-sizing:border-box}
-body{margin:0;line-break:strict;word-break:auto-phrase;overflow-wrap:anywhere;text-wrap:pretty;background:#fff;color:var(--ink);font-family:'Noto Sans JP',"Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
+body{margin:0;line-break:strict;word-break:auto-phrase;overflow-wrap:anywhere;text-wrap:pretty;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans JP","Noto Sans CJK JP",sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
 [hidden]{display:none!important}
 img{max-width:100%;display:block}
 h1,h2,h3,h4{text-wrap:balance;margin:0}
