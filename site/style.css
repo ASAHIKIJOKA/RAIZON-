@@ -648,16 +648,28 @@ p,ul,ol{margin:0}
   .cmp .cmp__t thead th.me{font-size:14px}
 }
 
-/* 6ページ構成の帯(料金カードの上) */
-.pl__six{display:flex;align-items:center;justify-content:center;gap:14px;margin:30px auto 0;padding:14px 22px;max-width:640px;border-radius:999px;background:var(--navy);color:#fff;box-shadow:0 8px 0 rgba(13,42,102,.14)}
-.pl__six__ic{flex:none;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--mark);color:var(--ink);font-family:var(--sora);font-weight:800;font-size:26px;line-height:1}
-.pl__six p{margin:0;font-size:clamp(13px,1.5vw,15px);line-height:1.6;text-align:left;color:#dbe7ff}
-.pl__six b{color:#fff;font-size:1.18em;font-weight:800;background:linear-gradient(transparent 66%,rgba(255,230,109,.55) 66%)}
-.pl__six .sp{display:none}
-.pl__six+.plans{margin-top:44px}
-@media(max-width:600px){.pl__six{border-radius:20px;padding:12px 14px;gap:12px}.pl__six .sp{display:inline}}
-
-.pl__six{max-width:600px}
-.pl__six p{display:flex;flex-direction:column;gap:2px}
-.pl__six b{display:block;background:none;font-size:clamp(16px,1.9vw,19px);letter-spacing:.02em}
-.pl__six p>span{display:block;font-size:clamp(12px,1.4vw,14px);color:#c9d9ff}
+/* 6ページ構成の帯(料金カードの上): サイトの他のカードと同じ、太い枠線と青い影 */
+.pl__six{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px 24px;max-width:860px;margin:34px auto 0;padding:18px 28px;background:#fff;border:2px solid var(--ink);border-radius:22px;box-shadow:6px 6px 0 var(--blue)}
+.pl__six__n{display:flex;align-items:baseline;gap:4px;line-height:1}
+.pl__six__n b{font-family:var(--sora);font-size:clamp(62px,7vw,84px);font-weight:800;color:var(--blue);letter-spacing:-.02em;background:linear-gradient(transparent 66%,var(--mark) 66%);padding:0 6px}
+.pl__six__n small{font-size:clamp(16px,1.8vw,20px);font-weight:800;color:var(--ink)}
+.pl__six__t{margin:0;display:flex;flex-direction:column;gap:4px;text-align:left}
+.pl__six__t b{font-size:clamp(17px,2vw,22px);font-weight:800;color:var(--ink);line-height:1.4}
+.pl__six__t>span{font-size:clamp(12.5px,1.3vw,14px);color:var(--body);line-height:1.6}
+.pl__six__pg{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.pl__six__pg i{position:relative;display:block;width:clamp(26px,2.9vw,34px);aspect-ratio:3/4;border:2px solid var(--ink);border-radius:6px;background:#fff;overflow:hidden}
+.pl__six__pg i::before{content:"";position:absolute;left:0;right:0;top:0;height:28%;background:var(--blue)}
+.pl__six__pg i::after{content:"";position:absolute;left:18%;right:18%;top:44%;height:38%;background:linear-gradient(var(--bd-blue) 0 22%,transparent 22% 39%,var(--bd-blue) 39% 61%,transparent 61% 78%,var(--bd-blue) 78% 100%)}
+.pl__six__pg i:nth-child(1)::before{background:var(--mark)}
+.pl__six__pg i:nth-child(odd){transform:translateY(3px)}
+.pl__six+.plans{margin-top:50px}
+@media(max-width:760px){
+  .pl__six{grid-template-columns:auto 1fr;padding:16px 18px;gap:10px 14px;box-shadow:4px 4px 0 var(--blue);border-radius:18px}
+  .pl__six__pg{grid-column:1/-1;justify-content:start;grid-template-columns:repeat(6,auto);gap:8px;justify-content:center}
+  .pl__six__pg i{width:30px}
+}
+@media(max-width:760px){
+  .pl__six__n b{font-size:60px}
+  .pl__six__t b{font-size:15.5px;white-space:nowrap}
+  .pl__six__t>span{font-size:12px}
+}
