@@ -80,6 +80,8 @@ const head = (o) => `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${o.base}style.css?v=${ver}">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 </head>
 <body>
 ${fix(header0, o.base)}
