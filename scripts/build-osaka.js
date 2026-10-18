@@ -43,6 +43,13 @@ const colFiles = [];
     if (fs.statSync(f).isDirectory()) walk(f); else if (n === 'index.html') colFiles.push(f);
   }
 })(path.join(OUT, 'column'));
+(function walk(dir) {
+  if (!fs.existsSync(dir)) return;
+  for (const n of fs.readdirSync(dir)) {
+    const f = path.join(dir, n);
+    if (fs.statSync(f).isDirectory()) walk(f); else if (n === 'index.html') colFiles.push(f);
+  }
+})(path.join(OUT, 'industry'));
 const colUrls = [];
 for (const f of colFiles) {
   let h = fs.readFileSync(f, 'utf8');
@@ -51,7 +58,7 @@ for (const f of colFiles) {
   colUrls.push({ pth, mod });
   if (SITE) {
     h = h.replace(/<!--[^>]*公開前[^>]*-->\n?/, '')
-      .replace('<meta name="robots" content="noindex, nofollow">', `<meta name="robots" content="index, follow">\n<link rel="canonical" href="${SITE}${pth}">\n<meta property="og:url" content="${SITE}${pth}">\n<meta property="og:image" content="${SITE}/assets/ogp.png">`);
+      .replace('<meta name="robots" content="noindex, nofollow">', `<meta name="robots" content="index, follow">\n<link rel="canonical" href="${SITE}${pth}">\n<meta property="og:url" content="${SITE}${pth}">`);
   }
   h = h.split('__SITE__').join(SITE);
   fs.writeFileSync(f, h);
