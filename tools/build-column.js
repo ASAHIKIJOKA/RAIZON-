@@ -32,6 +32,7 @@ for (const f of files) {
   if (!meta.description || meta.description.length < 50 || meta.description.length > 130) errors.push(`${f}: description は50〜130文字(いま ${(meta.description || '').length} 文字)`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.publishAt || '')) errors.push(`${f}: publishAt は YYYY-MM-DD`);
   if (!CATS.includes(meta.category)) errors.push(`${f}: category は ${CATS.join('/')}`);
+  if (meta.thumbnail && !fs.existsSync(path.join(ROOT, 'site', meta.thumbnail))) errors.push(`${f}: thumbnail のファイルがありません (site/${meta.thumbnail})`);
   if (posts.some((p) => p.id === meta.id)) errors.push(`${f}: id が重複 (${meta.id})`);
   if (body.replace(/<[^>]*>/g, '').length < 900) errors.push(`${f}: 本文が短すぎます`);
   posts.push({ ...meta, body, file: f });
@@ -45,9 +46,11 @@ const header0 = index.match(/<header class="hd" id="hd">[\s\S]*?<\/header>/)[0];
 const footer0 = index.match(/<footer class="ftr">[\s\S]*?<\/footer>/)[0];
 const spcta0 = index.match(/<div class="sp-spacer"><\/div>\s*<div class="sp-cta">[\s\S]*?<\/div>/)[0];
 const fix = (html, base) => html
+  .replace(/<a href="#works"[^>]*>制作実績<\/a>/g, '')
   .replace(/href="#top"/g, `href="${base}"`)
   .replace(/href="#([a-z]+)"/g, `href="${base}#$1"`)
   .replace(/href="column\/"/g, `href="${base}column/"`)
+  .replace(/href="industry\//g, `href="${base}industry/`)
   .replace(/src="assets\//g, `src="${base}assets/`)
   .replace(/ data-nav="works"/g, '');
 
@@ -65,6 +68,8 @@ const head = (o) => `<!DOCTYPE html>
 <meta property="og:site_name" content="RAIZON">
 <meta property="og:title" content="${esc(o.title)}">
 <meta property="og:description" content="${esc(o.desc)}">
+<meta property="og:image" content="__SITE__/${o.ogImage || 'assets/ogp.png'}">
+<meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${JSON.stringify(o.ld).replace(/</g, '\\u003c')}</script>
 <link rel="icon" href="${o.base}favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="${o.base}favicon-32.png">
@@ -92,7 +97,7 @@ const cta = (base) => `<aside class="art__cta">
   <div class="art__cta-b"><a class="btn" href="${base}#contact">無料相談・資料請求<i>→</i></a><a class="btn btn--o" href="${base}#price">料金を見る<i>→</i></a></div>
 </aside>`;
 
-const card = (p, base) => `<a class="cl__c" href="${base}column/${p.id}/"><span class="cl__cat">${esc(p.category)}</span><h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><time datetime="${p.publishAt}">${fmt(p.publishAt)}</time></a>`;
+const card = (p, base) => `<a class="cl__c" href="${base}column/${p.id}/">${p.thumbnail ? `<span class="cl__th"><img src="${base}${p.thumbnail}" alt="" width="1200" height="630" loading="lazy" decoding="async"></span>` : ''}<span class="cl__cat">${esc(p.category)}</span><h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><time datetime="${p.publishAt}">${fmt(p.publishAt)}</time></a>`;
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
@@ -118,7 +123,7 @@ for (const p of live) {
   const others = live.filter((x) => x.id !== p.id).slice(0, 3);
   const url = `__SITE__/column/${p.id}/`;
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: p.title, description: p.description, datePublished: p.publishAt, dateModified: p.updatedAt || p.publishAt, inLanguage: 'ja', mainEntityOfPage: url, url, image: '__SITE__/assets/ogp.png',
+    { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: p.title, description: p.description, datePublished: p.publishAt, dateModified: p.updatedAt || p.publishAt, inLanguage: 'ja', mainEntityOfPage: url, url, image: `__SITE__/${p.thumbnail || 'assets/ogp.png'}`,
       author: { '@type': 'Organization', name: 'RAIZON', url: '__SITE__/' }, publisher: { '@type': 'Organization', name: 'RAIZON', url: '__SITE__/', logo: { '@type': 'ImageObject', url: '__SITE__/apple-touch-icon.png' } } },
     { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'ホーム', item: '__SITE__/' },
@@ -141,12 +146,70 @@ for (const p of live) {
     <div class="art__meta"><span class="cl__cat">${esc(p.category)}</span><time datetime="${p.publishAt}">${fmt(p.publishAt)}</time></div>
     <h1>${esc(p.title)}</h1>
   </header>
+  ${p.thumbnail ? `<figure class="art__th"><img src="${base}${p.thumbnail}" alt="${esc(p.title)}" width="1200" height="630" decoding="async"></figure>` : ''}
   <div class="art__b">${p.body}</div>
   ${cta(base)}
   ${others.length ? `<section class="art__more"><h2>ほかのコラム</h2><div class="cl__g">${others.map((x) => card(x, base)).join('')}</div></section>` : ''}
   <p class="art__back"><a href="${base}column/">← コラム一覧へ</a></p>
 </div></article>`;
   fs.mkdirSync(path.join(OUT, p.id), { recursive: true });
-  fs.writeFileSync(path.join(OUT, p.id, 'index.html'), head({ path: `/column/${p.id}/`, base, title: `${p.title}｜RAIZON`, desc: p.description, og: 'article', main, ld }));
+  fs.writeFileSync(path.join(OUT, p.id, 'index.html'), head({ path: `/column/${p.id}/`, base, title: `${p.title}｜RAIZON`, desc: p.description, og: 'article', ogImage: p.thumbnail, main, ld }));
 }
 console.log(`コラム: ${live.length}本 → site/column/`);
+
+// ---- 業種別などのページ(content/pages/*.html → site/<path>/index.html) ----
+const PSRC = path.join(ROOT, 'content', 'pages');
+const pfiles = fs.existsSync(PSRC) ? fs.readdirSync(PSRC).filter((f) => f.endsWith('.html')).sort() : [];
+const pages = [];
+const perr = [];
+for (const f of pfiles) {
+  const raw = fs.readFileSync(path.join(PSRC, f), 'utf8').replace(/\r\n/g, '\n');
+  const m = raw.match(/^<!--meta\n([\s\S]*?)-->\n?/);
+  if (!m) { perr.push(`${f}: 先頭の <!--meta ... --> がありません`); continue; }
+  const meta = {};
+  for (const l of m[1].split('\n')) { const i = l.indexOf(':'); if (i > 0) meta[l.slice(0, i).trim()] = l.slice(i + 1).trim(); }
+  const body = raw.slice(m[0].length).trim();
+  if (!/^[a-z0-9-]+(\/[a-z0-9-]+)*$/.test(meta.path || '')) perr.push(`${f}: path は英小文字・数字・ハイフン・スラッシュのみ`);
+  if (!meta.title || meta.title.length > 60) perr.push(`${f}: title は60文字まで`);
+  if (!meta.description || meta.description.length < 50 || meta.description.length > 130) perr.push(`${f}: description は50〜130文字(いま ${(meta.description || '').length} 文字)`);
+  if (body.replace(/<[^>]*>/g, '').length < 900) perr.push(`${f}: 本文が短すぎます`);
+  pages.push({ ...meta, body });
+}
+if (perr.length) { console.error(perr.join('\n')); process.exit(1); }
+fs.rmSync(path.join(ROOT, 'site', 'industry'), { recursive: true, force: true });
+const pagesSorted = pages.sort((a, b) => Number(a.order || 99) - Number(b.order || 99));
+for (const p of pagesSorted) {
+  const depth = p.path.split('/').length;
+  const base = '../'.repeat(depth);
+  const url = `__SITE__/${p.path}/`;
+  const others = pagesSorted.filter((x) => x.id !== p.id);
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'WebPage', name: p.title, description: p.description, url, inLanguage: 'ja', dateModified: p.updatedAt || p.publishAt, isPartOf: { '@type': 'WebSite', name: 'RAIZON', url: '__SITE__/' } },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: '__SITE__/' },
+      { '@type': 'ListItem', position: 2, name: p.name || p.title, item: url } ] }
+  ];
+  const fi = p.body.indexOf('<h2>よくある質問</h2>');
+  if (fi >= 0) {
+    const items = []; const re = /<h3[^>]*>([\s\S]*?)<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/g; let m2;
+    const strip = (t) => t.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    const sec = p.body.slice(fi);
+    while ((m2 = re.exec(sec))) items.push({ '@type': 'Question', name: strip(m2[1]), acceptedAnswer: { '@type': 'Answer', text: strip(m2[2]) } });
+    if (items.length) ld.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items });
+  }
+  const main = `<article class="sec art"><div class="wrap art__w">
+  <nav class="art__bc" aria-label="パンくずリスト"><a href="${base}">ホーム</a><span>/</span><span>${esc(p.name || p.title)}</span></nav>
+  <header class="art__h">
+    <div class="art__meta"><span class="cl__cat">業種別のご案内</span></div>
+    <h1>${esc(p.title)}</h1>
+  </header>
+  <div class="art__b">${p.body}</div>
+  ${cta(base)}
+  <section class="art__more"><h2>ほかの業種のご案内</h2><div class="pg__o">${others.map((x) => `<a class="pg__oc" href="${base}${x.path}/"><b>${esc(x.name || x.title)}</b><span>${esc(x.description)}</span></a>`).join('')}</div></section>
+  <p class="art__back"><a href="${base}">← トップページへ</a></p>
+</div></article>`;
+  fs.mkdirSync(path.join(ROOT, 'site', p.path), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, 'site', p.path, 'index.html'), head({ path: `/${p.path}/`, base, title: p.title + '｜RAIZON', desc: p.description, main, ld }));
+}
+console.log(`ページ: ${pagesSorted.length}枚 → site/(industry/ ほか)`);
+
