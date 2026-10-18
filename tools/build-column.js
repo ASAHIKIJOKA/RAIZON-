@@ -71,9 +71,11 @@ const head = (o) => `<!DOCTYPE html>
 <meta property="og:image" content="__SITE__/${o.ogImage || 'assets/ogp.png'}">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${JSON.stringify(o.ld).replace(/</g, '\\u003c')}</script>
-<link rel="icon" href="${o.base}favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="${o.base}favicon-32.png">
-<link rel="apple-touch-icon" href="${o.base}apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="${o.base}favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="48x48" href="${o.base}favicon-48.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="${o.base}favicon-192.png?v=2">
+<link rel="shortcut icon" href="${o.base}favicon.ico?v=2">
+<link rel="apple-touch-icon" href="${o.base}apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
