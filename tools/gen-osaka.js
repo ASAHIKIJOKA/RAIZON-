@@ -122,7 +122,7 @@ const SHOTS = [ // [ファイル名, 説明, 幅, 高さ, 色(d=黒系 / l=明�
   ['yamada', '製造業のホームページ（制作イメージ）', 500, 1004, 'l'],
   ['hair', '美容室のホームページ（制作イメージ）', 500, 1000, 'l']
 ];
-const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h, tone]) => `<div class="shots__i is-${tone}"><img src="assets/shots/${k}.webp" alt="${hide ? '' : alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
+const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h, tone]) => `<div class="shots__i is-${tone}"><img src="assets/shots/${k}.webp" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
 const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -171,7 +171,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
       </div>
       <div class="fv__btns"><a class="btn" href="#contact">無料相談・資料請求${arrow}</a><a class="btn btn--line" href="#price">料金を見る${arrow}</a></div>
     </div>
-    <div class="fv__r"><noscript><style>.vis--wait .vis__pc,.vis--wait .vis__lid,.vis--wait .vis__sp{animation:none!important}</style></noscript><div class="vis vis--wait"><i class="vis__d1" aria-hidden="true"></i><i class="vis__d2" aria-hidden="true"></i><i class="vis__d3" aria-hidden="true"></i><div class="vis__pc" role="img" aria-label="パソコンで表示したホームページの制作イメージ"><span class="vis__lid"><img src="assets/mv-laptop-lid.webp" alt="" width="1199" height="667" fetchpriority="high"></span><i class="vis__shut" aria-hidden="true"></i><img class="vis__base" src="assets/mv-laptop-base.webp" alt="" width="1199" height="48" fetchpriority="high"></div><img class="vis__sp" src="assets/mv-phone.webp" alt="スマートフォンで表示したホームページの制作イメージ" width="474" height="959" fetchpriority="high"></div></div>
+    <div class="fv__r"><noscript><style>.vis--wait .vis__pc,.vis--wait .vis__lid,.vis--wait .vis__sp{animation:none!important}</style></noscript><div class="vis vis--wait"><i class="vis__d1" aria-hidden="true"></i><i class="vis__d2" aria-hidden="true"></i><i class="vis__d3" aria-hidden="true"></i><div class="vis__pc" role="img" aria-label="パソコンで表示したホームページの制作イメージ"><span class="vis__lid"><img src="assets/mv-laptop-lid.webp" alt="ノートパソコンのイメージ" width="1199" height="667" fetchpriority="high"></span><i class="vis__shut" aria-hidden="true"></i><img class="vis__base" src="assets/mv-laptop-base.webp" alt="ノートパソコンの本体" width="1199" height="48" fetchpriority="high"></div><img class="vis__sp" src="assets/mv-phone.webp" alt="スマートフォンで表示したホームページの制作イメージ" width="474" height="959" fetchpriority="high"></div></div>
   </div>
 </section>
 
@@ -188,7 +188,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <section class="sec sec--tint">
   <div class="wrap">
     ${st('こんな声、よう聞きます','東大阪の事業者さん、こんなこと言うてません？')}
-    <div class="aru">${aruaru.map(([t,w,k]) => `<div class="aru__c"><div class="bub" data-pop><div class="bub__in"><span class="bub__q" aria-hidden="true">「</span><span class="bub__t">${t}」</span></div></div><div class="aru__who"><div class="aru__ic">${ill(k,'','il--face')}</div><span>${w}</span></div></div>`).join('')}</div>
+    <div class="aru">${aruaru.map(([t,w,k]) => `<div class="aru__c"><div class="bub" data-pop><div class="bub__in"><span class="bub__q" aria-hidden="true">「</span><span class="bub__t">${t}」</span></div></div><div class="aru__who"><div class="aru__ic">${ill(k,w+'のイラスト','il--face')}</div><span>${w}</span></div></div>`).join('')}</div>
     <div class="aru__bar"><p>それ、ぜんぶ<span class="mk2">RAIZONに相談してください。</span></p><a class="btn btn--white" href="#contact" style="min-width:220px">相談してみる${arrow}</a></div>
   </div>
 </section>
