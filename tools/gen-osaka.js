@@ -103,7 +103,7 @@ const abs = (u) => SITE ? SITE + '/' + u : u;
 const ld = [
   { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'RAIZON', description: DESC,
     ...(SITE ? { url: SITE + '/', image: SITE + '/assets/ogp.png' } : {}),
-    foundingDate: '2025-10',
+    foundingDate: '2025-10', telephone: '+81-80-6493-7744',
     address: { '@type': 'PostalAddress', postalCode: '577-0803', addressRegion: '大阪府', addressLocality: '東大阪市', streetAddress: '下小阪5丁目7-20', addressCountry: 'JP' },
     areaServed: ['東大阪市', '大阪府', '奈良県', '京都府'],
     makesOffer: { '@type': 'Offer', name: 'ホームページ制作（月額プラン）', priceCurrency: 'JPY', price: '9800', description: '6ページ構成のホームページ制作。初期制作費0円・最低契約期間なし。価格は税抜。' } },
@@ -352,6 +352,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
       <div><dt>所在地</dt><dd>〒577-0803　大阪府東大阪市下小阪5丁目7-20</dd></div>
       <div><dt>設立</dt><dd>2025年10月</dd></div>
       <div><dt>対応エリア</dt><dd>東大阪市・大阪府内、奈良・京都ほか全国（遠方はオンライン）</dd></div>
+      <div><dt>電話</dt><dd><a href="tel:08064937744">080-6493-7744</a></dd></div>
       <div><dt>ご連絡</dt><dd><a href="#contact">お問い合わせフォーム</a>から承ります</dd></div>
     </dl>
   </div>
@@ -440,7 +441,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
     <div class="ftr__l">
       <img src="assets/raizon-logo.webp" alt="RAIZON" width="91" height="64" loading="lazy">
       <p>ホームページ制作を通じて、事業の情報発信を支える。困ったときに気軽に相談できる、身近なパートナーを目指しています。</p>
-      <address>〒577-0803　大阪府東大阪市下小阪5丁目7-20</address>
+      <address>〒577-0803　大阪府東大阪市下小阪5丁目7-20<br>電話 <a href="tel:08064937744">080-6493-7744</a></address>
       <dl class="ftr__meta"><div><dt>屋号</dt><dd>RAIZON</dd></div><div><dt>設立</dt><dd>2025年10月</dd></div></dl>
     </div>
     <nav aria-label="フッターメニュー">${nav.map(([h,l]) => `<a href="${h}"${h==='#works'?' data-nav="works"':''}>${l}</a>`).join('')}<a href="#contact">お問い合わせ</a><a href="#privacy">プライバシーポリシー</a></nav>
