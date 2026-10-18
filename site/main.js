@@ -198,6 +198,8 @@
       if (!val('name')) e.name = 'お名前を入力してください';
       if (!val('email')) e.email = 'メールアドレスを入力してください';
       else if (!EMAIL.test(val('email'))) e.email = 'メールアドレスの形式が正しくありません';
+      if (!val('tel')) e.tel = '電話番号を入力してください';
+      else if (val('tel').replace(/[^0-9]/g, '').length < 9) e.tel = '電話番号の形式が正しくありません';
       if (!val('message')) e.message = 'お問い合わせ内容を入力してください';
       if (!form.elements.agree.checked) e.agree = 'プライバシーポリシーへの同意が必要です';
       return e;
@@ -209,7 +211,7 @@
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var e = validate();
-      ['name', 'email', 'message', 'agree'].forEach(function (k) { setErr(k, e[k]); });
+      ['name', 'email', 'tel', 'message', 'agree'].forEach(function (k) { setErr(k, e[k]); });
       if (Object.keys(e).length) { var first = q('.is-err', form); if (first) first.focus(); return; }
       fail.textContent = ''; send.disabled = true; send.textContent = '送信中…';
       var body = {

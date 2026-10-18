@@ -387,7 +387,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
           ${field('company','会社名・屋号','text','例）株式会社〇〇','organization',false)}
           ${field('name','お名前','text','例）山田 太郎','name',true)}
           ${field('email','メールアドレス','email','例）info@example.com','email',true)}
-          ${field('tel','電話番号','tel','例）06-0000-0000','tel',false)}
+          ${field('tel','電話番号','tel','例）06-0000-0000','tel',true)}
         </div>
         <label class="fm__f"><span class="fm__lab">ご予算<span class="bdg">任意</span></span>
           <select name="budget"><option value="">選択してください</option><option value="月額9,800円の基本プラン">月額9,800円の基本プラン</option><option value="追加ページ等も検討したい">追加ページ等も検討したい</option><option value="その他・別途相談したい">その他・別途相談したい</option><option value="未定">未定</option></select></label>
@@ -447,7 +447,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <div class="sp-spacer"></div>
 <div class="sp-cta"><a href="#price">料金を見る</a><a href="#contact">無料で相談する</a></div>
 <script>window.FAQ=${faqJson};</script>
-<script src="main.js?v=27"></script>
+<script src="main.js?v=28"></script>
 </body>
 </html>
 `;
