@@ -865,3 +865,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .vis--wait .vis__pc,.vis--wait .vis__lid,.vis--wait .vis__shut,.vis--wait .vis__sp{animation-play-state:paused}
   .vis--go .vis__pc,.vis--go .vis__lid,.vis--go .vis__shut,.vis--go .vis__sp{animation-play-state:running}
 }
+/* コラムの表が、狭い画面で横にはみ出さない(はみ出す分は、表の中でスクロール) */
+@media(max-width:600px){.art-table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.art-table th,.art-table td{min-width:96px}}
