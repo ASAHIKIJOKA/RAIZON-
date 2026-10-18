@@ -94,7 +94,7 @@ for (const [file, count, withHeading, cards] of [['index.html', 12, true, true],
       const thumb = (p.thumbnail && /^https?:\/\//.test(p.thumbnail)) ? p.thumbnail : `/assets-v3/blog/${THUMB_BY_CAT[p.category] || 'cat-news'}.svg`;
       const dateStr = p.createdAt.slice(0, 10).replace(/-/g, '.');
       const home = homeIds.has(p.id);
-      return `<a class="rz3-blog-card" data-cat="${esc(p.category)}"${home ? ' data-home="1"' : ' style="display:none"'} href="/blog/${p.id}"><div class="rz3-blog-thumb"><img src="${esc(thumb)}" alt="" loading="lazy"></div><div class="rz3-blog-body"><div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(p.category)}</span><span class="rz3-blog-date">${dateStr}</span></div><h3>${esc(p.title)}</h3><p>${esc(excerptOf(p.body))}</p></div></a>`;
+      return `<a class="rz3-blog-card" data-cat="${esc(p.category)}"${home ? ' data-home="1"' : ' style="display:none"'} href="/blog/${p.id}"><div class="rz3-blog-thumb"><img src="${esc(thumb)}" alt="${esc(p.title)}" loading="lazy"></div><div class="rz3-blog-body"><div class="rz3-blog-meta"><span class="rz3-blog-cat">${esc(p.category)}</span><span class="rz3-blog-date">${dateStr}</span></div><h3>${esc(p.title)}</h3><p>${esc(excerptOf(p.body))}</p></div></a>`;
     }).join('');
     block = latest.length ? `<div id="rz3-blog-grid" class="rz3-blog-track">${gridItems}</div>` : '';
   } else {
