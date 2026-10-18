@@ -232,7 +232,7 @@ for (const p of pagesSorted) {
 <section class="sec sec--gray"><div class="wrap">
   ${stp('ご利用の流れ', '3ステップで、公開まで')}
   <ol class="ip-s"><li><span>1</span><b>無料相談</b><small>お悩みを聞かせてください</small></li><li><span>2</span><b>制作</b><small>文章づくりも、お手伝いします</small></li><li><span>3</span><b>公開・更新</b><small>月4回まで、修正OK</small></li></ol>
-  <div class="ip-price"><div><small>制作費</small><b>0<i>円</i></b></div><div><small>月額（税抜）</small><b>9,800<i>円</i></b></div><div><small>ページ数</small><b>6<i>ページ</i></b></div><div><small>最低契約期間</small><b>なし</b></div></div>
+  <div class="ip-price"><div><small>初期制作費</small><b>0<i>円</i></b></div><div><small>月額（税抜）</small><b>9,800<i>円</i></b></div><div><small>ページ数</small><b>6<i>ページ</i></b></div><div><small>最低契約期間</small><b>なし</b></div></div>
   <p class="ip-note">メールフォーム・Googleマップ・独自ドメイン・SSL・サーバー管理まで、月額に含まれます。<br>月払いの場合は、初回に契約手数料5,000円（税抜）がかかります。</p>
 </div></section>
 <section class="sec"><div class="wrap ip-faq">
