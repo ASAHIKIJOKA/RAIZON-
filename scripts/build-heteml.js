@@ -146,7 +146,10 @@ RewriteRule ^blog-list/?$ /blog-list.php [L,QSA]
 RewriteRule ^blog/([A-Za-z0-9_-]+)/?$ /blog-post.php?id=$1 [L]
 RewriteRule ^sitemap\\.xml$ /sitemap.php [L]
 RewriteRule ^api/(posts|admin-posts|contact|apply)/?$ /api/$1.php [L,QSA]
-RewriteRule ^(line|links|consult|web|system|apply|terms)/?$ /$1.html [L]
+RewriteRule ^(line|links|consult|system|apply|terms)/?$ /$1.html [L]
+
+# 削除したページ(ホームページ制作): 検索結果から消えるよう「410 消滅」を返す
+RewriteRule ^(web|web\\.html)/?$ - [G,L]
 
 # 管理画面は検索に載せない
 <IfModule mod_headers.c>

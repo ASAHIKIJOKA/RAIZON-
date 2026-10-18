@@ -15,7 +15,6 @@ module.exports = async function handler(req, res) {
   const staticPages = [
     { loc: 'https://raizon-okinawa.com/' },
     { loc: 'https://raizon-okinawa.com/line' },
-    { loc: 'https://raizon-okinawa.com/web' },
     { loc: 'https://raizon-okinawa.com/system' },
     { loc: 'https://raizon-okinawa.com/consult' },
     { loc: 'https://raizon-okinawa.com/blog-list', lastmod: latestPost || undefined },

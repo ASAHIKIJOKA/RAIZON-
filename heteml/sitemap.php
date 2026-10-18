@@ -11,7 +11,6 @@ $base = 'https://raizon-okinawa.com';
 $urls = [
     ['loc' => $base . '/'],
     ['loc' => $base . '/line'],
-    ['loc' => $base . '/web'],
     ['loc' => $base . '/system'],
     ['loc' => $base . '/consult'],
     ['loc' => $base . '/blog-list', 'lastmod' => $latest],

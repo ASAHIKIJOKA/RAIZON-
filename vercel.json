@@ -93,10 +93,6 @@
       "destination": "/consult.html"
     },
     {
-      "source": "/web",
-      "destination": "/web.html"
-    },
-    {
       "source": "/system",
       "destination": "/system.html"
     },
