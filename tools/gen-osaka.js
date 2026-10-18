@@ -145,7 +145,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=62">
+<link rel="stylesheet" href="style.css?v=67">
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -441,6 +441,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
     </div>
     <nav aria-label="フッターメニュー">${nav.map(([h,l]) => `<a href="${h}"${h==='#works'?' data-nav="works"':''}>${l}</a>`).join('')}<a href="#contact">お問い合わせ</a><a href="#privacy">プライバシーポリシー</a></nav>
   </div>
+  <nav class="ftr__sub" aria-label="業種別のご案内"><span>業種別のご案内</span><a href="industry/factory/">町工場・製造業</a><a href="industry/restaurant/">飲食店</a><a href="industry/salon/">美容室・サロン</a><a href="industry/clinic/">整骨院・治療院</a></nav>
   <div class="ftr__c">© 2026 RAIZON. All rights reserved.</div>
 </footer>
 <div class="sp-spacer"></div>

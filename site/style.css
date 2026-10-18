@@ -771,3 +771,23 @@ p,ul,ol{margin:0}
 /* iPhoneの自動の文字拡大を止める。料金の一文は、狭い画面でも1行に */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media(max-width:600px){.pl__lead{font-size:clamp(9.5px,2.9vw,14px)}}
+
+/* コラムのサムネイル(オーナーが毎回つくる画像。1200×630) */
+.cl__th{display:block;margin:-22px -22px 4px;border-radius:16px 16px 0 0;overflow:hidden;border-bottom:2px solid var(--ink);background:var(--tint);aspect-ratio:1200/630}
+.cl__th img{display:block;width:100%;height:100%;object-fit:cover}
+.art__th{margin:0 0 30px;border:2px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:5px 5px 0 var(--blue);background:var(--tint)}
+.art__th img{display:block;width:100%;height:auto}
+
+/* 業種別ページ・フッターの業種リンク */
+.pg__o{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.pg__oc{display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:#fff;border:2px solid var(--ink);border-radius:14px;box-shadow:3px 3px 0 var(--blue);color:var(--ink)}
+.pg__oc b{font-size:15.5px;font-weight:800}
+.pg__oc span{font-size:12.5px;line-height:1.7;color:var(--body);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ftr__sub{max-width:1200px;margin:0 auto;padding:18px var(--gutter) 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;border-top:1px solid var(--bd);font-size:13px}
+.ftr__sub span{font-weight:800;color:var(--ink)}
+.ftr__sub a{color:var(--body)}
+.ftr__sub a:hover{color:var(--blue);text-decoration:underline}
+.ftr nav.ftr__sub{display:flex;flex-wrap:wrap;align-items:center;gap:4px 20px;font-size:13px;padding-top:18px;padding-bottom:4px}
+.ftr nav.ftr__sub a{display:inline-block;padding:6px 0}
+@media(max-width:600px){.ftr nav.ftr__sub{gap:2px 16px}.ftr nav.ftr__sub span{flex-basis:100%}}
+.ftr nav.ftr__sub{padding-left:0;padding-right:0}
