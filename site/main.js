@@ -71,6 +71,21 @@
   }
 
   var q = function (s, r) { return (r || document).querySelector(s); };
+
+  /* メインビュー: 見える位置に来てから、パソコンが開き、スマホが出てくる(スマホ表示では、スクロールして見えた時に再生) */
+  (function () {
+    var vis = q('.vis--wait');
+    if (!vis) return;
+    var go = function () { vis.classList.add('vis--go'); };
+    var inView = function () { var r = vis.getBoundingClientRect(); return r.top < innerHeight * 0.85 && r.bottom > 0; };
+    if (inView() || !('IntersectionObserver' in window)) { go(); return; }
+    var onScroll = function () { if (inView()) { go(); removeEventListener('scroll', onScroll); } };
+    addEventListener('scroll', onScroll, { passive: true });
+    var io = new IntersectionObserver(function (es) {
+      if (es.some(function (e) { return e.isIntersecting; })) { go(); io.disconnect(); }
+    }, { threshold: 0.35 });
+    io.observe(vis);
+  })();
   var qa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 

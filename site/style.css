@@ -841,3 +841,16 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .ip-o img{width:48px;height:48px;object-fit:contain;background:var(--tint);border-radius:50%;padding:6px}
 .ip-o b{flex:1;font-size:15.5px}
 .ip-o span{color:var(--blue)}
+/* ===== メインビュー: パソコンが開き、スマホが出てくるアニメーション ===== */
+.vis__pc{position:absolute;left:0;top:0;width:100%;aspect-ratio:1199/715;height:auto;filter:drop-shadow(0 18px 28px rgba(13,42,102,.20));perspective:1600px}
+.vis__pc img{position:absolute;left:0;width:100%;height:auto}
+.vis__lid{top:0;transform-origin:50% 100%;backface-visibility:hidden}
+.vis__base{bottom:0;z-index:2}
+@keyframes lap-open{0%{transform:rotateX(-92deg);opacity:0}12%{opacity:1}70%{transform:rotateX(6deg)}100%{transform:rotateX(0)}}
+@keyframes sp-pop{0%{transform:translate(-90%,18%) scale(.55) rotate(-8deg);opacity:0}60%{opacity:1}80%{transform:translate(0,-4%) scale(1.04) rotate(1deg)}100%{transform:none;opacity:1}}
+@media (prefers-reduced-motion:no-preference){
+  .vis__lid{animation:lap-open 1.15s cubic-bezier(.25,.8,.3,1) .25s both}
+  .vis__sp{animation:sp-pop .85s cubic-bezier(.2,.9,.3,1) 1.2s both}
+  .vis--wait .vis__lid,.vis--wait .vis__sp{animation-play-state:paused}
+  .vis--go .vis__lid,.vis--go .vis__sp{animation-play-state:running}
+}
