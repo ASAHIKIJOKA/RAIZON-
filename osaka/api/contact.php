@@ -13,7 +13,7 @@ $phone = $get('tel') !== '' ? $get('tel') : $get('phone');
 // ハニーポット: 人には見えない欄に値が入っていたら、迷惑な自動送信とみなして成功を装って破棄する
 if ($website !== '') rz_json_out(200, ['ok' => true]);
 
-if ($name === '' || $email === '' || $message === '' || $kind === '') rz_json_out(400, ['error' => '必須項目が未入力です']);
+if ($name === '' || $email === '' || $phone === '' || $message === '' || $kind === '') rz_json_out(400, ['error' => '必須項目が未入力です']);
 if (($b['agree'] ?? false) !== true) rz_json_out(400, ['error' => 'プライバシーポリシーへの同意が必要です']);
 if (!rz_valid_email($email) || mb_strlen($name) > 100 || mb_strlen($message) > 5000 || mb_strlen($company) > 200 || mb_strlen($phone) > 40 || mb_strlen($kind) > 40 || mb_strlen($budget) > 100) {
     rz_json_out(400, ['error' => '入力内容を確認してください']);
@@ -26,7 +26,7 @@ $text = implode("\n", [
     'ご用件: ' . mb_substr($kind, 0, 40),
     'お名前: ' . $name,
     'メールアドレス: ' . $email,
-    '電話番号: ' . ($phone !== '' ? $phone : '未入力'),
+    '電話番号: ' . $phone,
     '会社名・屋号: ' . ($company !== '' ? $company : '未入力'),
     'ご予算: ' . ($budget !== '' ? mb_substr($budget, 0, 100) : '未選択'),
     '流入元(サイトに来たきっかけ): ' . mb_substr($source !== '' ? $source : '不明', 0, 200),
