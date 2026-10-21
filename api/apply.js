@@ -1,13 +1,13 @@
 // サービスのお申し込み(/apply)の受付。RAIZONに申込内容を、お客様に受付メールを送る。
-// 契約は、RAIZONが内容を確認して「承諾の連絡」を送った時点で成立する(利用規約 第4条)。
+// 契約は、お客様が「この内容で申し込む」を押して送信した時点で成立する(利用規約 第4条)。
 // 同意の記録として、日時・規約の版・IPアドレス・ブラウザ情報をRAIZON宛のメールに残す。
 const nodemailer = require('nodemailer');
 
-const TERMS_VERSION = '1.0';
+const TERMS_VERSION = '1.1';
 // 同意した版の利用規約(PDF)を、受付メールに添付する。規約を改定したら、PDFを作り直して版とURLを上げる
 const TERMS_PDF = {
   filename: `RAIZONサービス利用規約_第${TERMS_VERSION}版.pdf`,
-  href: 'https://raizon-okinawa.com/legal/raizon-terms-v1.0.pdf',
+  href: 'https://raizon-okinawa.com/legal/raizon-terms-v1.1.pdf',
   contentType: 'application/pdf',
 };
 const FIELDS = [
@@ -50,7 +50,7 @@ module.exports = async function handler(req, res) {
       replyTo: d.email,
       subject: `【お申し込み】${d.company}様（${d.plan}）`,
       text: [
-        '新しいお申し込みがありました。内容を確認し、承諾する場合はお客様へ承諾の連絡を送ってください(送った時点で契約成立)。',
+        '新しいお申し込み(契約成立)がありました。お客様へ、振込先とサービス開始のご案内を送ってください。',
         '',
         ...lines,
         '',
@@ -72,8 +72,8 @@ module.exports = async function handler(req, res) {
         `${d.company}　${d.representative}様`,
         '',
         'このたびは、RAIZONのサービスにお申し込みいただき、ありがとうございます。',
-        '以下の内容で、お申し込みを受け付けました。',
-        '内容を確認のうえ、2営業日以内に、当社から承諾のご連絡をいたします。承諾のご連絡をした時点で、ご契約が成立します。',
+        '以下の内容で、お申し込みを受け付け、ご契約が成立しました。',
+        'お支払い(振込先など)とサービス開始のご案内を、2営業日以内に、当社からご連絡します。',
         '',
         ...lines,
         '',

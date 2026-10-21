@@ -32,6 +32,12 @@ h1{margin:0;font-size:28px;color:var(--ink);line-height:1.4}
 .plan .p{font-family:Inter,sans-serif;font-weight:800;color:var(--ink);font-size:20px}
 .plan .p small{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","BIZ UDPGothic","Yu Gothic UI","YuGothic",Meiryo,sans-serif;font-size:12px;color:var(--muted);font-weight:700}
 .plan .d{display:block;font-size:13px;color:var(--muted);line-height:1.6;margin-top:2px}
+.total{display:none;margin-top:14px;border:2px solid var(--blue);background:var(--tint);border-radius:14px;padding:14px 18px;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.total.on{display:flex}
+.total .t{font-size:14px;font-weight:700;color:var(--ink)}
+.total .a{font-family:Inter,sans-serif;font-weight:800;font-size:26px;color:var(--ink)}
+.total .a small{font-family:inherit;font-size:13px;color:var(--muted);font-weight:700}
+.total .n{flex-basis:100%;font-size:12px;color:var(--muted);margin:0}
 label.f{display:block;margin-top:16px}
 label.f span.l{display:block;font-weight:700;color:var(--ink);font-size:14px;margin-bottom:6px}
 input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{width:100%;border:1px solid #DCE1E8;border-radius:12px;padding:12px 14px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
@@ -41,6 +47,25 @@ textarea{min-height:96px}
 .imp{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .imp li{background:var(--bg);border-radius:10px;padding:10px 14px;font-size:14px;line-height:1.7}
 .imp b{color:var(--ink)}
+.termsbox{width:100%;height:min(62vh,440px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;border:2px solid var(--line);border-radius:12px;background:#fff;padding:14px 16px;font-size:13.5px;line-height:1.8;color:var(--body)}
+.termsbox h1{font-size:17px;margin:0;color:var(--ink)}
+.termsbox .meta{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.termsbox h2{margin:20px 0 4px;font-size:14.5px;color:var(--ink);padding-left:9px;border-left:3px solid var(--blue);line-height:1.5}
+.termsbox ol,.termsbox ul{margin:4px 0 0;padding-left:1.5em}
+.termsbox li{margin:3px 0}
+.termsbox table{width:100%;border-collapse:collapse;font-size:13px}
+.termsbox th,.termsbox td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.termsbox th{background:var(--bg);white-space:normal}
+.termsbox .box{background:var(--bg);border-radius:8px;padding:8px 10px;margin-top:8px}
+.termsload{margin:0;color:var(--muted)}
+.termsh{margin:22px 0 8px;font-size:15px;color:var(--ink)}
+.termsnote{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
+.imp li{padding:0}
+.imp label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;cursor:pointer;border:2px solid transparent;border-radius:10px}
+.imp input{margin-top:5px;width:20px;height:20px;flex:none;accent-color:var(--blue)}
+.imp li:has(input:checked){background:var(--tint)}
+.imp li:has(input:checked) label{border-color:var(--blue)}
+.impcount{margin:10px 0 0;font-size:13px;font-weight:700;color:var(--muted)}
 .agree{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:14.5px;font-weight:700;color:var(--ink)}
 .agree input{margin-top:5px;width:20px;height:20px;flex:none;accent-color:var(--blue)}
 .agree a{color:var(--blue)}
@@ -59,7 +84,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <main>
 <div id="formWrap">
 <h1>サービスのお申し込み</h1>
-<p class="sub">事業者さま向けのお申し込みフォームです。内容を確認し、当社から「承諾のご連絡」をお送りした時点で、ご契約が成立します。</p>
+<p class="sub">事業者さま向けのお申し込みフォームです。内容をご確認のうえ、「この内容で申し込む」ボタンを押した時点で、ご契約が成立します。</p>
 
 <form id="f" novalidate>
 <div class="card">
@@ -69,12 +94,12 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <label class="plan"><input type="radio" name="plan" value="LINE STANDARD（月額11,800円・税別）"><div><b>LINE STANDARD｜LINE＋ホームページ</b><span class="p">11,800円<small>／月（税別）・税込12,980円</small></span><span class="d">BASICの内容に加え、ホームページの作成・更新、予約・問い合わせの導線、配信設計・顧客管理</span></div></label>
 <label class="plan"><input type="radio" name="plan" value="LINE PREMIUM（月額23,800円〜・税別。お見積もりのとおり）"><div><b>LINE PREMIUM｜LINE＋HP＋システム</b><span class="p">23,800円〜<small>／月（税別）・税込26,180円〜</small></span><span class="d">STANDARDの内容に加え、業務システムの構築・運用、自動化・連携。金額はお見積もりのとおりです</span></div></label>
 </div>
-<label class="f"><span class="l">お見積もり番号・金額<span class="opt">任意</span></span><input type="text" name="quote" placeholder="例）お見積もりの金額や番号（PREMIUMの方）" maxlength="200"></label>
-<p style="margin:14px 0 0;font-size:13px;color:var(--muted)">初期費用は0円です。LINE公式アカウントの利用料（LINEヤフー株式会社）は、別途お客様のご負担です。</p>
+<div class="total" id="total" aria-live="polite"><span class="t" id="totalLabel">お支払い月額（税込）</span><span class="a" id="totalAmt"></span><p class="n" id="totalNote"></p></div>
+<p style="margin:14px 0 0;font-size:13px;color:var(--muted)">月払いの場合のみ、初月に契約手数料5,500円（税込）がかかります。年払いの場合は、12か月分の料金から5,500円（税込）を割引します。LINE公式アカウントの利用料（LINEヤフー株式会社）は、別途お客様のご負担です。</p>
 <h2 style="margin-top:24px">お支払い方法<span class="req">必須</span></h2>
 <div class="plans">
-<label class="plan"><input type="radio" name="payment" value="月払い（毎月27日にクレジットカード／デビットカードで引き落とし）"><div><b>月払い</b><span class="d">2か月目からは、毎月27日に、クレジットカードまたは銀行のデビットカードから自動で引き落とします（決済はSquareを利用します）。カードの登録方法は、承諾のご連絡でご案内します。</span></div></label>
-<label class="plan"><input type="radio" name="payment" value="年払い（12か月分を銀行振込）"><div><b>年払い</b><span class="d">12か月分（割引はありません）を、銀行振込で一括してお支払いいただきます。期間の途中で解約された場合、残りの期間の料金は返金できません。</span></div></label>
+<label class="plan"><input type="radio" name="payment" value="月払い（毎月27日にクレジットカード／デビットカードで引き落とし）"><div><b>月払い</b><span class="d">2か月目からは、毎月27日に、クレジットカードまたは銀行のデビットカードから自動で引き落とします（決済はSquareを利用します）。カードの登録方法は、お申し込み後のご連絡でご案内します。</span></div></label>
+<label class="plan"><input type="radio" name="payment" value="年払い（12か月分を銀行振込）"><div><b>年払い</b><span class="d">12か月分の料金から5,500円（税込）を割引した金額を、銀行振込で一括してお支払いいただきます。期間の途中で解約された場合、残りの期間の料金は返金できません。</span></div></label>
 </div>
 </div>
 
@@ -85,45 +110,81 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <label class="f"><span class="l">ご担当者名<span class="opt">任意</span></span><input type="text" name="contact" maxlength="100" placeholder="代表者さまと異なる場合"></label>
 <label class="f"><span class="l">所在地<span class="req">必須</span></span><input type="text" name="address" required maxlength="300" autocomplete="street-address"></label>
 <label class="f"><span class="l">電話番号<span class="req">必須</span></span><input type="tel" name="phone" required maxlength="40" autocomplete="tel"></label>
-<label class="f"><span class="l">メールアドレス<span class="req">必須</span></span><input type="email" name="email" required maxlength="200" autocomplete="email"><small style="color:var(--muted)">受付と承諾のご連絡をお送りします</small></label>
-<label class="f"><span class="l">業種<span class="opt">任意</span></span><input type="text" name="industry" maxlength="100" placeholder="例）美容室、飲食店、訪問看護"></label>
+<label class="f"><span class="l">メールアドレス<span class="req">必須</span></span><input type="email" name="email" required maxlength="200" autocomplete="email"><small style="color:var(--muted)">受付のメールをお送りします</small></label>
+<label class="f"><span class="l">業種<span class="opt">任意</span></span><select name="industry"><option value="">選択してください</option><option value="飲食店">飲食店</option><option value="美容・サロン">美容・サロン</option><option value="小売・販売">小売・販売</option><option value="医療・介護・福祉">医療・介護・福祉</option><option value="建設・リフォーム">建設・リフォーム</option><option value="士業・コンサル">士業・コンサル</option><option value="教育・スクール">教育・スクール</option><option value="宿泊・観光">宿泊・観光</option><option value="不動産">不動産</option><option value="その他">その他</option></select></label>
 <label class="f"><span class="l">LINE公式アカウント<span class="req">必須</span></span><span class="radios"><label><input type="radio" name="lineAccount" value="すでに持っている">すでに持っている</label><label><input type="radio" name="lineAccount" value="まだ持っていない">まだ持っていない</label></span></label>
-<label class="f"><span class="l">利用開始の希望時期<span class="opt">任意</span></span><input type="text" name="start" maxlength="100" placeholder="例）11月から／できるだけ早く"></label>
-<label class="f"><span class="l">ご要望・備考<span class="opt">任意</span></span><textarea name="note" maxlength="3000"></textarea></label>
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 </div>
 
 <div class="card">
-<h2>3. 大事なことの確認</h2>
+<h2>3. 注意事項</h2>
 <ul class="imp">
-<li><b>はじめのお支払い</b>：初期費用は0円です。1か月分の利用料を、銀行振込でお支払いいただきます（日割りはしません）。振込先は、承諾のご連絡でお知らせします。お振込みを確認してから、サービスを開始します。</li>
-<li><b>2か月目から</b>：月払いは毎月27日にカードで引き落とし、年払いは12か月分を振込でお支払いいただきます。表示の金額は税別で、別途消費税がかかります。</li>
-<li><b>返金</b>：お支払い済みの料金は、当社の責めに帰すべき事由による場合を除き、返金できません（年払いの途中解約を含みます）。</li>
-<li><b>解約</b>：最低利用期間はありません。<b>解約したい月の前月末日まで</b>にご連絡いただくと、その月の末日で終了します。</li>
-<li><b>終了したとき</b>：LINE公式アカウントはお客様の手元に残りますが、当社の仕組みで動く自動返信・予約・ステップ配信は停止します。ホームページは、通算3年以上ご利用の場合は譲渡できます（3年未満は公開を停止します）。当社が製作したアプリ等は、停止または料金のご相談となります。お客様データは、ご希望によりお渡しします。</li>
-<li><b>LINEの利用料</b>：LINE公式アカウントの利用料は、LINEヤフー株式会社へ、お客様が直接お支払いください。</li>
-<li><b>データ</b>：お預かりする情報は、本サービスの提供のためにのみ使います。医療・介護など配慮が必要な情報を扱う場合は、事前にお知らせください。</li>
+<li><label><input type="checkbox" name="imp1" class="impchk" value="yes"><span><b>契約の成立（第4条）</b>：<b>「この内容で申し込む」ボタンを押した時点で、契約が成立します。</b><b>契約開始日は、サービスの利用スタート日です</b>（初回のお支払いを確認し、当社がサービスの提供を始める日）。押す前に、料金・お支払い・解約などの内容と、利用規約をよくご確認ください。</span></label></li>
+<li><label><input type="checkbox" name="imp4" class="impchk" value="yes"><span><b>返金（第5条）</b>：お支払い済みの料金は、当社の責めによる場合を除き、返金できません（年払いの途中解約も、残りの期間の返金はありません）。</span></label></li>
+<li><label><input type="checkbox" name="imp5" class="impchk" value="yes"><span><b>解約（第8条）</b>：最低利用期間はありません。<b>解約したい月の前月末日まで</b>に、メールまたはLINEでご連絡ください。その月の末日で終了します。</span></label></li>
+<li><label><input type="checkbox" name="imp6" class="impchk" value="yes"><span><b>終了したとき（第10条）</b>：LINE公式アカウントはお客様の手元に残りますが、当社の仕組みで動く自動返信・予約・ステップ配信などは停止します。お客様データは、終了日から60日以内にお申し出があればお渡しします。ホームページは、終了日をもって公開を停止します。</span></label></li>
+<li><label><input type="checkbox" name="imp7" class="impchk" value="yes"><span><b>LINEの利用料・成果の保証（第7条・第17条）</b>：LINE公式アカウントの利用料は、LINEヤフー株式会社へお客様が直接お支払いください。売上・集客・予約数などの特定の成果を保証するものではありません。</span></label></li>
+<li><label><input type="checkbox" name="imp10" class="impchk" value="yes"><span><b>知的財産権（第11条）</b>：ホームページに関する知的財産権（著作権など）は、当社に帰属します。お客様からご提供いただいた文章・画像・ロゴなどは、すべてお返しします。</span></label></li>
+<li><label><input type="checkbox" name="imp9" class="impchk" value="yes"><span><b>サービスに支障が出たとき（第19条）</b>：ウイルス被害、災害、その他やむを得ない事由によって、提供するサービスに支障が出た場合、当社は責任を負いかねます（当社に故意または重大な過失がある場合を除きます）。</span></label></li>
 </ul>
-<label class="agree"><input type="checkbox" name="agreeTerms" value="yes"><span><a href="/terms" target="_blank" rel="noopener">サービス利用規約（第1.0版）</a>を読み、内容に同意します</span></label>
-<label class="agree"><input type="checkbox" name="agreeImportant" value="yes"><span>上の「大事なことの確認」の内容を確認しました</span></label>
+<p class="impcount" id="impcount" aria-live="polite"></p>
+<h3 class="termsh">サービス利用規約（第1.1版）</h3>
+<div class="termsbox" id="termsBox" tabindex="0" role="region" aria-label="サービス利用規約（スクロールして読めます）"><p class="termsload">規約を読み込んでいます…</p></div>
+<p class="termsnote">枠の中を上下にスクロールして、お読みください。<a href="/terms.html" target="_blank" rel="noopener">別のタブで開く</a></p>
+<label class="agree"><input type="checkbox" name="agreeTerms" value="yes"><span><a href="/terms" target="_blank" rel="noopener">サービス利用規約（第1.1版）</a>を読み、内容に同意します</span></label>
+<input type="hidden" name="agreeImportant" value="">
 <button type="submit" id="btn" disabled>この内容で申し込む</button>
-<p class="note">送信後、受付のメールをお送りします。内容を確認のうえ、当社から承諾のご連絡をした時点で、ご契約が成立します。</p>
+<p class="note">このボタンを押した時点で、ご契約が成立します。送信後、受付のメールをお送りします。</p>
 <p id="msg" role="status"></p>
 </div>
 </form>
 </div>
 
 <div id="done" class="card">
-<h2>お申し込みを受け付けました</h2>
-<p>ありがとうございます。受付のメールをお送りしました。<br>内容を確認のうえ、2営業日以内に承諾のご連絡をいたします。</p>
+<h2>お申し込みありがとうございます</h2>
+<p>ありがとうございます。ご契約が成立しました。受付のメールをお送りしました。<br>お支払い（振込先など）と、サービス開始のご案内を、2営業日以内に当社からご連絡します。</p>
 <p><a href="/">トップへ戻る</a></p>
 </div>
 </main>
 <script>
 (function () {
   var f = document.getElementById('f'), btn = document.getElementById('btn'), msg = document.getElementById('msg');
-  function ok() { btn.disabled = !(f.agreeTerms.checked && f.agreeImportant.checked); }
-  f.agreeTerms.addEventListener('change', ok); f.agreeImportant.addEventListener('change', ok);
+  var PRICE = { 'LINE BASIC': [5000, ''], 'LINE STANDARD': [11800, ''], 'LINE PREMIUM': [23800, '〜'] };
+  function yen(n) { return Math.round(n).toLocaleString('ja-JP'); }
+  function showTotal() {
+    var box = document.getElementById('total'), sel = f.querySelector('input[name="plan"]:checked'), pay = f.querySelector('input[name="payment"]:checked');
+    if (!sel) { box.classList.remove('on'); return; }
+    var key = sel.value.split('（')[0], p = PRICE[key];
+    if (!p) { box.classList.remove('on'); return; }
+    var yearly = pay && pay.value.indexOf('年払い') === 0, more = p[1], note;
+    if (yearly) {
+      var amt = p[0] * 12 * 1.1 - 5500;
+      document.getElementById('totalLabel').textContent = 'お支払い年額（税込）';
+      document.getElementById('totalAmt').innerHTML = yen(amt) + '円' + more + '<small>／年（税込）</small>';
+      note = '税別' + yen(p[0]) + '円×12か月＋消費税10%＝' + yen(p[0] * 12 * 1.1) + '円から、5,500円（税込）を割引した金額です。銀行振込で一括してお支払いいただきます。';
+    } else {
+      document.getElementById('totalLabel').textContent = 'お支払い月額（税込）';
+      document.getElementById('totalAmt').innerHTML = yen(p[0] * 1.1) + '円' + more + '<small>／月（税込）</small>';
+      note = '（税別' + yen(p[0]) + '円＋消費税10%）。' + (pay ? '初月のみ、契約手数料5,500円（税込）が別途かかります。' : '月払いの場合は、初月のみ契約手数料5,500円（税込）が別途かかります。');
+    }
+    document.getElementById('totalNote').textContent = (more ? '※金額はお見積もりにより決まります。上の金額は税込の最低額です。' : '') + note;
+    box.classList.add('on');
+  }
+  Array.prototype.forEach.call(f.querySelectorAll('input[name="plan"], input[name="payment"]'), function (r) { r.addEventListener('change', showTotal); });
+  fetch('/terms.html').then(function (r) { return r.text(); }).then(function (t) {
+    var doc = new DOMParser().parseFromString(t, 'text/html').getElementById('doc');
+    if (!doc) throw new Error('x');
+    var sg = doc.querySelector('.sign'); if (sg) sg.remove();
+    document.getElementById('termsBox').innerHTML = doc.innerHTML;
+  }).catch(function () { document.getElementById('termsBox').innerHTML = '<p class="termsload">規約を表示できませんでした。下の「別のタブで開く」からお読みください。</p>'; });
+  var chks = Array.prototype.slice.call(f.querySelectorAll('.impchk'));
+  function ok() {
+    var done = chks.filter(function (c) { return c.checked; }).length, all = done === chks.length;
+    f.agreeImportant.value = all ? 'yes' : '';
+    document.getElementById('impcount').textContent = all ? '✔ すべての項目を確認しました（' + done + '/' + chks.length + '）' : '1つずつ確認してチェックしてください（' + done + '/' + chks.length + '）';
+    btn.disabled = !(f.agreeTerms.checked && all);
+  }
+  f.agreeTerms.addEventListener('change', ok); chks.forEach(function (c) { c.addEventListener('change', ok); }); ok();
   f.addEventListener('submit', function (e) {
     e.preventDefault();
     var d = {}; new FormData(f).forEach(function (v, k) { d[k] = String(v).trim(); });
@@ -131,7 +192,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
     var miss = need.filter(function (n) { return !d[n[0]]; }).map(function (n) { return n[1]; });
     if (miss.length) { msg.style.color = '#C62828'; msg.textContent = '未入力の項目があります：' + miss.join('、'); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { msg.style.color = '#C62828'; msg.textContent = 'メールアドレスを確認してください'; return; }
-    d.termsVersion = '1.0';
+    d.termsVersion = '1.1';
     btn.disabled = true; msg.style.color = '#6B7280'; msg.textContent = '送信しています…';
     fetch('/api/apply', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
       .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || '送信に失敗しました'); return j; }); })
