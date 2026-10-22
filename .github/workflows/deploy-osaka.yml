@@ -48,3 +48,9 @@ jobs:
             --exclude='_secrets/mail.json' --exclude='_data/' \
             -e "ssh -i ~/.ssh/deploy_key -p 2222 -o UserKnownHostsFile=$HOME/.ssh/known_hosts -o StrictHostKeyChecking=yes" \
             dist-osaka/ "$DEPLOY_USER@$DEPLOY_HOST:web/$DEPLOY_DIR/"
+
+      - name: Notify search engines (IndexNow)
+        continue-on-error: true
+        env:
+          SITE_URL: ${{ vars.OSAKA_SITE_URL }}
+        run: node scripts/indexnow-osaka.js
