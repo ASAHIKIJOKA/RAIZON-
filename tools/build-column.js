@@ -82,6 +82,7 @@ const head = (o) => `<!DOCTYPE html>
 <link rel="stylesheet" href="${o.base}style.css?v=${ver}">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
 </head>
 <body>
 ${fix(header0, o.base)}

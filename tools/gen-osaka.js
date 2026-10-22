@@ -150,6 +150,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="stylesheet" href="style.css?v=79">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -422,6 +423,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
       <p>当サイトの運営には、次の外部サービスを利用しています。いずれも、当サイトの提供に必要な範囲で利用しています。</p>
       <ul><li>ホスティング（サイトの配信と、フォームの受付）：GMOペパボ株式会社「ヘテムル」</li><li>メールの送受信：Google「Gmail」。フォームの内容は、当方の受信用メールに送られます</li><li>Webフォントの配信：Google Fonts。ページの表示時に、ブラウザからGoogleのサーバーへ、IPアドレス等が送信されます</li></ul>
       <p>アクセス解析：Google「Google アナリティクス」。サイトの利用状況を把握し、改善に役立てるため、Cookie等を通じて閲覧情報（閲覧ページ、閲覧環境、おおよその地域など。個人を特定しない形）を収集します。収集したデータはGoogleに送信されます。ブラウザの設定でCookieを無効にすることで、収集を拒否できます。詳しくは、<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご確認ください。当サイトでは、広告のための外部ツールは利用していません。</p>
+      <p>画面の操作の分析：Microsoft「Microsoft Clarity」。サイトの使いやすさを改善するため、Cookie等を通じて、ページの閲覧・クリック・スクロールなどの操作の状況を、個人を特定しない形で記録・分析します。収集したデータはMicrosoftに送信されます。ブラウザの設定でCookieを無効にすることで、収集を拒否できます。詳しくは、<a href="https://privacy.microsoft.com/ja-jp/privacystatement" target="_blank" rel="noopener">Microsoftのプライバシーに関する声明</a>をご覧ください。</p>
       <h3>5. 安全管理</h3>
       <p>お預かりした情報は、不正なアクセス・紛失・漏えいを防ぐよう、適切に管理します。フォームの通信は暗号化（HTTPS）されます。</p>
       <h3>6. 保管期間</h3>
