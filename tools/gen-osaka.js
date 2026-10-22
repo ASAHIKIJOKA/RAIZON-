@@ -103,7 +103,7 @@ const abs = (u) => SITE ? SITE + '/' + u : u;
 const ld = [
   { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'RAIZON', description: DESC,
     ...(SITE ? { url: SITE + '/', image: SITE + '/assets/ogp.png' } : {}),
-    foundingDate: '2025-10', telephone: '+81-80-6493-7744',
+    foundingDate: '2025-10', hasMap: 'https://www.google.com/maps/search/?api=1&query=RAIZON&query_place_id=ChIJCeDAeu3fAGAR14m9L3ba058', openingHoursSpecification: [{'@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday','Tuesday','Wednesday','Thursday','Friday','Saturday'], opens: '09:00', closes: '19:00'}], telephone: '+81-80-6493-7744',
     address: { '@type': 'PostalAddress', postalCode: '577-0803', addressRegion: '大阪府', addressLocality: '東大阪市', streetAddress: '下小阪5丁目7-20', addressCountry: 'JP' },
     areaServed: ['東大阪市', '大阪府', '奈良県', '京都府'],
     makesOffer: { '@type': 'Offer', name: 'ホームページ制作（月額プラン）', priceCurrency: 'JPY', price: '9800', description: '6ページ構成のホームページ制作。初期制作費0円・最低契約期間なし。価格は税抜。' } },
@@ -369,7 +369,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
     </div>
     <div>
       <div class="map"><iframe title="RAIZON 事務所の地図" src="https://maps.google.com/maps?q=${mapQ}&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      <div class="map__f"><address><b>RAIZON</b>　〒577-0803 大阪府東大阪市下小阪5丁目7-20</address><a href="https://www.google.com/maps/search/?api=1&amp;query=${mapQ}" target="_blank" rel="noopener">Googleマップで開く →</a></div>
+      <div class="map__f"><address><b>RAIZON</b>　〒577-0803 大阪府東大阪市下小阪5丁目7-20</address><a href="https://www.google.com/maps/search/?api=1&amp;query=RAIZON&amp;query_place_id=ChIJCeDAeu3fAGAR14m9L3ba058" target="_blank" rel="noopener">Googleマップで開く →</a><a href="https://search.google.com/local/writereview?placeid=ChIJCeDAeu3fAGAR14m9L3ba058" target="_blank" rel="noopener">Googleでクチコミを書く →</a></div>
     </div>
   </div>
 </section>
