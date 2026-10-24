@@ -51,6 +51,7 @@ const fix = (html, base) => html
   .replace(/href="#([a-z]+)"/g, `href="${base}#$1"`)
   .replace(/href="column\/"/g, `href="${base}column/"`)
   .replace(/href="industry\//g, `href="${base}industry/`)
+  .replace(/href="area\//g, `href="${base}area/`)
   .replace(/src="assets\//g, `src="${base}assets/`)
   .replace(/ data-nav="works"/g, '');
 
@@ -61,6 +62,7 @@ const head = (o) => `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(o.title)}</title>
 <meta name="description" content="${esc(o.desc)}">
+<meta name="keywords" content="${esc(o.kw || '東大阪,ホームページ制作,格安ホームページ制作,月額制,サブスク,小阪,布施,八戸ノ里,RAIZON')}">
 <!-- 公開前のため検索エンジンに載せない。SITE_URL を付けて build-osaka.js を実行すると、公開用に切り替わる -->
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="${o.og || 'website'}">
@@ -158,7 +160,7 @@ for (const p of live) {
   <p class="art__back"><a href="${base}column/">← コラム一覧へ</a></p>
 </div></article>`;
   fs.mkdirSync(path.join(OUT, p.id), { recursive: true });
-  fs.writeFileSync(path.join(OUT, p.id, 'index.html'), head({ path: `/column/${p.id}/`, base, title: `${p.title}｜RAIZON`, desc: p.description, og: 'article', ogImage: p.thumbnail, main, ld }));
+  fs.writeFileSync(path.join(OUT, p.id, 'index.html'), head({ path: `/column/${p.id}/`, base, title: `${p.title}｜RAIZON`, desc: p.description, kw: ['東大阪', 'ホームページ制作', p.title.split(/[｜？?：:]/)[0], '格安ホームページ制作', '月額制', '小阪', '布施', '八戸ノ里', 'RAIZON'].join(','), og: 'article', ogImage: p.thumbnail, main, ld }));
 }
 console.log(`コラム: ${live.length}本 → site/column/`);
 
@@ -249,7 +251,7 @@ for (const p of pagesSorted) {
   <p class="art__back"><a href="${base}">← トップページへ</a></p>
 </div></section>`;
   fs.mkdirSync(path.join(ROOT, 'site', p.path), { recursive: true });
-  fs.writeFileSync(path.join(ROOT, 'site', p.path, 'index.html'), head({ path: `/${p.path}/`, base, title: p.title + '｜RAIZON', desc: p.description, main, ld }));
+  fs.writeFileSync(path.join(ROOT, 'site', p.path, 'index.html'), head({ path: `/${p.path}/`, base, title: p.title + '｜RAIZON', desc: p.description, kw: ['東大阪', p.name + ' ホームページ制作', p.name + ' ホームページ', 'ホームページ制作', '格安ホームページ制作', '月額制', '初期費用0円', '小阪', '布施', '八戸ノ里', 'RAIZON'].join(','), main, ld }));
 }
 console.log(`ページ: ${pagesSorted.length}枚 → site/(industry/ ほか)`);
 

@@ -98,7 +98,7 @@ const cta = (title, title2, sub, photo, k, alt) => `<section class="cta"><div cl
 
 const SITE = (process.env.SITE_URL || '').replace(/\/$/, '');
 const TITLE = '東大阪の格安ホームページ制作｜制作費0円・月額9,800円（税抜）｜RAIZON';
-const DESC = '大阪府東大阪市（布施・小阪・八戸ノ里ほか）のホームページ制作会社RAIZON。個人事業主・中小企業向けに、初期制作費0円・月額9,800円（税抜）・最低契約期間なしで制作します。';
+const DESC = '東大阪市（小阪・布施・八戸ノ里・河内小阪）の格安ホームページ制作会社RAIZON。個人事業主・中小企業向けに、初期制作費0円・月額9,800円（税抜）の月額制（サブスク）で制作。月4回までの修正・更新込み、最低契約期間なし。';
 const abs = (u) => SITE ? SITE + '/' + u : u;
 const ld = [
   { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'RAIZON', description: DESC,
@@ -136,6 +136,7 @@ ${SITE ? `<link rel="canonical" href="${SITE}/">` : ''}
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="RAIZON">
 <meta property="og:title" content="${TITLE}">
+<meta name="keywords" content="東大阪,ホームページ制作,格安ホームページ制作,月額制,サブスク,初期費用0円,小阪,布施,八戸ノ里,河内小阪,個人事業主,中小企業,RAIZON">
 <meta property="og:description" content="${DESC}">
 ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image" content="${SITE}/assets/ogp.png">\n<meta name="twitter:card" content="summary_large_image">` : ''}
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>
@@ -166,7 +167,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   <div class="fv__in">
     <div class="fv__l">
       <div class="fv__lab">大阪府東大阪市のホームページ制作会社</div>
-      <h1>東大阪の事業者さんに、<br><span class="mk">制作費<b>0</b>円</span>の<br>ホームページを。</h1>
+      <h1>東大阪の事業者さんに、<br><span class="mk">制作費<b>0</b>円</span>の<br>ホームページ制作を。</h1>
       <p class="fv__lead">個人事業主・中小企業のための、月額制のホームページ制作です。公開したあとの更新や修正も、気軽にご相談ください。</p>
       <div class="fv__price">
         <div class="pr"><span class="pr__k">月額</span><span class="pr__n">9,800</span><span class="pr__y">円</span><span class="pr__t">（税抜）</span></div>

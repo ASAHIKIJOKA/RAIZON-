@@ -63,6 +63,8 @@ def page(slug, name, yomi, label):
     head = re.sub(r'<html lang="ja" data-path="[^"]+">', f'<html lang="ja" data-path="/area/{slug}/">', head)
     head = re.sub(r'<title>.*?</title>', f'<title>{esc(title)}</title>', head, count=1)
     head = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{esc(desc)}">', head, count=1)
+    kw = f'{name}ホームページ制作,{name} ホームページ,東大阪,東大阪市,ホームページ制作,格安ホームページ制作,月額制,サブスク,初期費用0円,RAIZON'
+    head = head.replace('<meta property="og:title"', f'<meta name="keywords" content="{kw}">\n<meta property="og:title"', 1)
     head = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{esc(title)}">', head, count=1)
     head = re.sub(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{esc(desc)}">', head, count=1)
     head = re.sub(r'<script type="application/ld\+json">.*?</script>', lambda m: '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False, separators=(',', ':')) + '</script>', head, count=1, flags=re.S)
