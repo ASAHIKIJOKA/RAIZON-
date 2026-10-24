@@ -50,6 +50,13 @@ const colFiles = [];
     if (fs.statSync(f).isDirectory()) walk(f); else if (n === 'index.html') colFiles.push(f);
   }
 })(path.join(OUT, 'industry'));
+(function walk(dir) {
+  if (!fs.existsSync(dir)) return;
+  for (const n of fs.readdirSync(dir)) {
+    const f = path.join(dir, n);
+    if (fs.statSync(f).isDirectory()) walk(f); else if (n === 'index.html') colFiles.push(f);
+  }
+})(path.join(OUT, 'area'));
 const colUrls = [];
 for (const f of colFiles) {
   let h = fs.readFileSync(f, 'utf8');

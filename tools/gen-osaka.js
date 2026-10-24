@@ -369,7 +369,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
     </div>
     <div>
       <div class="map"><iframe title="RAIZON 事務所の地図" src="https://maps.google.com/maps?q=${mapQ}&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      <div class="map__f"><address><b>RAIZON</b>　〒577-0803 大阪府東大阪市下小阪5丁目7-20</address><a href="https://www.google.com/maps/search/?api=1&amp;query=RAIZON&amp;query_place_id=ChIJCeDAeu3fAGAR14m9L3ba058" target="_blank" rel="noopener">Googleマップで開く →</a><a href="https://search.google.com/local/writereview?placeid=ChIJCeDAeu3fAGAR14m9L3ba058" target="_blank" rel="noopener">Googleでクチコミを書く →</a></div>
+      <div class="map__f"><address><b>RAIZON</b>　〒577-0803 大阪府東大阪市下小阪5丁目7-20</address><a href="https://www.google.com/maps/search/?api=1&amp;query=RAIZON&amp;query_place_id=ChIJCeDAeu3fAGAR14m9L3ba058" target="_blank" rel="noopener">Googleマップで開く →</a><a href="https://search.google.com/local/writereview?placeid=ChIJCeDAeu3fAGAR14m9L3ba058" target="_blank" rel="noopener">Googleでクチコミを書く →</a></div><p class="ip-note" style="margin-top:14px">エリア別のご案内：<a href="area/kosaka/">小阪</a>　<a href="area/kawachikosaka/">河内小阪</a>　<a href="area/fuse/">布施</a>　<a href="area/yaenosato/">八戸ノ里</a></p>
     </div>
   </div>
 </section>
@@ -448,7 +448,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
     </div>
     <nav aria-label="フッターメニュー">${nav.map(([h,l]) => `<a href="${h}"${h==='#works'?' data-nav="works"':''}>${l}</a>`).join('')}<a href="#contact">お問い合わせ</a><a href="#privacy">プライバシーポリシー</a></nav>
   </div>
-  <nav class="ftr__sub" aria-label="業種別のご案内"><span>業種別のご案内</span><a href="industry/factory/">町工場・製造業</a><a href="industry/restaurant/">飲食店</a><a href="industry/salon/">美容室・サロン</a><a href="industry/clinic/">整骨院・治療院</a></nav>
+  <nav class="ftr__sub" aria-label="業種別のご案内"><span>業種別のご案内</span><a href="industry/factory/">町工場・製造業</a><a href="industry/restaurant/">飲食店</a><a href="industry/salon/">美容室・サロン</a><a href="industry/clinic/">整骨院・治療院</a></nav><nav class="ftr__sub" aria-label="エリア別のご案内"><span>エリア別のご案内</span><a href="area/kosaka/">小阪</a><a href="area/kawachikosaka/">河内小阪</a><a href="area/fuse/">布施</a><a href="area/yaenosato/">八戸ノ里</a></nav>
   <div class="ftr__c">© 2026 RAIZON. All rights reserved.</div>
 </footer>
 <div class="sp-spacer"></div>
