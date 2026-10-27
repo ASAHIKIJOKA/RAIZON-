@@ -97,8 +97,8 @@ const field = (key, label, type, phd, ac, req) => `<label class="fm__f"><span cl
 const cta = (title, title2, sub, photo, k, alt) => `<section class="cta"><div class="cta__in"><div class="cta__t"><h2><span class="inline">${title}</span><span class="inline">${title2}</span></h2><p>${sub}</p><div class="cta__b"><a class="btn" href="#contact">無料相談・資料請求${arrow}</a><a class="btn btn--o" href="#price">料金を見る${arrow}</a></div></div><div class="cta__p${k?' cta__p--il':''}">${k ? `<div class="cta__c">${ill(k, alt, 'il--contain')}</div>` : ph(photo)}</div></div></section>`;
 
 const SITE = (process.env.SITE_URL || '').replace(/\/$/, '');
-const TITLE = '東大阪の格安ホームページ制作｜制作費0円・月額9,800円（税抜）｜RAIZON';
-const DESC = '東大阪市（小阪・布施・八戸ノ里・河内小阪）の格安ホームページ制作会社RAIZON。個人事業主・中小企業向けに、初期制作費0円・月額9,800円（税抜）の月額制（サブスク）で制作。月4回までの修正・更新込み、最低契約期間なし。';
+const TITLE = '東大阪のホームページ制作｜制作費0円・月額9,800円｜RAIZON';
+const DESC = '東大阪市（小阪・布施・八戸ノ里・河内小阪）のホームページ制作会社RAIZON。個人事業主・中小企業向けに、初期制作費0円・月額9,800円（税抜）の月額制で制作します。月4回までの修正・更新込み、最低契約期間なし。Googleマップ対策のご相談もできます。';
 const abs = (u) => SITE ? SITE + '/' + u : u;
 const ld = [
   { '@context': 'https://schema.org', '@type': 'ProfessionalService', name: 'RAIZON', description: DESC,
@@ -123,6 +123,7 @@ const SHOTS = [ // [ファイル名, 説明, 幅, 高さ, 色(d=黒系 / l=明�
   ['hair', '美容室のホームページ（制作イメージ）', 500, 1000, 'l']
 ];
 const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h, tone]) => `<div class="shots__i is-${tone}"><img src="assets/shots/${k}.webp" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
+const colTop = fs.readdirSync('content/column').filter(f=>f.endsWith('.html')).map(f=>{const t=fs.readFileSync('content/column/'+f,'utf8');const g=k=>(t.match(new RegExp('^'+k+':\\s*(.+)$','m'))||[])[1];return {id:g('id'),title:g('title'),date:g('publishAt')};}).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6).map(c=>`<li><a href="column/${c.id}/">${c.title}</a></li>`).join('');
 const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -148,7 +149,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=79">
+<link rel="stylesheet" href="style.css?v=80">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
@@ -328,7 +329,15 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
       ${st('よくある質問','よく聞かれること')}
       <div class="fq__tabs" role="tablist" id="faqTabs"></div>
     </div>
-    <div class="fq__r" id="faqList"></div>
+    <div class="fq__r" id="faqList">${faqGroups.flatMap(([, items]) => items.map(([q, a]) => `<div class="fq__s"><h3>${q}</h3><p>${a}</p></div>`)).join('')}</div>
+  </div>
+</section>
+
+<section class="sec" id="column-top">
+  <div class="wrap">
+    ${st('コラム','東大阪でホームページを作る前に知っておきたいこと')}
+    <ul class="ctop">${colTop}</ul>
+    <p style="margin-top:16px"><a href="column/">コラム一覧を見る${arrow}</a>　<a href="area/kosaka/">小阪</a>・<a href="area/fuse/">布施</a>・<a href="area/yaenosato/">八戸ノ里</a>・<a href="area/kawachikosaka/">河内小阪</a>のホームページ制作</p>
   </div>
 </section>
 
