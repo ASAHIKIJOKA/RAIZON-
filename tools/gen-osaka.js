@@ -123,7 +123,7 @@ const SHOTS = [ // [ファイル名, 説明, 幅, 高さ, 色(d=黒系 / l=明�
   ['hair', '美容室のホームページ（制作イメージ）', 500, 1000, 'l']
 ];
 const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h, tone]) => `<div class="shots__i is-${tone}"><img src="assets/shots/${k}.webp" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
-const colTop = fs.readdirSync('content/column').filter(f=>f.endsWith('.html')).map(f=>{const t=fs.readFileSync('content/column/'+f,'utf8');const g=k=>(t.match(new RegExp('^'+k+':\\s*(.+)$','m'))||[])[1];return {id:g('id'),title:g('title'),date:g('publishAt')};}).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6).map(c=>`<li><a href="column/${c.id}/">${c.title}</a></li>`).join('');
+const colTop = fs.readdirSync('content/column').filter(f=>f.endsWith('.html')).map(f=>{const t=fs.readFileSync('content/column/'+f,'utf8');const g=k=>(t.match(new RegExp('^'+k+':\\s*(.+)$','m'))||[])[1];return {id:g('id'),title:g('title'),cat:g('category'),th:g('thumbnail'),date:g('publishAt')};}).sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id)).slice(0,3).map(c=>`<a class="cl__c" href="column/${c.id}/"><span class="cl__th"><img src="${c.th}" alt="" width="1200" height="630" loading="lazy" decoding="async"></span><span class="cl__cat">${c.cat}</span><h3>${c.title}</h3><time datetime="${c.date}">${c.date.replace(/-/g,'.')}</time></a>`).join('');
 const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -149,7 +149,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=80">
+<link rel="stylesheet" href="style.css?v=81">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
@@ -336,8 +336,8 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <section class="sec" id="column-top">
   <div class="wrap">
     ${st('コラム','東大阪でホームページを作る前に知っておきたいこと')}
-    <ul class="ctop">${colTop}</ul>
-    <p style="margin-top:16px"><a href="column/">コラム一覧を見る${arrow}</a>　<a href="area/kosaka/">小阪</a>・<a href="area/fuse/">布施</a>・<a href="area/yaenosato/">八戸ノ里</a>・<a href="area/kawachikosaka/">河内小阪</a>のホームページ制作</p>
+    <div class="cl__g ctop">${colTop}</div>
+    <div class="ctop__more"><a class="btn btn--line" href="column/">コラム一覧を見る${arrow}</a></div><p class="ctop__area">エリア別: <a href="area/kosaka/">小阪</a>・<a href="area/fuse/">布施</a>・<a href="area/yaenosato/">八戸ノ里</a>・<a href="area/kawachikosaka/">河内小阪</a>のホームページ制作</p>
   </div>
 </section>
 

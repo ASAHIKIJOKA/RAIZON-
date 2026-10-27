@@ -867,4 +867,4 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 }
 /* コラムの表が、狭い画面で横にはみ出さない(はみ出す分は、表の中でスクロール) */
 @media(max-width:600px){.art-table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.art-table th,.art-table td{min-width:96px}}
-.ctop{list-style:none;margin:0;padding:0;display:grid;gap:10px}.ctop a{display:block;padding:14px 18px;background:var(--sec);border:1px solid var(--bd);border-radius:10px;font-weight:700;color:var(--ink);text-decoration:none}.ctop a:hover{text-decoration:underline}#column-top p a{color:var(--ink);font-weight:700}
+.ctop{margin-top:32px}.cl__c h3{margin:0;font-size:17px;font-weight:800;line-height:1.6}.ctop__more{margin-top:28px;text-align:center}.ctop__area{margin-top:16px;text-align:center;font-size:13px;color:var(--muted)}.ctop__area a{color:var(--ink);font-weight:700;text-decoration:underline}
