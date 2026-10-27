@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="t d">
+<title id="t">LINE公式アカウントを自分で作るか、代行に頼むかの比較図</title>
+<desc id="d">自分で作るのが向いているお店と、代行に頼むのが向いているお店の特徴を、左右で比べた図</desc>
+<style>text{font-family:"Hiragino Sans","Yu Gothic","Meiryo","Noto Sans JP",sans-serif}</style>
+<rect width="800" height="560" rx="24" fill="#F4F8FB"/>
+<text x="400" y="62" text-anchor="middle" font-size="30" font-weight="800" fill="#0F1B2D">LINE公式アカウント、どっちで作る？</text>
+<g>
+<rect x="40" y="96" width="350" height="344" rx="22" fill="#fff" stroke="#06C755" stroke-width="3"/>
+<rect x="40" y="96" width="350" height="64" rx="22" fill="#06C755"/><rect x="40" y="130" width="350" height="30" fill="#06C755"/>
+<text x="215" y="138" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">自分で作る</text>
+<text x="215" y="200" text-anchor="middle" font-size="16" font-weight="700" fill="#5B6B7F">こんなお店に向いています</text>
+<g font-size="21" font-weight="700" fill="#0F1B2D">
+<circle cx="76" cy="248" r="14" fill="#E3F9EB"/><path d="M69 248l5 5 9-10" fill="none" stroke="#06C755" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="104" y="256">目的が決まっている</text>
+<circle cx="76" cy="318" r="14" fill="#E3F9EB"/><path d="M69 318l5 5 9-10" fill="none" stroke="#06C755" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="104" y="326">週に少し時間を使える</text>
+<circle cx="76" cy="388" r="14" fill="#E3F9EB"/><path d="M69 388l5 5 9-10" fill="none" stroke="#06C755" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="104" y="396">まず月額0円で試したい</text>
+</g></g>
+<g>
+<rect x="410" y="96" width="350" height="344" rx="22" fill="#fff" stroke="#146EF5" stroke-width="3"/>
+<rect x="410" y="96" width="350" height="64" rx="22" fill="#146EF5"/><rect x="410" y="130" width="350" height="30" fill="#146EF5"/>
+<text x="585" y="138" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">代行に頼む</text>
+<text x="585" y="200" text-anchor="middle" font-size="16" font-weight="700" fill="#5B6B7F">こんなお店に向いています</text>
+<g font-size="21" font-weight="700" fill="#0F1B2D">
+<circle cx="446" cy="248" r="14" fill="#E6EFFE"/><path d="M439 248l5 5 9-10" fill="none" stroke="#146EF5" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="474" y="256">営業中で手が離せない</text>
+<circle cx="446" cy="318" r="14" fill="#E6EFFE"/><path d="M439 318l5 5 9-10" fill="none" stroke="#146EF5" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="474" y="326">何から決めるか分からない</text>
+<circle cx="446" cy="388" r="14" fill="#E6EFFE"/><path d="M439 388l5 5 9-10" fill="none" stroke="#146EF5" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="474" y="396" font-size="19">HPや予約もまとめて整えたい</text>
+</g></g>
+<rect x="40" y="466" width="720" height="62" rx="16" fill="#0F1B2D"/>
+<text x="400" y="504" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">迷ったら「目的が決まっているか」「運用する時間があるか」で選ぶ</text>
+</svg>

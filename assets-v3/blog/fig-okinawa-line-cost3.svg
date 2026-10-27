@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="t d">
+<title id="t">LINE公式アカウントの費用を3つに分けて考える図</title>
+<desc id="d">構築の費用、毎月の運用の費用、LINE社の利用料の3つと、それぞれの支払い先を示した図</desc>
+<style>text{font-family:"Hiragino Sans","Yu Gothic","Meiryo","Noto Sans JP",sans-serif}</style>
+<rect width="800" height="560" rx="24" fill="#F4F8FB"/>
+<text x="400" y="62" text-anchor="middle" font-size="30" font-weight="800" fill="#0F1B2D">費用は「3つ」に分けて比べる</text>
+<g>
+<rect x="40" y="96" width="720" height="110" rx="18" fill="#fff" stroke="#E1E8F0" stroke-width="2"/>
+<circle cx="96" cy="151" r="30" fill="#06C755"/><text x="96" y="162" text-anchor="middle" font-size="30" font-weight="800" fill="#fff">1</text>
+<text x="150" y="140" font-size="24" font-weight="800" fill="#0F1B2D">構築の費用</text>
+<text x="150" y="176" font-size="17" font-weight="600" fill="#5B6B7F">開設・設定、リッチメニュー、自動応答などを整える</text>
+<rect x="556" y="126" width="180" height="50" rx="25" fill="#E3F9EB"/><text x="646" y="158" text-anchor="middle" font-size="18" font-weight="800" fill="#047A36">支払い先：依頼先</text>
+</g>
+<g>
+<rect x="40" y="224" width="720" height="110" rx="18" fill="#fff" stroke="#E1E8F0" stroke-width="2"/>
+<circle cx="96" cy="279" r="30" fill="#146EF5"/><text x="96" y="290" text-anchor="middle" font-size="30" font-weight="800" fill="#fff">2</text>
+<text x="150" y="268" font-size="24" font-weight="800" fill="#0F1B2D">毎月の運用の費用</text>
+<text x="150" y="304" font-size="17" font-weight="600" fill="#5B6B7F">配信の作成、改善の提案など</text>
+<rect x="556" y="254" width="180" height="50" rx="25" fill="#E6EFFE"/><text x="646" y="286" text-anchor="middle" font-size="18" font-weight="800" fill="#0B4FC2">支払い先：依頼先</text>
+</g>
+<g>
+<rect x="40" y="352" width="720" height="110" rx="18" fill="#fff" stroke="#E1E8F0" stroke-width="2"/>
+<circle cx="96" cy="407" r="30" fill="#7C4DFF"/><text x="96" y="418" text-anchor="middle" font-size="30" font-weight="800" fill="#fff">3</text>
+<text x="150" y="396" font-size="24" font-weight="800" fill="#0F1B2D">LINE社の利用料</text>
+<text x="150" y="432" font-size="17" font-weight="600" fill="#5B6B7F">配信数に応じたプランの料金</text>
+<rect x="556" y="382" width="180" height="50" rx="25" fill="#EFE9FF"/><text x="646" y="414" text-anchor="middle" font-size="18" font-weight="800" fill="#5B2FD6">支払い先：LINE社</text>
+</g>
+<rect x="40" y="482" width="720" height="50" rx="14" fill="#0F1B2D"/>
+<text x="400" y="515" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">金額だけでなく、何が含まれているかも比べる</text>
+</svg>
