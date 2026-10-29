@@ -139,7 +139,6 @@ function rz_finish_response($code, $data) {
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store');
     header('Content-Length: ' . strlen($json));
-    header('Connection: close');
     echo $json;
     while (ob_get_level() > 0) @ob_end_flush();
     flush();
