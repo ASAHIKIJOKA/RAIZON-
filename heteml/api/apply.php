@@ -46,35 +46,52 @@ $pdf = [[
     'type' => 'application/pdf',
 ]];
 
+// --- 1) 申込を、外から見えないフォルダに必ず記録する(メールが失敗しても、申込を失わない) ---
+$logDir = dirname(__DIR__) . '/_secrets';
+@file_put_contents($logDir . '/apply-log.jsonl', json_encode(['at' => $at, 'ip' => $ip, 'ua' => $ua, 'data' => $d], JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX);
+
+$ownerText = implode("\n", array_merge(
+    ['新しいお申し込み(契約成立)がありました。お客様へ、振込先とサービス開始のご案内を送ってください。', ''],
+    $lines,
+    ['', '--- 同意の記録 ---',
+     '受付日時: ' . $at,
+     '同意した規約: サービス利用規約 第' . RZ_TERMS_VERSION . '版(https://raizon-okinawa.com/terms)',
+     '利用規約への同意: あり / 確認事項の確認: あり',
+     'IPアドレス: ' . $ip,
+     'ブラウザ: ' . $ua]
+));
+$customerText = implode("\n", array_merge(
+    [$d['company'] . '　' . $d['representative'] . '様', '',
+     'このたびは、RAIZONのサービスにお申し込みいただき、ありがとうございます。',
+     '以下の内容で、お申し込みを受け付け、ご契約が成立しました。',
+     'お支払い(振込先など)とサービス開始のご案内を、2営業日以内に、当社からご連絡します。', ''],
+    $lines,
+    ['', '受付日時: ' . $at,
+     '同意いただいた規約: サービス利用規約 第' . RZ_TERMS_VERSION . '版（このメールにPDFを添付しています。大切に保管してください）',
+     'https://raizon-okinawa.com/terms', '',
+     'お心当たりのない場合や、内容に誤りがある場合は、このメールにご返信ください。', '',
+     'RAIZON（ライゾン）',
+     '沖縄県中頭郡北谷町字砂辺301-7',
+     'raizon.asahi@gmail.com / 080-6493-7744']
+));
+
+// --- 2) RAIZON宛の通知メール(添付なし・短時間)。これが届けば「受付できた」ので、お客様へ完了を返す ---
 try {
-    rz_send_mail('RAIZON申込フォーム', 'raizon.asahi@gmail.com', '【お申し込み】' . $d['company'] . '様（' . $d['plan'] . '）', implode("\n", array_merge(
-        ['新しいお申し込み(契約成立)がありました。お客様へ、振込先とサービス開始のご案内を送ってください。', ''],
-        $lines,
-        ['', '--- 同意の記録 ---',
-         '受付日時: ' . $at,
-         '同意した規約: サービス利用規約 第' . RZ_TERMS_VERSION . '版(https://raizon-okinawa.com/terms)',
-         '利用規約への同意: あり / 確認事項の確認: あり',
-         'IPアドレス: ' . $ip,
-         'ブラウザ: ' . $ua]
-    )), $d['email']);
-
-    rz_send_mail('RAIZON', $d['email'], '【RAIZON】お申し込みを受け付けました', implode("\n", array_merge(
-        [$d['company'] . '　' . $d['representative'] . '様', '',
-         'このたびは、RAIZONのサービスにお申し込みいただき、ありがとうございます。',
-         '以下の内容で、お申し込みを受け付け、ご契約が成立しました。',
-         'お支払い(振込先など)とサービス開始のご案内を、2営業日以内に、当社からご連絡します。', ''],
-        $lines,
-        ['', '受付日時: ' . $at,
-         '同意いただいた規約: サービス利用規約 第' . RZ_TERMS_VERSION . '版（このメールにPDFを添付しています。大切に保管してください）',
-         'https://raizon-okinawa.com/terms', '',
-         'お心当たりのない場合や、内容に誤りがある場合は、このメールにご返信ください。', '',
-         'RAIZON（ライゾン）',
-         '沖縄県中頭郡北谷町字砂辺301-7',
-         'raizon.asahi@gmail.com / 080-6493-7744']
-    )), 'raizon.asahi@gmail.com', $pdf);
-
-    rz_json_out(200, ['ok' => true]);
+    rz_send_mail('RAIZON申込フォーム', 'raizon.asahi@gmail.com', '【お申し込み】' . $d['company'] . '様（' . $d['plan'] . '）', $ownerText, $d['email']);
 } catch (Throwable $e) {
-    error_log('apply mail error: ' . $e->getMessage());
+    error_log('apply owner mail error: ' . $e->getMessage());
     rz_json_out(500, ['error' => 'メール送信に失敗しました', 'reason' => rz_mail_reason($e)]);
+}
+
+// --- 3) お客様へ先に「完了」を返し、画面が止まらないようにする。規約PDFつきの受付メールは、そのあとで送る ---
+rz_finish_response(200, ['ok' => true]);
+try {
+    rz_send_mail('RAIZON', $d['email'], '【RAIZON】お申し込みを受け付けました', $customerText, 'raizon.asahi@gmail.com', $pdf);
+} catch (Throwable $e) {
+    error_log('apply customer mail error: ' . $e->getMessage());
+    @file_put_contents($logDir . '/apply-errors.log', $at . ' 受付メール(お客様宛)の送信に失敗: ' . $d['email'] . ' / ' . rz_mail_reason($e) . "\n", FILE_APPEND | LOCK_EX);
+    // お客様宛が届かなかったことを、RAIZONに知らせる(お客様へ連絡できるように)
+    try {
+        rz_send_mail('RAIZON申込フォーム', 'raizon.asahi@gmail.com', '【要対応】受付メールが届いていません: ' . $d['company'] . '様', "お客様宛の受付メール(規約PDFつき)を送れませんでした。お客様へ、受付とご案内を連絡してください。\n\nメールアドレス: " . $d['email'] . "\n原因: " . rz_mail_reason($e) . "\n\n" . $ownerText);
+    } catch (Throwable $e2) { /* 記録(apply-log.jsonl)は残っている */ }
 }

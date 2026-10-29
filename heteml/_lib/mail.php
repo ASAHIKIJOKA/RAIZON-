@@ -128,3 +128,20 @@ function rz_mail_reason($e) {
     foreach (['not_configured', 'connect', 'auth'] as $k) if ($m === $k) return $k;
     return 'smtp';
 }
+
+
+// 先にお客様へ応答を返して、接続を閉じる(そのあとも処理を続けられる)。メール送信が遅くても、画面が止まらないようにする
+function rz_finish_response($code, $data) {
+    ignore_user_abort(true);
+    @set_time_limit(120);
+    $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    http_response_code($code);
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store');
+    header('Content-Length: ' . strlen($json));
+    header('Connection: close');
+    echo $json;
+    while (ob_get_level() > 0) @ob_end_flush();
+    flush();
+    if (function_exists('fastcgi_finish_request')) fastcgi_finish_request();
+}
