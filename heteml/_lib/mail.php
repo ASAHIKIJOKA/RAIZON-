@@ -67,7 +67,7 @@ function rz_send_mail($fromName, $to, $subject, $text, $replyTo = null, $attachm
 
     $fp = @stream_socket_client('ssl://smtp.gmail.com:465', $errno, $errstr, 10);
     if (!$fp) throw new Exception('connect');
-    stream_set_timeout($fp, 15);
+    stream_set_timeout($fp, 60); // 添付つきの送信は、Gmailの応答まで時間がかかることがある
     try {
         rz_smtp_cmd($fp, null, 220);
         rz_smtp_cmd($fp, 'EHLO raizon-okinawa.com', 250);

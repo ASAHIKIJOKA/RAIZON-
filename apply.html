@@ -196,9 +196,9 @@ button:disabled{opacity:.45;cursor:not-allowed}
     d.termsVersion = '1.1';
     btn.disabled = true; msg.style.color = '#6B7280'; msg.textContent = '送信しています…';
     fetch('/api/apply', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
-      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || '送信に失敗しました'); return j; }); })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error((j.error || '送信に失敗しました') + (j.reason ? '（原因コード: ' + j.reason + '）' : '') + (r.status !== 400 ? '［' + r.status + '］' : '')); return j; }); })
       .then(function () { document.getElementById('formWrap').style.display = 'none'; document.getElementById('done').style.display = 'block'; window.scrollTo(0, 0); })
-      .catch(function (err) { msg.style.color = '#C62828'; msg.textContent = err.message + '。時間をおいて再度お試しいただくか、080-6493-7744 までご連絡ください。'; ok(); });
+      .catch(function (err) { msg.style.color = '#C62828'; msg.textContent = (err instanceof TypeError ? '通信に失敗しました（ネットワークを確認してください）' : err.message) + '。時間をおいて再度お試しいただくか、080-6493-7744 までご連絡ください。'; ok(); });
   });
 })();
 </script>
