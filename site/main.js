@@ -197,6 +197,18 @@
     render();
   })();
 
+  /* ===== 広告の流入元(UTM)を、同じ訪問のあいだ覚えておく。問い合わせの「流入元」に入れて、どの広告からの問い合わせか分かるようにする ===== */
+  var UTM = (function () {
+    try {
+      var p = new URLSearchParams(location.search);
+      if (p.get('utm_source')) {
+        var v = [p.get('utm_source'), p.get('utm_medium') || '', p.get('utm_campaign') || '', p.get('utm_content') || ''].join('/').slice(0, 120);
+        sessionStorage.setItem('rz_utm', v); return v;
+      }
+      return sessionStorage.getItem('rz_utm') || '';
+    } catch (e) { return ''; }
+  })();
+
   /* ===== お問い合わせフォーム ===== */
   (function () {
     var form = q('#form'), done = q('#done'), fail = q('#fail'), send = q('#send');
@@ -232,10 +244,10 @@
       var body = {
         kind: form.elements.kind.value, company: val('company'), name: val('name'), email: val('email'),
         tel: val('tel'), budget: val('budget'), message: val('message'), agree: true,
-        website: form.elements.website.value, source: 'osaka-home' + (document.referrer ? ' / ' + document.referrer : '')
+        website: form.elements.website.value, source: 'osaka-home' + (UTM ? ' [utm=' + UTM + ']' : '') + (document.referrer ? ' / ' + document.referrer : '')
       };
       fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); form.hidden = true; done.hidden = false; })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); form.hidden = true; done.hidden = false; try { if (window.gtag) window.gtag('event', 'generate_lead', { method: 'contact_form', campaign: UTM }); } catch (x) {} })
         .catch(function () { fail.textContent = '送信に失敗しました。時間をおいて再度お試しください。'; })
         .then(function () { send.disabled = false; send.textContent = '入力内容を送信する'; });
     });

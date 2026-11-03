@@ -464,7 +464,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <div class="sp-spacer"></div>
 <div class="sp-cta"><a href="#price">料金を見る</a><a href="#contact">無料で相談する</a></div>
 <script>window.FAQ=${faqJson};</script>
-<script src="main.js?v=30"></script>
+<script src="main.js?v=31"></script>
 </body>
 </html>
 `;
