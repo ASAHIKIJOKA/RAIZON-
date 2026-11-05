@@ -61,6 +61,21 @@
       "source": "/faq.html",
       "destination": "/#faq",
       "permanent": true
+    },
+    {
+      "source": "/price",
+      "destination": "/service#price",
+      "permanent": false
+    },
+    {
+      "source": "/flow",
+      "destination": "/#flow",
+      "permanent": false
+    },
+    {
+      "source": "/faq",
+      "destination": "/#faq",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -113,28 +128,20 @@
       "destination": "/v4/ai.html"
     },
     {
-      "source": "/price",
-      "destination": "/v4/price.html"
-    },
-    {
       "source": "/cases",
       "destination": "/v4/cases.html"
-    },
-    {
-      "source": "/flow",
-      "destination": "/v4/flow.html"
     },
     {
       "source": "/company",
       "destination": "/v4/company.html"
     },
     {
-      "source": "/faq",
-      "destination": "/v4/faq.html"
-    },
-    {
       "source": "/contact",
       "destination": "/v4/contact.html"
+    },
+    {
+      "source": "/service",
+      "destination": "/v4/service.html"
     }
   ],
   "headers": [
@@ -157,6 +164,42 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/assets-v5/illust/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/assets-v5/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/assets-v4/icons-line/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/assets-v3/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
         }
       ]
     }

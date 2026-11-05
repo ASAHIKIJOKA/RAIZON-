@@ -4,6 +4,7 @@
 // ========================================
 
 const { isValidId, isPublished, hiddenIds, getPublishedPosts, getPost } = require('./_firebase');
+const SHELL = require('./_v5-shell.json');
 
 module.exports = async function handler(req, res) {
   const id = req.query.id;
@@ -185,15 +186,15 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/site-v3.css?v=2">
+  <link rel="stylesheet" href="/assets-v5/v5.css?v=8">
   <script type="application/ld+json">${ldBlogPosting}</script>
   <script type="application/ld+json">${ldBreadcrumb}</script>
   ${ldFaq ? `<script type="application/ld+json">${ldFaq.replace(/</g, '\\u003c')}</script>` : ''}
   <style>
-    .post-page-body{padding:64px 40px 80px;background:#F5F7FA;min-height:70vh;}
+    .post-page-body{padding:72px 24px 90px;background:#F6F8F7;min-height:70vh;}
     .post-container{max-width:780px;margin:0 auto;}
     .post-breadcrumb{display:flex;align-items:center;flex-wrap:nowrap;gap:6px;font-size:13px;color:#6B7280;margin-bottom:28px;overflow:hidden;}
-    .post-breadcrumb a{color:#146EF5;text-decoration:none;white-space:nowrap;}
+    .post-breadcrumb a{color:#0A7A27;text-decoration:none;white-space:nowrap;}
     .post-breadcrumb a:hover{text-decoration:underline;}
     .post-breadcrumb .bc-sep{opacity:.5;white-space:nowrap;flex-shrink:0;}
     .post-breadcrumb .bc-title{opacity:.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
@@ -201,27 +202,27 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
     .post-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
     .post-title{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;line-height:1.5;color:#111827;margin-bottom:28px;}
     .post-body-wrap{background:#FFFFFF;border-radius:20px;padding:48px;border:1px solid #E5E9F0;line-height:1.9;color:#111827;}
-    .post-body-wrap h2{font-size:1.25rem;font-weight:800;color:#146EF5;margin:2em 0 .8em;padding-bottom:8px;border-bottom:2px solid #EEF4FE;}
+    .post-body-wrap h2{font-size:1.25rem;font-weight:800;color:#0A7A27;margin:2em 0 .8em;padding-bottom:8px;border-bottom:2px solid #E7F8EF;}
     .post-body-wrap h2:first-child{margin-top:0;}
     .post-body-wrap h3{font-size:1.05rem;font-weight:700;color:#111827;margin:1.6em 0 .6em;}
     .post-body-wrap p{margin-bottom:1.2em;}
     .post-body-wrap ul,.post-body-wrap ol{padding-left:1.5em;margin-bottom:1.2em;}
     .post-body-wrap li{margin-bottom:.4em;}
-    .post-body-wrap strong{color:#146EF5;}
-    .post-body-wrap a{color:#146EF5;text-decoration:underline;}
+    .post-body-wrap strong{color:#0A7A27;}
+    .post-body-wrap a{color:#0A7A27;text-decoration:underline;}
     /* 記事の見やすさ用の部品(2026-10-10 追加): 要点ボックス・目次・手順・囲み・表・図 */
-    .post-body-wrap .rz-lead{background:#EEF4FE;border-radius:16px;padding:20px 24px;margin:0 0 1.6em;border-left:5px solid #146EF5;}
-    .post-body-wrap .rz-lead>strong{display:block;margin-bottom:.4em;color:#0B3E91;}
+    .post-body-wrap .rz-lead{background:#E7F8EF;border-radius:16px;padding:20px 24px;margin:0 0 1.6em;border-left:5px solid #0A7A27;}
+    .post-body-wrap .rz-lead>strong{display:block;margin-bottom:.4em;color:#0A7A27;}
     .post-body-wrap .rz-lead ul{margin:0;padding-left:1.3em;}
     .post-body-wrap .rz-toc{background:#F8FAFC;border:1px solid #E5E9F0;border-radius:16px;padding:18px 24px;margin:0 0 2em;}
     .post-body-wrap .rz-toc>strong{display:block;margin-bottom:.4em;color:#374151;font-size:.95rem;}
     .post-body-wrap .rz-toc ol{margin:0;padding-left:1.4em;}
     .post-body-wrap .rz-toc li{margin-bottom:.2em;}
-    .post-body-wrap .rz-toc a{text-decoration:none;color:#146EF5;}
+    .post-body-wrap .rz-toc a{text-decoration:none;color:#0A7A27;}
     .post-body-wrap h2{scroll-margin-top:90px;}
     .post-body-wrap .rz-steps{list-style:none;counter-reset:rzs;padding:0;margin:0 0 1.6em;}
     .post-body-wrap .rz-steps>li{counter-increment:rzs;position:relative;padding:14px 16px 14px 62px;margin:0 0 12px;background:#fff;border:1px solid #E5E9F0;border-radius:14px;}
-    .post-body-wrap .rz-steps>li::before{content:counter(rzs);position:absolute;left:14px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;background:#146EF5;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;}
+    .post-body-wrap .rz-steps>li::before{content:counter(rzs);position:absolute;left:14px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;background:#0A7A27;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;}
     .post-body-wrap .rz-steps>li strong{display:block;color:#111827;margin-bottom:2px;}
     .post-body-wrap .rz-point,.post-body-wrap .rz-warn{border-radius:14px;padding:16px 20px;margin:0 0 1.6em;line-height:1.8;}
     .post-body-wrap .rz-point{background:#ECFDF3;border:1px solid #B7EBCB;}
@@ -229,7 +230,7 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
     .post-body-wrap .rz-point>strong,.post-body-wrap .rz-warn>strong{display:block;margin-bottom:.2em;color:#111827;}
     .post-body-wrap .rz-table{width:100%;border-collapse:collapse;margin:0 0 1.6em;font-size:.95rem;display:block;overflow-x:auto;}
     .post-body-wrap .rz-table th,.post-body-wrap .rz-table td{border:1px solid #E5E9F0;padding:10px 12px;text-align:left;vertical-align:top;line-height:1.6;}
-    .post-body-wrap .rz-table th{background:#EEF4FE;color:#0B3E91;white-space:nowrap;}
+    .post-body-wrap .rz-table th{background:#E7F8EF;color:#0A7A27;white-space:nowrap;}
     .post-body-wrap .rz-table tr:nth-child(even) td{background:#FAFBFD;}
     .post-body-wrap figure.rz-fig{margin:0 0 1.8em;}
     .post-body-wrap figure.rz-fig img{width:100%;height:auto;display:block;border-radius:14px;border:1px solid #E5E9F0;}
@@ -241,46 +242,23 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
     .related-posts{margin-top:56px;}
     .related-posts-title{font-size:17px;font-weight:800;color:#111827;margin-bottom:18px;padding-bottom:8px;border-bottom:2px solid #E5E9F0;}
     .related-posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-    .related-post-thumb{aspect-ratio:16/9;overflow:hidden;background:#EEF4FE;}
+    .related-post-thumb{aspect-ratio:16/9;overflow:hidden;background:#E7F8EF;}
     .related-post-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
     .related-post-body{padding:10px 2px;}
     .related-post-date{font-size:12px;color:#6B7280;margin-bottom:4px;font-family:Inter;}
     .related-post-title{font-size:13px;font-weight:700;color:#111827;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-    .post-service-cta{margin-top:40px;padding:22px 24px;background:#EEF4FE;border-radius:16px;border:1px solid #D6E4FC;}
-    .post-service-cta-label{font-size:14px;color:#146EF5;font-weight:700;margin-bottom:12px;}
+    .post-service-cta{margin-top:40px;padding:22px 24px;background:#E7F8EF;border-radius:16px;border:1px solid #CFEBDA;}
+    .post-service-cta-label{font-size:14px;color:#0A7A27;font-weight:700;margin-bottom:12px;}
     .post-service-cta-links{display:flex;flex-wrap:wrap;gap:10px;}
-    .post-service-cta-links a{padding:8px 18px;background:#FFFFFF;border:1px solid #D6E4FC;border-radius:999px;font-size:13px;color:#146EF5;font-weight:600;}
+    .post-service-cta-links a{padding:8px 18px;background:#FFFFFF;border:1px solid #CFEBDA;border-radius:999px;font-size:13px;color:#0A7A27;font-weight:600;}
     @media(max-width:600px){.post-body-wrap{padding:28px 20px;}.post-body-wrap .rz-steps>li{padding:12px 12px 12px 56px;}.post-title{font-size:1.3rem;}.post-back{flex-direction:column;gap:10px;}.post-breadcrumb .bc-title{display:none;}.related-posts-grid{grid-template-columns:1fr;}}
+    .rz3-blog-cat{display:inline-block;background:#26292D;color:#fff;font-size:11.5px;font-weight:800;padding:1px 10px;border-radius:4px}
+    .rz3-blog-card{display:block;background:#fff;border-radius:16px;overflow:hidden}
   </style>
 <script>try{if(!localStorage.getItem('raizon_src')){var p=new URLSearchParams(location.search),r='';try{r=document.referrer?new URL(document.referrer).hostname:''}catch(e){}localStorage.setItem('raizon_src',[p.get('utm_source')||r||'direct',p.get('utm_medium')||'',p.get('utm_campaign')||'',location.pathname].join('|'))}}catch(e){}</script>
 </head>
-<body class="rz3">
-  <header class="rz3-header">
-    <div class="rz3-header-in">
-      <a href="/" class="rz3-logo"><img src="/assets-v3/raizon-logo.png" alt="RAIZON"></a>
-      <nav class="rz3-nav">
-        <div class="rz3-nav-links">
-          <a href="/#service">サービス</a>
-          <a href="/#price">料金</a>
-          <a href="/#case">導入事例</a>
-          <a href="/#company">会社概要</a>
-          <a href="/blog-list">ブログ</a>
-        </div>
-        <a href="https://line.me/R/ti/p/%40154yajce" target="_blank" rel="noopener" class="btn btn-line btn-sm">LINEで無料相談</a>
-        <button class="rz3-nav-toggle" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
-      </nav>
-    </div>
-    <div class="rz3-mobile-nav">
-      <a href="/#service">サービス</a>
-      <a href="/#price">料金</a>
-      <a href="/#case">導入事例</a>
-      <a href="/#company">会社概要</a>
-      <a href="/blog-list">ブログ</a>
-      <a href="/#contact">お問い合わせ</a>
-      <a href="https://line.me/R/ti/p/%40154yajce" target="_blank" rel="noopener" class="btn btn-line" style="margin-top:8px;justify-content:center;">LINEで無料相談</a>
-    </div>
-  </header>
-
+<body>
+${SHELL.header}<main>
   <div class="post-page-body">
     <div class="post-container">
       <nav class="post-breadcrumb" aria-label="パンくずリスト">
@@ -330,35 +308,18 @@ function renderHtml({ post, postUrl, desc, img, datePub, dateMod, fmtDate, id, r
       </div>
 
       <div class="post-back">
-        <a href="/blog-list" class="btn btn-primary">← ブログ一覧に戻る</a>
-        <a href="/" style="display:inline-flex;align-items:center;padding:14px 24px;border:1.5px solid #111827;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;color:#111827;">トップページへ</a>
+        <a href="/blog-list" class="btn btn-g">← ブログ一覧に戻る</a>
+        <a href="/" style="display:inline-flex;align-items:center;padding:14px 24px;border:2px solid #D9DEDB;border-radius:999px;text-decoration:none;font-weight:800;font-size:14px;color:#26292D;height:44px;">トップページへ</a>
       </div>
     </div>
   </div>
 
-  <footer class="rz3-footer">
-    <div class="rz3-footer-in">
-      <div style="max-width:440px;">
-        <img src="/assets-v3/raizon-logo.png" alt="RAIZON" style="height:64px;width:auto;">
-        <p style="margin:24px 0 0;font-size:16px;font-weight:700;">沖縄の事業者に、デジタル担当者を。</p>
-      </div>
-      <nav class="rz3-footer-nav">
-        <a href="/#service">サービス</a><a href="/#price">料金</a><a href="/#case">導入事例</a><a href="/#company">会社概要</a><a href="/blog-list">ブログ</a><a href="/#contact">お問い合わせ</a>
-      </nav>
-    </div>
-    <div class="rz3-footer-bottom">© RAIZON</div>
-  </footer>
-
-  <div class="rz3-mobile-cta">
-    <a href="https://line.me/R/ti/p/%40154yajce" target="_blank" rel="noopener" style="background:#06C755;color:#FFFFFF;">LINEで相談</a>
-    <a href="/#contact" style="background:#146EF5;color:#FFFFFF;">無料相談</a>
-  </div>
-
-  <script src="/site-v3.js?v=2"></script>
+</main>
+${SHELL.footer}
 </body>
 </html>`;
 }
 
 function notFoundHtml() {
-  return `<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>記事が見つかりません | RAIZON</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/site-v3.css?v=2"></head><body class="rz3" style="padding:120px 24px;text-align:center;"><h1 style="font-size:1.4rem;margin-bottom:16px;">記事が見つかりません</h1><p style="color:#6B7280;margin-bottom:32px;">削除されたか、URLが正しくない可能性があります。</p><a href="/blog-list" class="btn btn-primary">ブログ一覧に戻る</a></body></html>`;
+  return `<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>記事が見つかりません | RAIZON</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets-v5/v5.css?v=8"></head><body class="rz3" style="padding:120px 24px;text-align:center;"><h1 style="font-size:1.4rem;margin-bottom:16px;">記事が見つかりません</h1><p style="color:#6B7280;margin-bottom:32px;">削除されたか、URLが正しくない可能性があります。</p><a href="/blog-list" class="btn btn-primary">ブログ一覧に戻る</a></body></html>`;
 }
