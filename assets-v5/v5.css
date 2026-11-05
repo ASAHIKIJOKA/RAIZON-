@@ -974,3 +974,6 @@ img{height:auto}
 /* イラストのタイルは業種カラーで */
 .lp-tile.il{background:linear-gradient(color-mix(in srgb,var(--c1) 9%,#fff),color-mix(in srgb,var(--c1) 20%,#fff));border-color:color-mix(in srgb,var(--c1) 28%,#fff)}
 .lp-tile.il b{color:var(--c2)}
+
+.sv2.sv3{grid-template-columns:repeat(3,1fr)}.sv2.sv3 .svc{padding:24px 22px 28px}.sv2.sv3 .svc h3{font-size:21px}
+@media(max-width:900px){.sv2.sv3{grid-template-columns:1fr}}

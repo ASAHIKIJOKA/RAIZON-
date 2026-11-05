@@ -207,3 +207,10 @@
   document.addEventListener('keydown', function (e) { if (!pop.hidden && e.key === 'Escape') close(); });
   setTimeout(open, 350);
 })();
+
+// 旧ページ(申込・利用規約・リンク集など)から来た #price などのリンクを、新サイトの該当ページへつなぐ
+(function () {
+  var map = { '#price': '/service#price', '#case': '/cases', '#company': '/company', '#blog': '/blog-list', '#service': '#service' };
+  var h = location.hash;
+  if (h && map[h] && map[h] !== h && location.pathname === '/') location.replace(map[h]);
+})();

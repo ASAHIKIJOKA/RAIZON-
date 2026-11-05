@@ -41,6 +41,10 @@ def ph(id_, title, brief, cls=''):
     return f'<div class="ph {cls}" role="img" aria-label="{title}" title="{brief}">{IMG_SVG}<div><b>{id_}</b><span>{title}</span></div></div>'
 
 
+TRACK = ('<script async src="https://www.googletagmanager.com/gtag/js?id=G-F7SZDCFSH7"></script>\n'
+         '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-F7SZDCFSH7");</script>\n'
+         "<script>try{if(!localStorage.getItem('raizon_src')){var p=new URLSearchParams(location.search),r='';try{r=document.referrer?new URL(document.referrer).hostname:''}catch(e){}localStorage.setItem('raizon_src',[p.get('utm_source')||r||'direct',p.get('utm_medium')||'',p.get('utm_campaign')||'',location.pathname].join('|'))}}catch(e){}</script>")
+
 PRELOAD = '<link rel="preload" as="image" href="/assets-v5/illust/hero-1100.webp" imagesrcset="/assets-v5/illust/hero-640.webp 640w, /assets-v5/illust/hero-1100.webp 1100w" imagesizes="(max-width:900px) 92vw, 760px" fetchpriority="high">'
 
 
@@ -51,9 +55,9 @@ def layout(path, title, desc, body, active='', ld=None):
     url = 'https://raizon-okinawa.com' + ('' if path == '/' else path)
     _on = ' class=on' if active in ('/service', '/line', '/web', '/system', '/ai') else ''
     dd = (f'<div class="dd"><a href="/service"{_on}>サービス<i class="dd-ar"></i></a><div class="dd-m"><a href="/service">サービス一覧</a><a href="/line">LINE公式アカウント構築</a>'
-          '<a href="/web">ホームページ制作</a><a href="/system">業務システム・シフト管理</a><a href="/ai">AI活用支援</a></div></div>')
+          '<a href="/system">業務システム・シフト管理</a><a href="/ai">AI活用支援</a></div></div>')
     nav = dd + a('/cases', '業種別の使い方') + a('/blog-list', 'ブログ') + a('/company', '会社概要')
-    sub = ''.join(f'<a href="{h}">{t}</a>' for h, t in [('/service', 'サービス一覧'), ('/line', 'LINE公式アカウント構築'), ('/web', 'ホームページ制作'), ('/system', '業務システム・シフト管理'), ('/ai', 'AI活用支援')])
+    sub = ''.join(f'<a href="{h}">{t}</a>' for h, t in [('/service', 'サービス一覧'), ('/line', 'LINE公式アカウント構築'), ('/system', '業務システム・シフト管理'), ('/ai', 'AI活用支援')])
     spnav = (f'<details class="acc"{" open" if active in ("/service", "/line", "/web", "/system", "/ai") else ""}><summary>サービス</summary><div class="acc-b">{sub}</div></details>'
              + ''.join(a(h, t) for h, t in [('/cases', '業種別の使い方'), ('/blog-list', 'ブログ'), ('/company', '会社概要'), ('/consult', '無料WEB相談'), ('/contact', 'お問い合わせ')]))
     return f'''<!DOCTYPE html>
@@ -63,7 +67,7 @@ def layout(path, title, desc, body, active='', ld=None):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="{url}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
@@ -74,9 +78,10 @@ def layout(path, title, desc, body, active='', ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v5/v5.css?v=68">
+<link rel="stylesheet" href="/assets-v5/v5.css?v=69">
 {lds}
 {PRELOAD if path == '/' else ''}
+{TRACK}
 {CLARITY}
 </head>
 <body>
@@ -95,15 +100,15 @@ def layout(path, title, desc, body, active='', ld=None):
 <div class="bt"><a class="d" href="/consult"><div><small>WEB CONSULT</small>無料WEB相談</div><span>→</span></a><a class="c" href="/contact"><div><small>CONTACT</small>無料で相談する</div><span>→</span></a></div></section>
 <footer class="ft2"><div class="ft-in">
 <div><a href="/" class="ft-logo"><img src="/assets-v3/raizon-logo-240.webp" alt="RAIZON" width="240" height="170" loading="lazy"></a>
-<p>沖縄の事業者に、デジタル担当者を。<br>LINEを入口に、ホームページ・業務システム・AI活用まで。</p>
+<p>沖縄の事業者に、デジタル担当者を。<br>LINEを入口に、業務システム・AI活用まで。</p>
 <p>RAIZON<br>本社：沖縄県中頭郡北谷町</p>
 <div class="sns"><a href="https://www.instagram.com/raizon_okinawa/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a><a href="{LINE}" target="_blank" rel="noopener" aria-label="LINE"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.800-3.400 7.900-5.800C21.300 14.100 22 12.600 22 11c0-4.400-4.500-8-10-8z"/></svg></a></div></div>
 <div class="ft-cols">
-<div><b>サービス</b><a href="/service">サービス一覧</a><a href="/line">LINE公式アカウント構築</a><a href="/web">ホームページ制作</a><a href="/system">業務システム・シフト管理</a><a href="/ai">AI活用支援</a></div>
+<div><b>サービス</b><a href="/service">サービス一覧</a><a href="/line">LINE公式アカウント構築</a><a href="/system">業務システム・シフト管理</a><a href="/ai">AI活用支援</a></div>
 <div><b>使い方・情報</b><a href="/cases">業種別の使い方</a><a href="/blog-list">ブログ</a><a href="/service#price">料金プラン</a><a href="/#flow">ご利用の流れ</a><a href="/#faq">よくある質問</a></div>
 <div><b>会社情報</b><a href="/company">会社概要</a><a href="/consult">無料WEB相談</a><a href="/contact">お問い合わせ</a></div>
 </div></div>
-<div class="ft-bt"><a href="/company#privacy">プライバシーポリシー</a><span>© RAIZON　テスト版(非公開)</span></div></footer>
+<div class="ft-bt"><a href="/company#privacy">プライバシーポリシー</a><span>© RAIZON</span></div></footer>
 </div></div>
 <div class="wpop" id="wpop" role="dialog" aria-modal="true" aria-labelledby="wpop-t" hidden><div class="wpop-bg" data-wp-close></div><div class="wpop-card">
 <button class="wpop-x" type="button" aria-label="閉じる" data-wp-close><i></i><i></i></button>
@@ -116,7 +121,7 @@ def layout(path, title, desc, body, active='', ld=None):
 <button class="wpop-later" type="button" data-wp-close>あとで見る</button>
 </div></div>
 <div class="sp-cta"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-o">デモを触る</a><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-g">LINEで相談</a></div>
-<script src="/assets-v5/v5.js?v=15" defer></script>
+<script src="/assets-v5/v5.js?v=16" defer></script>
 </body>
 </html>
 '''
@@ -428,17 +433,8 @@ WEB_FAQ = [
     ('ドメイン（〇〇.com など）は、誰の名義になりますか？', 'お客様の名義で取得することをおすすめしています。ご契約が終わっても、ドメインはお客様の手元に残ります。'),
     ('解約したら、ホームページはどうなりますか？', '通算3年以上ご利用のお客様には、ホームページのデータを譲渡できます。3年未満の場合は、契約の終了日で公開を停止します。'),
 ]
-service_page('/web', 'web.html', '沖縄のホームページ制作｜月額11,800円〜・初期費用0円・LINE連携 | RAIZON',
-             '沖縄の事業者向けのホームページ制作。初期費用0円、月額11,800円（税別）〜で、作成から更新、予約・問い合わせの導線、LINE連携まで。',
-             'WEB SITE', 'ホームページ制作', '', 'ホームページ制作',
-             ('About', 'ホームページ制作について', '作って終わりにしない、月額のホームページ。予約や問い合わせにつながる「入口」を、LINEと一緒に作ります。', '更新・修正も月額に含まれます。'),
-             [('NO INITIAL FEE', '初期費用0円・月額制', 'まとまった費用をかけずに始められます。', '大きな請求書が、小さな月額カードになる', '左に大きな請求書（×印）、右に小さな「月額」カードとカレンダー。店主が安心した表情。', ['作成費0円', '最低契約期間なし']),
-              ('WITH LINE', 'LINE・予約と一体', '見た人が、迷わずLINEや予約へ進める。', 'ホームページ→LINE→予約の3ステップ', '3つの画面（ホームページ、LINEのトーク、予約完了）が矢印でつながる。最後に大きなチェック。', ['「LINEで予約」ボタン', 'Googleマップ連携']),
-              ('MOBILE FIRST', 'スマホで見やすく、速い', '検索で見つかりやすい構成にします。', '検索結果の上に、自分のお店', 'スマホの検索画面に「沖縄 美容室」。結果の一番上のカードが光っている。', ['スマホ最優先', '軽くて速い'])],
-             [('ホームページがない・古い', '更新が止まっている。', '古びたPC画面に、くもの巣。ほこりをかぶったホームページ。'), ('自分では直せない', '更新の方法がわからない。', '営業時間を直したいのに、画面の前で固まっている店主。'), ('最初の費用が高い', '数十万円と言われた。', '大きな「¥」の袋を前に、財布が心配そうな店主。')], 'W', WEB_FAQ)
-
 SYS_FAQ = [
-    ('既製のシフト管理アプリと、何が違いますか？', '既製のアプリで足りる場合は、それが一番手軽です。お店独自のルールがある場合や、LINE・ホームページと一体で整えたい場合に、専用の仕組みが向いています。'),
+    ('既製のシフト管理アプリと、何が違いますか？', '既製のアプリで足りる場合は、それが一番手軽です。お店独自のルールがある場合や、LINEと一体で整えたい場合に、専用の仕組みが向いています。'),
     ('スタッフ全員が、スマホを使いこなせるか心配です。', '画面はシンプルにし、使い方の説明もお手伝いします。一部のスタッフから使い始めることもできます。'),
     ('費用はどのくらいですか？', '月額23,800円（税別）からです。作るものの内容によってお見積もりします。初期費用は0円です。'),
 ]
@@ -468,7 +464,7 @@ service_page('/ai', 'v4/ai.html', 'AI活用支援｜文章作成・業務の整�
 
 # ========== 料金のFAQ(トップ・サービスで使用) ==========
 PRICE_FAQ = [
-    ('初期費用はかかりますか？', 'かかりません。LINE・ホームページ・システムの構築にかかる初期費用は0円です。'),
+    ('初期費用はかかりますか？', 'かかりません。LINE・システムの構築にかかる初期費用は0円です。'),
     ('支払い方法を教えてください。', '初回は、1か月分の利用料を銀行振込でお支払いいただきます。2か月目からは、月払い（毎月27日にクレジットカード／デビットカードで引き落とし）か、年払い（12か月分を銀行振込）をお選びいただけます。'),
     ('途中でプランを変えられますか？', 'はい。上位・下位のプランへの変更をご相談ください。変更後の料金は、原則として変更した月の翌月分から適用します。'),
     ('解約はいつでもできますか？', 'はい。最低契約期間はありません。解約したい月の前月末日までにご連絡いただければ、その月の末日で終了します。'),
@@ -479,16 +475,16 @@ PRICE_FAQ = [
 cases_body = page_hero('USE CASE', '導入事例・業種別の使い方', '業種ごとのおすすめの使い方と、導入事例を紹介します。', '導入事例') + main(
     sh('BY INDUSTRY', '業種別、おすすめの使い方', '同じLINEでも、業種によって効く使い方は違います。近い業種を選んでください。') + tabs(USE, 'U')
     + sh('CASE STUDY', '導入事例') + cases_html(3))
-PAGES['/cases'] = ('v4/cases.html', '導入事例｜LINE構築・ホームページ・シフト管理 | RAIZON',
+PAGES['/cases'] = ('v4/cases.html', '導入事例｜LINE構築・シフト管理 | RAIZON',
                    'RAIZONの導入事例と、業種別のおすすめの使い方。ビル管理会社のシフト提出、理容室のホームページ・LINE・予約など。', cases_body, '/cases')
 
 # ========== 会社概要 ==========
 company_body = page_hero('COMPANY', '会社概要', '沖縄の事業者に、デジタル担当者を。', '会社概要') + main(
-    fc('MISSION', 'デジタルで変える。<br>働き方も、<br>仕組みも、<br>売り方も。', 'LINE・ホームページ・業務システム・AI。会社の「もっとラクにしたい」を、全体を見ながら仕組みにします。', ph('M-00', '北谷の海辺で、ノートPCで働く人', '北谷町の海辺（観覧車と海が遠くに見える）を背景に、カフェでノートPCを開く人物。明るい昼の光。'))
+    fc('MISSION', 'デジタルで変える。<br>働き方も、<br>仕組みも、<br>売り方も。', 'LINE・業務システム・AI。会社の「もっとラクにしたい」を、全体を見ながら仕組みにします。', ph('M-00', '北谷の海辺で、ノートPCで働く人', '北谷町の海辺（観覧車と海が遠くに見える）を背景に、カフェでノートPCを開く人物。明るい昼の光。'))
     + q3([('相談しやすい', '専門用語を使わず、わかる言葉で。', '店主と担当者が、お店のカウンターで笑顔で話している。'), ('小さく始める', '効果の大きいところから、一段ずつ。', '小さな苗が少しずつ大きくなる3コマ。'), ('作って終わりにしない', '使い始めてからが本番。', '歯車と、毎月のカレンダー。')], 'M')
     + '<div class="sh" id="profile"><div class="eyb2">PROFILE</div><h2>会社概要</h2></div>'
     + '''<table class="tbl prof"><tr><th>会社名</th><td>RAIZON（ライゾン）</td></tr><tr><th>本社</th><td>沖縄県中頭郡北谷町</td></tr>
-<tr><th>事業内容</th><td>LINE公式アカウントの構築・運用支援／ホームページ制作／業務システム開発／AI活用支援</td></tr><tr><th>対応エリア</th><td>沖縄県内を中心に全国（オンライン対応）</td></tr>
+<tr><th>事業内容</th><td>LINE公式アカウントの構築・運用支援／業務システム開発／AI活用支援</td></tr><tr><th>対応エリア</th><td>沖縄県内を中心に全国（オンライン対応）</td></tr>
 <tr><th>お問い合わせ</th><td>LINE（24時間受付）／お問い合わせフォーム／TEL 080-6493-7744</td></tr></table>'''
     + '<div id="privacy">' + sh('PRIVACY', 'プライバシーポリシー') + '''<div class="box policy"><p>RAIZON（以下「当方」）は、当サイトでお預かりする個人情報を、以下の方針で適切に取り扱います。</p>
 <h3>1. 取得する情報</h3><p>お問い合わせフォームでご入力いただく、お名前、会社名・屋号、メールアドレス、電話番号、ご興味のあるサービス、お問い合わせ内容を取得します。このうち、お名前・メールアドレス・電話番号・お問い合わせ内容は必須項目です。</p>
@@ -502,7 +498,7 @@ company_body = page_hero('COMPANY', '会社概要', '沖縄の事業者に、デ
 <h3>8. 方針の改定</h3><p>この方針は、必要に応じて見直し、改定する場合があります。改定後は、このページに掲載します。</p>
 <p class="note">事業者：RAIZON（沖縄県中頭郡北谷町）</p></div></div>''')
 PAGES['/company'] = ('v4/company.html', '会社概要｜沖縄・北谷町のデジタル担当者 RAIZON',
-                     'RAIZON（ライゾン）の会社概要。沖縄県北谷町を拠点に、LINE公式アカウント構築、ホームページ制作、業務システム開発、AI活用支援を行っています。', company_body, '/company', [ORG])
+                     'RAIZON（ライゾン）の会社概要。沖縄県北谷町を拠点に、LINE公式アカウント構築、業務システム開発、AI活用支援を行っています。', company_body, '/company', [ORG])
 
 # ========== お問い合わせ ==========
 contact_body = f'''<section class="main" style="padding-top:110px"><div class="wrap"><div class="ct">
@@ -515,13 +511,13 @@ contact_body = f'''<section class="main" style="padding-top:110px"><div class="w
 <label>会社名・屋号<input name="company" maxlength="200" autocomplete="organization" placeholder="株式会社〇〇"></label></div>
 <div class="row"><label>メールアドレス<span class="rq">必須</span><input name="email" type="email" maxlength="200" autocomplete="email"></label>
 <label>電話番号<span class="rq">必須</span><input name="phone" type="tel" maxlength="40" autocomplete="tel"></label></div>
-<label>ご興味のあるサービス<select name="services"><option value="">選んでください</option><option>LINE公式アカウント</option><option>ホームページ</option><option>業務システム・シフト管理</option><option>AI活用</option><option>まだ分からない</option></select></label>
+<label>ご興味のあるサービス<select name="services"><option value="">選んでください</option><option>LINE公式アカウント</option><option>業務システム・シフト管理</option><option>AI活用</option><option>まだ分からない</option></select></label>
 <label>ご相談内容<span class="rq">必須</span><textarea name="message" maxlength="5000" placeholder="例）予約の電話が多くて困っています"></textarea></label>
 <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="btn btn-g" type="submit">送信する</button><p id="fmsg" role="status"></p></form>
 <p class="note" style="text-align:center">お電話：080-6493-7744（9:00〜22:00）</p>
 </div></div></section>'''
-PAGES['/contact'] = ('v4/contact.html', 'お問い合わせ｜無料相談 | RAIZON', 'RAIZONへのお問い合わせ。LINE公式アカウント構築、ホームページ制作、業務システム、AI活用のご相談は無料です。', contact_body, '')
+PAGES['/contact'] = ('v4/contact.html', 'お問い合わせ｜無料相談 | RAIZON', 'RAIZONへのお問い合わせ。LINE公式アカウント構築、業務システム、AI活用のご相談は無料です。', contact_body, '')
 
 
 
@@ -535,8 +531,6 @@ def tile(n, id_, title, brief):
 SERVICES = [
     ('LINE OFFICIAL ACCOUNT', 'LINE公式アカウント構築', '/line', 'メニュー・予約・クーポン・配信を、LINEひとつにまとめます。お客様はタップするだけ、お店は自動で。',
      ['リッチメニュー', '予約とリマインド', 'クーポン・スタンプ'], '月額5,000円〜（税別）', 'スマホのリッチメニューをタップする指', 'スマホ画面の下半分に6分割のメニュー。「予約」ボタンを指がタップし、波紋が広がる。アイソメトリック（斜め上から見た）風の線画＋緑のアクセント。'),
-    ('HOMEPAGE', 'ホームページ制作', '/web', '見つけてもらい、LINEや予約につなげるホームページ。作成も更新も月額に含まれます。',
-     ['初期費用0円', '更新もおまかせ', 'LINE・予約と連携'], '月額11,800円〜（税別）', 'PCとスマホに映るホームページ', 'ノートPCとスマホが並び、同じお店のホームページが映る。アイソメトリック風。'),
     ('SYSTEM', '業務システム・シフト管理', '/system', 'シフト提出、予約・顧客管理など、紙・Excel・電話の作業を、スマホでできる仕組みに。',
      ['シフト提出', '予約・顧客管理', '自動化'], '月額23,800円〜（税別）', '書類がスマホの一覧にまとまる', '机の上の紙・付箋・電話が渦を描いてスマホに吸い込まれ、整った一覧表になる。アイソメトリック風。'),
     ('AI', 'AI活用支援', '/ai', '文章の下書き、問い合わせの整理、マニュアル作り。業務がラクになる使い方を、一緒に見つけます。',
@@ -544,7 +538,7 @@ SERVICES = [
 ]
 
 def svc_cards():
-    out = '<div class="sv2">'
+    out = '<div class="sv2 sv3">'
     for i, (e, t, u, d, tags, price, tt, br) in enumerate(SERVICES, 1):
         out += (f'<div class="svc">{tile(f"{i:02d}", f"S-{i:02d}", tt, br)}<div class="no">SERVICE {i:02d}</div><h3>{t}</h3><p>{d}</p>'
                 f'<div class="pills">{"".join(f"<span>{x}</span>" for x in tags)}</div>'
@@ -562,7 +556,7 @@ FLOW4 = [('無料相談（オンライン）', '今のお困りごとや、お�
          ('お申し込み・構築', '内容と料金、規約をご確認のうえお申し込み。LINE・HP・システムを作ります。'),
          ('運用開始・毎月の改善', '使い始めてからも、配信の改善・更新・機能の追加まで、毎月一緒に育てます。')]
 
-FAQ_TABS = [('料金・契約', PRICE_FAQ), ('サービス', LINE_FAQ[:2] + WEB_FAQ[:1] + SYS_FAQ[:1] + AI_FAQ[:1]),
+FAQ_TABS = [('料金・契約', PRICE_FAQ), ('サービス', LINE_FAQ[:2] + SYS_FAQ[:1] + AI_FAQ[:1]),
             ('はじめての方', [('デジタルに詳しくなくても大丈夫ですか？', 'もちろん大丈夫です。「何をしたらいいかわからない」という段階からご相談ください。画面を見ながら、わかる言葉でご説明します。'),
                               ('LINEだけでも相談できますか？', 'はい。LINE公式アカウントだけのご相談もできます（LINE BASIC 月額5,000円・税別〜）。'),
                               ('相談したら、契約しないといけませんか？', 'いいえ。まずは今のお悩みをお聞かせください。必要なものがなければ、無理におすすめすることはありません。')])]
@@ -596,7 +590,7 @@ def contact_form(small=False):
 <label>会社名・屋号<span class="rq">必須</span><input name="company" maxlength="200" autocomplete="organization" placeholder="株式会社〇〇"></label></div>
 <div class="row"><label>メールアドレス<span class="rq">必須</span><input name="email" type="email" maxlength="200" autocomplete="email" placeholder="you@example.com"></label>
 <label>電話番号<span class="rq">必須</span><input name="phone" type="tel" maxlength="40" autocomplete="tel"></label></div>
-<label>ご相談内容<span class="rq">必須</span><select name="services"><option value="">選んでください</option><option>無料WEB相談の予約</option><option>LINE公式アカウント</option><option>ホームページ</option><option>業務システム・シフト管理</option><option>AI活用</option><option>まだ分からない</option></select></label>
+<label>ご相談内容<span class="rq">必須</span><select name="services"><option value="">選んでください</option><option>無料WEB相談の予約</option><option>LINE公式アカウント</option><option>業務システム・シフト管理</option><option>AI活用</option><option>まだ分からない</option></select></label>
 <label>お問い合わせ内容<span class="rq">必須</span><textarea name="message" maxlength="5000" placeholder="今のお困りごとや、相談したいことをご記入ください。"></textarea></label>
 <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 <p class="note" style="text-align:center;margin:0 0 16px">通常1営業日以内にご返信します。</p>
@@ -606,25 +600,25 @@ def contact_form(small=False):
 top = f'''<section class="hero"><div class="hero-in">
 <div class="hero-t"><div class="eyb">LINE × HOMEPAGE × DX / RAIZON</div>
 <h1><span class="gr">集客も、予約も、</span><br>面倒な業務も。<br><span class="mk">まずはLINEから。</span></h1>
-<p class="sub">沖縄の事業者の、デジタル担当者です。<br>LINEを入口に、ホームページ・業務システム・AI活用まで。</p></div>
+<p class="sub">沖縄の事業者の、デジタル担当者です。<br>LINEを入口に、業務システム・AI活用まで。</p></div>
 <div class="hero-v">{ph('T-00', 'LINEの画面（スマホ3台）', '大きなスマホ1台＋左右に小さなスマホ2台が並ぶ。画面はお店のLINEのトーク／リッチメニュー／予約確定。やわらかい影、背景は薄いグレー。', 'hero-v')}<div class="cap">LINE画面は活用イメージです。</div></div>
 <div class="hero-b"><div class="bs"><a href="/consult" class="btn btn-lg btn-dg">無料WEB相談をする →</a><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-lg btn-w">LINEで相談する →</a></div></div>
 </div></section>
 <div class="pg">
-''' + secw(sh('SERVICE', 'サービス', 'LINEを入口に、ホームページ・業務システム・AI活用まで。ひとつの窓口で、単体のご依頼も可能です。') + svc_cards() + '<div class="lk"><a href="/service">サービスの詳細を見る ›</a><a href="/cases">業種別の使い方を見る ›</a></div>', 'service') \
+''' + secw(sh('SERVICE', 'サービス', 'LINEを入口に、業務システム・AI活用まで。ひとつの窓口で、単体のご依頼も可能です。') + svc_cards() + '<div class="lk"><a href="/service">サービスの詳細を見る ›</a><a href="/cases">業種別の使い方を見る ›</a></div>', 'service') \
     + secw(sh('WHAT WE DO', 'RAIZONができること', '設計・構築から、日々の改善まで。お店の「面倒」を、仕組みにします。')
            + '<div class="scw"><div class="scn"><button type="button" aria-label="前へ" data-d="-1">‹</button><button type="button" aria-label="次へ" data-d="1">›</button></div><div class="sc">'
            + ''.join(f'<a class="it" href="{DOES_LINK[i - 1]}">{ph(f"D-{i:02d}", t, d + " 画面のスクリーンショット風の絵。", "sm")}<b>{t}</b><div class="mr">詳しく見る</div></a>' for i, (t, d) in enumerate(DOES, 1))
            + '</div></div><p class="caption">画像は制作例・デモ画面のイメージです。対応範囲は、ご契約のプランにより異なります。</p>') \
-    + secw('<div class="card2 ft2c"><div>' + ph('T-10', 'スマホを持つ店主（LINE画面つき）', 'スマホ2台が重なり、画面にお店のLINEのトークとメニュー。やわらかい影。') + '</div><div><div class="eyb">FEATURE</div><h3>RAIZONに任せると、<br>何が変わるか。</h3><p class="ds2">LINE・ホームページ・システム・AIを、ひとつの窓口で。作った人がそのまま毎月回すから、設計の意図が薄まらないまま改善が積み上がります。</p><ul class="ck"><li><b>ひとつの窓口で一括</b><br>LINE・HP・システム・AIまで、引き継ぎロスがありません</li><li><b>初期費用0円・最低契約期間なし</b><br>必要なところから、一段ずつ</li><li><b>作って終わりにしない</b><br>使い始めてからも、毎月の改善まで一緒に</li></ul></div></div>') \
+    + secw('<div class="card2 ft2c"><div>' + ph('T-10', 'スマホを持つ店主（LINE画面つき）', 'スマホ2台が重なり、画面にお店のLINEのトークとメニュー。やわらかい影。') + '</div><div><div class="eyb">FEATURE</div><h3>RAIZONに任せると、<br>何が変わるか。</h3><p class="ds2">LINE・システム・AIを、ひとつの窓口で。作った人がそのまま毎月回すから、設計の意図が薄まらないまま改善が積み上がります。</p><ul class="ck"><li><b>ひとつの窓口で一括</b><br>LINE・システム・AIまで、引き継ぎロスがありません</li><li><b>初期費用0円・最低契約期間なし</b><br>必要なところから、一段ずつ</li><li><b>作って終わりにしない</b><br>使い始めてからも、毎月の改善まで一緒に</li></ul></div></div>') \
     + secw('<div class="indw"><div class="indhint" aria-hidden="true"><span>横にスクロールできます</span><i></i></div><div class="indimg" data-ind><img src="/assets-v5/illust/ind.webp" alt="業種ごとのLINE公式アカウント画面（オンラインスクール・美容サロン・住宅不動産・採用）" loading="lazy"></div><div class="indb"><div><h3>あなたの業種では、<em>どう使える</em>のか。</h3><p>業種ごとに、おすすめの使い方と実際のLINE画面をご覧いただけます。</p></div><a class="btn btn-or" href="/cases">業種別の使い方を見る →</a></div></div>') \
     + secw(sh('FLOW', '相談から、<br>運用開始まで。', '初回相談はオンラインで。') + '<div class="fl4">' + ''.join(f'<div><div class="st">STEP {i:02d}</div><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate(FLOW4, 1)) + f'</div><div class="cc"><a class="btn btn-dg btn-lg" href="/consult">無料相談する（オンライン） →</a></div>', 'flow') \
-    + secw(sh('COLUMN', 'コラム記事', 'LINE・ホームページ・業務のデジタル化について、実務ベースで発信しています。') + column3() + '<a class="btn btn-ol" href="/blog-list">コラム一覧を見る →</a>') \
+    + secw(sh('COLUMN', 'コラム記事', 'LINE・業務のデジタル化について、実務ベースで発信しています。') + column3() + '<a class="btn btn-ol" href="/blog-list">コラム一覧を見る →</a>') \
     + secw(f'<div class="fq-t">ご質問・ご相談、<br>いつでも。</div><p class="ld" style="font-size:14px;color:var(--body);margin-top:10px">料金・契約・サービスについて、よくいただくご質問をまとめました。</p>' + faq_tabs(), 'faq') \
     + secw('<div class="ct2"><div><div class="eyb2" style="font-size:12.5px;font-weight:800;letter-spacing:.16em;color:var(--gd)">CONTACT</div><h2>まずは<br>現状を聞かせてください。</h2><p class="ld">無料相談のご予約も、ざっくりしたご質問も、このフォームからどうぞ。通常1営業日以内にご返信します。</p>' + ph('T-20', 'メールが届くイラスト', '封筒から書類が出ている、アイソメトリック風の小さな絵。') + f'<div class="lnb"><a class="btn btn-g" href="{LINE}" target="_blank" rel="noopener">LINEで相談する →</a></div><div class="dv">LINEを使っていない場合は、メールフォームからどうぞ。</div></div><div>' + contact_form(True) + '</div></div>', 'contact') \
     + '</div>'
-PAGES['/'] = ('index.html', '沖縄のLINE公式アカウント構築・ホームページ制作｜月額5,000円〜 RAIZON',
-              'RAIZONは沖縄の事業者向けデジタル担当者。LINEを入口に、ホームページ・業務システム・AI活用まで。初期費用0円・月額5,000円（税別）〜。', top, '', [ORG, faq_ld(ALL_FAQ)])
+PAGES['/'] = ('index.html', '沖縄のLINE公式アカウント構築｜月額5,000円〜 RAIZON',
+              'RAIZONは沖縄の事業者向けデジタル担当者。LINEを入口に、業務システム・AI活用まで。初期費用0円・月額5,000円（税別）〜。', top, '', [ORG, faq_ld(ALL_FAQ)])
 
 # ---- サービス一覧ページ(参考サイトのサービスページと同じ作り) ----
 def sv_feat(i, e, t, u, d, tags, price, tt, br):
@@ -638,8 +632,8 @@ service_body = page_hero('SERVICE', 'サービス', '', 'サービス') + main(
     + ''.join(sv_feat(i, *x) for i, x in enumerate(SERVICES, 1))
     + '<div id="price">' + sh('PRICE', '料金プラン', '初期費用0円・最低契約期間なし。必要なところから、一段ずつ。') + plans_html() + '</div>'
     + '<div class="bn"><h3>どのサービスが合うか迷ったら</h3><p>無料相談（オンライン）で、現状のお困りごとからお気軽にご相談ください。</p><div class="bs"><a class="btn btn-or" href="/consult">無料相談に申し込む →</a><a class="btn btn-bk" href="/contact">お問い合わせ →</a></div></div>')
-PAGES['/service'] = ('v4/service.html', 'サービス｜LINE構築・ホームページ・業務システム・AI活用 | RAIZON',
-                     'RAIZONのサービス一覧。LINE公式アカウント構築、ホームページ制作、業務システム・シフト管理、AI活用支援。初期費用0円・月額5,000円（税別）〜。', service_body, '/service')
+PAGES['/service'] = ('v4/service.html', 'サービス｜LINE構築・業務システム・AI活用 | RAIZON',
+                     'RAIZONのサービス一覧。LINE公式アカウント構築、業務システム・シフト管理、AI活用支援。初期費用0円・月額5,000円（税別）〜。', service_body, '/service')
 
 
 # ========== /line を、参考(LAYRのサービス詳細)の構成に ==========
@@ -708,17 +702,6 @@ def lpage(path, fname, title, desc, eyebrow, crumb, h1a, h1b, sub, key, imgs, st
 
 def _apr(a, b, c):
     return [(a[0], a[1], a[2]), (b[0], b[1], b[2]), (c[0], c[1], c[2])]
-
-lpage('/web', 'web.html', '沖縄のホームページ制作｜月額11,800円〜・初期費用0円・LINE連携 | RAIZON',
-      '沖縄の事業者向けのホームページ制作。初期費用0円、月額11,800円（税別）〜で、作成から更新、予約・問い合わせの導線、LINE公式アカウントとの連携まで。',
-      'HOMEPAGE', 'ホームページ制作', 'ホームページで、', '見つけてもらい、選ばれる。', '見た人が迷わず、LINEや予約に進めるホームページ。作成も更新も月額に含まれます。', 'WB',
-      {'H': 's02', 'S1': 'u1-1', 'S2': 'ln-s1', 'S3': 'ln-s3', 'U1': 's02', 'U2': 'u2-1', 'U3': 'u1-1', 'U4': 'm01', 'U5': 'u4-1', 'U6': 'm03'},
-      [('0', '円', '初期費用'), ('11,800', '円〜', '月額（税別）'), ('なし', '', '最低契約期間'), ('3年', '以上', 'ご利用で譲渡'),],
-      [('ホームページがない・古い', '何年も更新しておらず、スマホで見ると文字が小さく、見づらい。'), ('自分では直せない', '営業時間やメニューを変えたいのに、更新の方法がわからない。'), ('最初の費用が高い', '制作会社に頼むと、最初に数十万円かかると言われた。')],
-      [('初期費用0円・月額制', '作成も、その後の更新・修正も、月額に含まれます。'), ('LINE・予約と一体', '見た人が、迷わずLINEの友だち追加や予約へ進めます。'), ('スマホで見やすく、速い', 'スマホ最優先のデザインで、検索で見つかりやすい構成にします。')],
-      [('初期費用0円', 'まとまった費用をかけずに、始められます。'), ('更新もおまかせ', '営業時間・メニューの変更を、お任せいただけます。'), ('LINE・予約と連携', '「LINEで予約」ボタンで、そのまま予約へ。'), ('Googleマップ連携', '地図・電話への導線を整えます。'), ('スマホ最優先', '見やすさと表示の速さを優先します。'), ('毎月の改善', '見られ方を見ながら、少しずつ改善します。')],
-      [('ヒアリング・設計', 'お店の強みと、見てほしい人を整理します。', ['写真の相談', '文章の作成']), ('制作・公開', 'スマホで見やすいホームページを作り、公開します。', ['スマホ最優先', 'LINE連携']), ('更新・改善', '更新と改善を、毎月一緒に進めます。', ['更新も月額に', '3年で譲渡'])],
-      plans_html(), [('料金・契約', PRICE_FAQ), ('制作について', WEB_FAQ)])
 
 lpage('/system', 'system.html', '業務システム・シフト管理アプリの制作｜沖縄の中小企業向け | RAIZON',
       '沖縄の中小企業・店舗向けに、シフト提出・予約管理・顧客管理などの業務システムを制作します。月額23,800円（税別）〜。',
