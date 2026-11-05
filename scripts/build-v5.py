@@ -121,7 +121,7 @@ def layout(path, title, desc, body, active='', ld=None):
 <button class="wpop-later" type="button" data-wp-close>あとで見る</button>
 </div></div>
 <div class="sp-cta"><a href="{DEMO}" target="_blank" rel="noopener" class="btn btn-o">デモを触る</a><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-g">LINEで相談</a></div>
-<script src="/assets-v5/v5.js?v=16" defer></script>
+<script src="/assets-v5/v5.js?v=17" defer></script>
 </body>
 </html>
 '''

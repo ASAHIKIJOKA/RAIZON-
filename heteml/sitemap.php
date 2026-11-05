@@ -13,6 +13,11 @@ $urls = [
     ['loc' => $base . '/line'],
     ['loc' => $base . '/system'],
     ['loc' => $base . '/consult'],
+    ['loc' => $base . '/service'],
+    ['loc' => $base . '/ai'],
+    ['loc' => $base . '/cases'],
+    ['loc' => $base . '/company'],
+    ['loc' => $base . '/contact'],
     ['loc' => $base . '/blog-list', 'lastmod' => $latest],
 ];
 foreach ($posts as $p) {

@@ -100,7 +100,7 @@ header('Cache-Control: public, max-age=300');
 <?= rz_src_script() ?>
 
 </head>
-<body class="rz3">
+<body>
   <?= rz_tpl('header.html') ?>
 
 
@@ -155,8 +155,8 @@ header('Cache-Control: public, max-age=300');
       </div>
 
       <div class="post-back">
-        <a href="/blog-list" class="btn btn-primary">← ブログ一覧に戻る</a>
-        <a href="/" style="display:inline-flex;align-items:center;padding:14px 24px;border:1.5px solid #111827;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;color:#111827;">トップページへ</a>
+        <a href="/blog-list" class="btn btn-g">← ブログ一覧に戻る</a>
+        <a href="/" style="display:inline-flex;align-items:center;padding:14px 24px;border:2px solid #D9DEDB;border-radius:999px;text-decoration:none;font-weight:800;font-size:14px;color:#26292D;height:44px;">トップページへ</a>
       </div>
     </div>
   </div>

@@ -80,8 +80,10 @@ const DENY = 'Require all denied\n<IfModule !mod_authz_core.c>\nOrder deny,allow
     return postJs.slice(a, b + (includeTo ? to.length : 0));
   };
   fs.mkdirSync(path.join(OUT, '_tpl'), { recursive: true });
-  fs.writeFileSync(path.join(OUT, '_tpl/header.html'), cut('<header class="rz3-header">', '</header>', true));
-  fs.writeFileSync(path.join(OUT, '_tpl/footer.html'), cut('<footer class="rz3-footer">', '<script src="/site-v3.js?v=2"></script>', true));
+  // 新デザイン(v5): ヘッダー・フッターは scripts/build-v5.py が api/_v5-shell.json に書き出したものを使う
+  const shell = JSON.parse(fs.readFileSync(path.join(ROOT, 'api/_v5-shell.json'), 'utf8'));
+  fs.writeFileSync(path.join(OUT, '_tpl/header.html'), shell.header + '<main>\n');
+  fs.writeFileSync(path.join(OUT, '_tpl/footer.html'), '</main>\n' + shell.footer);
   fs.writeFileSync(path.join(OUT, '_tpl/post-style.html'), cut('<style>', '</style>', true));
 
   // 管理パスワードの設定(secrets/admin.json は make-admin-config.js で作る。リポジトリには入れない)
@@ -129,12 +131,15 @@ RewriteCond %{THE_REQUEST} \\s/index\\.html[\\s?]
 RewriteRule ^index\\.html$ / [R=301,L]
 
 # 旧ページ → トップ内アンカー
-RewriteRule ^service\\.html$ /#service [R=301,L,NE]
-RewriteRule ^pricing\\.html$ /#price [R=301,L,NE]
-RewriteRule ^cases\\.html$ /#case [R=301,L,NE]
-RewriteRule ^company\\.html$ /#company [R=301,L,NE]
-RewriteRule ^contact\\.html$ /#contact [R=301,L,NE]
+RewriteRule ^service\\.html$ /service [R=301,L]
+RewriteRule ^pricing\\.html$ /service#price [R=301,L,NE]
+RewriteRule ^cases\\.html$ /cases [R=301,L]
+RewriteRule ^company\\.html$ /company [R=301,L]
+RewriteRule ^contact\\.html$ /contact [R=301,L]
 RewriteRule ^faq\\.html$ /#faq [R=301,L,NE]
+RewriteRule ^price/?$ /service#price [R=302,L,NE]
+RewriteRule ^flow/?$ /#flow [R=302,L,NE]
+RewriteRule ^faq/?$ /#faq [R=302,L,NE]
 
 # ブログ: /blog-list.html → /blog-list (外から来た時だけ)
 RewriteCond %{THE_REQUEST} \\s/blog-list\\.html[\\s?]
@@ -147,6 +152,7 @@ RewriteRule ^blog/([A-Za-z0-9_-]+)/?$ /blog-post.php?id=$1 [L]
 RewriteRule ^sitemap\\.xml$ /sitemap.php [L]
 RewriteRule ^api/(posts|admin-posts|contact|apply)/?$ /api/$1.php [L,QSA]
 RewriteRule ^(line|links|consult|system|apply|terms)/?$ /$1.html [L]
+RewriteRule ^(ai|cases|company|contact|service)/?$ /v4/$1.html [L]
 
 # 削除したページ(ホームページ制作): 検索結果から消えるよう「410 消滅」を返す
 RewriteRule ^(web|web\\.html)/?$ - [G,L]

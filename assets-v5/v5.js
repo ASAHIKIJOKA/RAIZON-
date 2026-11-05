@@ -197,6 +197,8 @@
 // ウェルカムポップアップ: 開いた瞬間に出す(同じブラウザ画面では1回だけ)
 (function () {
   var pop = document.getElementById('wpop'); if (!pop) return;
+  // 検索から来る人が多いブログ記事では、開いた瞬間のポップアップは出さない(検索順位への影響を避ける)
+  if (location.pathname.indexOf('/blog/') === 0) return;
   var key = 'rz_wpop_seen', seen = false;
   try { seen = sessionStorage.getItem(key) === '1'; } catch (e) {}
   if (seen) return;
