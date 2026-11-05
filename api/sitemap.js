@@ -17,6 +17,11 @@ module.exports = async function handler(req, res) {
     { loc: 'https://raizon-okinawa.com/line' },
     { loc: 'https://raizon-okinawa.com/system' },
     { loc: 'https://raizon-okinawa.com/consult' },
+    { loc: 'https://raizon-okinawa.com/service' },
+    { loc: 'https://raizon-okinawa.com/ai' },
+    { loc: 'https://raizon-okinawa.com/cases' },
+    { loc: 'https://raizon-okinawa.com/company' },
+    { loc: 'https://raizon-okinawa.com/contact' },
     { loc: 'https://raizon-okinawa.com/blog-list', lastmod: latestPost || undefined },
   ];
 
