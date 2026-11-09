@@ -606,7 +606,12 @@ top = f'''<section class="hero"><div class="hero-in">
 <div class="hero-b"><div class="bs"><a href="/consult" class="btn btn-lg btn-dg">無料WEB相談をする →</a><a href="{LINE}" target="_blank" rel="noopener" class="btn btn-lg btn-w">LINEで相談する →</a></div></div>
 </div></section>
 <div class="pg">
-''' + secw(sh('SERVICE', 'サービス', 'LINEを入口に、業務システム・AI活用まで。ひとつの窓口で、単体のご依頼も可能です。') + svc_cards() + '<div class="lk"><a href="/service">サービスの詳細を見る ›</a><a href="/cases">業種別の使い方を見る ›</a></div>', 'service') \
+''' + secw(fc('DEMO', 'シフト管理アプリを、<br>実際に触ってみる。',
+               'スタッフはスマホでシフトを提出し、管理者はパソコンで一覧・申請を確認。お店のシフト作成の手間を減らす、業務システムのデモです。登録は不要で、その場で試せます。',
+               '<div class="art"><img src="/assets-v5/illust/shift-demo.webp" width="1500" height="875" alt="シフト管理アプリのデモ画面（パソコンの管理画面とスマホの提出画面）" loading="lazy" decoding="async"></div>',
+               ('/demo/shift/', 'シフト管理のデモを触ってみる'), ['ブラウザで動く', '登録不要', 'データは端末内のみ'])
+           + '<p class="caption">デモはサンプルデータです。入力した内容は、お使いのブラウザの中だけに保存され、他の人には見えません。名前はすべて架空です。</p>', 'shiftdemo') \
+    + secw(sh('SERVICE', 'サービス', 'LINEを入口に、業務システム・AI活用まで。ひとつの窓口で、単体のご依頼も可能です。') + svc_cards() + '<div class="lk"><a href="/service">サービスの詳細を見る ›</a><a href="/cases">業種別の使い方を見る ›</a></div>', 'service') \
     + secw(sh('WHAT WE DO', 'RAIZONができること', '設計・構築から、日々の改善まで。お店の「面倒」を、仕組みにします。')
            + '<div class="scw"><div class="scn"><button type="button" aria-label="前へ" data-d="-1">‹</button><button type="button" aria-label="次へ" data-d="1">›</button></div><div class="sc">'
            + ''.join(f'<a class="it" href="{DOES_LINK[i - 1]}">{ph(f"D-{i:02d}", t, d + " 画面のスクリーンショット風の絵。", "sm")}<b>{t}</b><div class="mr">詳しく見る</div></a>' for i, (t, d) in enumerate(DOES, 1))
