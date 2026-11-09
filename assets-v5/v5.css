@@ -923,9 +923,9 @@ img{height:auto}
 .wpop-bg{position:absolute;inset:0;background:rgba(6,50,22,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 .wpop-card{position:relative;width:100%;max-width:440px;max-height:calc(100vh - 40px);overflow:auto;background:#fff;border-radius:28px;padding:30px 30px 24px;text-align:center;box-shadow:0 30px 70px rgba(0,40,10,.4);border:4px solid var(--g);animation:wpu .45s cubic-bezier(.2,.9,.3,1)}
 @keyframes wpu{from{opacity:0;transform:translateY(24px) scale(.96)}}
-.wpop-x{position:absolute;right:12px;top:12px;width:40px;height:40px;border:0;border-radius:50%;background:#F1F5F3;cursor:pointer}
-.wpop-x i{position:absolute;left:11px;top:19px;width:18px;height:2px;background:var(--ink);border-radius:2px;transform:rotate(45deg)}.wpop-x i+i{transform:rotate(-45deg)}
-.wpop-x:hover{background:#E1EAE5}
+.wpop-x{position:absolute;right:10px;top:10px;z-index:3;width:48px;height:48px;border:0;border-radius:50%;background:#26292D;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.wpop-x::before{content:'';position:absolute;inset:-8px}
+.wpop-x i{position:absolute;left:14px;top:23px;width:20px;height:2.5px;background:#fff;border-radius:2px;transform:rotate(45deg);pointer-events:none}.wpop-x i+i{transform:rotate(-45deg)}
+.wpop-x:hover{background:#06C755}.wpop-x:focus-visible{outline:3px solid #FFE82E;outline-offset:2px}
 .wpop-hd{position:relative;height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
 .wpop-hd img{height:130px;width:auto;object-fit:contain}
 .wpop-badge{position:absolute;left:4px;top:4px;background:#FFE82E;color:#26292D;font-weight:900;font-size:13px;border-radius:999px;padding:5px 14px;transform:rotate(-6deg);box-shadow:0 4px 10px rgba(0,0,0,.12)}
@@ -977,3 +977,6 @@ img{height:auto}
 
 .sv2.sv3{grid-template-columns:repeat(3,1fr)}.sv2.sv3 .svc{padding:24px 22px 28px}.sv2.sv3 .svc h3{font-size:21px}
 @media(max-width:900px){.sv2.sv3{grid-template-columns:1fr}}
+
+.fc .fc-btn{margin-top:26px;font-size:16px;box-shadow:0 8px 22px rgba(6,120,50,.28)}
+@media(max-width:900px){.fc .fc-btn{width:100%;justify-content:center}}

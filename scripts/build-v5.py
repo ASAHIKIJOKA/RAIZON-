@@ -79,7 +79,7 @@ def layout(path, title, desc, body, active='', ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v5/v5.css?v=69">
+<link rel="stylesheet" href="/assets-v5/v5.css?v=70">
 {lds}
 {PRELOAD if path == '/' else ''}
 {TRACK}
@@ -147,7 +147,7 @@ def about(en, jp, p1, p2=''):
 def fc(eyb, h3, p, vis, more=None, tags=None, rev=False):
     return (f'<div class="card2 fc{" rev" if rev else ""}"><div class="fc-v">{vis}</div><div><div class="eyb">{eyb}</div><h3>{h3}</h3><p>{p}</p>'
             + (f'<ul>{"".join(f"<li>{t}</li>" for t in tags)}</ul>' if tags else '')
-            + (f'<a class="more" href="{more[0]}">{more[1]} →</a>' if more else '') + '</div></div>')
+            + ((f'<a class="btn btn-dg btn-lg fc-btn" href="{more[0]}">{more[1]} →</a>' if len(more) > 2 else f'<a class="more" href="{more[0]}">{more[1]} →</a>') if more else '') + '</div></div>')
 
 
 def sh(eyb, h2, p='', c=False):
@@ -609,7 +609,7 @@ top = f'''<section class="hero"><div class="hero-in">
 ''' + secw(fc('DEMO', 'シフト管理アプリを、<br>実際に触ってみる。',
                'スタッフはスマホでシフトを提出し、管理者はパソコンで一覧・申請を確認。お店のシフト作成の手間を減らす、業務システムのデモです。登録は不要で、その場で試せます。',
                '<div class="art"><img src="/assets-v5/illust/shift-demo.webp" width="1500" height="875" alt="シフト管理アプリのデモ画面（パソコンの管理画面とスマホの提出画面）" loading="lazy" decoding="async"></div>',
-               ('/demo/shift/', 'シフト管理のデモを触ってみる'), ['ブラウザで動く', '登録不要', 'データは端末内のみ'])
+               ('/demo/shift/', 'シフト管理のデモを触ってみる', 'btn'), ['ブラウザで動く', '登録不要', 'データは端末内のみ'])
            + '<p class="caption">デモはサンプルデータです。入力した内容は、お使いのブラウザの中だけに保存され、他の人には見えません。名前はすべて架空です。</p>', 'shiftdemo') \
     + secw(sh('SERVICE', 'サービス', 'LINEを入口に、業務システム・AI活用まで。ひとつの窓口で、単体のご依頼も可能です。') + svc_cards() + '<div class="lk"><a href="/service">サービスの詳細を見る ›</a><a href="/cases">業種別の使い方を見る ›</a></div>', 'service') \
     + secw(sh('WHAT WE DO', 'RAIZONができること', '設計・構築から、日々の改善まで。お店の「面倒」を、仕組みにします。')
