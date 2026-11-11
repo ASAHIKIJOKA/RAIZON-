@@ -79,7 +79,7 @@ def layout(path, title, desc, body, active='', ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{INTER}" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="{INTER}"></noscript>
-<link rel="stylesheet" href="/assets-v5/v5.css?v=70">
+<link rel="stylesheet" href="/assets-v5/v5.css?v=71">
 {lds}
 {PRELOAD if path == '/' else ''}
 {TRACK}

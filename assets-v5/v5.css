@@ -979,4 +979,4 @@ img{height:auto}
 @media(max-width:900px){.sv2.sv3{grid-template-columns:1fr}}
 
 .fc .fc-btn{margin-top:26px;font-size:16px;box-shadow:0 8px 22px rgba(6,120,50,.28)}
-@media(max-width:900px){.fc .fc-btn{width:100%;justify-content:center}}
+@media(max-width:900px){.fc>*{min-width:0}.fc .fc-btn{width:100%;box-sizing:border-box;justify-content:center;white-space:normal;text-align:center;height:auto;min-height:58px;padding:12px 20px;line-height:1.5;font-size:15px}}
