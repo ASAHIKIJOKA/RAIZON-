@@ -16,6 +16,8 @@ const chunks = (arr) => arr.map(w => `<span class="inline">${w}</span>`).join(''
 const arrow = '<i>→</i>';
 
 const nav = [['#works','制作実績'],['#price','料金'],['#reason','選ばれる理由'],['#flow','導入の流れ'],['#faq','よくある質問'],['column/','コラム'],['#about','会社概要'],['#area','対応エリア']];
+const TEL_A = `<a class="hd__tel" href="tel:08064937744"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>080-6493-7744</a>`;
+const TEL_BTN = `<a class="hd__telbtn" href="tel:08064937744" aria-label="電話する（080-6493-7744）"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></a>`;
 const navLinks = (extra) => nav.map(([h,l]) => `<a href="${h}"${h==='#works'?' data-nav="works"':''}>${l}</a>`).join('') + extra;
 
 const ticker = ['東大阪のホームページ屋さん','制作費0円','月々9,800円','最低契約期間なし','ご相談は無料です'];
@@ -149,7 +151,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=81">
+<link rel="stylesheet" href="style.css?v=82">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
@@ -158,10 +160,10 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <header class="hd" id="hd">
   <div class="hd__in">
     <a class="hd__logo" href="#top" aria-label="RAIZON トップへ"><img src="assets/raizon-logo.webp" alt="RAIZON" width="69" height="48"></a>
-    <nav class="hd__nav" aria-label="メインメニュー">${navLinks('<a class="hd__cta" href="#contact">無料相談・お問い合わせ</a>')}</nav>
-    <button class="hd__btn" id="hdBtn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="hdPanel"><span></span><span></span><span></span></button>
+    <nav class="hd__nav" aria-label="メインメニュー">${navLinks(TEL_A + '<a class="hd__cta" href="#contact">無料相談・お問い合わせ</a>')}</nav>
+    ${TEL_BTN}<button class="hd__btn" id="hdBtn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="hdPanel"><span></span><span></span><span></span></button>
   </div>
-  <nav class="hd__panel" id="hdPanel" aria-label="スマートフォン用メニュー">${navLinks('<a class="hd__cta" href="#contact">無料相談・お問い合わせ</a>')}</nav>
+  <nav class="hd__panel" id="hdPanel" aria-label="スマートフォン用メニュー">${navLinks(TEL_A + '<a class="hd__cta" href="#contact">無料相談・お問い合わせ</a>')}</nav>
 </header>
 <main>
 <section class="fv">
@@ -462,7 +464,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
   <div class="ftr__c">© 2026 RAIZON. All rights reserved.</div>
 </footer>
 <div class="sp-spacer"></div>
-<div class="sp-cta"><a href="#price">料金を見る</a><a href="#contact">無料で相談する</a></div>
+<div class="sp-cta"><a class="sp-cta__tel" href="tel:08064937744"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>電話する</a><a href="#contact">無料で相談する</a></div>
 <script>window.FAQ=${faqJson};</script>
 <script src="main.js?v=31"></script>
 </body>

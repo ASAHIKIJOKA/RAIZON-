@@ -283,3 +283,17 @@
     });
   })();
 })();
+
+/* 計測: 電話タップ・「相談する」ボタンのクリックを、GA4にイベントで送る */
+(function () {
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!a || !window.gtag) return;
+    var h = a.getAttribute('href') || '';
+    var loc = a.closest('.sp-cta') ? 'sp_bar' : a.closest('header') ? 'header' : a.closest('footer') ? 'footer' : a.closest('.cta') ? 'cta_section' : a.closest('.fv') ? 'first_view' : 'body';
+    try {
+      if (h.indexOf('tel:') === 0) window.gtag('event', 'click_tel', { cta_location: loc, page_path: location.pathname });
+      else if (h.indexOf('#contact') > -1) window.gtag('event', 'click_contact_cta', { cta_location: loc, page_path: location.pathname });
+    } catch (err) {}
+  });
+})();

@@ -868,3 +868,15 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 /* コラムの表が、狭い画面で横にはみ出さない(はみ出す分は、表の中でスクロール) */
 @media(max-width:600px){.art-table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.art-table th,.art-table td{min-width:96px}}
 .ctop{margin-top:32px}.cl__c h3{margin:0;font-size:17px;font-weight:800;line-height:1.6}.ctop__more{margin-top:28px;text-align:center}.ctop__area{margin-top:16px;text-align:center;font-size:13px;color:var(--muted)}.ctop__area a{color:var(--ink);font-weight:700;text-decoration:underline}
+
+/* 電話ボタン(ヘッダー・スマホの固定バー) */
+.hd__nav a.hd__tel{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:15px;color:var(--ink)}
+.hd__nav a.hd__tel svg{color:var(--blue)}
+.hd__telbtn{display:none}
+@media(max-width:900px){
+  .hd__telbtn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-left:auto;margin-right:-18px;border:1.5px solid var(--blue);border-radius:50%;color:var(--blue)}
+  .hd__panel a.hd__tel{display:flex;align-items:center;gap:8px}
+  .hd__panel a.hd__tel svg{color:var(--blue)}
+  .sp-cta{grid-template-columns:1fr 1.35fr}
+  .sp-cta a.sp-cta__tel{gap:8px;border-color:var(--blue);color:var(--blue)}
+}
