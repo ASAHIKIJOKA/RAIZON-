@@ -211,6 +211,11 @@ for (const p of pagesSorted) {
   ];
   const [ik, iw, ih] = p.illust;
   const stp = (label, title) => `<div class="st"><div class="st__label">${label}</div><h2>${title}</h2></div>`;
+  const ps = p.pasona;
+  const PH = '080-6493-7744';
+  const psImg = (k, alt) => fs.existsSync(path.join(ROOT, 'site', 'assets', 'industry', `ps-${p.id}-${k}.webp`)) ? `<div class="ps-fig"><img src="${base}assets/industry/ps-${p.id}-${k}.webp" alt="${esc(alt)}" width="1000" height="563" loading="lazy" decoding="async"></div>` : '';
+  const chk = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const crs = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   const main = `<section class="ip-hero">
   <div class="ip-hero__in">
     <div class="ip-hero__l">
@@ -219,32 +224,57 @@ for (const p of pagesSorted) {
       <h1>${p.h1}</h1>
       <p class="fv__lead">${esc(p.lead)}</p>
       <div class="ip-chips"><span class="tag-k">月額 9,800円（税抜）</span><span class="tag-k">最低契約期間なし</span><span class="tag-k">6ページ構成</span></div>
-      <div class="fv__btns"><a class="btn" href="${base}#contact">無料相談・資料請求<i>→</i></a><a class="btn btn--line" href="${base}#price">料金を見る<i>→</i></a></div>
+      <div class="fv__btns"><a class="btn" href="${base}#contact">無料相談・資料請求<i>→</i></a><a class="btn btn--line" href="tel:08064937744">電話で相談 ${PH}</a></div>
     </div>
     <div class="ip-hero__r"><div class="ip-circle"><img src="${base}assets/illust-t/${ik}.webp" alt="${esc(p.name)}のイラスト" width="${iw}" height="${ih}" decoding="async"></div><i class="ip-dot ip-dot--y" aria-hidden="true"></i><i class="ip-dot ip-dot--b" aria-hidden="true"></i></div>
   </div>
 </section>
-<section class="sec sec--tint"><div class="wrap">
-  ${stp('こんなお悩み', 'こんなこと、ありませんか？')}
-  <div class="ip-w">${p.worries.map(([t, k]) => `<div class="ip-w__c"><div class="ip-w__ic"><img src="${base}assets/illust-t/${k}.webp" alt="" width="${TIW[k][0]}" height="${TIW[k][1]}" loading="lazy" decoding="async"></div><p>${esc(t)}</p></div>`).join('')}</div>
-  <p class="ip-ans">それ、<span class="mk2">RAIZONにおまかせください。</span></p>
+<section class="sec sec--tint ps-p"><div class="wrap">
+  ${stp('こんなお悩み', ps.p_title)}
+  <div class="ps-grid">
+    ${psImg('p', `${p.name}の、困っている様子のイラスト`)}
+    <ul class="ps-list">${ps.p_items.map(([t, d]) => `<li class="ps-list__i ps-list__i--p"><span class="ps-list__ic">${crs}</span><div><b>${esc(t)}</b><p>${esc(d)}</p></div></li>`).join('')}</ul>
+  </div>
+  <p class="ps-after">${esc(ps.p_after)}</p>
 </div></section>
-<section class="sec"><div class="wrap">
-  ${stp('載せる内容', 'ホームページで、伝えたいこと')}
+<section class="sec ps-a"><div class="wrap">
+  <div class="ps-aff">
+    <div class="ps-aff__fig"><img src="${base}assets/illust-t/bow.webp" alt="お辞儀をして、あいさつする男性のイラスト" width="440" height="674" loading="lazy" decoding="async"></div>
+    <div class="ps-aff__t"><div class="st__label">私たちも、同じことを聞いてきました</div><h2>${ps.a_title}</h2>${ps.a_text.map((t) => `<p>${esc(t)}</p>`).join('')}</div>
+  </div>
+</div></section>
+<section class="sec sec--tint ps-s"><div class="wrap">
+  ${stp('解決策', ps.s_title)}
+  <div class="ps-grid ps-grid--r">
+    ${psImg('s', `${p.name}の、ホームページを見せて話している様子のイラスト`)}
+    <ol class="ps-pts">${ps.s_points.map(([t, d], i) => `<li><span>${i + 1}</span><div><b>${esc(t)}</b><p>${esc(d)}</p></div></li>`).join('')}</ol>
+  </div>
+  <h3 class="ps-sub">ホームページで、伝えたいこと</h3>
   <ul class="ip-i">${p.info.map(([k, t, s], i) => `<li><span class="ip-i__ic">${icon(k)}</span><b>${esc(t)}</b><small>${esc(s)}</small></li>`).join('')}</ul>
   <p class="ip-note">文章や写真が、そろっていなくても大丈夫です。お聞きしながら、一緒に整理します。</p>
 </div></section>
-<section class="sec sec--gray"><div class="wrap">
-  ${stp('ご利用の流れ', '3ステップで、公開まで')}
-  <ol class="ip-s"><li><span>1</span><b>無料相談</b><small>お悩みを聞かせてください</small></li><li><span>2</span><b>制作</b><small>文章づくりも、お手伝いします</small></li><li><span>3</span><b>公開・更新</b><small>月4回まで、修正OK</small></li></ol>
+<section class="sec ps-o"><div class="wrap">
+  ${stp('ご提案', '制作費0円・月額9,800円。<br>更新・修正まで、含みます。')}
   <div class="ip-price"><div><small>初期制作費</small><b>0<i>円</i></b></div><div><small>月額（税抜）</small><b>9,800<i>円</i></b></div><div><small>ページ数</small><b>6<i>ページ</i></b></div><div><small>最低契約期間</small><b>なし</b></div></div>
-  <p class="ip-note">メールフォーム・Googleマップ・独自ドメイン・SSL・サーバー管理まで、月額に含まれます。<br>月払いの場合は、初回に契約手数料5,000円（税抜）がかかります。</p>
+  <ul class="ps-inc">${ps.offer.map((t) => `<li><span>${chk}</span>${esc(t)}</li>`).join('')}</ul>
+  <p class="ps-trust">相談は無料です。相談したからといって、契約をすすめることはありません。</p>
+</div></section>
+<section class="sec sec--gray ps-n"><div class="wrap">
+  ${stp('対象のご案内', `東大阪の${esc(p.name)}さんに、<br>絞ってご案内しています。`)}
+  <div class="ps-nar">
+    <div class="ps-nar__c ps-nar__c--y"><h3>こんな方に、向いています</h3><ul>${ps.n_fit.map((t) => `<li><span>${chk}</span>${esc(t)}</li>`).join('')}</ul></div>
+    <div class="ps-nar__c ps-nar__c--n"><h3>こんな場合は、先にご相談ください</h3><ul>${ps.n_other.map((t) => `<li><span>${crs}</span>${esc(t)}</li>`).join('')}</ul></div>
+  </div>
 </div></section>
 <section class="sec"><div class="wrap ip-faq">
   ${stp('よくある質問', 'はじめての方へ')}
   <div class="ip-faq__l">${p.faq.map((x) => `<details><summary>${esc(x.q)}</summary><p>${esc(x.a)}</p></details>`).join('')}</div>
 </div></section>
-<section class="cta"><div class="cta__in"><div class="cta__t"><h2><span class="inline">まずは、</span><span class="inline">話を聞かせてください</span></h2><p>相談したからといって、契約をすすめることはありません。</p><div class="cta__b"><a class="btn" href="${base}#contact">無料相談・資料請求<i>→</i></a><a class="btn btn--o" href="${base}#price">料金を見る<i>→</i></a></div></div><div class="cta__p cta__p--il"><div class="cta__c ip-cc"><img src="${base}assets/illust-t/consult.webp" alt="打ち合わせのイラスト" width="752" height="588" loading="lazy" decoding="async"></div></div></div></section>
+<section class="sec sec--tint ps-act"><div class="wrap">
+  ${stp('ご相談の流れ', '3ステップで、公開まで')}
+  <ol class="ip-s"><li><span>1</span><b>無料相談</b><small>お悩みを聞かせてください</small></li><li><span>2</span><b>制作</b><small>文章づくりも、お手伝いします</small></li><li><span>3</span><b>公開・更新</b><small>月4回まで、修正OK</small></li></ol>
+</div></section>
+<section class="cta ps-cta"><div class="cta__in"><div class="cta__t"><h2><span class="inline">${ps.cta_title}</span></h2><p>メールフォームは24時間受け付けています。お急ぎの方は、お電話でもどうぞ。</p><div class="cta__b"><a class="btn" href="${base}#contact">無料相談・資料請求<i>→</i></a><a class="btn btn--o" href="tel:08064937744">電話する ${PH}</a></div></div><div class="cta__p cta__p--il"><div class="cta__c ip-cc"><img src="${base}assets/illust-t/consult.webp" alt="打ち合わせのイラスト" width="752" height="588" loading="lazy" decoding="async"></div></div></div></section>
 <section class="sec sec--tint"><div class="wrap">
   ${stp('ほかの業種', 'ほかの業種のご案内')}
   <div class="ip-o">${others.map((x) => `<a href="${base}${x.path}/"><img src="${base}assets/illust-t/${x.illust[0]}.webp" alt="" width="${x.illust[1]}" height="${x.illust[2]}" loading="lazy" decoding="async"><b>${esc(x.name)}</b><span>${'→'}</span></a>`).join('')}</div>

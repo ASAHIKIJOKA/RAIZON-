@@ -880,3 +880,42 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .sp-cta{grid-template-columns:1fr 1.35fr}
   .sp-cta a.sp-cta__tel{gap:8px;border-color:var(--blue);color:var(--blue)}
 }
+
+/* 業種別ページ(PASONA) */
+.ps-grid{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,4vw,48px);align-items:center}
+.ps-grid--r .ps-fig{order:2}
+@media(max-width:900px){.ps-grid--r .ps-fig{order:0}}
+.ps-fig{background:#fff;border:2px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--blue);overflow:hidden}
+.ps-fig img{width:100%;height:auto;display:block}
+.ps-list,.ps-pts,.ps-inc,.ps-nar ul{list-style:none;margin:0;padding:0}
+.ps-list{display:grid;gap:14px}
+.ps-list__i{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid var(--bd);border-radius:16px;padding:18px 20px}
+.ps-list__ic{flex:none;width:36px;height:36px;border-radius:50%;background:#FDECEC;color:var(--err);display:flex;align-items:center;justify-content:center}
+.ps-list__i b{display:block;font-size:16.5px;font-weight:800;line-height:1.6;color:var(--ink)}
+.ps-list__i p{margin:4px 0 0;font-size:14px;line-height:1.85;color:var(--body)}
+.ps-after{margin:36px auto 0;max-width:760px;text-align:center;font-size:clamp(15px,1.8vw,18px);font-weight:700;line-height:1.9;color:var(--ink);padding:18px 22px;background:#fff;border:2px dashed var(--bd-blue);border-radius:16px}
+.ps-aff{display:grid;grid-template-columns:minmax(0,220px) 1fr;gap:clamp(24px,4vw,56px);align-items:center;max-width:1000px;margin:0 auto}
+.ps-aff__fig{background:var(--tint);border-radius:50%;aspect-ratio:1;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.ps-aff__fig img{max-height:92%;width:auto}
+.ps-aff__t h2{margin:14px 0 16px;font-size:clamp(22px,2.8vw,32px);font-weight:800;line-height:1.55}
+.ps-aff__t p{margin:0 0 12px;font-size:15.5px;line-height:2;color:var(--body)}
+@media(max-width:700px){.ps-aff{grid-template-columns:1fr;text-align:left}.ps-aff__fig{width:150px;margin:0 auto}}
+.ps-pts{display:grid;gap:14px}
+.ps-pts li{display:flex;gap:16px;align-items:flex-start;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:18px 20px;box-shadow:4px 4px 0 var(--blue)}
+.ps-pts li>span{flex:none;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.ps-pts b{display:block;font-size:17px;font-weight:800;line-height:1.55}
+.ps-pts p{margin:4px 0 0;font-size:14px;line-height:1.85;color:var(--body)}
+.ps-sub{margin-top:56px;text-align:center;font-size:clamp(18px,2.2vw,22px);font-weight:800}
+.ps-inc{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+.ps-inc li{display:flex;gap:12px;align-items:flex-start;padding:16px 18px;border:1.5px solid var(--bd);border-radius:14px;background:#fff;font-size:15px;font-weight:700;line-height:1.7}
+.ps-inc li span,.ps-nar__c--y li span{flex:none;width:28px;height:28px;border-radius:50%;background:var(--tint);color:var(--blue);display:flex;align-items:center;justify-content:center}
+.ps-trust{margin-top:24px;text-align:center;font-size:15px;font-weight:700;color:var(--ink)}
+.ps-nar{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.ps-nar__c{background:#fff;border-radius:18px;padding:26px 26px 22px;border:2px solid var(--ink)}
+.ps-nar__c--y{box-shadow:5px 5px 0 var(--blue)}
+.ps-nar__c--n{border-color:var(--tag);border-style:dashed}
+.ps-nar h3{font-size:17px;font-weight:800;margin-bottom:16px}
+.ps-nar li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--bd2);font-size:14.5px;line-height:1.8;color:var(--body)}
+.ps-nar li:first-child{border-top:0}
+.ps-nar__c--n li span{flex:none;width:28px;height:28px;border-radius:50%;background:#F3F4F6;color:var(--muted);display:flex;align-items:center;justify-content:center}
+.ps-cta .cta__t h2{line-height:1.6}
