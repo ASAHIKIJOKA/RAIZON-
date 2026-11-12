@@ -247,7 +247,7 @@
         website: form.elements.website.value, source: 'osaka-home' + (UTM ? ' [utm=' + UTM + ']' : '') + (document.referrer ? ' / ' + document.referrer : '')
       };
       fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); form.hidden = true; done.hidden = false; try { if (window.gtag) window.gtag('event', 'generate_lead', { method: 'contact_form', campaign: UTM }); } catch (x) {} })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); form.hidden = true; done.hidden = false; try { if (window.gtag) window.gtag('event', 'generate_lead', { method: 'contact_form', campaign: UTM }); if (window.fbq) window.fbq('track', 'Lead'); } catch (x) {} })
         .catch(function () { fail.textContent = '送信に失敗しました。時間をおいて再度お試しください。'; })
         .then(function () { send.disabled = false; send.textContent = '入力内容を送信する'; });
     });
@@ -292,7 +292,7 @@
     var h = a.getAttribute('href') || '';
     var loc = a.closest('.sp-cta') ? 'sp_bar' : a.closest('header') ? 'header' : a.closest('footer') ? 'footer' : a.closest('.cta') ? 'cta_section' : a.closest('.fv') ? 'first_view' : 'body';
     try {
-      if (h.indexOf('tel:') === 0) window.gtag('event', 'click_tel', { cta_location: loc, page_path: location.pathname });
+      if (h.indexOf('tel:') === 0) { window.gtag('event', 'click_tel', { cta_location: loc, page_path: location.pathname }); if (window.fbq) window.fbq('track', 'Contact'); }
       else if (h.indexOf('#contact') > -1) window.gtag('event', 'click_contact_cta', { cta_location: loc, page_path: location.pathname });
     } catch (err) {}
   });

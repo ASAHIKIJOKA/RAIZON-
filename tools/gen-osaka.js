@@ -155,6 +155,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1649778543849143');fbq('track','PageView');</script>
 </head>
 <body id="top">
 <header class="hd" id="hd">
@@ -436,6 +437,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
       <ul><li>ホスティング（サイトの配信と、フォームの受付）：GMOペパボ株式会社「ヘテムル」</li><li>メールの送受信：Google「Gmail」。フォームの内容は、当方の受信用メールに送られます</li><li>Webフォントの配信：Google Fonts。ページの表示時に、ブラウザからGoogleのサーバーへ、IPアドレス等が送信されます</li></ul>
       <p>アクセス解析：Google「Google アナリティクス」。サイトの利用状況を把握し、改善に役立てるため、Cookie等を通じて閲覧情報（閲覧ページ、閲覧環境、おおよその地域など。個人を特定しない形）を収集します。収集したデータはGoogleに送信されます。ブラウザの設定でCookieを無効にすることで、収集を拒否できます。詳しくは、<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご確認ください。当サイトでは、広告のための外部ツールは利用していません。</p>
       <p>画面の操作の分析：Microsoft「Microsoft Clarity」。サイトの使いやすさを改善するため、Cookie等を通じて、ページの閲覧・クリック・スクロールなどの操作の状況を、個人を特定しない形で記録・分析します。収集したデータはMicrosoftに送信されます。ブラウザの設定でCookieを無効にすることで、収集を拒否できます。詳しくは、<a href="https://privacy.microsoft.com/ja-jp/privacystatement" target="_blank" rel="noopener">Microsoftのプライバシーに関する声明</a>をご覧ください。</p>
+      <p>広告の効果測定：Meta「Meta ピクセル」。Facebook・Instagramの広告の効果を測り、広告をよりよく届けるため、Cookie等を通じて、閲覧したページや、お問い合わせ（フォームの送信・電話番号のタップ）などの状況を、個人を特定しない形で収集します。収集したデータはMeta Platforms, Inc.に送信されます。ブラウザの設定でCookieを無効にしたり、Facebook・Instagramの広告設定を変更したりすることで、収集や広告への利用を拒否できます。詳しくは、<a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Metaのプライバシーポリシー</a>をご確認ください。</p>
       <h3>5. 安全管理</h3>
       <p>お預かりした情報は、不正なアクセス・紛失・漏えいを防ぐよう、適切に管理します。フォームの通信は暗号化（HTTPS）されます。</p>
       <h3>6. 保管期間</h3>
@@ -466,7 +468,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <div class="sp-spacer"></div>
 <div class="sp-cta"><a class="sp-cta__tel" href="tel:08064937744"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>電話する</a><a href="#contact">無料で相談する</a></div>
 <script>window.FAQ=${faqJson};</script>
-<script src="main.js?v=31"></script>
+<script src="main.js?v=32"></script>
 </body>
 </html>
 `;
