@@ -112,19 +112,20 @@ const ld = [
   { '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqGroups.flatMap(([, items]) => items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))) }
 ];
-// 制作イメージ(スマホ5台): 画像は Canva から書き出した高解像度版。並びは暗い・明るいが交互になるようにする
-const SHOTS = [ // [ファイル名, 説明, 幅, 高さ, 色(d=黒系 / l=明るい系)]。黒系どうしが隣り合わないように並べる
-  ['tenka', '理容室のホームページ（制作イメージ）', 500, 1003, 'd'],
-  ['midori', '不動産会社のホームページ（制作イメージ）', 500, 1003, 'l'],
-  ['izakaya', '居酒屋のホームページ（制作イメージ）', 500, 1001, 'd'],
-  ['houkan', '訪問看護のホームページ（制作イメージ）', 500, 1002, 'l'],
-  ['minato', '食堂のホームページ（制作イメージ）', 500, 1001, 'd'],
-  ['english', '英会話教室のホームページ（制作イメージ）', 500, 1000, 'l'],
-  ['cafe', 'カフェのホームページ（制作イメージ）', 500, 1002, 'd'],
-  ['yamada', '製造業のホームページ（制作イメージ）', 500, 1004, 'l'],
-  ['hair', '美容室のホームページ（制作イメージ）', 500, 1000, 'l']
+// 制作イメージ(パソコン+スマホの画面 10点・2026-11-12 に差し替え): 画像は参考サイトのzip(1000×706のwebp)。並びは、色が似たものが隣り合わないようにする
+const SHOTS = [ // [ファイル名, 説明, 業種のラベル]
+  ['matsushita', '建設会社のホームページ（制作イメージ）', '建設会社'],
+  ['tenka2', '理容室のホームページ（制作イメージ）', '理容室'],
+  ['midori2', '不動産会社のホームページ（制作イメージ）', '不動産会社'],
+  ['izakaya2', '居酒屋のホームページ（制作イメージ）', '居酒屋'],
+  ['houkan2', '訪問看護のホームページ（制作イメージ）', '訪問看護'],
+  ['minato2', '食堂のホームページ（制作イメージ）', '食堂・そば店'],
+  ['english2', '英会話教室のホームページ（制作イメージ）', '英会話教室'],
+  ['hair2', '美容室のホームページ（制作イメージ）', '美容室'],
+  ['yamada2', '製造業のホームページ（制作イメージ）', '製造業'],
+  ['cafe2', 'カフェのホームページ（制作イメージ）', 'カフェ']
 ];
-const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, w, h, tone]) => `<div class="shots__i is-${tone}"><img src="assets/shots/${k}.webp" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async"></div>`).join('');
+const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, lab]) => `<figure class="shots__i"><img src="assets/shots/w-${k}.webp" alt="${alt}" width="1000" height="706" loading="lazy" decoding="async"><figcaption class="shots__t">${lab}</figcaption></figure>`).join('');
 const colTop = fs.readdirSync('content/column').filter(f=>f.endsWith('.html')).map(f=>{const t=fs.readFileSync('content/column/'+f,'utf8');const g=k=>(t.match(new RegExp('^'+k+':\\s*(.+)$','m'))||[])[1];return {id:g('id'),title:g('title'),cat:g('category'),th:g('thumbnail'),date:g('publishAt')};}).sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id)).slice(0,3).map(c=>`<a class="cl__c" href="column/${c.id}/"><span class="cl__th"><img src="${c.th}" alt="" width="1200" height="630" loading="lazy" decoding="async"></span><span class="cl__cat">${c.cat}</span><h3>${c.title}</h3><time datetime="${c.date}">${c.date.replace(/-/g,'.')}</time></a>`).join('');
 const html = `<!DOCTYPE html>
 <html lang="ja">
@@ -152,7 +153,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=83">
+<link rel="stylesheet" href="style.css?v=84">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
