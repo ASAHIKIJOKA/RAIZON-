@@ -125,7 +125,9 @@ const SHOTS = [ // [ファイル名, 説明, 業種のラベル]
   ['yamada2', '製造業のホームページ（制作イメージ）', '製造業'],
   ['cafe2', 'カフェのホームページ（制作イメージ）', 'カフェ']
 ];
-const shotsHtml = (hide) => [...SHOTS, ...SHOTS].map(([k, alt, lab]) => `<figure class="shots__i"><img src="assets/shots/w-${k}.webp" alt="${alt}" width="1000" height="706" loading="lazy" decoding="async"><figcaption class="shots__t">${lab}</figcaption></figure>`).join('');
+const shotsHtml = (hide) => SHOTS.map(([k, alt, lab]) => `<figure class="shots__i"><img src="assets/shots/w-${k}.webp" alt="${alt}" width="880" height="621" loading="lazy" decoding="async"><figcaption class="shots__t">${lab}</figcaption></figure>`).join('');
+// 帯の画像は、ページを開いたあとに、裏でぜんぶ先に読み込む(流れてきたときに、遅れて出ないように)
+const shotsPreload = `<script>addEventListener('load',function(){var l=function(){document.querySelectorAll('.shots__i img').forEach(function(i){i.loading='eager'})};window.requestIdleCallback?requestIdleCallback(l,{timeout:2000}):setTimeout(l,300)})</script>`;
 const colTop = fs.readdirSync('content/column').filter(f=>f.endsWith('.html')).map(f=>{const t=fs.readFileSync('content/column/'+f,'utf8');const g=k=>(t.match(new RegExp('^'+k+':\\s*(.+)$','m'))||[])[1];return {id:g('id'),title:g('title'),cat:g('category'),th:g('thumbnail'),date:g('publishAt')};}).sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id)).slice(0,3).map(c=>`<a class="cl__c" href="column/${c.id}/"><span class="cl__th"><img src="${c.th}" alt="" width="1200" height="630" loading="lazy" decoding="async"></span><span class="cl__cat">${c.cat}</span><h3>${c.title}</h3><time datetime="${c.date}">${c.date.replace(/-/g,'.')}</time></a>`).join('');
 const html = `<!DOCTYPE html>
 <html lang="ja">
@@ -153,7 +155,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=84">
+<link rel="stylesheet" href="style.css?v=85">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
@@ -193,6 +195,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
   </div>
   <div class="shots__v" role="group" aria-label="制作イメージ（横に流れます）"><div class="mq shots__m"><div class="shots__g">${shotsHtml(false)}</div><div class="shots__g" aria-hidden="true">${shotsHtml(true)}</div></div></div>
   <p class="shots__n">※掲載しているのは、制作実績と一部イメージ画像がございます。</p>
+  ${shotsPreload}
 </section>
 
 <section class="sec sec--tint">
