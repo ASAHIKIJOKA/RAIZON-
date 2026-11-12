@@ -133,6 +133,7 @@ const html = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${TITLE}</title>
 <meta name="description" content="${DESC}">
+<meta name="facebook-domain-verification" content="e5w1alvp6ez9zquckkdqjcxapkxxt1" />
 ${SITE ? '<meta name="robots" content="index, follow">' : '<!-- 公開前のため検索エンジンに載せない。SITE_URL を指定してビルドすると、この行は公開用になる -->\n<meta name="robots" content="noindex, nofollow">'}
 ${SITE ? `<link rel="canonical" href="${SITE}/">` : ''}
 <meta property="og:type" content="website">
