@@ -155,7 +155,7 @@ ${SITE ? `<meta property="og:url" content="${SITE}/">\n<meta property="og:image"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=86">
+<link rel="stylesheet" href="style.css?v=88">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-44W88GPXV5"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-44W88GPXV5");</script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z1oezpeik6");</script>
@@ -429,6 +429,8 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <section class="sec" id="privacy">
   <div class="pv">
     ${st('プライバシーポリシー','個人情報の取り扱いについて')}
+    <details class="inc pv__acc" id="pvd">
+      <summary><span class="inc__t"><b>プライバシーポリシー</b><small>個人情報の取り扱い・利用している外部サービス（タップで全文を表示）</small></span><span class="inc__i" aria-hidden="true"></span></summary>
     <div class="pv__b">
       <p>RAIZON（以下「当方」）は、当サイトでお預かりする個人情報を、以下の方針で適切に取り扱います。</p>
       <h3>1. 取得する情報</h3>
@@ -440,7 +442,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
       <h3>4. 業務の委託と外部サービス</h3>
       <p>当サイトの運営には、次の外部サービスを利用しています。いずれも、当サイトの提供に必要な範囲で利用しています。</p>
       <ul><li>ホスティング（サイトの配信と、フォームの受付）：GMOペパボ株式会社「ヘテムル」</li><li>メールの送受信：Google「Gmail」。フォームの内容は、当方の受信用メールに送られます</li><li>Webフォントの配信：Google Fonts。ページの表示時に、ブラウザからGoogleのサーバーへ、IPアドレス等が送信されます</li></ul>
-      <p>アクセス解析：Google「Google アナリティクス」。サイトの利用状況を把握し、改善に役立てるため、Cookie等を通じて閲覧情報（閲覧ページ、閲覧環境、おおよその地域など。個人を特定しない形）を収集します。収集したデータはGoogleに送信されます。ブラウザの設定でCookieを無効にすることで、収集を拒否できます。詳しくは、<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご確認ください。当サイトでは、広告のための外部ツールは利用していません。</p>
+      <p>アクセス解析：Google「Google アナリティクス」。サイトの利用状況を把握し、改善に役立てるため、Cookie等を通じて閲覧情報（閲覧ページ、閲覧環境、おおよその地域など。個人を特定しない形）を収集します。収集したデータはGoogleに送信されます。ブラウザの設定でCookieを無効にすることで、収集を拒否できます。詳しくは、<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご確認ください。広告の効果測定については、次のMetaピクセルの項目をご確認ください。</p>
       <p>画面の操作の分析：Microsoft「Microsoft Clarity」。サイトの使いやすさを改善するため、Cookie等を通じて、ページの閲覧・クリック・スクロールなどの操作の状況を、個人を特定しない形で記録・分析します。収集したデータはMicrosoftに送信されます。ブラウザの設定でCookieを無効にすることで、収集を拒否できます。詳しくは、<a href="https://privacy.microsoft.com/ja-jp/privacystatement" target="_blank" rel="noopener">Microsoftのプライバシーに関する声明</a>をご覧ください。</p>
       <p>広告の効果測定：Meta「Meta ピクセル」。Facebook・Instagramの広告の効果を測り、広告をよりよく届けるため、Cookie等を通じて、閲覧したページや、お問い合わせ（フォームの送信・電話番号のタップ）などの状況を、個人を特定しない形で収集します。収集したデータはMeta Platforms, Inc.に送信されます。ブラウザの設定でCookieを無効にしたり、Facebook・Instagramの広告設定を変更したりすることで、収集や広告への利用を拒否できます。詳しくは、<a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Metaのプライバシーポリシー</a>をご確認ください。</p>
       <h3>5. 安全管理</h3>
@@ -451,8 +453,9 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
       <p>ご自身の個人情報の開示・訂正・利用停止・削除をご希望の場合は、<a href="#contact">お問い合わせフォーム</a>からご連絡ください。ご本人であることを確認のうえ、対応します。</p>
       <h3>8. 方針の改定</h3>
       <p>この方針は、必要に応じて見直し、改定する場合があります。改定後は、このページに掲載します。</p>
-      <p class="pv__d">制定日：2026年10月18日　事業者：RAIZON（大阪府東大阪市下小阪5丁目7-20）</p>
+      <p class="pv__d">制定日：2026年10月18日　最終改定日：2026年11月14日　事業者：RAIZON（大阪府東大阪市下小阪5丁目7-20）</p>
     </div>
+    </details>
   </div>
 </section>
 </main>
@@ -473,7 +476,7 @@ ${cta('まずは、','話を聞かせてください','相談したからとい�
 <div class="sp-spacer"></div>
 <div class="sp-cta"><a class="sp-cta__tel" href="tel:08064937744"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>電話する</a><a href="#contact">無料で相談する</a></div>
 <script>window.FAQ=${faqJson};</script>
-<script src="main.js?v=32"></script>
+<script src="main.js?v=33"></script>
 </body>
 </html>
 `;

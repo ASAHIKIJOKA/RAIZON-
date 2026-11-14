@@ -918,3 +918,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .ps-nar li:first-child{border-top:0}
 .ps-nar__c--n li span{flex:none;width:28px;height:28px;border-radius:50%;background:#F3F4F6;color:var(--muted);display:flex;align-items:center;justify-content:center}
 .ps-cta .cta__t h2{line-height:1.6}
+
+/* プライバシーポリシー: 折りたたみ(既存の .inc を流用) */
+.pv__acc{margin-top:28px}
+.pv__acc .pv__b{border:0;border-top:1px solid var(--bd,#e3e8ef);border-radius:0 0 18px 18px;padding-top:6px}
+.pv__acc .inc__t small{font-size:13px}

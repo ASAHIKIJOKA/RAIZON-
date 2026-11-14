@@ -297,3 +297,16 @@
     } catch (err) {}
   });
 })();
+
+/* プライバシーポリシーの折りたたみ: #privacy のリンク(フォームの同意・フッター)を押す/開いたときに自動で開く */
+(function () {
+  var d = document.getElementById('pvd');
+  if (!d) return;
+  function openIfHash() { if (location.hash === '#privacy') d.open = true; }
+  openIfHash();
+  window.addEventListener('hashchange', openIfHash);
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href="#privacy"]');
+    if (a) d.open = true;
+  }, true);
+})();
