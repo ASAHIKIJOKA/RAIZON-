@@ -92,6 +92,6 @@ body.fvp{margin:0;background:linear-gradient(180deg,var(--tint) 0,#fff 70%);min-
 .fvp__num{font-family:var(--sora);font-weight:800;font-size:18px;color:var(--muted);white-space:nowrap}
 .fvp__num b{font-size:36px;color:var(--blue);line-height:1}
 .fvp__ttl{font-size:14px;font-weight:800;line-height:1.4}
-.fvp__q{font-size:clamp(20px,5.6vw,24px);font-weight:800;line-height:1.5;margin:18px 0 6px}
+.fvp__q{text-align:left;font-size:clamp(20px,5.6vw,24px);font-weight:800;line-height:1.5;margin:18px 0 6px}
 .fvp__sub{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.7}
 .fvp .fv2__back{margin-top:14px}
