@@ -115,3 +115,15 @@ body.fvp{margin:0;background:linear-gradient(180deg,var(--tint) 0,#fff 70%);min-
   .fv2__opt{padding:10px 14px;min-height:46px;margin-bottom:8px}
   .fv2__note{margin-top:6px;font-size:11.5px;line-height:1.6}
 }
+
+/* ---- スマホ: 参考のバランス(1画面に、バッジ → 見出し → 契約不要 → 大きなイメージ → 1問目 まで入る) ---- */
+@media(max-width:899px){
+  .fv2 .fv__lead{display:none}
+  .fv2__in{row-gap:10px;padding-top:12px}
+  .fv2 .fv__lab{margin-bottom:-4px}
+  .fv2__head{flex-direction:column;align-items:center;text-align:center;gap:4px;margin-bottom:6px}
+  .fv2__ct{font-size:clamp(19px,5.4vw,23px);text-align:center}
+  .fv2__img{width:min(76%,300px)}
+  .fv2__ribbon::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--blue);border-bottom:0}
+  .fv2__card{padding-top:18px}
+}
