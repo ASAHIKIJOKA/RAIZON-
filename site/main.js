@@ -227,7 +227,6 @@
       else if (!EMAIL.test(val('email'))) e.email = 'メールアドレスの形式が正しくありません';
       if (!val('tel')) e.tel = '電話番号を入力してください';
       else if (val('tel').replace(/[^0-9]/g, '').length < 9) e.tel = '電話番号の形式が正しくありません';
-      if (!val('message')) e.message = 'お問い合わせ内容を入力してください';
       if (!form.elements.agree.checked) e.agree = 'プライバシーポリシーへの同意が必要です';
       return e;
     }
@@ -243,7 +242,7 @@
       fail.textContent = ''; send.disabled = true; send.textContent = '送信中…';
       var body = {
         kind: form.elements.kind.value, company: val('company'), name: val('name'), email: val('email'),
-        tel: val('tel'), budget: val('budget'), message: val('message'), agree: true,
+        tel: val('tel'), budget: '', message: val('message') || '（記載なし）', agree: true,
         website: form.elements.website.value, source: 'osaka-home' + (UTM ? ' [utm=' + UTM + ']' : '') + (document.referrer ? ' / ' + document.referrer : '')
       };
       fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) })
@@ -309,4 +308,36 @@
     var a = e.target.closest && e.target.closest('a[href="#privacy"]');
     if (a) d.open = true;
   }, true);
+})();
+
+/* メインビュー: 1問目の選択肢・目立つボタンは、専用ページ free-plan.html へのリンク。広告の流入元(UTM)を引き継ぎ、
+   ヘッダーの申し込みボタンでフォームの位置へ動かし、押された場所をGA4に送る。 */
+(function () {
+  'use strict';
+  var card = document.getElementById('fvform');
+  if (!card) return;
+
+  // 広告の流入元(UTM)は、main.js が sessionStorage に覚えている。専用ページでも同じものを読む。
+  // 念のため、いまのURLにUTMがあれば、リンク先にも付ける。
+  try {
+    var p = new URLSearchParams(location.search), keep = [];
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) { if (p.get(k)) keep.push(k + '=' + encodeURIComponent(p.get(k))); });
+    if (keep.length) Array.prototype.forEach.call(document.querySelectorAll('a.fv2__opt--link, a.cta2__btn'), function (a) { a.href += (a.href.indexOf('?') > -1 ? '&' : '?') + keep.join('&'); });
+  } catch (e) {}
+
+  var ask = document.querySelector('.hd__ask');
+  if (ask) ask.addEventListener('click', function (ev) {
+    ev.preventDefault();
+    var top = card.getBoundingClientRect().top + window.pageYOffset - 92;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  });
+})();
+
+/* 計測: 「ホームページ案を受け取る」系のボタン(1問目の選択肢・目立つボタン)のクリックを、GA4にイベントで送る */
+(function () {
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a.fv2__opt--link, a.cta2__btn') : null;
+    if (!a || !window.gtag) return;
+    try { window.gtag('event', 'click_free_plan_cta', { cta_location: a.closest('.fv2') ? 'first_view' : 'cta_block', page_path: location.pathname }); } catch (err) {}
+  });
 })();
