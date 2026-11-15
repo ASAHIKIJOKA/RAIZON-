@@ -18,9 +18,7 @@ const h1 = (s.match(/<h1>[\s\S]*?<\/h1>/) || [])[0];
 const lab = (s.match(/<div class="fv__lab">[\s\S]*?<\/div>/) || [])[0];
 const lead = (s.match(/<p class="fv__lead">[\s\S]*?<\/p>/) || [])[0];
 const tail = '\n  </div>\n</section>';
-const iR = s.indexOf('<div class="fv__r">');
-if (!h1 || !lab || !lead || iR < 0 || !s.endsWith(tail)) throw new Error('メインビューの形が想定と違います');
-const rBlock = s.slice(iR, s.length - tail.length);
+if (!h1 || !lab || !lead || !s.endsWith(tail)) throw new Error('メインビューの形が想定と違います');
 
 // 1問目の選択肢(選ぶと、専用ページへ移る)。want の値は、専用ページ側で文言に直す。
 const WANTS = [['new', '新しくホームページを作りたい'], ['redo', 'いまのホームページを作り直したい'], ['undecided', 'まだ決まっていない・相談したい']];
@@ -28,30 +26,29 @@ const link = ([k, t]) => `<a class="fv2__opt fv2__opt--link" href="test-fv-form.
 
 const hero = `<section class="fv fv2">
   <div class="fv2__in">
-    <div class="fv2__l">
-      <div class="fv2__badges" role="list" aria-label="料金のポイント">
-        <div class="fv2__bd" role="listitem"><span class="fv2__bk">制作費</span><span class="fv2__bv"><b>0</b><i>円</i></span></div>
-        <div class="fv2__bd" role="listitem"><span class="fv2__bk">月額（税抜）</span><span class="fv2__bv"><b>9,800</b><i>円〜</i></span></div>
-        <div class="fv2__bd" role="listitem"><span class="fv2__bk">最低契約期間</span><span class="fv2__bv fv2__bv--t"><b>なし</b></span></div>
-      </div>
+    <div class="fv2__badges" role="list" aria-label="料金のポイント">
+      <div class="fv2__bd" role="listitem"><span class="fv2__bk">制作費</span><span class="fv2__bv"><b>0</b><i>円</i></span></div>
+      <div class="fv2__bd" role="listitem"><span class="fv2__bk">月額（税抜）</span><span class="fv2__bv"><b>9,800</b><i>円〜</i></span></div>
+      <div class="fv2__bd" role="listitem"><span class="fv2__bk">最低契約期間</span><span class="fv2__bv fv2__bv--t"><b>なし</b></span></div>
+    </div>
+    <div class="fv2__text">
       ${lab}
       ${h1}
       ${lead}
-      <div class="fv2__formwrap">
-        <div class="fv2__ribbon">契約不要、入力は約1分</div>
-        <div class="fv2__card" id="fvform">
-          <div class="fv2__head">
-            <p class="fv2__ct">ホームページ案を<span class="mk">無料</span>で作成</p>
-            <img class="fv2__img" src="assets/shots/w-cafe2.webp" alt="ホームページ案のイメージ" width="880" height="621" loading="eager" decoding="async">
-          </div>
-          <div class="fv2__prog" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
-          <p class="fv2__q">今回つくりたいのは？ <span class="fv2__n">(1/3)</span></p>
-          ${WANTS.map(link).join('\n          ')}
-          <p class="fv2__note">ご入力は約1分、ご契約は不要です。いただいた内容は、ご連絡のためだけに使います。</p>
+    </div>
+    <div class="fv2__formwrap">
+      <div class="fv2__ribbon">契約不要、入力は約1分</div>
+      <div class="fv2__card" id="fvform">
+        <div class="fv2__head">
+          <p class="fv2__ct">ホームページ案を<span class="mk">無料</span>で作成</p>
+          <img class="fv2__img" src="assets/shots/w-cafe2.webp" alt="ホームページ案のイメージ" width="880" height="621" loading="eager" decoding="async">
         </div>
+        <div class="fv2__prog" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
+        <p class="fv2__q">今回つくりたいのは？ <span class="fv2__n">(1/3)</span></p>
+        ${WANTS.map(link).join('\n        ')}
+        <p class="fv2__note">ご入力は約1分、ご契約は不要です。いただいた内容は、ご連絡のためだけに使います。</p>
       </div>
     </div>
-    ${rBlock}
   </div>
 </section>`;
 

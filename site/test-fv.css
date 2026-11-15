@@ -1,17 +1,18 @@
 /* テストページ(test-fv.html)専用。色・フォント・角の丸みは、今のサイト(style.css)のものをそのまま使う。 */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-/* ---- 構成: スマホは1列(バッジ → 見出し → 契約不要 → フォーム)。PCは左に文章とフォーム、右にビジュアル ---- */
-.fv2__in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr)}
-.fv2__l{position:relative;z-index:2;padding:clamp(20px,3vw,48px) clamp(16px,4vw,48px) clamp(32px,5vw,64px);display:flex;flex-direction:column}
-.fv2 .fv__r{display:none}
+/* ---- 構成: スマホは1列(バッジ → 見出し → フォーム)。PCは参考サイトと同じ。左に見出し、右に「バッジ → 契約不要 → フォーム」 ---- */
+.fv2__in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);row-gap:clamp(14px,3vw,24px);padding:clamp(20px,3vw,40px) clamp(16px,4vw,48px) clamp(32px,5vw,64px)}
+.fv2__text{position:relative;z-index:2;display:flex;flex-direction:column}
 @media(min-width:900px){
-  .fv2__in{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}
-  .fv2 .fv__r{display:flex}
+  .fv2__in{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-areas:"text badges" "text card";column-gap:clamp(32px,5vw,72px);row-gap:20px;align-items:start;padding-top:clamp(28px,3.5vw,48px)}
+  .fv2__text{grid-area:text;align-self:center}
+  .fv2__badges{grid-area:badges}
+  .fv2__formwrap{grid-area:card;width:100%;max-width:540px;justify-self:center}
 }
 
 /* ---- バッジ3つ(丸) ---- */
-.fv2__badges{display:flex;justify-content:center;gap:clamp(8px,2.6vw,20px);margin:0 0 clamp(16px,3vw,24px)}
+.fv2__badges{display:flex;justify-content:center;gap:clamp(8px,2.6vw,20px);margin:0}
 .fv2__bd{width:clamp(94px,29vw,128px);aspect-ratio:1;border-radius:50%;background:#fff;border:3px solid var(--mark);box-shadow:0 0 0 3px #fff,0 8px 20px rgba(13,42,102,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4px;gap:2px}
 .fv2__bk{font-size:clamp(10.5px,2.9vw,13px);font-weight:800;color:var(--ink);line-height:1.2}
 .fv2__bv{display:flex;align-items:baseline;justify-content:center;gap:1px;color:var(--blue);line-height:1}
@@ -19,7 +20,7 @@
 .fv2__bd:nth-child(2) .fv2__bv b{font-size:clamp(20px,6.3vw,30px)}
 .fv2__bv i{font-style:normal;white-space:nowrap;font-size:clamp(11px,3.2vw,15px);font-weight:800;color:var(--ink)}
 .fv2__bv--t b{font-family:inherit;font-size:clamp(22px,7vw,32px);letter-spacing:0}
-@media(min-width:900px){.fv2__badges{justify-content:flex-start}}
+
 
 @media(max-width:899px){.fv2 h1{font-size:clamp(25px,7.2vw,40px)}}
 /* ---- 見出し周り(今のサイトの見出しを、そのまま使う) ---- */
@@ -29,7 +30,7 @@
 @media(min-width:900px){.fv2 .fv__lab,.fv2 h1,.fv2 .fv__lead{text-align:left;margin-left:0}}
 
 /* ---- フォーム ---- */
-.fv2__formwrap{margin-top:clamp(18px,3vw,28px)}
+.fv2__formwrap{margin-top:0}
 .fv2__ribbon{width:max-content;max-width:88%;margin:0 auto -1px;padding:9px clamp(18px,6vw,34px);background:var(--blue);color:#fff;font-size:clamp(14px,3.9vw,17px);font-weight:800;border-radius:4px 4px 0 0;position:relative;z-index:1;text-align:center;letter-spacing:.02em}
 .fv2__card{position:relative;background:#fff;border:2px solid var(--ink);border-radius:4px;box-shadow:5px 5px 0 var(--blue);padding:clamp(16px,4vw,26px) clamp(14px,4vw,26px) 18px;scroll-margin-top:92px}
 .fv2__head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
@@ -95,3 +96,22 @@ body.fvp{margin:0;background:linear-gradient(180deg,var(--tint) 0,#fff 70%);min-
 .fvp__q{text-align:left;font-size:clamp(20px,5.6vw,24px);font-weight:800;line-height:1.5;margin:18px 0 6px}
 .fvp__sub{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.7}
 .fvp .fv2__back{margin-top:14px}
+
+/* ---- PC: 最初の1画面に、フォームまで収まるよう少しコンパクトに ---- */
+@media(min-width:900px){
+  .fv2__bd{width:112px}
+  .fv2__bk{font-size:11.5px}
+  .fv2__bv b{font-size:30px}
+  .fv2__bd:nth-child(2) .fv2__bv b{font-size:23px}
+  .fv2__bv--t b{font-size:26px}
+  .fv2__bv i{font-size:12px}
+  .fv2__ribbon{padding:7px 28px;font-size:15px}
+  .fv2__card{padding:14px 22px 12px}
+  .fv2__ct{font-size:19px}
+  .fv2__img{width:112px}
+  .fv2__head{margin-bottom:6px}
+  .fv2__prog{margin-bottom:10px}
+  .fv2__q{margin-bottom:8px;font-size:16px}
+  .fv2__opt{padding:10px 14px;min-height:46px;margin-bottom:8px}
+  .fv2__note{margin-top:6px;font-size:11.5px;line-height:1.6}
+}
