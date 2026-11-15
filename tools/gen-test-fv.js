@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const root = path.join(__dirname, '..');
-const V = 2; // テスト用CSS/JSの版(キャッシュ対策)
+const V = 3; // テスト用CSS/JSの版(キャッシュ対策)
 let h = fs.readFileSync(path.join(root, 'site/index.html'), 'utf8');
 
 // 1. 今のメインビューから、h1・リード文・右側のビジュアル(PC用)を取り出す
@@ -61,6 +61,21 @@ const head = h.slice(0, h.indexOf('</head>'));
 const headClean = head.replace(/<script\b[^>]*>[\s\S]*?<\/script>\n?/g, (m) => (/googletagmanager|gtag\(|clarity|fbq\(/.test(m) ? '' : m));
 h = headClean + h.slice(head.length);
 
+// 2.5 目立つボタン(参考サイトのように、所々に置く)。押すと、専用ページ(1問目から)へ
+const CTA = (cls) => `<div class="cta2 ${cls || ''}"><div class="cta2__in"><p class="cta2__bub"><b>契約不要</b>・入力は30秒</p><a class="cta2__btn" href="test-fv-form.html">【無料】ホームページ案を受け取る</a><a class="cta2__sub" href="#contact">お電話・フォームでのご相談はこちら</a></div></div>`;
+function addAfterSection(html, startMarker, cta) {
+  const i = html.indexOf(startMarker);
+  if (i < 0) throw new Error('差し込み位置が見つかりません: ' + startMarker);
+  const j = html.indexOf('</section>', i) + '</section>'.length;
+  return html.slice(0, j) + '\n' + cta + html.slice(j);
+}
+h = addAfterSection(h, '<section class="shots"', CTA('cta2--w'));
+const iPriceDetail = h.indexOf('月々の料金で、ここまでやります');
+if (iPriceDetail < 0) throw new Error('料金の区画が見つかりません');
+h = addAfterSection(h, h.slice(h.lastIndexOf('<section', iPriceDetail), h.lastIndexOf('<section', iPriceDetail) + 20), CTA());
+h = addAfterSection(h, '<section class="sec sec--gray" id="flow"', CTA());
+h = addAfterSection(h, '<section class="sec" id="faq"', CTA());
+
 // 3. 専用のCSS/JS、スマホのヘッダーの申し込みボタン
 h = h.replace(/(<link rel="stylesheet" href="style\.css[^>]*>)/, `$1\n<link rel="stylesheet" href="test-fv.css?v=${V}">`);
 h = h.replace(/(<script src="main\.js[^>]*><\/script>)/, `$1\n<script src="test-fv.js?v=${V}"></script>`);
@@ -91,6 +106,12 @@ ${styleLink}
   <form class="fvp__card" id="fvp" novalidate>
     <div class="fvp__top"><span class="fvp__num"><b id="fvpN">2</b> / 3</span><span class="fvp__ttl">無料ホームページ案を受け取る</span></div>
     <div class="fv2__prog" id="fvpProg" aria-hidden="true"><i class="is-on"></i><i class="is-on"></i><i></i></div>
+    <div class="fv2__step" data-step="1" hidden>
+      <h1 class="fvp__q">今回つくりたいのは？</h1>
+      <p class="fvp__sub">近いものを選んでください。</p>
+      ${WANTS.map(([k, t]) => `<label class="fv2__opt"><input type="radio" name="want" value="${k}"><span>${t}</span></label>`).join('\n      ')}
+      <a class="fv2__back" href="test-fv.html">← 前の画面に戻る</a>
+    </div>
     <div class="fv2__step" data-step="2">
       <h1 class="fvp__q">お仕事の業種は？</h1>
       <p class="fvp__sub">近いものを選んでください。</p>

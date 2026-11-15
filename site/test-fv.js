@@ -11,7 +11,7 @@
   try {
     var p = new URLSearchParams(location.search), keep = [];
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) { if (p.get(k)) keep.push(k + '=' + encodeURIComponent(p.get(k))); });
-    if (keep.length) Array.prototype.forEach.call(card.querySelectorAll('a.fv2__opt--link'), function (a) { a.href += '&' + keep.join('&'); });
+    if (keep.length) Array.prototype.forEach.call(document.querySelectorAll('a.fv2__opt--link, a.cta2__btn'), function (a) { a.href += (a.href.indexOf('?') > -1 ? '&' : '?') + keep.join('&'); });
   } catch (e) {}
 
   var ask = document.querySelector('.hd__ask');

@@ -8,13 +8,14 @@
   var qa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var WANT = { 'new': '新しくホームページを作りたい', redo: 'いまのホームページを作り直したい', undecided: 'まだ決まっていない・相談したい' };
   var params = new URLSearchParams(location.search);
-  var want = WANT[params.get('want')] || '未選択';
+  var fromHero = !!WANT[params.get('want')];
+  var wantKey = fromHero ? params.get('want') : '';
+  var want = fromHero ? WANT[wantKey] : '未選択';
   var steps = qa('.fv2__step', form), bars = qa('#fvpProg i'), num = document.getElementById('fvpN');
   var done = document.getElementById('fvdone'), fail = document.getElementById('fvfail'), send = document.getElementById('fvsend');
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // 1問目の選択をしないで来た場合は、メインビューへ戻す
-  if (!WANT[params.get('want')]) { location.replace('test-fv.html#fvform'); return; }
+  // メインビューで1問目を選んで来た場合は2問目から。目立つボタンから来た場合は1問目から。
 
   function show(n, focus) {
     steps.forEach(function (s) { s.hidden = Number(s.getAttribute('data-step')) !== n; });
@@ -25,7 +26,11 @@
       if (n === 3) setTimeout(function () { form.elements.name.focus({ preventScroll: true }); }, 200);
     }
   }
+  qa('input[name="want"]', form).forEach(function (r) { r.addEventListener('change', function () { want = WANT[r.value] || '未選択'; setTimeout(function () { show(2, true); }, 180); }); });
   qa('input[name="biz"]', form).forEach(function (r) { r.addEventListener('change', function () { setTimeout(function () { show(3, true); }, 180); }); });
+  var back1 = document.getElementById('fvpBack1');
+  if (!fromHero) back1.addEventListener('click', function (ev) { ev.preventDefault(); show(1, true); });
+  show(fromHero ? 2 : 1, false);
   document.getElementById('fvpBack2').addEventListener('click', function () { show(2, true); });
 
   var val = function (k) { return (form.elements[k].value || '').trim(); };
