@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【テスト】無料ホームページ案作成フォーム｜RAIZON</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=88">
+<link rel="stylesheet" href="test-fv.css?v=2">
+</head>
+<body class="fvp">
+<header class="fvp__hd"><a href="test-fv.html" aria-label="RAIZON トップへ"><img src="assets/raizon-logo.webp" alt="RAIZON" width="69" height="48"></a></header>
+<main class="fvp__main fv2">
+  <form class="fvp__card" id="fvp" novalidate>
+    <div class="fvp__top"><span class="fvp__num"><b id="fvpN">2</b> / 3</span><span class="fvp__ttl">無料ホームページ案を受け取る</span></div>
+    <div class="fv2__prog" id="fvpProg" aria-hidden="true"><i class="is-on"></i><i class="is-on"></i><i></i></div>
+    <div class="fv2__step" data-step="2">
+      <h1 class="fvp__q">お仕事の業種は？</h1>
+      <p class="fvp__sub">近いものを選んでください。</p>
+      <label class="fv2__opt"><input type="radio" name="biz" value="飲食・カフェ"><span>飲食・カフェ</span></label>
+      <label class="fv2__opt"><input type="radio" name="biz" value="美容・サロン・整体"><span>美容・サロン・整体</span></label>
+      <label class="fv2__opt"><input type="radio" name="biz" value="工場・製造・建設"><span>工場・製造・建設</span></label>
+      <label class="fv2__opt"><input type="radio" name="biz" value="医療・福祉・教育"><span>医療・福祉・教育</span></label>
+      <label class="fv2__opt"><input type="radio" name="biz" value="その他"><span>その他</span></label>
+      <a class="fv2__back" id="fvpBack1" href="test-fv.html#fvform">← 前の画面に戻る</a>
+    </div>
+    <div class="fv2__step" data-step="3" hidden>
+      <h1 class="fvp__q">ご連絡先を教えてください</h1>
+      <p class="fvp__sub">ご入力いただいた内容をもとに、ホームページの案を無料でお作りします。</p>
+      <label class="fv2__f"><span class="fv2__lab">お名前<span class="bdg bdg--req">必須</span></span><input type="text" name="name" autocomplete="name" placeholder="例）山田 太郎"><span class="fm__err" data-err="name"></span></label>
+      <label class="fv2__f"><span class="fv2__lab">電話番号<span class="bdg bdg--req">必須</span></span><input type="tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="例）06-0000-0000"><span class="fm__err" data-err="tel"></span></label>
+      <label class="fv2__f"><span class="fv2__lab">メールアドレス<span class="bdg bdg--req">必須</span></span><input type="email" name="email" autocomplete="email" placeholder="例）info@example.com"><span class="fm__err" data-err="email"></span></label>
+      <label class="fv2__f"><span class="fv2__lab">ご要望・ご質問<span class="bdg">任意</span></span><textarea name="note" rows="3" placeholder="例）お店の雰囲気、載せたい内容など"></textarea></label>
+      <div class="hp" aria-hidden="true"><label>website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="fm__agree"><label><input type="checkbox" name="agree"><span><a href="test-fv.html#privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意する</span></label><span class="fm__err" data-err="agree"></span></div>
+      <span class="fm__fail" role="alert" id="fvfail"></span>
+      <button class="fv2__send" type="submit" id="fvsend">ホームページ案を無料で受け取る</button>
+      <button type="button" class="fv2__back" id="fvpBack2">← 前の画面に戻る</button>
+    </div>
+    <div class="fv2__done" id="fvdone" role="status" hidden>
+      <span class="done__ic">✓</span>
+      <h2>送信が完了しました</h2>
+      <p>ありがとうございます。ご入力いただいた内容をもとに、担当者よりご連絡いたします。</p>
+      <a class="fv2__back" href="test-fv.html">トップへ戻る</a>
+    </div>
+    <p class="fv2__note">ご入力は約1分、ご契約は不要です。いただいた内容は、ご連絡のためだけに使います。</p>
+  </form>
+</main>
+<script src="test-fv-form.js?v=2"></script>
+</body>
+</html>

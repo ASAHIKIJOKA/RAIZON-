@@ -73,3 +73,25 @@
   .hd__ask{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;height:40px;padding:0 10px;border-radius:4px;background:var(--blue);color:#fff;font-size:clamp(10.5px,3.1vw,12.5px);font-weight:800;white-space:nowrap;box-shadow:0 3px 0 var(--blue-h)}
   .hd__btn{margin-left:0;margin-right:-10px}
 }
+
+/* ---- 1問目の選択肢(リンク): 押すと専用ページへ移る ---- */
+a.fv2__opt{text-decoration:none;color:var(--ink)}
+.fv2__ci{width:20px;height:20px;flex:none;border-radius:50%;border:2px solid #9CA3AF;background:#fff;box-sizing:border-box}
+.fv2__opt--link::after{content:"›";margin-left:auto;font-size:24px;line-height:1;color:var(--blue);font-weight:800}
+@media(hover:hover){a.fv2__opt:hover{border-color:var(--blue);background:var(--tint)}a.fv2__opt:hover .fv2__ci{border-color:var(--blue)}}
+a.fv2__back{text-decoration:underline}
+.fv2__back{display:block;text-align:center}
+
+/* ---- 質問の専用ページ(test-fv-form.html): メニューなし・1枚のカードに集中 ---- */
+body.fvp{margin:0;background:linear-gradient(180deg,var(--tint) 0,#fff 70%);min-height:100vh;min-height:100dvh}
+.fvp__hd{display:flex;justify-content:center;padding:14px 0 2px}
+.fvp__hd img{height:42px;width:auto}
+.fvp__main{max-width:560px;margin:0 auto;padding:10px 16px 56px}
+.fvp__card{background:#fff;border:2px solid var(--ink);border-radius:4px;box-shadow:5px 5px 0 var(--blue);padding:22px clamp(16px,4.5vw,28px) 22px}
+.fvp__top{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
+.fvp__num{font-family:var(--sora);font-weight:800;font-size:18px;color:var(--muted);white-space:nowrap}
+.fvp__num b{font-size:36px;color:var(--blue);line-height:1}
+.fvp__ttl{font-size:14px;font-weight:800;line-height:1.4}
+.fvp__q{font-size:clamp(20px,5.6vw,24px);font-weight:800;line-height:1.5;margin:18px 0 6px}
+.fvp__sub{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.7}
+.fvp .fv2__back{margin-top:14px}
