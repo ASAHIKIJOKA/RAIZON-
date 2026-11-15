@@ -341,3 +341,21 @@
     try { window.gtag('event', 'click_free_plan_cta', { cta_location: a.closest('.fv2') ? 'first_view' : 'cta_block', page_path: location.pathname }); } catch (err) {}
   });
 })();
+
+/* 「相談する」系のボタン(#contact へのリンク): 長いページでも、すぐ・確実に、お問い合わせフォームの位置へ移る。
+   (なめらかなスクロールは、ページが長い(約2万px)ため、数秒かかったり、途中で止まる・手前で止まることがある) */
+(function () {
+  var root = document.documentElement;
+  function jumpTo(y) { var prev = root.style.scrollBehavior; root.style.scrollBehavior = 'auto'; window.scrollTo(0, Math.max(0, y)); root.style.scrollBehavior = prev; }
+  function pos(el) { return el.getBoundingClientRect().top + window.pageYOffset - 84; }
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href="#contact"]') : null;
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button > 0) return;
+    var el = document.getElementById('contact'); if (!el) return;
+    e.preventDefault();
+    jumpTo(pos(el));
+    // 画像の読み込みなどで、位置がずれた場合は、もう一度合わせる
+    [250, 800, 1600].forEach(function (ms) { setTimeout(function () { var d = pos(el) - window.pageYOffset; if (Math.abs(d) > 8) jumpTo(pos(el)); }, ms); });
+    try { history.replaceState(null, '', '#contact'); } catch (x) {}
+  });
+})();
