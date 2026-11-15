@@ -46,7 +46,6 @@ const hero = `<section class="fv fv2">
         <div class="fv2__prog" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
         <p class="fv2__q">今回つくりたいのは？ <span class="fv2__n">(1/3)</span></p>
         ${WANTS.map(link).join('\n        ')}
-        <p class="fv2__note">ご入力は約1分、ご契約は不要です。いただいた内容は、ご連絡のためだけに使います。</p>
       </div>
     </div>
   </div>
@@ -117,7 +116,6 @@ ${styleLink}
       <p>ありがとうございます。ご入力いただいた内容をもとに、担当者よりご連絡いたします。</p>
       <a class="fv2__back" href="test-fv.html">トップへ戻る</a>
     </div>
-    <p class="fv2__note">ご入力は約1分、ご契約は不要です。いただいた内容は、ご連絡のためだけに使います。</p>
   </form>
 </main>
 <script src="test-fv-form.js?v=${V}"></script>
