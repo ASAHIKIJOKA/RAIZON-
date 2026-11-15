@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const root = path.join(__dirname, '..');
-const V = 5; // テスト用CSS/JSの版(キャッシュ対策)
+const V = 6; // テスト用CSS/JSの版(キャッシュ対策)
 let h = fs.readFileSync(path.join(root, 'site/index.html'), 'utf8');
 
 // 1. 今のメインビューから、h1・リード文・右側のビジュアル(PC用)を取り出す
@@ -76,9 +76,10 @@ h = addAfterSection(h, h.slice(h.lastIndexOf('<section', iPriceDetail), h.lastIn
 h = addAfterSection(h, '<section class="sec sec--gray" id="flow"', CTA());
 h = addAfterSection(h, '<section class="sec" id="faq"', CTA());
 
-// 2.6 一番下のお問い合わせフォームを軽くする(会社名・ご予算を外し、お問い合わせ内容を任意に。必須は 名前・電話・メール・同意 だけ)
+// 2.6 一番下のお問い合わせフォームを軽くする(ご予算を外し、お問い合わせ内容を任意に。会社名・屋号は任意のまま残す。必須は 名前・電話・メール・同意 だけ)
 function must(html, re, rep, what) { if (!re.test(html)) throw new Error('下のフォームの形が想定と違います: ' + what); return html.replace(re, rep); }
 h = must(h, /<div class="fm__grid">[\s\S]*?<\/div>/, `<div class="fm__grid">
+          <label class="fm__f"><span class="fm__lab">会社名・屋号<span class="bdg">任意</span></span><input type="text" name="company" placeholder="例）株式会社〇〇" autocomplete="organization"><span class="fm__err" data-err="company"></span></label>
           <label class="fm__f"><span class="fm__lab">お名前<span class="bdg bdg--req">必須</span></span><input type="text" name="name" placeholder="例）山田 太郎" autocomplete="name"><span class="fm__err" data-err="name"></span></label>
           <label class="fm__f"><span class="fm__lab">電話番号<span class="bdg bdg--req">必須</span></span><input type="tel" name="tel" placeholder="例）06-0000-0000" autocomplete="tel"><span class="fm__err" data-err="tel"></span></label>
           <label class="fm__f"><span class="fm__lab">メールアドレス<span class="bdg bdg--req">必須</span></span><input type="email" name="email" placeholder="例）info@example.com" autocomplete="email"><span class="fm__err" data-err="email"></span></label>
@@ -90,8 +91,6 @@ h = must(h, /<label class="fm__f"><span class="fm__lab">お問い合わせ内容
 let mj = fs.readFileSync(path.join(root, 'site/main.js'), 'utf8');
 const rep = (a, b) => { if (!mj.includes(a)) throw new Error('main.js の形が想定と違います: ' + a.slice(0, 40)); mj = mj.replace(a, b); };
 rep("      if (!val('message')) e.message = 'お問い合わせ内容を入力してください';\n", '');
-rep("['name', 'email', 'tel', 'company', 'message', 'agree'].forEach", "['name', 'email', 'tel', 'message', 'agree'].forEach");
-rep("company: val('company'),", "company: '',");
 rep("budget: val('budget'), message: val('message'),", "budget: '', message: val('message') || '（記載なし）',");
 rep("source: 'osaka-home' +", "source: 'osaka-home-bottom(テストページ)' +");
 fs.writeFileSync(path.join(root, 'site/test-main.js'), '/* 自動生成(tools/gen-test-fv.js): テストページ用。main.js をもとに、下のお問い合わせフォームの項目を軽くした版 */\n' + mj);

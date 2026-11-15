@@ -231,7 +231,7 @@
       if (!form.elements.agree.checked) e.agree = 'プライバシーポリシーへの同意が必要です';
       return e;
     }
-    ['name', 'email', 'tel', 'message', 'agree'].forEach(function (k) {
+    ['name', 'email', 'tel', 'company', 'message', 'agree'].forEach(function (k) {
       var el = form.elements[k];
       el.addEventListener(k === 'agree' ? 'change' : 'input', function () { setErr(k, ''); });
     });
@@ -242,7 +242,7 @@
       if (Object.keys(e).length) { var first = q('.is-err', form); if (first) first.focus(); return; }
       fail.textContent = ''; send.disabled = true; send.textContent = '送信中…';
       var body = {
-        kind: form.elements.kind.value, company: '', name: val('name'), email: val('email'),
+        kind: form.elements.kind.value, company: val('company'), name: val('name'), email: val('email'),
         tel: val('tel'), budget: '', message: val('message') || '（記載なし）', agree: true,
         website: form.elements.website.value, source: 'osaka-home-bottom(テストページ)' + (UTM ? ' [utm=' + UTM + ']' : '') + (document.referrer ? ' / ' + document.referrer : '')
       };
