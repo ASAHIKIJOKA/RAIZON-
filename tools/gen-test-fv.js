@@ -37,7 +37,7 @@ const hero = `<section class="fv fv2">
       ${lead}
     </div>
     <div class="fv2__formwrap">
-      <div class="fv2__ribbon">契約不要、入力は約1分</div>
+      <div class="fv2__ribbon">契約不要、入力は30秒</div>
       <div class="fv2__card" id="fvform">
         <div class="fv2__head">
           <p class="fv2__ct">ホームページ案を<span class="mk">無料</span>で作成</p>
