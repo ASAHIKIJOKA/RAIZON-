@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const root = path.join(__dirname, '..');
-const V = 3; // テスト用CSS/JSの版(キャッシュ対策)
+const V = 4; // テスト用CSS/JSの版(キャッシュ対策)
 let h = fs.readFileSync(path.join(root, 'site/index.html'), 'utf8');
 
 // 1. 今のメインビューから、h1・リード文・右側のビジュアル(PC用)を取り出す
